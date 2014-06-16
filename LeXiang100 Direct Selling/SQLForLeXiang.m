@@ -115,6 +115,114 @@ extern NSNotificationCenter *nc;
     }
 }
 
+//根据业务名称查找,返回该业务的描述信息和资费信息busiDesc,busiMoney
+-(NSDictionary*)findByBusiName:(NSString *)bName {
+    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT * FROM BUSIINFO WHERE BUSINAME = '%@'",bName ];
+    NSString *nsBusiDescStr;
+    NSDictionary *dic;
+    NSLog(@"sqlQuery%@", sqlQuery);
+    sqlite3_stmt * statement;
+    
+    if (sqlite3_prepare_v2(db, [sqlQuery UTF8String], -1, &statement, nil) == SQLITE_OK) {
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+            
+            
+            char *busiDesc = (char*)sqlite3_column_text(statement, 3);
+            nsBusiDescStr = [[NSString alloc]initWithUTF8String:busiDesc];
+            char *busiMoney = (char*)sqlite3_column_text(statement, 5);
+            NSString *nsBusiMoneyStr = [[NSString alloc]initWithUTF8String:busiMoney];
+            
+            dic = [[NSDictionary alloc]initWithObjectsAndKeys:nsBusiDescStr,@"busiDesc",nsBusiMoneyStr,@"busiMoney",nil];
+        }
+        
+    }
+    return dic;
+    
+}
+
+//根据parentid查找
+-(NSMutableArray*)findByParentId:(int)parentID {
+    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT * FROM BUSIINFO WHERE PARENTID = %d",parentID ];
+    NSMutableArray *array = [[NSMutableArray alloc]init];
+    
+    NSLog(@"sqlQuery%@", sqlQuery);
+    sqlite3_stmt * statement;
+    int  ids;
+    if (sqlite3_prepare_v2(db, [sqlQuery UTF8String], -1, &statement, nil) == SQLITE_OK) {
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+            ids = sqlite3_column_int(statement, 0);
+            
+            NSString * idS = [[NSString alloc]initWithFormat:@"%d",ids];
+            [array addObject:idS];
+        }
+        NSLog(@"%d",[array count]);
+        
+    }
+    return array;
+    
+}
+
+//根据id进行查找，返回存有所有字段的字典
+-(NSDictionary*)findById:(int)busiID {
+    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT * FROM BUSIINFO WHERE id = %d",busiID ];
+    //NSMutableArray *array = [[NSMutableArray alloc]init];
+    NSDictionary *dic;
+    NSLog(@"sqlQuery%@", sqlQuery);
+    
+    sqlite3_stmt * statement;
+    
+    if (sqlite3_prepare_v2(db, [sqlQuery UTF8String], -1, &statement, nil) == SQLITE_OK) {
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+            char *busiAlias = (char*)sqlite3_column_text(statement, 1);
+            NSString *nsBusiAliasStr = [[NSString alloc]initWithUTF8String:busiAlias];
+            
+            char *busiCode = (char*)sqlite3_column_text(statement, 2);
+            NSString *nsBusiCodeStr = [[NSString alloc]initWithUTF8String:busiCode];
+            
+            char *busiDesc = (char*)sqlite3_column_text(statement, 3);
+            NSString *nsBusiDescStr = [[NSString alloc]initWithUTF8String:busiDesc];
+            
+            char *busiIcon = (char*)sqlite3_column_text(statement, 4);
+            NSString *nsBusiIconStr = [[NSString alloc]initWithUTF8String:busiIcon];
+            
+            char *busiMoney = (char*)sqlite3_column_text(statement, 5);
+            NSString *nsBusiMoneyStr = [[NSString alloc]initWithUTF8String:busiMoney];
+            
+            char *busiName = (char*)sqlite3_column_text(statement, 6);
+            NSString *nsBusiNameStr = [[NSString alloc]initWithUTF8String:busiName];
+            
+            int ids = sqlite3_column_int(statement, 0);
+            NSString * idS = [[NSString alloc]initWithFormat:@"%d",ids];
+            
+            int isLeaf = sqlite3_column_int(statement, 7);
+            NSString * isLEAF = [[NSString alloc]initWithFormat:@"%d",isLeaf];
+            
+            int isTopBusi = sqlite3_column_int(statement, 8);
+            NSString * isTOPBUSI = [[NSString alloc]initWithFormat:@"%d",isTopBusi];
+            
+            int parentId = sqlite3_column_int(statement, 9);
+            NSString * isPARENTID = [[NSString alloc]initWithFormat:@"%d",parentId];
+            
+            //            [array addObject:idS];
+            //            [array addObject:nsBusiAliasStr];
+            //            [array addObject:nsBusiCodeStr];
+            //            [array addObject:nsBusiDescStr];
+            //            [array addObject:nsBusiIconStr];
+            //            [array addObject:nsBusiMoneyStr];
+            //            [array addObject:nsBusiNameStr];
+            //            [array addObject:isLEAF];
+            //            [array addObject:isTOPBUSI];
+            //            [array addObject:isPARENTID];
+            
+            
+            dic = [[NSDictionary alloc]initWithObjectsAndKeys:idS,@"id",nsBusiAliasStr,@"busiAlias", nsBusiDescStr,@"busiDesc",nsBusiIconStr,@"busiIcon",nsBusiMoneyStr,@"busiMoney",nsBusiNameStr,@"busiName",isLEAF,@"isLeaf",isTOPBUSI,@"isTopBusi",isPARENTID,@"parentId",nil];
+        }
+        
+    }
+    return dic;
+}
+
+
 - (id)init{
     //数据业务通知注册
     [nc addObserver:self selector:@selector(busiInfoFeedback:) name:@"queryBusiInfoResponse" object:nil];
