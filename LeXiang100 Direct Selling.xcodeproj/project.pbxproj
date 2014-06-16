@@ -34,7 +34,6 @@
 		56588B221948B7A7004F17DC /* RecommendedRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56588B211948B7A7004F17DC /* RecommendedRecordViewController.m */; };
 		566A6F0C1939B10000A45D1A /* BusinessRecommendedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 566A6F0B1939B10000A45D1A /* BusinessRecommendedViewController.m */; };
 		566A6F0F1939B11D00A45D1A /* MyLeXiangViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 566A6F0E1939B11D00A45D1A /* MyLeXiangViewController.m */; };
-		566A6F121939B13000A45D1A /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 566A6F111939B13000A45D1A /* MoreViewController.m */; };
 		568315C419446783002FA689 /* busi_camp.png in Resources */ = {isa = PBXBuildFile; fileRef = 568315BA19446783002FA689 /* busi_camp.png */; };
 		568315C519446783002FA689 /* busi_ent.png in Resources */ = {isa = PBXBuildFile; fileRef = 568315BB19446783002FA689 /* busi_ent.png */; };
 		568315C619446783002FA689 /* busi_family.png in Resources */ = {isa = PBXBuildFile; fileRef = 568315BC19446783002FA689 /* busi_family.png */; };
@@ -63,6 +62,8 @@
 		56BAC1121945CC72007DF7B0 /* mylx100_bank.png in Resources */ = {isa = PBXBuildFile; fileRef = 56BAC10F1945CC72007DF7B0 /* mylx100_bank.png */; };
 		56BAC1131945CC72007DF7B0 /* mylx100_query_recommend.png in Resources */ = {isa = PBXBuildFile; fileRef = 56BAC1101945CC72007DF7B0 /* mylx100_query_recommend.png */; };
 		56BAC1141945CC72007DF7B0 /* mylx100_userinfo.png in Resources */ = {isa = PBXBuildFile; fileRef = 56BAC1111945CC72007DF7B0 /* mylx100_userinfo.png */; };
+		C2FAA904194F36380075990A /* Helplexiang100ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2FAA903194F36380075990A /* Helplexiang100ViewController.m */; };
+		C2FAA907194F36C90075990A /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2FAA906194F36C90075990A /* MoreViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,8 +120,6 @@
 		566A6F0B1939B10000A45D1A /* BusinessRecommendedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusinessRecommendedViewController.m; sourceTree = "<group>"; };
 		566A6F0D1939B11D00A45D1A /* MyLeXiangViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyLeXiangViewController.h; sourceTree = "<group>"; };
 		566A6F0E1939B11D00A45D1A /* MyLeXiangViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyLeXiangViewController.m; sourceTree = "<group>"; };
-		566A6F101939B13000A45D1A /* MoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreViewController.h; sourceTree = "<group>"; };
-		566A6F111939B13000A45D1A /* MoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreViewController.m; sourceTree = "<group>"; };
 		568315BA19446783002FA689 /* busi_camp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = busi_camp.png; sourceTree = "<group>"; };
 		568315BB19446783002FA689 /* busi_ent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = busi_ent.png; sourceTree = "<group>"; };
 		568315BC19446783002FA689 /* busi_family.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = busi_family.png; sourceTree = "<group>"; };
@@ -156,6 +155,10 @@
 		56BAC10F1945CC72007DF7B0 /* mylx100_bank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mylx100_bank.png; sourceTree = "<group>"; };
 		56BAC1101945CC72007DF7B0 /* mylx100_query_recommend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mylx100_query_recommend.png; sourceTree = "<group>"; };
 		56BAC1111945CC72007DF7B0 /* mylx100_userinfo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mylx100_userinfo.png; sourceTree = "<group>"; };
+		C2FAA902194F36380075990A /* Helplexiang100ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helplexiang100ViewController.h; sourceTree = "<group>"; };
+		C2FAA903194F36380075990A /* Helplexiang100ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Helplexiang100ViewController.m; sourceTree = "<group>"; };
+		C2FAA905194F36C90075990A /* MoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreViewController.h; sourceTree = "<group>"; };
+		C2FAA906194F36C90075990A /* MoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -245,8 +248,6 @@
 				566A6F0D1939B11D00A45D1A /* MyLeXiangViewController.h */,
 				566A6F0E1939B11D00A45D1A /* MyLeXiangViewController.m */,
 				56BAC1151945CC7B007DF7B0 /* MyLeXiang */,
-				566A6F101939B13000A45D1A /* MoreViewController.h */,
-				566A6F111939B13000A45D1A /* MoreViewController.m */,
 				56AA98CD194851510033D4DD /* AboutLeXiang100ViewController.h */,
 				56AA98CE194851510033D4DD /* AboutLeXiang100ViewController.m */,
 			);
@@ -356,6 +357,10 @@
 		56BAC1151945CC7B007DF7B0 /* MyLeXiang */ = {
 			isa = PBXGroup;
 			children = (
+				C2FAA905194F36C90075990A /* MoreViewController.h */,
+				C2FAA906194F36C90075990A /* MoreViewController.m */,
+				C2FAA902194F36380075990A /* Helplexiang100ViewController.h */,
+				C2FAA903194F36380075990A /* Helplexiang100ViewController.m */,
 				56163D321947084900CB7C2B /* UserTableViewController.h */,
 				56163D331947084900CB7C2B /* UserTableViewController.m */,
 				56163D351947447B00CB7C2B /* BankAccountTableViewController.h */,
@@ -490,7 +495,6 @@
 			files = (
 				564B359C193A499400D789DE /* FavoriteViewController.m in Sources */,
 				566A6F0C1939B10000A45D1A /* BusinessRecommendedViewController.m in Sources */,
-				566A6F121939B13000A45D1A /* MoreViewController.m in Sources */,
 				5614F1AE193F0D7F00F646D5 /* DES3Util.m in Sources */,
 				56163D371947447B00CB7C2B /* BankAccountTableViewController.m in Sources */,
 				56AA98CF194851510033D4DD /* AboutLeXiang100ViewController.m in Sources */,
@@ -498,6 +502,7 @@
 				563B6666193C183900D1076F /* DataBuffer.m in Sources */,
 				56AE7820193786B100D5A76D /* AppDelegate.m in Sources */,
 				566A6F0F1939B11D00A45D1A /* MyLeXiangViewController.m in Sources */,
+				C2FAA907194F36C90075990A /* MoreViewController.m in Sources */,
 				564B0320194D607200C77DAA /* SQLForLeXiang.m in Sources */,
 				56B0B8FF193CBB7100F514C5 /* DetailViewController.m in Sources */,
 				56588B221948B7A7004F17DC /* RecommendedRecordViewController.m in Sources */,
@@ -506,6 +511,7 @@
 				5651D91B1944158B00597801 /* UIColorForiOS7Colors.m in Sources */,
 				563B666C193C23E100D1076F /* TableLevle2TableViewController.m in Sources */,
 				5646735B1940D4D000772067 /* NewCellTableViewCell.m in Sources */,
+				C2FAA904194F36380075990A /* Helplexiang100ViewController.m in Sources */,
 				56AE781C193786B100D5A76D /* main.m in Sources */,
 				5614F1B2193F15AF00F646D5 /* GTMBase64.m in Sources */,
 				56163D341947084900CB7C2B /* UserTableViewController.m in Sources */,
