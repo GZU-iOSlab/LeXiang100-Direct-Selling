@@ -9,14 +9,35 @@
 #import "AppDelegate.h"
 
 @implementation AppDelegate
+//@synthesize navigationController;
+@synthesize window;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
+    mainViewController = [[MainViewController alloc]init];
+//    navigationController = [[UINavigationController alloc]initWithRootViewController:mainViewController];
+//    [self.window addSubview:[navigationController view]];
+    
+//    if ([[[UIDevice currentDevice]systemVersion]floatValue]>=7) {
+//        [application setStatusBarStyle:UIStatusBarStyleLightContent];
+//        self.window.clipsToBounds = YES;
+//        self.window.frame = CGRectMake(0, 20, self.window.frame.size.width, self.window.frame.size.height+20);
+//        self.window.bounds = CGRectMake(0, 20, self.window.frame.size.width, self.window.frame.size.height);
+//    }
+    
+    
+    self.window.rootViewController = mainViewController;//self.navigationController;
     [self.window makeKeyAndVisible];
     return YES;
+}
+
++ (void)showAlertWithTitle:(NSString *)titles AndMessages:(NSString *)messages{
+    
+    UIAlertView * alert = [[UIAlertView alloc]initWithTitle:titles message:messages delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"知道", nil];
+    [alert show];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

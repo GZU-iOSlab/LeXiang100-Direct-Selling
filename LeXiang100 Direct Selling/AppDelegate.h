@@ -7,9 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MainViewController.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
-
-@property (strong, nonatomic) UIWindow *window;
-
+NSString * service;
+DataBuffer * data ;
+Boolean login;
+NSNotificationCenter *nc;
+NSMutableDictionary * UserInfo;
+connectionAPI * soap;
+@interface AppDelegate : UIResponder <UIApplicationDelegate>{
+    MainViewController * mainViewController;
+    //UINavigationController * navigationController;
+    UIWindow * window;
+    
+}
++ (void)showAlertWithTitle:(NSString *)titles AndMessages:(NSString *)messages;
+//@property (nonatomic,retain) IBOutlet UINavigationController * navigationController;
+@property (retain, nonatomic) IBOutlet UIWindow *window;
 @end
