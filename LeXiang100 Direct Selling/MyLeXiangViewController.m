@@ -46,7 +46,6 @@ extern NSMutableDictionary * UserInfo;
     if (self) {
         // Custom initialization
         //添加soap通知
-        nc = [NSNotificationCenter defaultCenter];
         [nc addObserver:self selector:@selector(loginFeedback:) name:@"loginResponse" object:nil];
         [nc addObserver:self selector:@selector(tunrToUserInfoView) name:@"queryUserInfoResponse" object:nil];
         [nc addObserver:self selector:@selector(tunrToBankAccountView) name:@"queryBankInfoResponse" object:nil];

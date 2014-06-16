@@ -18,6 +18,8 @@ extern DataBuffer * data ;
 extern NSString * currentTabView;
 extern connectionAPI * soap;
 extern NSMutableDictionary * UserInfo;
+extern NSNotificationCenter *nc;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -59,6 +61,7 @@ extern NSMutableDictionary * UserInfo;
     // Do any additional setup after loading the view.
     soap = [[connectionAPI  alloc]init];
     UserInfo = [[NSMutableDictionary alloc]init] ;
+    nc = [NSNotificationCenter defaultCenter];
 }
 
 + (void)showAlertWithTitle:(NSString *)titles AndMessages:(NSString *)messages{
