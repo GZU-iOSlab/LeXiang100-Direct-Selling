@@ -25,25 +25,7 @@
 extern NSNotificationCenter *nc;
 @implementation SQLForLeXiang
 
-- (void)openDB{
-    if (sqlite3_open([database_path UTF8String], &db) != SQLITE_OK) {
-        sqlite3_close(db);
-        NSLog(@"数据库打开失败");
-        [self createDB];
-        //return NO;
-    }//else return YES;
-}
-
-- (void)createDB{
-    NSString *sqlCreateTable = @"CREATE TABLE IF NOT EXISTS BUSIINFO (ID INTEGER  , busiAlias TEXT, busiCode TEXT, busiDesc TEXT, busiIcon TEXT, busiMoney TEXT, busiName TEXT, isLeaf INTEGER, isTopBusi INTEGER, parentId INTEGER)";
-    
-    [self execSql:sqlCreateTable];
-    NSLog(@"数据库创建成功!");
-}
-
 - (void)insertDBWithBusiAlias:(NSString *)busiAlias BusiCode:(NSString *)busiCode BusiDesc:(NSString *)busiDesc BusiIcon:(NSString *)busiIcon BusiMoney:(NSString *)busiMoney BusiName:(NSString *)busiName IDs:(NSString *)ids IsLeaf:(NSString *)isLeaf IsTopBusi:(NSString *)isTopBusi ParentId:(NSString *)parentId{
-    
-    
     
     NSString *sql1 = [NSString stringWithFormat:
                       
@@ -91,7 +73,6 @@ extern NSNotificationCenter *nc;
                   nsBusiAliasStr, nsBusiCodeStr, nsBusiDescStr, nsBusiIconStr, nsBusiMoneyStr, nsBusiNameStr, id, isLeaf, isTopBusi, parentId);
         }
     }
-
 }
 
 - (void)deleteDB{
@@ -112,21 +93,7 @@ extern NSNotificationCenter *nc;
 }
 
 - (void)busiInfoFeedback:(NSNotification *)note{
-    //打开数据库
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documents = [paths objectAtIndex:0];
-    database_path = [documents stringByAppendingPathComponent:DBNAME];
-    if (sqlite3_open([database_path UTF8String], &db) != SQLITE_OK) {
-        sqlite3_close(db);
-        [self createDB];
-        NSLog(@"数据库打开失败");
-    }
-    
-    NSString *sqlCreateTable = @"CREATE TABLE IF NOT EXISTS BUSIINFO (ID INTEGER primary key, busiAlias TEXT, busiCode TEXT, busiDesc TEXT, busiIcon TEXT, busiMoney TEXT, busiName TEXT, isLeaf INTEGER, isTopBusi INTEGER, parentId INTEGER)";
-    
-    [self execSql:sqlCreateTable];
-    NSLog(@"数据库创建成功!");
-    //
+        //
     //[self deleteDB];
     //判断返回的数据类型
     if ([[[note userInfo] objectForKey:@"1"] isKindOfClass:[NSArray class]]) {
@@ -144,97 +111,27 @@ extern NSNotificationCenter *nc;
             rIsTopBusi  = [dic objectForKey:ISTOPBUSI];
             rParentId   = [dic objectForKey:PARENTID];
             [self insertDBWithBusiAlias:rBusiAlias BusiCode:rBusiCode BusiDesc:rBusiDesc BusiIcon:rBusiIcon BusiMoney:rBusiMoney BusiName:rBusiName IDs:rID IsLeaf:rIsLeaf IsTopBusi:rIsTopBusi ParentId:rParentId];
-            //break;
         }
     }
 }
 
 - (id)init{
-    
-//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//    NSString *documents = [paths objectAtIndex:0];
-//    database_path = [documents stringByAppendingPathComponent:DBNAME];
-//    if (sqlite3_open([database_path UTF8String], &db) != SQLITE_OK) {
-//        sqlite3_close(db);
-//        //[self createDB];
-//        NSLog(@"数据库打开失败");
-//        NSString *sqlCreateTable = @"CREATE TABLE IF NOT EXISTS BUSIINFO (ID INTEGER  , busiAlias TEXT, busiCode TEXT, busiDesc TEXT, busiIcon TEXT, busiMoney TEXT, busiName TEXT, isLeaf INTEGER, isTopBusi INTEGER, parentId INTEGER)";
-//        
-//        [self execSql:sqlCreateTable];
-//        NSLog(@"数据库创建成功!");
-//
-//    }
-
-   // [self openDB];
+    //数据业务通知注册
     [nc addObserver:self selector:@selector(busiInfoFeedback:) name:@"queryBusiInfoResponse" object:nil];
     
-    //[self deleteDB];
-    
-    
-//    NSString *sqlCreateTable = @"CREATE TABLE IF NOT EXISTS BUSIINFO (ID INTEGER  , busiAlias TEXT, busiCode TEXT, busiDesc TEXT, busiIcon TEXT, busiMoney TEXT, busiName TEXT, isLeaf INTEGER, isTopBusi INTEGER, parentId INTEGER)";
-//    
-//    [self execSql:sqlCreateTable];
-//    NSLog(@"数据库创建成功!");
-//    
-//
-    
-    
+    //打开数据库
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documents = [paths objectAtIndex:0];
+    database_path = [documents stringByAppendingPathComponent:DBNAME];
+    if (sqlite3_open([database_path UTF8String], &db) != SQLITE_OK) {
+        sqlite3_close(db);
+        NSLog(@"数据库打开失败");
+    }
+    //创建表
+    NSString *sqlCreateTable = @"CREATE TABLE IF NOT EXISTS BUSIINFO (ID INTEGER primary key, busiAlias TEXT, busiCode TEXT, busiDesc TEXT, busiIcon TEXT, busiMoney TEXT, busiName TEXT, isLeaf INTEGER, isTopBusi INTEGER, parentId INTEGER)";
+    [self execSql:sqlCreateTable];
+    NSLog(@"数据库创建成功!");
 
-//    NSString *sql1 = [NSString stringWithFormat:
-//                      
-//                      @"INSERT INTO '%@' ('%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@') VALUES ('%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@')",
-//                      TABLENAME, BUSIALIAS, BUSICODE, BUSIDESC, BUSIICON, BUSIMONEY, BUSINAME, ID, ISLEAF, ISTOPBUSI, PARENTID,
-//                      @"", @"", @"", @"busi_favorite", @"0", @"收藏夹", @"1", @"0", @"0", @"0" ];
-//    
-//    NSLog(@"%@",sql1);
-//    [self execSql:sql1];
-    
-    
-//
-//    
-//    
-//    NSString *sqlQuery = @"SELECT * FROM BUSIINFO";
-//    sqlite3_stmt * statement;
-//    
-//    if (sqlite3_prepare_v2(db, [sqlQuery UTF8String], -1, &statement, nil) == SQLITE_OK) {
-//        while (sqlite3_step(statement) == SQLITE_ROW) {
-//            char *busiAlias = (char*)sqlite3_column_text(statement, 1);
-//            NSString *nsBusiAliasStr = [[NSString alloc]initWithUTF8String:busiAlias];
-//            
-//            char *busiCode = (char*)sqlite3_column_text(statement, 2);
-//            NSString *nsBusiCodeStr = [[NSString alloc]initWithUTF8String:busiCode];
-//            
-//            char *busiDesc = (char*)sqlite3_column_text(statement, 3);
-//            NSString *nsBusiDescStr = [[NSString alloc]initWithUTF8String:busiDesc];
-//            
-//            char *busiIcon = (char*)sqlite3_column_text(statement, 4);
-//            NSString *nsBusiIconStr = [[NSString alloc]initWithUTF8String:busiIcon];
-//            
-//            char *busiMoney = (char*)sqlite3_column_text(statement, 5);
-//            NSString *nsBusiMoneyStr = [[NSString alloc]initWithUTF8String:busiMoney];
-//            
-//            char *busiName = (char*)sqlite3_column_text(statement, 6);
-//            NSString *nsBusiNameStr = [[NSString alloc]initWithUTF8String:busiName];
-//            
-//            int id = sqlite3_column_int(statement, 0);
-//            
-//            int isLeaf = sqlite3_column_int(statement, 7);
-//            
-//            int isTopBusi = sqlite3_column_int(statement, 8);
-//            
-//            int parentId = sqlite3_column_int(statement, 9);
-//            
-//            NSLog(@"busiAlias:%@  busiCode:%@  busiDesc:%@ busiIcon:%@ busiMoney:%@ busiName:%@ id:%d isLeaf:%d isTopBusi:%d parentId:%d",
-//                  nsBusiAliasStr, nsBusiCodeStr, nsBusiDescStr, nsBusiIconStr, nsBusiMoneyStr, nsBusiNameStr, id, isLeaf, isTopBusi, parentId);
-//        }
-//    }
-//    
-//    
-//    NSString *sql2 = [NSString stringWithFormat:@"delete from busiInfo"];
-//    NSLog(@"%@",sql2);
-//    [self execSql:sql2];
-//    NSLog(@"==================数据已经清除=======================");
-//    sqlite3_close(db);
     return self;
 }
 

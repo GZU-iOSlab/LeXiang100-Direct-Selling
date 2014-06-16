@@ -34,7 +34,7 @@
     FavoriteViewController * favourite;
     TableLevle2TableViewController * tables2;
     TableLevel1TableViewController * tables1;
-    SQLForLeXiang * initDB;
+    //SQLForLeXiang * initDB;
 }
 //@property (nonatomic,retain)  UINavigationController * navigationController;
 @property (nonatomic,retain)UITextField * messageText;

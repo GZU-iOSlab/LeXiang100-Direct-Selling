@@ -205,9 +205,7 @@ extern Boolean login;
         self.tables2.dataSource = data.dataSource;
         self.tables2.keysArray = data.keys;
         favourite = [[FavoriteViewController alloc]init];
-        
-        initDB = [[SQLForLeXiang alloc]init];
-    }
+        }
     return self;
 }
 

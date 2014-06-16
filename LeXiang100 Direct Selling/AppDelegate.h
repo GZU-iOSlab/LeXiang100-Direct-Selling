@@ -8,13 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "MainViewController.h"
-
+#import "SQLForLeXiang.h"
 NSString * service;
 DataBuffer * data ;
 Boolean login;
 NSNotificationCenter *nc;
 NSMutableDictionary * UserInfo;
 connectionAPI * soap;
+SQLForLeXiang * DB;
 @interface AppDelegate : UIResponder <UIApplicationDelegate>{
     MainViewController * mainViewController;
     //UINavigationController * navigationController;
