@@ -46,7 +46,7 @@ extern DataBuffer * data ;
     self.tableArray = [self.dataSource objectForKey:service];
     self.title = service;
     self.tableView.rowHeight = 228;
-    self.tableView.separatorStyle =UITableViewCellSeparatorStyleSingleLine;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     

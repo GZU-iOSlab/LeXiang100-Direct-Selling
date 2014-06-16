@@ -5,35 +5,53 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
+<<<<<<< HEAD
 	<string>25295C59-A3BD-4DE2-AAE2-B7B29B82E5E2</string>
+=======
+	<string>2723DDDA-92B4-4E30-8B1D-959731029733</string>
+>>>>>>> FETCH_HEAD
 	<key>IDESourceControlProjectName</key>
 	<string>LeXiang100 Direct Selling</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+<<<<<<< HEAD
 		<key>4031BFB8-F715-434C-9F7A-96F2D126C690</key>
+=======
+		<key>A5ECDA33-C269-45FE-856A-4EAE2644CD32</key>
+>>>>>>> FETCH_HEAD
 		<string>https://github.com/GZU-iOSlab/LeXiang100-Direct-Selling.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>LeXiang100 Direct Selling.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
+<<<<<<< HEAD
 		<key>4031BFB8-F715-434C-9F7A-96F2D126C690</key>
 		<string>../..</string>
 		<key>61043F66-9508-427A-A64B-A117CBCFA47F</key>
 		<string>../../../../../Downloads/LeXiang100 Direct Selling</string>
+=======
+		<key>A5ECDA33-C269-45FE-856A-4EAE2644CD32</key>
+		<string>../..</string>
+>>>>>>> FETCH_HEAD
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/GZU-iOSlab/LeXiang100-Direct-Selling.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
+<<<<<<< HEAD
 	<string>4031BFB8-F715-434C-9F7A-96F2D126C690</string>
+=======
+	<string>A5ECDA33-C269-45FE-856A-4EAE2644CD32</string>
+>>>>>>> FETCH_HEAD
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
+<<<<<<< HEAD
 			<string>61043F66-9508-427A-A64B-A117CBCFA47F</string>
 			<key>IDESourceControlWCCName</key>
 			<string>LeXiang100 Direct Selling</string>
@@ -43,6 +61,9 @@
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>4031BFB8-F715-434C-9F7A-96F2D126C690</string>
+=======
+			<string>A5ECDA33-C269-45FE-856A-4EAE2644CD32</string>
+>>>>>>> FETCH_HEAD
 			<key>IDESourceControlWCCName</key>
 			<string>LeXiang100-Direct-Selling</string>
 		</dict>

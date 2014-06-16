@@ -19,6 +19,7 @@
 extern NSString * service;
 extern DataBuffer * data;
 extern Boolean login;
+extern SQLForLeXiang * DB;
 
 #define iOS7  ([[[UIDevice currentDevice]systemVersion] floatValue] >= 7.0)?YES:NO
 #define isPad (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)?YES:NO
@@ -205,7 +206,7 @@ extern Boolean login;
         self.tables2.dataSource = data.dataSource;
         self.tables2.keysArray = data.keys;
         favourite = [[FavoriteViewController alloc]init];
-    }
+        }
     return self;
 }
 
@@ -245,7 +246,7 @@ extern Boolean login;
         [self.navigationController pushViewController:self.tables1 animated:YES];
         NSLog(@"增值业务 imgViewValue");
     }else if([touch view]== imgViewSjb){
-        SQLForLeXiang * inits = [[SQLForLeXiang alloc]init];
+        
         NSLog(@"手机报 imgViewSjb");
     }else if ([touch view]== imgViewCamp){
         NSLog(@"营销活动 imgViewCamp");

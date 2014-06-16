@@ -341,13 +341,13 @@ extern NSNotificationCenter *nc;
         resultDic = [NSJSONSerialization JSONObjectWithData:aData options:NSJSONReadingMutableContainers error:nil];
         //NSLog(@"stringfor:%@", [[resultArray objectAtIndex:0]objectForKey:@"busiName"]);
         
-        if ([resultDic isKindOfClass:[NSArray class]]) {
-            NSLog(@"result is kind of arrry class");
-            NSArray * resultArray = [NSJSONSerialization JSONObjectWithData:aData options:NSJSONReadingMutableContainers error:nil];
-            for (NSDictionary *dic in resultArray) {
-                NSLog(@"dic:%@",[dic objectForKey:@"busiName"]);
-            }
-        }
+//        if ([resultDic isKindOfClass:[NSArray class]]) {
+//            NSLog(@"result is kind of arrry class");
+//            NSArray * resultArray = [NSJSONSerialization JSONObjectWithData:aData options:NSJSONReadingMutableContainers error:nil];
+//            for (NSDictionary *dic in resultArray) {
+//                NSLog(@"dic:%@",[dic objectForKey:@"busiName"]);
+//            }
+//        }
 //        NSData * str;
 //        for (str in resultDic) {
 //            NSLog(@"%@",str);
@@ -422,9 +422,16 @@ extern NSNotificationCenter *nc;
             [self dimissAlert:alerts];
         }
     }
-    
+    //业务数据返回
     else if ([getXMLResults rangeOfString:@"queryBusiInfoResponse"].length>0){
-        
+        if ([resultDic isKindOfClass:[NSArray class]]) {
+            NSLog(@"result is kind of arrry class");
+//            NSArray * resultArray = (NSArray *)resultDic;
+//            for (NSDictionary *dic in resultArray) {
+//                NSLog(@"dic:%@",[dic objectForKey:@"busiName"]);
+//            }
+            [nc postNotificationName:@"queryBusiInfoResponse" object:self userInfo:d];
+        }
     }
     //返回数据为空
     else if (soapResults.length>5) {
