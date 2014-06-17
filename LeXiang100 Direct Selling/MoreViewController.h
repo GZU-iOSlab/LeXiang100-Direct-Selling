@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "AboutLeXiang100ViewController.h"
+#import "Helplexiang100ViewController.h"
 @interface MoreViewController : UITableViewController{
-    AboutLeXiang100ViewController * leXiang100ViewController;
+    AboutLeXiang100ViewController * aboutLeXiang100ViewController;
+    Helplexiang100ViewController * helpLeXiang100ViewController;
 }
 @property (strong,nonatomic)NSMutableArray * dataSource;
 

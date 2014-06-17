@@ -14,7 +14,8 @@
 
 @implementation MoreViewController
 @synthesize dataSource;
-
+#define viewWidth   self.view.frame.size.width
+#define viewHeight  self.view.frame.size.height
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:UITableViewStyleGrouped];
@@ -27,7 +28,6 @@
         NSMutableArray * data = [[NSMutableArray  alloc]initWithObjects:@"关于乐享",@"使用帮助",@"检查更新",@"用户建议",@"分享给好友", nil];
         self.tableView.scrollEnabled = NO;
         self.dataSource = data;
-        leXiang100ViewController = [[AboutLeXiang100ViewController alloc]init];
     }
     return self;
 }
@@ -40,7 +40,8 @@
     self.tableView.rowHeight = 228;
     self.tableView.separatorStyle =UITableViewCellSeparatorStyleSingleLine;
     
-    
+    aboutLeXiang100ViewController = [[AboutLeXiang100ViewController alloc]init];
+    helpLeXiang100ViewController=[[Helplexiang100ViewController alloc]init];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -90,6 +91,7 @@
     //    float sh=10/cell.imageView.image.size.height;
     //    cell.imageView.transform=CGAffineTransformMakeScale(sw,sh);
     cell.textLabel.text = text;
+    cell.textLabel.font = [UIFont systemFontOfSize:22];
     //cell.detailTextLabel.text = @"haha";
 //    if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
 //        [self.tableView setSeparatorInset:UIEdgeInsetsZero];
@@ -114,7 +116,23 @@
     //NSLog(@"%d  row",indexPath.row);
     //NSLog(@"%@  service",service);
     if (indexPath.row == 0) {
-        [self.navigationController pushViewController:leXiang100ViewController animated:YES];
+        [self.navigationController pushViewController:aboutLeXiang100ViewController animated:YES];
+    }
+    else if (indexPath.row==1)
+    {
+        [self.navigationController pushViewController:helpLeXiang100ViewController animated:YES];
+    }
+    else if (indexPath==2)
+    {
+        
+    }
+    else if (indexPath==3)
+    {
+        
+    }
+    else if (indexPath==4)
+    {
+        
     }
     
 }

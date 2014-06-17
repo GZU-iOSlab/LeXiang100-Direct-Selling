@@ -16,4 +16,5 @@
 @property (strong,nonatomic)NSMutableArray * keysArray;
 @property (strong,nonatomic)NSMutableArray * tableArray;
 @property (strong,nonatomic)DetailViewController * detailView;
+@property (strong,nonatomic)NSMutableArray * dataSources;
 @end

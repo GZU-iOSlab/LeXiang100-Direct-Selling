@@ -15,10 +15,15 @@
 @implementation TableLevel1TableViewController
 extern NSString * service;
 extern DataBuffer * data ;
+extern SQLForLeXiang * DB;
+
 @synthesize dataSource;
 @synthesize keysArray;
 @synthesize tableArray;
 @synthesize table2View;
+@synthesize dataSources;
+#define viewWidth   self.view.frame.size.width
+#define viewHeight  self.view.frame.size.height
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -71,7 +76,7 @@ extern DataBuffer * data ;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [self.tableArray count];
+    return [self.dataSources count];
     
 }
 
@@ -84,15 +89,11 @@ extern DataBuffer * data ;
         [cell autorelease];
     }    // Configure the cell...
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    NSString * text = [tableArray objectAtIndex:indexPath.row];
-    //cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    //[tableView setSeparatorColor:[UIColor clearColor]];
-    //cell.imageView.sizeToFit = UIViewContentModeCenter;
-//    float sw=10/cell.imageView.image.size.width;
-//    float sh=10/cell.imageView.image.size.height;
-//    cell.imageView.transform=CGAffineTransformMakeScale(sw,sh);
+    //NSString * text = [tableArray objectAtIndex:indexPath.row];
+    NSString * text = [[self.dataSources objectAtIndex:indexPath.row]objectForKey:@"busiName"];
     cell.textLabel.text = text;
-    cell.detailTextLabel.text = @"haha";
+    cell.textLabel.font = [UIFont systemFontOfSize:22];
+    cell.detailTextLabel.text = [[self.dataSources objectAtIndex:indexPath.row]objectForKey:@"busiMoney"];;
     if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
         [self.tableView setSeparatorInset:UIEdgeInsetsZero];
     }
@@ -122,6 +123,11 @@ extern DataBuffer * data ;
         self.table2View.dataSource = data.dataSource;
         self.table2View.keysArray = data.keys;
         NSLog(@"table1%@",data);
+        NSString * ids =[[self.dataSources objectAtIndex:indexPath.row]objectForKey:@"id"];
+        NSLog(@"ids:%d",[ids intValue]);
+        service =[[self.dataSources objectAtIndex:indexPath.row]objectForKey:@"busiName"];
+        self.table2View.dataSources = [DB findByParentId:[ids intValue]];
+        NSLog(@"%d",self.table2View.dataSources.count);
     }
     [self.navigationController pushViewController:self.table2View animated:YES];
 }

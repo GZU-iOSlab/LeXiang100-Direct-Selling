@@ -16,8 +16,13 @@
 @synthesize keysArray;
 @synthesize tableArray;
 @synthesize detailView;
+@synthesize dataSources;
 extern NSString * service;
 extern DataBuffer * data ;
+extern SQLForLeXiang * DB;
+
+#define viewWidth   self.view.frame.size.width
+#define viewHeight  self.view.frame.size.height
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -27,7 +32,8 @@ extern DataBuffer * data ;
         //DataBuffer * data = [[DataBuffer alloc]init];
         self.dataSource = data.dataSource;
         self.keysArray = data.keys;
-        self.detailView = [[DetailViewController alloc]init];
+        //self.detailView = [[DetailViewController alloc]init];
+        
     }
     return self;
 }
@@ -36,6 +42,7 @@ extern DataBuffer * data ;
 {
     [super viewDidLoad];
     self.tableArray = [dataSource objectForKey:service];
+    
     self.title = service;
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -64,7 +71,7 @@ extern DataBuffer * data ;
 {
     // Return the number of rows in the section.
     
-    return [tableArray count];
+    return [self.dataSources count];
 
 }
 
@@ -73,13 +80,16 @@ extern DataBuffer * data ;
     static NSString * identifier = @"basis-cell";
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (nil == cell) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
         [cell autorelease];
     }    // Configure the cell...
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    NSString * text = [tableArray objectAtIndex:indexPath.row];
+    //NSString * text = [tableArray objectAtIndex:indexPath.row];
+    NSString * text = [[self.dataSources objectAtIndex:indexPath.row]objectForKey:@"busiName"];
     cell.textLabel.text = text;
-    cell.detailTextLabel.text = @"11";
+    cell.textLabel.font = [UIFont systemFontOfSize:20];
+   // cell.detailTextLabel.text = @"haha";
+    cell.detailTextLabel.text = [[self.dataSources objectAtIndex:indexPath.row]objectForKey:@"busiMoney"];
     if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
         [self.tableView setSeparatorInset:UIEdgeInsetsZero];
     }
@@ -95,8 +105,13 @@ extern DataBuffer * data ;
 //    NSLog(@"%@  service",service);
     if (self.detailView != NULL) {
         [self.detailView release];
-        self.detailView = [[DetailViewController alloc]init];
     }
+    self.detailView = [[DetailViewController alloc]init];
+    NSString * busiName = [[self.dataSources objectAtIndex:indexPath.row]objectForKey:@"busiName"];
+    
+    self.detailView.detailService = [DB findByBusiName:busiName];
+    NSLog(@"busy:%@,count:%d",busiName,self.detailView.detailService.count);
+
     [self.navigationController pushViewController:self.detailView animated:YES];
 }
 

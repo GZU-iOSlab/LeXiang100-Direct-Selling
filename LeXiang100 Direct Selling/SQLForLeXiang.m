@@ -27,9 +27,9 @@ extern NSNotificationCenter *nc;
 -(void)openDB {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documents = [paths objectAtIndex:0];
-    NSString *database_path = [documents stringByAppendingPathComponent:DBNAME];
+    NSString *database_path1 = [documents stringByAppendingPathComponent:DBNAME];
     
-    if (sqlite3_open([database_path UTF8String], &db) != SQLITE_OK) {
+    if (sqlite3_open([database_path1 UTF8String], &db) != SQLITE_OK) {
         sqlite3_close(db);
         NSLog(@"数据库打开失败");
         
@@ -158,7 +158,7 @@ extern NSNotificationCenter *nc;
             char *busiMoney = (char*)sqlite3_column_text(statement, 5);
             NSString *nsBusiMoneyStr = [[NSString alloc]initWithUTF8String:busiMoney];
             
-            dic = [[NSDictionary alloc]initWithObjectsAndKeys:nsBusiDescStr,@"busiDesc",nsBusiMoneyStr,@"busiMoney",nil];
+            dic = [[NSDictionary alloc]initWithObjectsAndKeys:nsBusiDescStr,@"busiDesc",nsBusiMoneyStr,@"busiMoney",bName,@"busiName",nil];
         }
         
     }
@@ -173,6 +173,7 @@ extern NSNotificationCenter *nc;
     NSString *sqlQuery = [NSString stringWithFormat:@"SELECT * FROM BUSIINFO WHERE PARENTID = %d",parentID ];
     NSMutableArray *array = [[NSMutableArray alloc]init];
     [self openDB];
+    NSDictionary *dic;
     NSLog(@"sqlQuery%@", sqlQuery);
     sqlite3_stmt * statement;
     int  ids;
@@ -180,10 +181,11 @@ extern NSNotificationCenter *nc;
         while (sqlite3_step(statement) == SQLITE_ROW) {
             ids = sqlite3_column_int(statement, 0);
             
-            NSString * idS = [[NSString alloc]initWithFormat:@"%d",ids];
-            [array addObject:idS];
+            //NSString * idS = [[NSString alloc]initWithFormat:@"%d",ids];
+            dic = [self findById:ids];
+            [array addObject:dic];
         }
-        NSLog(@"%d",[array count]);
+        
         
     }
     sqlite3_close(db);
