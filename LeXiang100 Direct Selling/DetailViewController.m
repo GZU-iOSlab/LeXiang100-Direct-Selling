@@ -16,6 +16,8 @@
 
 #define viewWidth   self.view.frame.size.width
 #define viewHeight  self.view.frame.size.height
+extern SQLForLeXiang * DB;
+@synthesize detailService;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -23,7 +25,6 @@
     if (self) {
         // Custom initialization
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"推荐" style:UIBarButtonItemStyleBordered target:self action:@selector(recommended)];
-        
         self.view.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
         UITextField * backgroudText = [[UITextField alloc]initWithFrame:CGRectMake(viewWidth/40, viewHeight/60, viewWidth-viewWidth/20, viewHeight-viewHeight/4.8) ];
         //backgroudText.autoresizingMask = UIViewAutoresizingFlexibleHeight |UIViewAutoresizingFlexibleWidth;
@@ -56,9 +57,12 @@
         servicesLabel.backgroundColor = [UIColor groupTableViewBackgroundColor];
         [self.view addSubview:servicesLabel];
         
-        UILabel * servicesDetailLabel = [[UILabel alloc]initWithFrame:CGRectMake(viewWidth/32+viewWidth/40, viewHeight/6.5, viewWidth-(viewWidth/16+viewWidth/20), viewHeight/19)];
-        servicesDetailLabel.text = @"全球通88套餐";
-        servicesDetailLabel.font = [UIFont systemFontOfSize:viewWidth/21];
+        servicesDetailLabel = [[UILabel alloc]initWithFrame:CGRectMake(viewWidth/32+viewWidth/40, viewHeight/6.5, viewWidth-(viewWidth/16+viewWidth/20), viewHeight/19)];
+        //servicesDetailLabel.text = @"全球通88套餐";
+        
+        
+        
+        servicesDetailLabel.font = [UIFont systemFontOfSize:viewHeight/35];
         servicesDetailLabel.backgroundColor = [UIColor groupTableViewBackgroundColor];
         [self.view addSubview:servicesDetailLabel];
         
@@ -68,18 +72,7 @@
         descriptionLabel.backgroundColor = [UIColor groupTableViewBackgroundColor];
         [self.view addSubview:descriptionLabel];
         
-        UILabel * descriptionDetailLabel = [[UILabel alloc]initWithFrame:CGRectZero];
-        descriptionDetailLabel.text = @"全球通本地套餐适用于不出差、本地通话（尤其本地长途通话）需求多的忠告消费的本地客户。全球通本地88套餐报航480分钟的免费通话时长（国内主叫国内），超出套餐后本地主叫国内0.19元/分钟，漫游主叫0.29元/分钟；全国接听免费；赠送30M上网流量，超出套餐后移动数据流量单价只要0.001元/KB；套餐还赠送来电显示、139邮箱5元版业务。";
-        descriptionDetailLabel.center = CGPointMake(self.view.center.x, self.view.center.y);
-        descriptionDetailLabel.backgroundColor = [UIColor groupTableViewBackgroundColor];
-        descriptionDetailLabel.numberOfLines = 0;
-        descriptionDetailLabel.lineBreakMode = NSLineBreakByCharWrapping;
-        UIFont *font1 = [UIFont fontWithName:@"Arial" size:viewWidth/21];
-        CGSize size1 = CGSizeMake(viewWidth - viewWidth/10,MAXFLOAT);
-        CGSize labelsize1 = [descriptionDetailLabel.text sizeWithFont:font1 constrainedToSize:size1 lineBreakMode:NSLineBreakByWordWrapping];
-        descriptionDetailLabel.frame = CGRectMake(viewWidth/32+viewWidth/40, viewHeight/3.7, viewWidth-(viewWidth/16+viewWidth/20), labelsize1.height);
-        descriptionDetailLabel.font =font1;
-        [self.view addSubview:descriptionDetailLabel];
+        
         
         //解决ios7界面上移  配色等问题
         if ([[[UIDevice currentDevice]systemVersion]floatValue]>=7) {
@@ -118,13 +111,31 @@
     [super viewDidLoad];
     self.title = @"业务推荐";
     // Do any additional setup after loading the view.
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    servicesDetailLabel.text = [self.detailService objectForKey:@"busiName"];
+    
+
+    descriptionDetailLabel = [[UILabel alloc]initWithFrame:CGRectZero];
+    descriptionDetailLabel.text = [self.detailService objectForKey:@"busiDesc"];
+    descriptionDetailLabel.center = CGPointMake(self.view.center.x, self.view.center.y);
+    descriptionDetailLabel.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    descriptionDetailLabel.numberOfLines = 0;
+    descriptionDetailLabel.lineBreakMode = NSLineBreakByCharWrapping;
+    descriptionDetailLabel.backgroundColor = [UIColor clearColor];
+    UIFont *font1 = [UIFont systemFontOfSize:viewHeight/28];
+    CGSize size1 = CGSizeMake(viewWidth - viewWidth/10,MAXFLOAT);
+    CGSize labelsize1 = [descriptionDetailLabel.text sizeWithFont:font1 constrainedToSize:size1 lineBreakMode:NSLineBreakByWordWrapping];
+    descriptionDetailLabel.frame = CGRectMake(viewWidth/32+viewWidth/40, viewHeight/3.0, viewWidth-(viewWidth/16+viewWidth/20), labelsize1.height);
+    descriptionDetailLabel.font =font1;
+    [self.view addSubview:descriptionDetailLabel];
+    NSLog(@"detail text:%@,DetailLabel:%@,count:%d",[self.detailService objectForKey:@"busiName"],[self.detailService objectForKey:@"busiDesc"],self.detailService.count);
 }
 
 - (void)recommended{
     connectionAPI * soap = [[connectionAPI alloc]init];
-    //[soap LoginWithInterface:@"modifyLogin" Parameter1:@"loginPwd" UserName:@"123456" Parameter2:@"opPhone" Password:@"15085921612" ];
-    //[soap LoginWithUserName:@"15085921612" Password:@"123456"];
-    //RNSString * pu = [[NSString alloc]initWithString:@"Public"];
     [soap BusiInfoWithInterface:@"queryBusiInfo" Parameter1:@"versionTag" Version:@"Public"];
     [soap release];
 }

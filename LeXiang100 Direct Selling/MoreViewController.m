@@ -14,7 +14,8 @@
 
 @implementation MoreViewController
 @synthesize dataSource;
-
+#define viewWidth   self.view.frame.size.width
+#define viewHeight  self.view.frame.size.height
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:UITableViewStyleGrouped];
@@ -90,6 +91,7 @@
     //    float sh=10/cell.imageView.image.size.height;
     //    cell.imageView.transform=CGAffineTransformMakeScale(sw,sh);
     cell.textLabel.text = text;
+    cell.textLabel.font = [UIFont systemFontOfSize:22];
     //cell.detailTextLabel.text = @"haha";
 //    if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
 //        [self.tableView setSeparatorInset:UIEdgeInsetsZero];

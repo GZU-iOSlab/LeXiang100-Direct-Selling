@@ -26,4 +26,7 @@
 - (void)insertDBWithBusiAlias:(NSString *)busiAlias BusiCode:(NSString *)busiCode BusiDesc:(NSString *)busiDesc BusiIcon:(NSString *)busiIcon BusiMoney:(NSString *)busiMoney BusiName:(NSString *)busiName IDs:(NSString *)ids IsLeaf:(NSString *)isLeaf IsTopBusi:(NSString *)isTopBusi ParentId:(NSString *)parentId;
 - (void)selectDB;
 - (void)deleteDB;
+- (NSMutableArray*)findByParenttId:(int)parentID;
+- (NSDictionary*)findByBusiName:(NSString *)bName;
+- (NSDictionary*)findById:(int)busiID;
 @end

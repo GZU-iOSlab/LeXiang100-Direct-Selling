@@ -9,7 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "ConnectionAPI.h"
 #import "UIColorForiOS7Colors.h"
+#import "SQLForLeXiang.h"
 @interface DetailViewController : UIViewController<UITextFieldDelegate>{
+    UILabel * descriptionDetailLabel;
+    UILabel * servicesDetailLabel;
 }
-
+@property (nonatomic,strong)NSDictionary * detailService;
 @end

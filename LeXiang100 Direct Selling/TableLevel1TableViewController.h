@@ -10,9 +10,12 @@
 #include "DataBuffer.h"
 #import "TableLevle2TableViewController.h"
 #import "NewCellTableViewCell.h"
+#import "SQLForLeXiang.h"
+
 @interface TableLevel1TableViewController : UITableViewController{
 }
 @property (strong,nonatomic)NSDictionary * dataSource;
+@property (strong,nonatomic)NSMutableArray * dataSources;
 @property (strong,nonatomic)NSMutableArray * keysArray;
 @property (strong,nonatomic)NSMutableArray * tableArray;
 @property (strong,nonatomic)TableLevle2TableViewController * table2View;

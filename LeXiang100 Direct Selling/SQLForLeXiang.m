@@ -132,7 +132,7 @@ extern NSNotificationCenter *nc;
             char *busiMoney = (char*)sqlite3_column_text(statement, 5);
             NSString *nsBusiMoneyStr = [[NSString alloc]initWithUTF8String:busiMoney];
             
-            dic = [[NSDictionary alloc]initWithObjectsAndKeys:nsBusiDescStr,@"busiDesc",nsBusiMoneyStr,@"busiMoney",nil];
+            dic = [[NSDictionary alloc]initWithObjectsAndKeys:nsBusiDescStr,@"busiDesc",nsBusiMoneyStr,@"busiMoney",bName,@"busiName",nil];
         }
         
     }
@@ -141,9 +141,10 @@ extern NSNotificationCenter *nc;
 }
 
 //根据parentid查找
--(NSMutableArray*)findByParentId:(int)parentID {
+-(NSMutableArray*)findByParenttId:(int)parentID {
     NSString *sqlQuery = [NSString stringWithFormat:@"SELECT * FROM BUSIINFO WHERE PARENTID = %d",parentID ];
     NSMutableArray *array = [[NSMutableArray alloc]init];
+    NSDictionary *dic;
     
     NSLog(@"sqlQuery%@", sqlQuery);
     sqlite3_stmt * statement;
@@ -152,10 +153,11 @@ extern NSNotificationCenter *nc;
         while (sqlite3_step(statement) == SQLITE_ROW) {
             ids = sqlite3_column_int(statement, 0);
             
-            NSString * idS = [[NSString alloc]initWithFormat:@"%d",ids];
-            [array addObject:idS];
+            //NSString * idS = [[NSString alloc]initWithFormat:@"%d",ids];
+            dic = [self findById:ids];
+            [array addObject:dic];
         }
-        NSLog(@"%d",[array count]);
+        
         
     }
     return array;

@@ -199,8 +199,8 @@ extern SQLForLeXiang * DB;
         
         data = [[[DataBuffer alloc]init]retain];
         
-        self.tables2 = [[[TableLevle2TableViewController alloc]init]retain];
-        self.tables1 = [[[TableLevel1TableViewController alloc]init]retain];
+        self.tables2 = [[TableLevle2TableViewController alloc]init];
+        self.tables1 = [[TableLevel1TableViewController alloc]init];
         self.tables1.dataSource = data.dataSource;
         self.tables1.keysArray = data.keys;
         self.tables2.dataSource = data.dataSource;
@@ -229,32 +229,59 @@ extern SQLForLeXiang * DB;
         self.tables1.dataSource = data.dataSource;
         self.tables1.keysArray = data.keys;
     }
+    if (self.tables2 != NULL) {
+        self.tables2 = [[TableLevle2TableViewController alloc]init];
+        [self.tables2 release];
+    }
     
      if ([touch view]== imgViewFavourite) {
          [self.navigationController pushViewController:favourite animated:YES];
         NSLog(@"imgViewFavourite");
     }else if([touch view]== imgViewTop){
+        self.tables2.dataSources =  [DB findByParenttId:2];
+        NSLog(@"热点业务count:%d",self.tables2.dataSources.count);
         service = @"热点业务";
         [self.navigationController pushViewController:self.tables2 animated:YES];
         NSLog(@"热点业务 imgViewTop");
     }else if ([touch view]== imgViewPackage){
+        self.tables1.dataSources =  [DB findByParenttId:3];
         service = @"资费套餐";
         [self.navigationController pushViewController:self.tables1 animated:YES];
         NSLog(@"资费套餐 imgViewPackage");
     }else if ([touch view]== imgViewValue) {
+        self.tables1.dataSources =  [DB findByParenttId:4];
         service = @"增值业务";
         [self.navigationController pushViewController:self.tables1 animated:YES];
         NSLog(@"增值业务 imgViewValue");
     }else if([touch view]== imgViewSjb){
-        
+        self.tables2.dataSources =  [DB findByParenttId:5];
+        NSLog(@"count:%d",self.tables2.dataSources.count);
+        service = @"手机报";
+        [self.navigationController pushViewController:self.tables2 animated:YES];
         NSLog(@"手机报 imgViewSjb");
     }else if ([touch view]== imgViewCamp){
+        self.tables2.dataSources =  [DB findByParenttId:6];
+        NSLog(@"count:%d",self.tables2.dataSources.count);
+        service = @"营销活动";
+        [self.navigationController pushViewController:self.tables2 animated:YES];
         NSLog(@"营销活动 imgViewCamp");
     }else if ([touch view]== imgViewFamily) {
+        self.tables2.dataSources =  [DB findByParenttId:7];
+        NSLog(@"count:%d",self.tables2.dataSources.count);
+        service = @"家庭产品";
+        [self.navigationController pushViewController:self.tables2 animated:YES];
         NSLog(@"家庭产品 imgViewFamily");
     }else if([touch view]== imgViewService){
+        self.tables2.dataSources =  [DB findByParenttId:8];
+        NSLog(@"count:%d",self.tables2.dataSources.count);
+        service = @"基础服务";
+        [self.navigationController pushViewController:self.tables2 animated:YES];
         NSLog(@"基础服务 imgViewService");
     }else if ([touch view]== imgViewEnt){
+        self.tables2.dataSources =  [DB findByParenttId:9];
+        NSLog(@"count:%d",self.tables2.dataSources.count);
+        service = @"集团业务";
+        [self.navigationController pushViewController:self.tables2 animated:YES];
         NSLog(@"集团业务 imgViewEnt");
     }else if ([touch view]== imgViewCancel){
         NSLog(@" imgViewCancel");
@@ -273,6 +300,9 @@ extern SQLForLeXiang * DB;
 
 - (void)UesrSearch{
     NSLog(@"Search");
+    connectionAPI * soap = [[connectionAPI alloc]init];
+    [soap BusiInfoWithInterface:@"queryBusiInfo" Parameter1:@"versionTag" Version:@"Public"];
+    [soap release];
 }
 
 - (void)beginSearch{
