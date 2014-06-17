@@ -229,7 +229,7 @@ extern NSMutableDictionary * UserInfo;
 //    }else {
 //        [loginName setString: @""];
 //        [loginName appendString:loginName1];
-//    }
+//    }1111
     NSString * loginName =  [self.UserInfoDic objectForKey:@"name"];
     NSString * token = [self.UserInfoDic objectForKey:@"token"];
     NSLog(@"name:%@  token:%@",loginName,token);
