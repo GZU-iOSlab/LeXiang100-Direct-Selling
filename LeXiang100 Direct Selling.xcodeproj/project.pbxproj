@@ -239,17 +239,25 @@
 			path = "LeXiang100 Direct Selling";
 			sourceTree = "<group>";
 		};
+		56503B17194FE3C700086322 /* MoreLeXiang */ = {
+			isa = PBXGroup;
+			children = (
+				C2FAA905194F36C90075990A /* MoreViewController.h */,
+				C2FAA906194F36C90075990A /* MoreViewController.m */,
+				C2FAA902194F36380075990A /* Helplexiang100ViewController.h */,
+				C2FAA903194F36380075990A /* Helplexiang100ViewController.m */,
+				56AA98CD194851510033D4DD /* AboutLeXiang100ViewController.h */,
+				56AA98CE194851510033D4DD /* AboutLeXiang100ViewController.m */,
+			);
+			name = MoreLeXiang;
+			sourceTree = "<group>";
+		};
 		566A6F091939B07B00A45D1A /* tab */ = {
 			isa = PBXGroup;
 			children = (
-				566A6F0A1939B10000A45D1A /* BusinessRecommendedViewController.h */,
-				566A6F0B1939B10000A45D1A /* BusinessRecommendedViewController.m */,
 				568315B919445E69002FA689 /* businessTab */,
-				566A6F0D1939B11D00A45D1A /* MyLeXiangViewController.h */,
-				566A6F0E1939B11D00A45D1A /* MyLeXiangViewController.m */,
 				56BAC1151945CC7B007DF7B0 /* MyLeXiang */,
-				56AA98CD194851510033D4DD /* AboutLeXiang100ViewController.h */,
-				56AA98CE194851510033D4DD /* AboutLeXiang100ViewController.m */,
+				56503B17194FE3C700086322 /* MoreLeXiang */,
 			);
 			name = tab;
 			sourceTree = "<group>";
@@ -257,6 +265,8 @@
 		568315B919445E69002FA689 /* businessTab */ = {
 			isa = PBXGroup;
 			children = (
+				566A6F0A1939B10000A45D1A /* BusinessRecommendedViewController.h */,
+				566A6F0B1939B10000A45D1A /* BusinessRecommendedViewController.m */,
 				564B359A193A499400D789DE /* FavoriteViewController.h */,
 				564B359B193A499400D789DE /* FavoriteViewController.m */,
 				563B6667193C23CB00D1076F /* TableLevel1TableViewController.h */,
@@ -357,10 +367,8 @@
 		56BAC1151945CC7B007DF7B0 /* MyLeXiang */ = {
 			isa = PBXGroup;
 			children = (
-				C2FAA905194F36C90075990A /* MoreViewController.h */,
-				C2FAA906194F36C90075990A /* MoreViewController.m */,
-				C2FAA902194F36380075990A /* Helplexiang100ViewController.h */,
-				C2FAA903194F36380075990A /* Helplexiang100ViewController.m */,
+				566A6F0D1939B11D00A45D1A /* MyLeXiangViewController.h */,
+				566A6F0E1939B11D00A45D1A /* MyLeXiangViewController.m */,
 				56163D321947084900CB7C2B /* UserTableViewController.h */,
 				56163D331947084900CB7C2B /* UserTableViewController.m */,
 				56163D351947447B00CB7C2B /* BankAccountTableViewController.h */,
