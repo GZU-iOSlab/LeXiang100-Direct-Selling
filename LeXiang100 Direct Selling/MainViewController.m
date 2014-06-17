@@ -51,7 +51,6 @@ extern SQLForLeXiang * DB;
         [swipeLeftGesture release];
         
         
-        
     }
     return self;
 }
@@ -64,6 +63,8 @@ extern SQLForLeXiang * DB;
     UserInfo = [[NSMutableDictionary alloc]init] ;
     nc = [NSNotificationCenter defaultCenter];
     DB = [[SQLForLeXiang alloc]init];
+
+    
 }
 
 + (void)showAlertWithTitle:(NSString *)titles AndMessages:(NSString *)messages{

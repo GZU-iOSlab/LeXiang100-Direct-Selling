@@ -249,6 +249,9 @@ extern SQLForLeXiang * DB;
         
         NSLog(@"手机报 imgViewSjb");
     }else if ([touch view]== imgViewCamp){
+        //DB findByBusiName:<#(NSString *)#>
+        [DB findByBusiName:@"AA"];
+        [DB deleteDB];    
         NSLog(@"营销活动 imgViewCamp");
     }else if ([touch view]== imgViewFamily) {
         NSLog(@"家庭产品 imgViewFamily");

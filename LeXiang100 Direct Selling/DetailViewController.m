@@ -13,6 +13,7 @@
 @end
 
 @implementation DetailViewController
+extern SQLForLeXiang *DB;
 
 #define viewWidth   self.view.frame.size.width
 #define viewHeight  self.view.frame.size.height
@@ -121,6 +122,7 @@
 }
 
 - (void)recommended{
+    [DB deleteDB];
     connectionAPI * soap = [[connectionAPI alloc]init];
     //[soap LoginWithInterface:@"modifyLogin" Parameter1:@"loginPwd" UserName:@"123456" Parameter2:@"opPhone" Password:@"15085921612" ];
     //[soap LoginWithUserName:@"15085921612" Password:@"123456"];
