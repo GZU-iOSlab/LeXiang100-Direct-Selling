@@ -65,6 +65,7 @@
 		56BAC1121945CC72007DF7B0 /* mylx100_bank.png in Resources */ = {isa = PBXBuildFile; fileRef = 56BAC10F1945CC72007DF7B0 /* mylx100_bank.png */; };
 		56BAC1131945CC72007DF7B0 /* mylx100_query_recommend.png in Resources */ = {isa = PBXBuildFile; fileRef = 56BAC1101945CC72007DF7B0 /* mylx100_query_recommend.png */; };
 		56BAC1141945CC72007DF7B0 /* mylx100_userinfo.png in Resources */ = {isa = PBXBuildFile; fileRef = 56BAC1111945CC72007DF7B0 /* mylx100_userinfo.png */; };
+		C29F38DA19507FDE00C619D8 /* UpdateCheckingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C29F38D919507FDE00C619D8 /* UpdateCheckingViewController.m */; };
 		C2FAA904194F36380075990A /* Helplexiang100ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2FAA903194F36380075990A /* Helplexiang100ViewController.m */; };
 		C2FAA907194F36C90075990A /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2FAA906194F36C90075990A /* MoreViewController.m */; };
 /* End PBXBuildFile section */
@@ -162,6 +163,8 @@
 		56BAC10F1945CC72007DF7B0 /* mylx100_bank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mylx100_bank.png; sourceTree = "<group>"; };
 		56BAC1101945CC72007DF7B0 /* mylx100_query_recommend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mylx100_query_recommend.png; sourceTree = "<group>"; };
 		56BAC1111945CC72007DF7B0 /* mylx100_userinfo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mylx100_userinfo.png; sourceTree = "<group>"; };
+		C29F38D819507FDE00C619D8 /* UpdateCheckingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateCheckingViewController.h; sourceTree = "<group>"; };
+		C29F38D919507FDE00C619D8 /* UpdateCheckingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateCheckingViewController.m; sourceTree = "<group>"; };
 		C2FAA902194F36380075990A /* Helplexiang100ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helplexiang100ViewController.h; sourceTree = "<group>"; };
 		C2FAA903194F36380075990A /* Helplexiang100ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Helplexiang100ViewController.m; sourceTree = "<group>"; };
 		C2FAA905194F36C90075990A /* MoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreViewController.h; sourceTree = "<group>"; };
@@ -251,6 +254,8 @@
 		56503B17194FE3C700086322 /* MoreLeXiang */ = {
 			isa = PBXGroup;
 			children = (
+				C29F38D819507FDE00C619D8 /* UpdateCheckingViewController.h */,
+				C29F38D919507FDE00C619D8 /* UpdateCheckingViewController.m */,
 				C2FAA905194F36C90075990A /* MoreViewController.h */,
 				C2FAA906194F36C90075990A /* MoreViewController.m */,
 				C2FAA902194F36380075990A /* Helplexiang100ViewController.h */,
@@ -529,6 +534,7 @@
 				56588B221948B7A7004F17DC /* RecommendedRecordViewController.m in Sources */,
 				56A1AFBC193E228800EB9133 /* ConnectionAPI.m in Sources */,
 				56503B211950325A00086322 /* AddresseBookTableViewController.m in Sources */,
+				C29F38DA19507FDE00C619D8 /* UpdateCheckingViewController.m in Sources */,
 				564C5EF9193830910067160A /* MainViewController.m in Sources */,
 				5651D91B1944158B00597801 /* UIColorForiOS7Colors.m in Sources */,
 				563B666C193C23E100D1076F /* TableLevle2TableViewController.m in Sources */,
