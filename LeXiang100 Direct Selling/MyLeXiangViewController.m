@@ -359,7 +359,8 @@ extern NSMutableDictionary * UserInfo;
     login = NO;
     [self.UserInfoDic release];
     self.UserInfoDic = [[NSMutableDictionary alloc]init];
-    
+    [UserInfo release];
+    UserInfo = [[NSMutableDictionary alloc]init];
     //释放查询页面
     if ( self.RecommendedViewController!=nil) {
         [self.RecommendedViewController release];
