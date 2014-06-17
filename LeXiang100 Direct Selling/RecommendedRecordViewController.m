@@ -274,7 +274,7 @@ extern NSNotificationCenter *nc;
     static NSString * identifier = @"basis-cell";
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (nil == cell) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:identifier];
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
         [cell autorelease];
     }    // Configure the cell...
     NSString * text = [self.tableArray objectAtIndex:indexPath.row];
@@ -282,10 +282,11 @@ extern NSNotificationCenter *nc;
     NSLog(@"text:%@ detailtext:%@",text,detailtext);
     cell.textLabel.text = text;
     cell.textLabel.backgroundColor = [UIColor clearColor];
-    cell.textLabel.font = [UIFont systemFontOfSize:viewHeight/40];
+    cell.textLabel.font = [UIFont systemFontOfSize:viewHeight/35];
     cell.detailTextLabel.text = detailtext;
-    cell.detailTextLabel.font = [UIFont systemFontOfSize:viewHeight/40];
+    cell.detailTextLabel.font = [UIFont systemFontOfSize:viewHeight/35];
     cell.detailTextLabel.backgroundColor = [UIColor clearColor];
+    cell.detailTextLabel.textColor = [UIColor iOS7blueGradientEndColor];
     if ([tableView respondsToSelector:@selector(setSeparatorInset:)]) {
         [tableView setSeparatorInset:UIEdgeInsetsZero];
     }

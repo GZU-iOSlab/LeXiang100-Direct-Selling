@@ -122,15 +122,15 @@
     {
         [self.navigationController pushViewController:helpLeXiang100ViewController animated:YES];
     }
-    else if (indexPath==2)
+    else if (indexPath.row==2)
     {
         
     }
-    else if (indexPath==3)
+    else if (indexPath.row==3)
     {
         
     }
-    else if (indexPath==4)
+    else if (indexPath.row==4)
     {
         
     }
