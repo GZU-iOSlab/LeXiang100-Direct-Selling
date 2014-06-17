@@ -20,6 +20,7 @@ extern connectionAPI * soap;
 extern NSMutableDictionary * UserInfo;
 extern NSNotificationCenter *nc;
 extern SQLForLeXiang * DB;
+extern NSString * phoneNumber;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -63,7 +64,7 @@ extern SQLForLeXiang * DB;
     UserInfo = [[NSMutableDictionary alloc]init] ;
     nc = [NSNotificationCenter defaultCenter];
     DB = [[SQLForLeXiang alloc]init];
-
+    //phoneNumber = [[NSString alloc]init];
     
 }
 

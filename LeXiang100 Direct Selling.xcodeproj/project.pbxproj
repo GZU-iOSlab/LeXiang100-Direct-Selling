@@ -30,6 +30,9 @@
 		564C5EFE193883BE0067160A /* cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 564C5EFD193883BE0067160A /* cancel.png */; };
 		564C5F001938B45F0067160A /* error.png in Resources */ = {isa = PBXBuildFile; fileRef = 564C5EFF1938B45F0067160A /* error.png */; };
 		564C5F041938ECBD0067160A /* search1.png in Resources */ = {isa = PBXBuildFile; fileRef = 564C5F031938ECBD0067160A /* search1.png */; };
+		56503B1A195013A100086322 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56503B18195013A100086322 /* AddressBook.framework */; };
+		56503B1B195013A100086322 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56503B19195013A100086322 /* AddressBookUI.framework */; };
+		56503B211950325A00086322 /* AddresseBookTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56503B201950325A00086322 /* AddresseBookTableViewController.m */; };
 		5651D91B1944158B00597801 /* UIColorForiOS7Colors.m in Sources */ = {isa = PBXBuildFile; fileRef = 5651D91A1944158B00597801 /* UIColorForiOS7Colors.m */; };
 		56588B221948B7A7004F17DC /* RecommendedRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56588B211948B7A7004F17DC /* RecommendedRecordViewController.m */; };
 		566A6F0C1939B10000A45D1A /* BusinessRecommendedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 566A6F0B1939B10000A45D1A /* BusinessRecommendedViewController.m */; };
@@ -112,6 +115,10 @@
 		564C5EFD193883BE0067160A /* cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cancel.png; sourceTree = "<group>"; };
 		564C5EFF1938B45F0067160A /* error.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = error.png; sourceTree = "<group>"; };
 		564C5F031938ECBD0067160A /* search1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search1.png; sourceTree = "<group>"; };
+		56503B18195013A100086322 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/AddressBook.framework; sourceTree = DEVELOPER_DIR; };
+		56503B19195013A100086322 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/AddressBookUI.framework; sourceTree = DEVELOPER_DIR; };
+		56503B1F1950325A00086322 /* AddresseBookTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddresseBookTableViewController.h; sourceTree = "<group>"; };
+		56503B201950325A00086322 /* AddresseBookTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddresseBookTableViewController.m; sourceTree = "<group>"; };
 		5651D9191944158B00597801 /* UIColorForiOS7Colors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIColorForiOS7Colors.h; sourceTree = "<group>"; };
 		5651D91A1944158B00597801 /* UIColorForiOS7Colors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIColorForiOS7Colors.m; sourceTree = "<group>"; };
 		56588B201948B7A7004F17DC /* RecommendedRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendedRecordViewController.h; sourceTree = "<group>"; };
@@ -166,6 +173,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56503B1A195013A100086322 /* AddressBook.framework in Frameworks */,
+				56503B1B195013A100086322 /* AddressBookUI.framework in Frameworks */,
 				564B0322194D6C5600C77DAA /* libsqlite3.dylib in Frameworks */,
 				56AE7812193786B100D5A76D /* CoreGraphics.framework in Frameworks */,
 				56AE7814193786B100D5A76D /* UIKit.framework in Frameworks */,
@@ -275,6 +284,8 @@
 				563B666B193C23E100D1076F /* TableLevle2TableViewController.m */,
 				56B0B8FD193CBB7100F514C5 /* DetailViewController.h */,
 				56B0B8FE193CBB7100F514C5 /* DetailViewController.m */,
+				56503B1F1950325A00086322 /* AddresseBookTableViewController.h */,
+				56503B201950325A00086322 /* AddresseBookTableViewController.m */,
 				564673591940D4D000772067 /* NewCellTableViewCell.h */,
 				5646735A1940D4D000772067 /* NewCellTableViewCell.m */,
 			);
@@ -304,6 +315,8 @@
 		56AE780E193786B100D5A76D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				56503B18195013A100086322 /* AddressBook.framework */,
+				56503B19195013A100086322 /* AddressBookUI.framework */,
 				564B0321194D6C5600C77DAA /* libsqlite3.dylib */,
 				56AE780F193786B100D5A76D /* Foundation.framework */,
 				56AE7811193786B100D5A76D /* CoreGraphics.framework */,
@@ -515,6 +528,7 @@
 				56B0B8FF193CBB7100F514C5 /* DetailViewController.m in Sources */,
 				56588B221948B7A7004F17DC /* RecommendedRecordViewController.m in Sources */,
 				56A1AFBC193E228800EB9133 /* ConnectionAPI.m in Sources */,
+				56503B211950325A00086322 /* AddresseBookTableViewController.m in Sources */,
 				564C5EF9193830910067160A /* MainViewController.m in Sources */,
 				5651D91B1944158B00597801 /* UIColorForiOS7Colors.m in Sources */,
 				563B666C193C23E100D1076F /* TableLevle2TableViewController.m in Sources */,

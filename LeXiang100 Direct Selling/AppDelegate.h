@@ -16,6 +16,8 @@ NSNotificationCenter *nc;
 NSMutableDictionary * UserInfo;
 connectionAPI * soap;
 SQLForLeXiang * DB;
+NSString * phoneNumber;
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>{
     MainViewController * mainViewController;
     //UINavigationController * navigationController;

@@ -10,9 +10,17 @@
 #import "ConnectionAPI.h"
 #import "UIColorForiOS7Colors.h"
 #import "SQLForLeXiang.h"
+#import <AddressBook/AddressBook.h>
+#import <AddressBookUI/AddressBookUI.h>
+#import "AddresseBookTableViewController.h"
 @interface DetailViewController : UIViewController<UITextFieldDelegate>{
     UILabel * descriptionDetailLabel;
     UILabel * servicesDetailLabel;
+    AddresseBookTableViewController * addressBook;
+    UITextField * phoneText;
+//    NSString *firstname;
+//    NSString *lastname;
+//    NSString *phoneNumber;
 }
 @property (nonatomic,strong)NSDictionary * detailService;
 @end

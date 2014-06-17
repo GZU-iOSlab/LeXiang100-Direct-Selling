@@ -325,7 +325,7 @@ extern NSNotificationCenter *nc;
 -(void) parser:(NSXMLParser *) parser didStartElement:(NSString *) elementName namespaceURI:(NSString *) namespaceURI qualifiedName:(NSString *) qName attributes:(NSDictionary *) attributeDict {
     if ([elementName isEqualToString:@"return"]) {    //||[elementName isEqualToString:matchingElement1]
         elementFound = YES;
-    }elementFound = YES;
+    }//elementFound = YES;
 }
 
 // 追加找到的元素值，一个元素值可能要分几次追加
@@ -434,7 +434,7 @@ extern NSNotificationCenter *nc;
         }
     }
     //返回数据为空
-    else if (soapResults.length>5) {
+    else if (soapResults.length<5) {
         [connectionAPI showAlertWithTitle:@"返回数据错误" AndMessages:@"返回数据为空，请检查输入项！"];
         [nc postNotificationName:@"loginFalse" object:self userInfo:d];
     }

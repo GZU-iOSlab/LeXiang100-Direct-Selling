@@ -102,7 +102,7 @@ extern SQLForLeXiang * DB;
         //imgViewSound.frame = CGRectMake(0, 0, viewWidth/20, viewWidth/20);
         messageText.leftView =imgViewSound;
         messageText.leftViewMode =UITextFieldViewModeAlways;
-        
+        //messageText.enabled = NO;
         UIImage * cancelImg = [UIImage imageNamed:@"cancel.png"];
         imgViewCancel = [[UIImageView alloc] initWithImage:cancelImg];
         //imgViewCancel.frame = CGRectMake(viewWidth-viewWidth/20, viewHeight/60, viewWidth/20, viewWidth/20);
@@ -113,6 +113,7 @@ extern SQLForLeXiang * DB;
         [singleTap release];
         messageText.rightView = imgViewCancel;
         messageText.rightViewMode =UITextFieldViewModeAlways;
+        messageText.delegate = self;
         [self.view addSubview:messageText];
         
         searchText = [[UITextField alloc]initWithFrame:CGRectMake(0, -viewHeight/15, viewWidth, viewHeight/15)];
@@ -338,6 +339,9 @@ extern SQLForLeXiang * DB;
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
+    if (textField == messageText) {
+        [messageText resignFirstResponder];
+    }
     NSLog(@"进入编辑模式时调用");
 }
 

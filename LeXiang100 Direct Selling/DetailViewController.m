@@ -14,34 +14,39 @@
 
 @implementation DetailViewController
 extern SQLForLeXiang *DB;
+extern NSString * phoneNumber;
 
 #define viewWidth   self.view.frame.size.width
 #define viewHeight  self.view.frame.size.height
-extern SQLForLeXiang * DB;
 @synthesize detailService;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        // 设置导航栏
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"推荐" style:UIBarButtonItemStyleBordered target:self action:@selector(recommended)];
+        //背景色
         self.view.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
+        //通讯录tableview初始化
+        addressBook = [[AddresseBookTableViewController alloc]init];
+        addressBook.uerInfoArray = [[NSMutableArray alloc]init];
+
+        //背景框
         UITextField * backgroudText = [[UITextField alloc]initWithFrame:CGRectMake(viewWidth/40, viewHeight/60, viewWidth-viewWidth/20, viewHeight-viewHeight/4.8) ];
-        //backgroudText.autoresizingMask = UIViewAutoresizingFlexibleHeight |UIViewAutoresizingFlexibleWidth;
         backgroudText.enabled = NO;
         backgroudText.borderStyle = UITextBorderStyleRoundedRect;
         backgroudText.backgroundColor = [UIColor lightTextColor];
         backgroudText.autoresizesSubviews = YES;
         [self.view addSubview:backgroudText];
         
-        UITextField * phoneText = [[UITextField alloc]initWithFrame:CGRectMake( viewWidth/32+viewWidth/40 , viewHeight/50+viewHeight/60, viewWidth/1.5, viewHeight/18)];
+        phoneText = [[UITextField alloc]initWithFrame:CGRectMake( viewWidth/32+viewWidth/40 , viewHeight/50+viewHeight/60, viewWidth/1.5, viewHeight/18)];
         phoneText.placeholder = @"请输入号码";
         phoneText.font = [UIFont systemFontOfSize:viewHeight/30];
         phoneText.borderStyle = UITextBorderStyleRoundedRect;
         phoneText.backgroundColor = [UIColor whiteColor];
         phoneText.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
-        //phoneText.layer.borderWidth = 1.0;
+        phoneText.clearButtonMode = UITextFieldViewModeWhileEditing;
         phoneText.delegate = self;
         [self.view addSubview:phoneText];
         
@@ -60,9 +65,6 @@ extern SQLForLeXiang * DB;
         
         servicesDetailLabel = [[UILabel alloc]initWithFrame:CGRectMake(viewWidth/32+viewWidth/40, viewHeight/6.5, viewWidth-(viewWidth/16+viewWidth/20), viewHeight/19)];
         //servicesDetailLabel.text = @"全球通88套餐";
-        
-        
-        
         servicesDetailLabel.font = [UIFont systemFontOfSize:viewHeight/35];
         servicesDetailLabel.backgroundColor = [UIColor groupTableViewBackgroundColor];
         [self.view addSubview:servicesDetailLabel];
@@ -73,7 +75,12 @@ extern SQLForLeXiang * DB;
         descriptionLabel.backgroundColor = [UIColor groupTableViewBackgroundColor];
         [self.view addSubview:descriptionLabel];
         
-        
+        descriptionDetailLabel = [[UILabel alloc]initWithFrame:CGRectZero];
+        descriptionDetailLabel.center = CGPointMake(self.view.center.x, self.view.center.y);
+        descriptionDetailLabel.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        descriptionDetailLabel.numberOfLines = 0;
+        descriptionDetailLabel.lineBreakMode = NSLineBreakByCharWrapping;
+        descriptionDetailLabel.backgroundColor = [UIColor clearColor];
         
         //解决ios7界面上移  配色等问题
         if ([[[UIDevice currentDevice]systemVersion]floatValue]>=7) {
@@ -117,22 +124,22 @@ extern SQLForLeXiang * DB;
 
 - (void)viewWillAppear:(BOOL)animated{
     servicesDetailLabel.text = [self.detailService objectForKey:@"busiName"];
-    
 
-    descriptionDetailLabel = [[UILabel alloc]initWithFrame:CGRectZero];
     descriptionDetailLabel.text = [self.detailService objectForKey:@"busiDesc"];
-    descriptionDetailLabel.center = CGPointMake(self.view.center.x, self.view.center.y);
-    descriptionDetailLabel.backgroundColor = [UIColor groupTableViewBackgroundColor];
-    descriptionDetailLabel.numberOfLines = 0;
-    descriptionDetailLabel.lineBreakMode = NSLineBreakByCharWrapping;
-    descriptionDetailLabel.backgroundColor = [UIColor clearColor];
     UIFont *font1 = [UIFont systemFontOfSize:viewHeight/28];
     CGSize size1 = CGSizeMake(viewWidth - viewWidth/10,MAXFLOAT);
     CGSize labelsize1 = [descriptionDetailLabel.text sizeWithFont:font1 constrainedToSize:size1 lineBreakMode:NSLineBreakByWordWrapping];
     descriptionDetailLabel.frame = CGRectMake(viewWidth/32+viewWidth/40, viewHeight/3.0, viewWidth-(viewWidth/16+viewWidth/20), labelsize1.height);
     descriptionDetailLabel.font =font1;
     [self.view addSubview:descriptionDetailLabel];
-    NSLog(@"detail text:%@,DetailLabel:%@,count:%d",[self.detailService objectForKey:@"busiName"],[self.detailService objectForKey:@"busiDesc"],self.detailService.count);
+    
+    if ([phoneNumber rangeOfString:@"1"].length>0||phoneNumber.length>6){
+        phoneText.text = phoneNumber;
+    }else phoneText.text =@"";
+}
+
+- (void)viewDidDisappear:(BOOL)animated{
+    phoneNumber = @"";
 }
 
 - (void)recommended{
@@ -143,7 +150,57 @@ extern SQLForLeXiang * DB;
 }
 
 - (void)linkMan{
+    //获取通讯录权限
+    ABAddressBookRef addressBooks = ABAddressBookCreateWithOptions(NULL, NULL);
+    __block BOOL accessGranted = NO;
+    if (ABAddressBookRequestAccessWithCompletion != NULL) {
+        
+        // we're on iOS 6
+        NSLog(@"on iOS 6 or later, trying to grant access permission");
+        
+        dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+        ABAddressBookRequestAccessWithCompletion(addressBooks, ^(bool granted, CFErrorRef error) {
+            accessGranted = granted;
+            dispatch_semaphore_signal(sema);
+        });
+        dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+        dispatch_release(sema);
+    }
+    CFArrayRef results = ABAddressBookCopyArrayOfAllPeople(addressBooks);
+    for(int i = 0; i < CFArrayGetCount(results); i++){
+        ABRecordRef person = CFArrayGetValueAtIndex(results, i);
+        NSMutableDictionary * dic = [[[NSMutableDictionary alloc]init]autorelease];
+        NSMutableString * str = [[[NSMutableString alloc]init]autorelease];
+        //读取firstname
+        NSString *firstname = (NSString*)ABRecordCopyValue(person, kABPersonFirstNameProperty);
+        if(firstname != nil){
+            [str appendString:firstname];
+            //NSLog(@"firstname:%@",firstname);
+        }
+        //读取lastname
+        NSString *lastname = (NSString*)ABRecordCopyValue(person, kABPersonLastNameProperty);
+        if(lastname != nil){
+            [str appendString:lastname];
+            //NSLog(@"lastname:%@",lastname);
+        }
+        [dic setObject:str forKey:@"name"];
+        
+        //获取的联系人单一属性:Generic phone number
+        ABMultiValueRef tmpPhones = ABRecordCopyValue(person, kABPersonPhoneProperty);
+        NSString * phoneNumber = (NSString *)ABMultiValueCopyValueAtIndex(tmpPhones, 0);
+        if(phoneNumber == NULL) {
+            NSLog(@"continue");
+            continue;
+        }
+       // NSLog(@"phoneNumber:%@",phoneNumber);
+        [dic setObject:phoneNumber forKey:@"phoneNumber"];
+        //[NSDictionary dictionaryWithObjectsAndKeys:firstname,@"firstname", lastname,@"lastname",phoneNumber,@"phoneNumber",nil ];
+        [addressBook.uerInfoArray addObject:dic];
 
+        }
+    
+    [self.navigationController pushViewController:addressBook animated:YES];
+    
 }
 
 #pragma mark textefield delegate
