@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "sqlite3.h"
 @interface SQLForLeXiang : NSObject{
-    sqlite3 * db;
+    sqlite3 * database;
     NSString *database_path;
     NSString * rBusiAlias;
     NSString * rBusiCode;
@@ -23,15 +23,18 @@
     NSString * rID;
 }
 
-- (void)insertDBWithBusiAlias:(NSString *)busiAlias BusiCode:(NSString *)busiCode BusiDesc:(NSString *)busiDesc BusiIcon:(NSString *)busiIcon BusiMoney:(NSString *)busiMoney BusiName:(NSString *)busiName IDs:(NSString *)ids IsLeaf:(NSString *)isLeaf IsTopBusi:(NSString *)isTopBusi ParentId:(NSString *)parentId;
-- (void)selectDB;
-- (void)deleteDB;
-
+- (BOOL)insertDBWithBusiAlias:(NSString *)busiAlias BusiCode:(NSString *)busiCode BusiDesc:(NSString *)busiDesc BusiIcon:(NSString *)busiIcon BusiMoney:(NSString *)busiMoney BusiName:(NSString *)busiName IDs:(NSString *)ids IsLeaf:(NSString *)isLeaf IsTopBusi:(NSString *)isTopBusi ParentId:(NSString *)parentId;
+//- (void)selectDB;
+- (BOOL)deleteDB;
+- (BOOL)openDB;
+- (BOOL) createTable:(sqlite3*)db;
 -(NSDictionary*)findByBusiName:(NSString *)bName;
--(NSMutableArray*)findByParentId:(int)parentID;
--(NSDictionary*)findById:(int)busiID ;
--(NSDictionary *)findBybusiCode:(NSString *)busiCode;
+-(NSMutableArray*)findByFuzzyBusiName:(NSString *)bName;
+-(NSMutableArray*)findByIsTopbusi;
+ -findByParentId:(NSString*)parentID;
+-(NSDictionary*)findById:(NSString *)ids;
+-(NSDictionary *)findBybusiCode:(NSString *)bCode;
 -(int)numOfRecords;
--(void)openDB;
+
 
 @end

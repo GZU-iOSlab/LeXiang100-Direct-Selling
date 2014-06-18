@@ -454,7 +454,10 @@ extern NSNotificationCenter *nc;
         [connectionAPI showAlertWithTitle:@"返回数据错误" AndMessages:@"返回数据为空，请检查输入项！"];
         [nc postNotificationName:@"loginFalse" object:self userInfo:d];
     }
-
+    //如果显示alert   取消
+    if (alerts.visible == YES) {
+        [self dimissAlert:alerts];
+    }
     
     elementFound = FALSE;
     // 强制放弃解析

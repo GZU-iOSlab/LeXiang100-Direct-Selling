@@ -135,7 +135,7 @@ extern SQLForLeXiang * DB;
     if ([self.tableview respondsToSelector:@selector(setSeparatorInset:)]) {
         [self.tableview setSeparatorInset:UIEdgeInsetsZero];
     }
-    UIImage * image = [UIImage imageNamed:@"Folder.png"];
+    UIImage * image = [UIImage imageNamed:@"folder.png"];
     cell.imageView.image = image;
     
     //设置长按响应
@@ -146,6 +146,11 @@ extern SQLForLeXiang * DB;
 
 - (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath{
     pressedCell =  indexPath.row;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if ([[[UIDevice currentDevice]systemVersion]floatValue]>=7) return 10;
+    else    return 30;
 }
 
 - (void)longPress:(UILongPressGestureRecognizer *)recognizer {

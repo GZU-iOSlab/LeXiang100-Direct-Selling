@@ -243,28 +243,31 @@ extern connectionAPI * soap;
          [self.navigationController pushViewController:favourite animated:YES];
         NSLog(@"imgViewFavourite");
     }else if([touch view]== imgViewTop){
-        NSArray * readArray = [self readFileArray];
+//        NSArray * readArray = [self readFileArray];
+//        NSMutableArray * dataArray =[[[NSMutableArray alloc]init]autorelease];
+//        for (NSDictionary * dic in readArray) {
+//            NSDictionary * dics =[DB findBybusiCode:[dic objectForKey:@"busiCode"]];
+//            [dataArray addObject: dics];
+//        }
         NSMutableArray * dataArray =[[[NSMutableArray alloc]init]autorelease];
-        for (NSDictionary * dic in readArray) {
-            [dataArray addObject: [DB findBybusiCode:[dic objectForKey:@"busiCode"]]];
-        }
+        [dataArray setArray:[DB findByIsTopbusi]];
         self.tables2.dataSources =  dataArray;
         NSLog(@"热点业务count:%d",self.tables2.dataSources.count);
         service = @"热点业务";
         [self.navigationController pushViewController:self.tables2 animated:YES];
         NSLog(@"热点业务 imgViewTop");
     }else if ([touch view]== imgViewPackage){
-        self.tables1.dataSources =  [DB findByParentId:3];
+        self.tables1.dataSources =  [DB findByParentId:@"3"];
         service = @"资费套餐";
         [self.navigationController pushViewController:self.tables1 animated:YES];
         NSLog(@"资费套餐 imgViewPackage");
     }else if ([touch view]== imgViewValue) {
-        self.tables1.dataSources =  [DB findByParentId:4];
+        self.tables1.dataSources =  [DB findByParentId:@"4"];
         service = @"增值业务";
         [self.navigationController pushViewController:self.tables1 animated:YES];
         NSLog(@"增值业务 imgViewValue");
     }else if([touch view]== imgViewSjb){
-        self.tables2.dataSources =  [DB findByParentId:5];
+        self.tables2.dataSources =  [DB findByParentId:@"5"];
         NSLog(@"count:%d",self.tables2.dataSources.count);
         service = @"手机报";
         [self.navigationController pushViewController:self.tables2 animated:YES];
@@ -272,26 +275,26 @@ extern connectionAPI * soap;
     }else if ([touch view]== imgViewCamp){
 
 
-        self.tables2.dataSources =  [DB findByParentId:6];
+        self.tables2.dataSources =  [DB findByParentId:@"6"];
         NSLog(@"count:%d",self.tables2.dataSources.count);
         service = @"营销活动";
         [self.navigationController pushViewController:self.tables2 animated:YES];
 
         NSLog(@"营销活动 imgViewCamp");
     }else if ([touch view]== imgViewFamily) {
-        self.tables2.dataSources =  [DB findByParentId:7];
+        self.tables2.dataSources =  [DB findByParentId:@"7"];
         NSLog(@"count:%d",self.tables2.dataSources.count);
         service = @"家庭产品";
         [self.navigationController pushViewController:self.tables2 animated:YES];
         NSLog(@"家庭产品 imgViewFamily");
     }else if([touch view]== imgViewService){
-        self.tables2.dataSources =  [DB findByParentId:8];
+        self.tables2.dataSources =  [DB findByParentId:@"8"];
         NSLog(@"count:%d",self.tables2.dataSources.count);
         service = @"基础服务";
         [self.navigationController pushViewController:self.tables2 animated:YES];
         NSLog(@"基础服务 imgViewService");
     }else if ([touch view]== imgViewEnt){
-        self.tables2.dataSources =  [DB findByParentId:9];
+        self.tables2.dataSources =  [DB findByParentId:@"9"];
         NSLog(@"count:%d",self.tables2.dataSources.count);
         service = @"集团业务";
         [self.navigationController pushViewController:self.tables2 animated:YES];
@@ -338,6 +341,7 @@ extern connectionAPI * soap;
 #pragma mark UesrSearch
 - (void)UesrSearch{
     NSLog(@"Search");
+    [DB deleteDB];
     [soap BusiInfoWithInterface:@"queryBusiInfo" Parameter1:@"versionTag" Version:@"Public"];
     [soap release];
 }

@@ -128,7 +128,7 @@ extern SQLForLeXiang * DB;
         NSString * ids =[[self.dataSources objectAtIndex:indexPath.row]objectForKey:@"id"];
         NSLog(@"ids:%d",[ids intValue]);
         service =[[self.dataSources objectAtIndex:indexPath.row]objectForKey:@"busiName"];
-        self.table2View.dataSources = [DB findByParentId:[ids intValue]];
+        self.table2View.dataSources = [DB findByParentId:ids];
         NSLog(@"%d",self.table2View.dataSources.count);
     }
     [self.navigationController pushViewController:self.table2View animated:YES];
