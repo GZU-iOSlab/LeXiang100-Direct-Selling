@@ -229,14 +229,14 @@ extern connectionAPI * soap;
     UITouch *touch = [touches anyObject];
     
     if (self.tables1 != NULL) {
-        [self.tables1 release];
-        self.tables1 = [[TableLevel1TableViewController alloc]init];
+        //[self.tables1 release];
+        self.tables1 = [[[TableLevel1TableViewController alloc]init]autorelease];
         self.tables1.dataSource = data.dataSource;
         self.tables1.keysArray = data.keys;
     }
     if (self.tables2 != NULL) {
-        self.tables2 = [[TableLevle2TableViewController alloc]init];
-        [self.tables2 release];
+        self.tables2 = [[[TableLevle2TableViewController alloc]init]autorelease];
+        //[self.tables2 release];
     }
     
      if ([touch view]== imgViewFavourite) {

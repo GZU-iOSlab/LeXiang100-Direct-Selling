@@ -290,22 +290,13 @@ extern NSMutableDictionary * UserInfo;
     }else if ([loginPasswordText.text  isEqual: @""]){
         [self showAlertWithTitle:nil AndMessages:@"密码不能为空"];
     }else{
-    [soap LoginWithInterface:@"modifyLogin" Parameter1:@"loginPwd" UserName:loginPasswordText.text Parameter2:@"opPhone" Password:loginNameText.text ];
-//        if ([loginActivityIndicator isAnimating]) {
-//            [loginActivityIndicator stopAnimating];
-//        }
-//        [loginActivityIndicator startAnimating];
+        [soap LoginWithInterface:@"modifyLogin" Parameter1:@"loginPwd" UserName:loginPasswordText.text Parameter2:@"opPhone" Password:loginNameText.text ];
         [loginNameText resignFirstResponder];
         [loginPasswordText resignFirstResponder];
     }
-    //[self showAlerView];
 }
 
 - (void)loginFeedback:(NSNotification *)note{
-//    if ([loginActivityIndicator isAnimating]) {
-//        [loginActivityIndicator stopAnimating];
-//    }
-    //[self dimissAlert:alerts];
     
     [self.UserInfoDic setDictionary:[[note userInfo] objectForKey:@"1"]];
     login = YES;
@@ -326,6 +317,7 @@ extern NSMutableDictionary * UserInfo;
     if ([loginNameText.text isEqualToString:@"123"])  {
         [self.UserInfoDic setObject:@"15285987576" forKey:@"name"];
     }
+    
     UserInfo = self.UserInfoDic;
     NSLog(@"name:%@",[self.UserInfoDic objectForKey:@"name"]);
     
@@ -359,8 +351,8 @@ extern NSMutableDictionary * UserInfo;
     
     self.navigationItem.rightBarButtonItem.enabled = NO;
     login = NO;
-    [self.UserInfoDic release];
-    self.UserInfoDic = [[NSMutableDictionary alloc]init];
+    //[self.UserInfoDic release];
+    self.UserInfoDic = [[[NSMutableDictionary alloc]init]autorelease];
     //[UserInfo release];
     UserInfo = [[[NSMutableDictionary alloc]init]autorelease];
     //释放查询页面

@@ -26,28 +26,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LeXiang100 Direct Selling/ConnectionAPI.m"
-            timestampString = "424792495.009961"
+            timestampString = "424795223.40373"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "401"
-            endingLineNumber = "401"
-            landmarkName = "-parser:didEndElement:namespaceURI:qualifiedName:"
+            startingLineNumber = "479"
+            endingLineNumber = "479"
+            landmarkName = "-parserDidEndDocument:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LeXiang100 Direct Selling/ConnectionAPI.m"
-            timestampString = "424792451.489097"
+            timestampString = "424794924.711701"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "347"
-            endingLineNumber = "347"
-            landmarkName = "-parser:foundCharacters:"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
+            landmarkName = "-LoginWithInterface:Parameter1:UserName:Parameter2:Password:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

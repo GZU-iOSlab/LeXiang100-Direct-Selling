@@ -162,18 +162,25 @@ extern NSNotificationCenter *nc;
 - (void)LoginWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 UserName:(NSString *)NewUsername Parameter2:(NSString *)parameter2 Password:(NSString *)NewPassword ;
 {
     [self getSoapFromInterface:interface Parameter1:parameter1 Value1:NewUsername Parameter2:parameter2 Value2:NewPassword];
+    [self showAlerView];
 }
 
 - (void)BusiInfoWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 Version:(NSString *)version{
     [self getSoapFromInterface:interface Parameter1:parameter1 Value1:version];
+    [self showAlerView];
+
 }
 
 - (void)UserInfoWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 Name:(NSString *)name Parameter2:(NSString *)parameter2 Token:(NSString *)token {
     [self getSoapFromInterface:interface Parameter1:parameter1 Value1:name Parameter2:parameter2 Value2:token];
+    [self showAlerView];
+
 }
 
 - (void)BankAccountWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 Name:(NSString *)name Parameter2:(NSString *)parameter2 Token:(NSString *)token{
     [self getSoapFromInterface:interface Parameter1:parameter1 Value1:name Parameter2:parameter2 Value2:token];
+    [self showAlerView];
+
 }
 
 - (void)RecommendedRecordWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 Name:(NSString *)name Parameter2:(NSString *)parameter2 StartMonth:(NSString *)startmonth Parameter3:(NSString *)parameter3 EndMonth:(NSString *)endmonth Parameter4:(NSString *)parameter4 Token:(NSString *)token{
@@ -399,7 +406,7 @@ extern NSNotificationCenter *nc;
     if([getXMLResults rangeOfString:@"modifyLoginResponse"].length>0 ){
         if ([soapResults rangeOfString:@":0,"].length>0) {
             [nc postNotificationName:@"loginResponse" object:self userInfo:d];
-            [self showAlerView];
+            
         }else if([soapResults rangeOfString:@":1,"].length>0){
             [connectionAPI showAlertWithTitle:@"登录失败" AndMessages:@"账号或密码错误！"];
             [nc postNotificationName:@"loginFalse" object:self userInfo:d];
@@ -472,6 +479,7 @@ extern NSNotificationCenter *nc;
     if (soapResults) {
         soapResults = nil;
     }
+    
 }
 
 // 出错时，例如强制结束解析
@@ -488,11 +496,11 @@ extern NSNotificationCenter *nc;
 }
 
 - (void)showAlerView{
-    alerts = [[UIAlertView alloc]initWithTitle:@"连接中"
+    alerts = [[[UIAlertView alloc]initWithTitle:@"连接中"
                                        message:nil
                                       delegate:nil
                              cancelButtonTitle:nil
-                             otherButtonTitles:nil];
+                             otherButtonTitles:nil]autorelease];
 //    alerts.frame = CGRectMake(0, 0, viewWidth/1.5, viewHeight/5);
 //    alerts.center = CGPointMake(0, viewHeight/2);
     [alerts show];
@@ -502,7 +510,7 @@ extern NSNotificationCenter *nc;
     alerts.delegate = self;
     [alerts addSubview:activeView];
     [activeView release];
-    [alerts release];
+    //[alerts release];
 }
 
 - (void) dimissAlert:(UIAlertView *)alert
