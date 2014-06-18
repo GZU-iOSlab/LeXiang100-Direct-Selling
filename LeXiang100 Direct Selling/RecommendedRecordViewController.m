@@ -124,6 +124,7 @@ extern NSNotificationCenter *nc;
             backgroudText.frame = CGRectMake(viewWidth/40, viewHeight/60, viewWidth-viewWidth/20, viewHeight/2-viewHeight/6);
             self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
         }
+        //ipad
         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
             backgroudText.frame = CGRectMake(viewWidth/40, viewHeight/60, viewWidth-viewWidth/20, viewHeight/2-viewHeight/6);//ios6    iPad
             //datePicker.frame =CGRectMake(0, viewHeight/2, viewWidth, viewHeight/2);

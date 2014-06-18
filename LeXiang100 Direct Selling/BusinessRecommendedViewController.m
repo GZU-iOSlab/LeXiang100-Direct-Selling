@@ -20,6 +20,7 @@ extern NSString * service;
 extern DataBuffer * data;
 extern Boolean login;
 extern SQLForLeXiang * DB;
+extern connectionAPI * soap;
 
 #define iOS7  ([[[UIDevice currentDevice]systemVersion] floatValue] >= 7.0)?YES:NO
 #define isPad (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)?YES:NO
@@ -304,7 +305,6 @@ extern SQLForLeXiang * DB;
 
 - (void)UesrSearch{
     NSLog(@"Search");
-    connectionAPI * soap = [[connectionAPI alloc]init];
     [soap BusiInfoWithInterface:@"queryBusiInfo" Parameter1:@"versionTag" Version:@"Public"];
     [soap release];
 }

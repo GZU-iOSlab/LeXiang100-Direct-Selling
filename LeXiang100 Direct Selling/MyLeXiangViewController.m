@@ -233,7 +233,7 @@ extern NSMutableDictionary * UserInfo;
     NSString * loginName =  [self.UserInfoDic objectForKey:@"name"];
     NSString * token = [self.UserInfoDic objectForKey:@"token"];
     NSLog(@"name:%@  token:%@",loginName,token);
-    [soap BackAccountWithInterface:@"queryBankInfo" Parameter1:@"opPhone" Name:loginName Parameter2:@"token" Token:token];
+    [soap BankAccountWithInterface:@"queryBankInfo" Parameter1:@"opPhone" Name:loginName Parameter2:@"token" Token:token];
     self.view.userInteractionEnabled = NO;
 
 }
@@ -299,14 +299,14 @@ extern NSMutableDictionary * UserInfo;
         [loginNameText resignFirstResponder];
         [loginPasswordText resignFirstResponder];
     }
-    [self showAlerView];
+    //[self showAlerView];
 }
 
 - (void)loginFeedback:(NSNotification *)note{
 //    if ([loginActivityIndicator isAnimating]) {
 //        [loginActivityIndicator stopAnimating];
 //    }
-    [self dimissAlert:alerts];
+    //[self dimissAlert:alerts];
     
     [self.UserInfoDic setDictionary:[[note userInfo] objectForKey:@"1"]];
     login = YES;
@@ -409,31 +409,31 @@ extern NSMutableDictionary * UserInfo;
     [alert show];
 }
 
-- (void)showAlerView{
-    alerts = [[UIAlertView alloc]initWithTitle:@"连接中"
-                                                  message:nil
-                                                 delegate:nil
-                                        cancelButtonTitle:nil
-                                        otherButtonTitles:nil];
-    alerts.frame = CGRectMake(0, 0, viewWidth/1.5, viewHeight/5);
-    alerts.center = CGPointMake(0, viewHeight/2);
-    [alerts show];
-    UIActivityIndicatorView*activeView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    activeView.center = CGPointMake(alerts.bounds.size.width/2.0f, alerts.bounds.size.height-40.0f);
-    [activeView startAnimating];
-    //alerts.delegate = self;
-    [alerts addSubview:activeView];
-    [activeView release];
-    [alerts release];
-}
-
-- (void) dimissAlert:(UIAlertView *)alert
-{
-    if(alerts)
-    {
-        [alerts dismissWithClickedButtonIndex:[alert cancelButtonIndex]animated:YES];
-    }
-}
+//- (void)showAlerView{
+//    alerts = [[UIAlertView alloc]initWithTitle:@"连接中"
+//                                                  message:nil
+//                                                 delegate:nil
+//                                        cancelButtonTitle:nil
+//                                        otherButtonTitles:nil];
+//    alerts.frame = CGRectMake(0, 0, viewWidth/1.5, viewHeight/5);
+//    alerts.center = CGPointMake(0, viewHeight/2);
+//    [alerts show];
+//    UIActivityIndicatorView*activeView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+//    activeView.center = CGPointMake(alerts.bounds.size.width/2.0f, alerts.bounds.size.height-40.0f);
+//    [activeView startAnimating];
+//    //alerts.delegate = self;
+//    [alerts addSubview:activeView];
+//    [activeView release];
+//    [alerts release];
+//}
+//
+//- (void) dimissAlert:(UIAlertView *)alert
+//{
+//    if(alerts)
+//    {
+//        [alerts dismissWithClickedButtonIndex:[alert cancelButtonIndex]animated:YES];
+//    }
+//}
 
 - (void)stopIndicator{
 //    if ([loginActivityIndicator isAnimating]) {
@@ -441,7 +441,7 @@ extern NSMutableDictionary * UserInfo;
 //    }
     self.view.userInteractionEnabled = YES;
     
-    [self dimissAlert:alerts];
+    //[self dimissAlert:alerts];
 }
 
 - (void)didReceiveMemoryWarning

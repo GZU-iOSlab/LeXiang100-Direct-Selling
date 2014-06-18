@@ -14,6 +14,7 @@
 		563B6666193C183900D1076F /* DataBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 563B6665193C183900D1076F /* DataBuffer.m */; };
 		563B6669193C23CB00D1076F /* TableLevel1TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 563B6668193C23CB00D1076F /* TableLevel1TableViewController.m */; };
 		563B666C193C23E100D1076F /* TableLevle2TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 563B666B193C23E100D1076F /* TableLevle2TableViewController.m */; };
+		5642E34D19511E9100C0AF79 /* ic_launcher.png in Resources */ = {isa = PBXBuildFile; fileRef = 5642E34C19511E9100C0AF79 /* ic_launcher.png */; };
 		564673581940C84E00772067 /* Folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 564673571940C84E00772067 /* Folder.png */; };
 		5646735B1940D4D000772067 /* NewCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5646735A1940D4D000772067 /* NewCellTableViewCell.m */; };
 		564B0320194D607200C77DAA /* SQLForLeXiang.m in Sources */ = {isa = PBXBuildFile; fileRef = 564B031F194D607200C77DAA /* SQLForLeXiang.m */; };
@@ -96,6 +97,7 @@
 		563B6668193C23CB00D1076F /* TableLevel1TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableLevel1TableViewController.m; sourceTree = "<group>"; };
 		563B666A193C23E100D1076F /* TableLevle2TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableLevle2TableViewController.h; sourceTree = "<group>"; };
 		563B666B193C23E100D1076F /* TableLevle2TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableLevle2TableViewController.m; sourceTree = "<group>"; };
+		5642E34C19511E9100C0AF79 /* ic_launcher.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_launcher.png; sourceTree = "<group>"; };
 		564673571940C84E00772067 /* Folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Folder.png; sourceTree = "<group>"; };
 		564673591940D4D000772067 /* NewCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewCellTableViewCell.h; sourceTree = "<group>"; };
 		5646735A1940D4D000772067 /* NewCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewCellTableViewCell.m; sourceTree = "<group>"; };
@@ -224,6 +226,7 @@
 			children = (
 				564C5F031938ECBD0067160A /* search1.png */,
 				564673571940C84E00772067 /* Folder.png */,
+				5642E34C19511E9100C0AF79 /* ic_launcher.png */,
 				56BAC10F1945CC72007DF7B0 /* mylx100_bank.png */,
 				56BAC1101945CC72007DF7B0 /* mylx100_query_recommend.png */,
 				56BAC1111945CC72007DF7B0 /* mylx100_userinfo.png */,
@@ -254,14 +257,14 @@
 		56503B17194FE3C700086322 /* MoreLeXiang */ = {
 			isa = PBXGroup;
 			children = (
-				C29F38D819507FDE00C619D8 /* UpdateCheckingViewController.h */,
-				C29F38D919507FDE00C619D8 /* UpdateCheckingViewController.m */,
 				C2FAA905194F36C90075990A /* MoreViewController.h */,
 				C2FAA906194F36C90075990A /* MoreViewController.m */,
 				C2FAA902194F36380075990A /* Helplexiang100ViewController.h */,
 				C2FAA903194F36380075990A /* Helplexiang100ViewController.m */,
 				56AA98CD194851510033D4DD /* AboutLeXiang100ViewController.h */,
 				56AA98CE194851510033D4DD /* AboutLeXiang100ViewController.m */,
+				C29F38D819507FDE00C619D8 /* UpdateCheckingViewController.h */,
+				C29F38D919507FDE00C619D8 /* UpdateCheckingViewController.m */,
 			);
 			name = MoreLeXiang;
 			sourceTree = "<group>";
@@ -494,6 +497,7 @@
 				564B3596193A106000D789DE /* more1.png in Resources */,
 				564C5EFC19387F5D0067160A /* sound.png in Resources */,
 				564C5F041938ECBD0067160A /* search1.png in Resources */,
+				5642E34D19511E9100C0AF79 /* ic_launcher.png in Resources */,
 				568315C919446783002FA689 /* busi_package.png in Resources */,
 				56AE7822193786B100D5A76D /* Images.xcassets in Resources */,
 				564C5EFE193883BE0067160A /* cancel.png in Resources */,

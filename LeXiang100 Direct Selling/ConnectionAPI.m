@@ -171,7 +171,7 @@ extern NSNotificationCenter *nc;
     [self getSoapFromInterface:interface Parameter1:parameter1 Value1:name Parameter2:parameter2 Value2:token];
 }
 
-- (void)BackAccountWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 Name:(NSString *)name Parameter2:(NSString *)parameter2 Token:(NSString *)token{
+- (void)BankAccountWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 Name:(NSString *)name Parameter2:(NSString *)parameter2 Token:(NSString *)token{
     [self getSoapFromInterface:interface Parameter1:parameter1 Value1:name Parameter2:parameter2 Value2:token];
 }
 
@@ -179,6 +179,11 @@ extern NSNotificationCenter *nc;
     [self getSoapForInterface:interface Parameter1:parameter1 Value1:name Parameter2:parameter2 Value2:startmonth Parameter3:parameter3 Value3:endmonth Parameter4:parameter4 Value4:token];
     [self showAlerView];
     
+}
+
+- (void)HotServiceWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 Version:(NSString *)version{
+    [self getSoapFromInterface:interface Parameter1:parameter1 Value1:version];
+    [self showAlerView];
 }
 
 - (void)LoginWithUserName:(NSString *)NewUsername Password:(NSString *)NewPassword{
@@ -339,6 +344,11 @@ extern NSNotificationCenter *nc;
         
         NSData *aData = [soapResults dataUsingEncoding: NSUTF8StringEncoding];
         resultDic = [NSJSONSerialization JSONObjectWithData:aData options:NSJSONReadingMutableContainers error:nil];
+        
+        //如果显示alert   取消
+        if (alerts.visible == YES) {
+            [self dimissAlert:alerts];
+        }
         //NSLog(@"stringfor:%@", [[resultArray objectAtIndex:0]objectForKey:@"busiName"]);
         
 //        if ([resultDic isKindOfClass:[NSArray class]]) {
@@ -388,6 +398,7 @@ extern NSNotificationCenter *nc;
     if([getXMLResults rangeOfString:@"modifyLoginResponse"].length>0 ){
         if ([soapResults rangeOfString:@":0,"].length>0) {
             [nc postNotificationName:@"loginResponse" object:self userInfo:d];
+            [self showAlerView];
         }else if([soapResults rangeOfString:@":1,"].length>0){
             [connectionAPI showAlertWithTitle:@"登录失败" AndMessages:@"账号或密码错误！"];
             [nc postNotificationName:@"loginFalse" object:self userInfo:d];
@@ -416,10 +427,8 @@ extern NSNotificationCenter *nc;
         if (!([soapResults rangeOfString:@"months"].length>0&&[soapResults rangeOfString:@"totalRecommend"].length>0)) {
             [connectionAPI showAlertWithTitle:@"没有推荐记录" AndMessages:@"在您查询的时间区间内没有推荐记录，请重新选择！"];
             //[nc postNotificationName:@"loginFalse" object:self userInfo:d];
-            [self dimissAlert:alerts];
         }else {
             [nc postNotificationName:@"queryRecommendRecordsResponse" object:self userInfo:d];
-            [self dimissAlert:alerts];
         }
     }
     //业务数据返回
@@ -438,7 +447,7 @@ extern NSNotificationCenter *nc;
         [connectionAPI showAlertWithTitle:@"返回数据错误" AndMessages:@"返回数据为空，请检查输入项！"];
         [nc postNotificationName:@"loginFalse" object:self userInfo:d];
     }
-    
+
     
     elementFound = FALSE;
     // 强制放弃解析
