@@ -34,6 +34,7 @@ extern SQLForLeXiang * DB;
         //self.dataSource = data.dataSource;
         //self.keysArray = data.keys;
         self.table2View = [[TableLevle2TableViewController alloc]init];
+
 //        self.table2View.dataSource = data.dataSource;
 //        self.table2View.keysArray = data.keys;
         //self.tableArray = [self.dataSource objectForKey:service];
@@ -99,6 +100,7 @@ extern SQLForLeXiang * DB;
     }
     UIImage * image = [UIImage imageNamed:@"Folder.png"];
     cell.imageView.image = image;
+    
     return cell;
 }
 
@@ -131,6 +133,110 @@ extern SQLForLeXiang * DB;
     }
     [self.navigationController pushViewController:self.table2View animated:YES];
 }
+
+//- (void)showMenu:(id)cell
+//{
+//    [cell becomeFirstResponder];
+//    UIMenuController * menu = [UIMenuController sharedMenuController];
+//    [menu setTargetRect: [cell frame] inView: [self view]];
+//    [menu setMenuVisible: YES animated: YES];
+//    NSLog(@"???");
+//}
+
+
+
+
+////允许长按菜单
+//- (BOOL)tableView:(UITableView *)tableView shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath{
+//    NSLog(@"string11");
+//    return YES;
+//}
+//
+////允许每一个Action
+//-(BOOL)tableView:(UITableView *)tableView canPerformAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender{
+//    NSLog(@"%@",NSStringFromSelector(action));
+//    
+//    return YES;
+//}
+////对一个给定的行告诉代表执行复制或粘贴操作内容,
+//-(void)tableView:(UITableView *)tableView performAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender{
+//    if (action==@selector(copy:)) {//如果操作为复制
+//        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+//        UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];//黏贴板
+//        [pasteBoard setString:cell.textLabel.text];
+//        NSLog(@"%@",pasteBoard.string);//获得剪贴板的内容
+//        //return YES;
+//    }
+//    //return NO;
+//}
+
+
+//- (void)longPress:(UILongPressGestureRecognizer *)recognizer {
+//    if (recognizer.state == UIGestureRecognizerStateBegan) {
+//        TSTableViewCell *cell = (TSTableViewCell *)recognizer.view;
+//        [cell becomeFirstResponder];
+//
+//        UIMenuItem *flag = [[UIMenuItem alloc] initWithTitle:@"Flag"action:@selector(flag:)];
+//        UIMenuItem *approve = [[UIMenuItem alloc] initWithTitle:@"Approve"action:@selector(approve:)];
+//        UIMenuItem *deny = [[UIMenuItem alloc] initWithTitle:@"Deny"action:@selector(deny:)];
+//
+//        UIMenuController *menu = [UIMenuController sharedMenuController];
+//        [menu setMenuItems:[NSArray arrayWithObjects:flag, approve, deny, nil]];
+//        [menu setTargetRect:cell.frame inView:cell.superview];
+//        [menu setMenuVisible:YES animated:YES];
+//    }
+//}
+//
+//- (void)flag:(id)sender {
+//    NSLog(@"Cell was flagged");
+//}
+//
+//- (void)approve:(id)sender {
+//    NSLog(@"Cell was approved");
+//}
+//
+//- (void)deny:(id)sender {
+//    NSLog(@"Cell was denied");
+//}
+
+//- (void)cellLongPress:(UIGestureRecognizer *)recognizer{
+//    if (recognizer.state == UIGestureRecognizerStateBegan) {
+//        CGPoint location = [recognizer locationInView:self];
+//        NSIndexPath * indexPath = [self indexPathForRowAtPoint:location];
+//        UIMyTableViewCell *cell = (UIMyTableViewCell *)recognizer.view;
+//        　　　　　//这里把cell做为第一响应(cell默认是无法成为responder,需要重写canBecomeFirstResponder方法)
+//        [cell becomeFirstResponder];
+//        
+//        UIMenuItem *itCopy = [[UIMenuItem alloc] initWithTitle:@"复制" action:@selector(handleCopyCell:)];
+//        UIMenuItem *itDelete = [[UIMenuItem alloc] initWithTitle:@"删除" action:@selector(handleDeleteCell:)];
+//        UIMenuController *menu = [UIMenuController sharedMenuController];
+//        [menu setMenuItems:[NSArray arrayWithObjects:itCopy, itDelete,  nil]];
+//        [menu setTargetRect:cell.frame inView:self];
+//        [menu setMenuVisible:YES animated:YES];
+//        
+//        [itCopy release];
+//        [itDelete release];
+//    }
+//}
+//-(void)tableviewCellLongPressed:(UILongPressGestureRecognizer *)gestureRecognizer{
+//    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+//        NSLog(@"UIGestureRecognizerStateBegan");
+//        CGPoint ponit=[gestureRecognizer locationInView:self.tableView];
+//        NSLog(@" CGPoint ponit=%f %f",ponit.x,ponit.y);
+//        NSIndexPath* path=[self.tableView indexPathForRowAtPoint:ponit];
+//        NSLog(@"row:%d",path.row);
+//        currRow=path.row;
+//    }else if(gestureRecognizer.state == UIGestureRecognizerStateEnded)
+//    {
+//        //未用
+//    }
+//    else if(gestureRecognizer.state == UIGestureRecognizerStateChanged)
+//    {
+//        //未用
+//    }
+//    
+//    
+//}
 
 
 /*

@@ -32,6 +32,7 @@ extern SQLForLeXiang * DB;
         //DataBuffer * data = [[DataBuffer alloc]init];
         self.dataSource = data.dataSource;
         self.keysArray = data.keys;
+        alert = [[UIAlertView alloc] initWithTitle:@"请选择操作"message:nil delegate:self cancelButtonTitle:@"关闭" otherButtonTitles:@"添加到收藏夹",@"查看业务介绍",@"推荐办理业务", nil];
         //self.detailView = [[DetailViewController alloc]init];
         
     }
@@ -95,6 +96,10 @@ extern SQLForLeXiang * DB;
     }
     UIImage * image = [UIImage imageNamed:@"Folder.png"];
     cell.imageView.image = image;
+    
+    //设置长按响应
+    UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
+    [cell addGestureRecognizer:recognizer];
     return cell;
 }
 
@@ -103,10 +108,10 @@ extern SQLForLeXiang * DB;
     //NSLog(@"%d  row",indexPath.row);
     service = [self.tableArray objectAtIndex:indexPath.row];
 //    NSLog(@"%@  service",service);
-    if (self.detailView != NULL) {
-        [self.detailView release];
-    }
-    self.detailView = [[DetailViewController alloc]init];
+//    if (self.detailView != NULL) {
+//        //[self.detailView release];
+//    }
+    self.detailView = [[[DetailViewController alloc]init]autorelease];
     NSString * busiName = [[self.dataSources objectAtIndex:indexPath.row]objectForKey:@"busiName"];
     
     self.detailView.detailService = [DB findByBusiName:busiName];
@@ -118,6 +123,90 @@ extern SQLForLeXiang * DB;
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if ([[[UIDevice currentDevice]systemVersion]floatValue]>=7) return 10;
     else    return 30;
+}
+
+- (void)tableView:(UITableView *)tableView didUnhighlightRowAtIndexPath:(NSIndexPath *)indexPath{
+    pressedCell =  indexPath.row;
+}
+
+- (void)longPress:(UILongPressGestureRecognizer *)recognizer {
+    if (alert.visible != YES) {
+        [alert show];
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    switch (buttonIndex) {
+        case 1:
+            NSLog(@"添加到收藏夹");
+            [self pushToCollect];
+            break;
+        case 2:
+            NSLog(@"查看业务介绍");
+            break;
+        case 3:
+            NSLog(@"办理推荐业务");
+            break;
+        default:
+            break;
+    }
+}
+
+
+
+- (void)pushToCollect{
+    NSLog(@"被按的cell:%d",pressedCell);
+    //先读取路径下的数据
+    NSArray * readArray = [self readFileArray];
+    //将收藏的业务
+    NSString * collectedName =[[self.dataSources objectAtIndex:pressedCell]objectForKey:@"busiName"];
+    NSDictionary * collectedBusi = [self.dataSources objectAtIndex:pressedCell];
+    BOOL isCollected = NO;
+    //查找是否有重复
+    for (NSDictionary * dic in readArray) {
+        if ([collectedName isEqualToString:[dic objectForKey:@"busiName"]]) {
+            NSString * str =[NSString stringWithFormat: @"%@已收藏，无需重复添加！",collectedName ];
+            UIAlertView * alerts = [[UIAlertView alloc] initWithTitle:@"业务已收藏"message:str delegate:nil cancelButtonTitle:@"关闭" otherButtonTitles: nil];
+            [alerts show];
+            [alerts release];
+            isCollected = YES;
+            NSLog(@"业务重复，无需写入!\n");
+            break;
+        }
+    }
+    //如果没重复
+    if (!isCollected) {
+        //把resultArray这个数组存入程序指定的一个文件里
+        NSMutableArray * writeArray = [[NSMutableArray alloc]initWithArray:readArray];
+        [writeArray addObject:collectedBusi];
+        [writeArray writeToFile:[self documentsPath:@"collectedBusi.txt"] atomically:YES];
+        NSString * str =[NSString stringWithFormat: @"%@收藏成功",collectedName ];
+        UIAlertView * alerts = [[UIAlertView alloc] initWithTitle:@"收藏业务成功"message:str delegate:nil cancelButtonTitle:@"关闭" otherButtonTitles: nil];
+        [alerts show];
+        [alerts release];
+        NSLog(@"业务%@已写入!\n",collectedName);
+        [self readFileArray];
+        
+    }
+}
+
+#pragma mark readfile
+
+-(NSArray *)readFileArray
+{
+    NSLog(@"read collectBusi........\n");
+    //filePath 表示程序目录下指定文件
+    NSString *filePath = [self documentsPath:@"collectedBusi.txt"];
+    //从filePath 这个指定的文件里读
+    NSArray * collectBusiArray = [NSArray arrayWithContentsOfFile:filePath];
+    NSLog(@"%@",collectBusiArray  );
+    return collectBusiArray;
+}
+
+-(NSString *)documentsPath:(NSString *)fileName {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    return [documentsDirectory stringByAppendingPathComponent:fileName];
 }
 
 /*

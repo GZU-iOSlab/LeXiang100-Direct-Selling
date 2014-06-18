@@ -107,8 +107,6 @@ extern connectionAPI * soap;
             imgView.frame = CGRectMake(viewWidth/2-viewWidth/12, viewHeight/10, viewWidth/6, viewWidth/6);
         }
     }
-    
-    
     return self;
 }
 

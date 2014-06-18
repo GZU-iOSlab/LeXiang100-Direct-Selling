@@ -442,6 +442,13 @@ extern NSNotificationCenter *nc;
             [nc postNotificationName:@"queryBusiInfoResponse" object:self userInfo:d];
         }
     }
+    else if([getXMLResults rangeOfString:@"queryBusiHotInfoResponse"].length>0){
+        if (!([soapResults rangeOfString:@"busiCode"].length>0&&[soapResults rangeOfString:@"id"].length>0)) {
+            [connectionAPI showAlertWithTitle:@"获取热点业务失败" AndMessages:@"获取热点业务失败，请重试！"];
+        }else {
+            [nc postNotificationName:@"queryBusiHotInfoResponse" object:self userInfo:d];
+        }
+    }
     //返回数据为空
     else if (soapResults.length<5) {
         [connectionAPI showAlertWithTitle:@"返回数据错误" AndMessages:@"返回数据为空，请检查输入项！"];

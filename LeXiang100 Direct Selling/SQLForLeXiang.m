@@ -139,6 +139,22 @@ extern NSNotificationCenter *nc;
      sqlite3_close(db);
 }
 
+//热点业务内容写入一个数组
+- (void)hotbusiInfoFeedback:(NSNotification *)note{
+    if ([[[note userInfo] objectForKey:@"1"] isKindOfClass:[NSArray class]]){
+        NSArray * resultArray = (NSArray *)[[note userInfo] objectForKey:@"1"];
+        //把resultArray这个数组存入程序指定的一个文件里
+        [resultArray writeToFile:[self documentsPath:@"hotBusi.txt"] atomically:YES];
+    }
+    NSLog(@"hotBusi had writed!\n");
+}
+
+-(NSString *)documentsPath:(NSString *)fileName {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    return [documentsDirectory stringByAppendingPathComponent:fileName];
+}
+
 //根据业务名称查找,返回该业务的描述信息和资费信息busiDesc,busiMoney
 -(NSDictionary*)findByBusiName:(NSString *)bName {
     NSString *sqlQuery = [NSString stringWithFormat:@"SELECT * FROM BUSIINFO WHERE BUSINAME = '%@'",bName ];
@@ -168,6 +184,37 @@ extern NSNotificationCenter *nc;
     
 }
 
+
+//根据busiCode查找
+-(NSDictionary *)findBybusiCode:(NSString *)busiCode{
+    NSString *sqlQuery = [NSString stringWithFormat:@"SELECT * FROM BUSIINFO WHERE BUSICODE = '%@'",busiCode ];
+    NSString *nsBusiDescStr;
+    NSDictionary *dic;
+    NSLog(@"sqlQuery%@", sqlQuery);
+    [self openDB];
+    
+    sqlite3_stmt * statement;
+    
+    if (sqlite3_prepare_v2(db, [sqlQuery UTF8String], -1, &statement, nil) == SQLITE_OK) {
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+            
+            
+            char *busiDesc = (char*)sqlite3_column_text(statement, 3);
+            nsBusiDescStr = [[NSString alloc]initWithUTF8String:busiDesc];
+            char *busiMoney = (char*)sqlite3_column_text(statement, 5);
+            NSString *nsBusiMoneyStr = [[NSString alloc]initWithUTF8String:busiMoney];
+            char *bName = (char*)sqlite3_column_text(statement, 6);
+            NSString *nsBusiNameStr = [[NSString alloc]initWithUTF8String:bName];
+            
+            dic = [[NSDictionary alloc]initWithObjectsAndKeys:nsBusiDescStr,@"busiDesc",nsBusiMoneyStr,@"busiMoney",nsBusiNameStr,@"busiName",busiCode,@"busiCode",nil];
+        }
+        
+    }
+    sqlite3_close(db);
+    
+    return dic;
+
+}
 //根据parentid查找
 -(NSMutableArray*)findByParentId:(int)parentID {
     NSString *sqlQuery = [NSString stringWithFormat:@"SELECT * FROM BUSIINFO WHERE PARENTID = %d",parentID ];
@@ -262,6 +309,8 @@ extern NSNotificationCenter *nc;
 - (id)init{
     //数据业务通知注册
     [nc addObserver:self selector:@selector(busiInfoFeedback:) name:@"queryBusiInfoResponse" object:nil];
+    [nc addObserver:self selector:@selector(hotbusiInfoFeedback:) name:@"queryBusiHotInfoResponse" object:nil];
+
     
  /**   //打开数据库
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);

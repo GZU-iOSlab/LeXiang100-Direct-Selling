@@ -9,51 +9,92 @@
 #import "NewCellTableViewCell.h"
 
 @implementation NewCellTableViewCell
-//@synthesize imageView;
+@synthesize delegate;
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
+        
+        UILongPressGestureRecognizer *longPressGR = [[ UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
+        longPressGR.minimumPressDuration = 0.7;
+        [self addGestureRecognizer:longPressGR];
+        [longPressGR release];
     }
     return self;
-}
-
-- (void)awakeFromNib
-{
-    // Initialization code
-}
-
-#define imageWidth 10
-#define imageHeight 10
-
-
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    CGFloat y = (self.bounds.size.height - imageHeight) / 2;
-    //self.imageView.bounds = CGRectMake(0, y, imageWidth, imageHeight);
-    self.imageView.frame = CGRectMake(0, y, imageWidth, imageHeight);
-    self.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    
-    
-    
-    CGRect tmpFrame = self.textLabel.frame;
-    tmpFrame.origin.x = imageWidth + 20;
-    self.textLabel.frame = tmpFrame;
-    
-    tmpFrame = self.detailTextLabel.frame;
-    tmpFrame.origin.x = imageWidth + 20;
-    self.detailTextLabel.frame = tmpFrame;
-    
-    self.textLabel.backgroundColor = [UIColor clearColor];
-    self.detailTextLabel.backgroundColor = [UIColor clearColor];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
+}
+
+- (void)dealloc
+{
+    [super dealloc];
+}
+
+-(BOOL)canBecomeFirstResponder
+{
+    return YES;
+}
+
+-(BOOL)canPerformAction:(SEL)action withSender:(id)sender
+{
+    //    if (action == @selector(cut:))
+    //    {
+    //        return NO;
+    //    }
+    //    else if(action == @selector(copy:))
+    //    {
+    //        return NO;
+    //    }
+    //    else if(action == @selector(paste:))
+    //    {
+    //        return NO;
+    //    }
+    //    else if(action == @selector(select:))
+    //    {
+    //        return NO;
+    //    }
+    //    else if(action == @selector(selectAll:))
+    //    {
+    //        return NO;
+    //    }
+    //    else
+    if(action == @selector(delete:))
+    {
+        return YES;
+    }
+    else if(action == @selector(collect:))
+    {
+        return YES;
+    }
+    else
+    {
+        return [super canPerformAction:action withSender:sender];
+    }
+}
+
+- (void)collect:(id)sender{
+    
+}
+
+- (void)delete:(id)sender
+{
+    //[[self delegate] performSelector:@selector(deleteRow:) withObject:self];
+}
+
+-(void)handleLongPress:(UILongPressGestureRecognizer *)recognizer
+{
+    
+    if([self isHighlighted])
+    {
+        //[[self delegate] performSelector:@selector(showMenu:) withObject:self];
+    }
+    
 }
 
 @end

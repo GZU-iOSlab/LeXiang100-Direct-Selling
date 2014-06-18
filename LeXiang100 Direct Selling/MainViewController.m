@@ -65,8 +65,49 @@ extern NSString * phoneNumber;
     nc = [NSNotificationCenter defaultCenter];
     DB = [[SQLForLeXiang alloc]init];
     //phoneNumber = [[NSString alloc]init];
-    
+   
 }
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    // Return YES for supported orientations
+    return NO;
+}
+
+//- (void)viewWillAppear:(BOOL)animated{
+////    NSArray *paths = NSSearchPathForDirectoriesInDomains
+////    (NSDocumentDirectory, NSUserDomainMask, YES);
+////    NSString *documentsPath = [paths objectAtIndex:0];
+//    int i;
+//    NSLog(@"writeFileArray\n");
+//    //新建userinfomation数组用来存一些信息
+//    NSArray *userinfomation = [NSArray arrayWithObjects:@"One",@"Two",@"Three",@"four",@"five",@"six",@"seven",@"name",@"school",@"class",@"age",@"imformation",@"last",nil];
+//    for(i = 0; i<12; i++)
+//    {
+//        NSLog(@"%i %@",i+1,[userinfomation objectAtIndex:i]);
+//    }
+//    //把userinfomation这个数组存入程序指定的一个文件里
+//    [userinfomation writeToFile:[self documentsPath:@"usefile.txt"] atomically:YES];
+//}
+//
+//-(void)readFileArray
+//{
+//    NSLog(@"readfile........\n");
+//    //dataPath 表示当前目录下指定的一个文件 data.plist
+//    //NSString *dataPath = [[NSBundle mainBundle] pathForResource:@"Data" ofType:@"plist"];
+//    //filePath 表示程序目录下指定文件
+//    NSString *filePath = [self documentsPath:@"usefile.txt"];
+//    //从filePath 这个指定的文件里读
+//    NSArray *userinfo = [NSArray arrayWithContentsOfFile:filePath];
+//    NSLog(@"%@",[userinfo objectAtIndex:1] );
+//    
+//}
+//
+//-(NSString *)documentsPath:(NSString *)fileName {
+//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//    NSString *documentsDirectory = [paths objectAtIndex:0];
+//    return [documentsDirectory stringByAppendingPathComponent:fileName];
+//}
 
 + (void)showAlertWithTitle:(NSString *)titles AndMessages:(NSString *)messages{
     

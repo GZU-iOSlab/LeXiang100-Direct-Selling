@@ -8,5 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NewCellTableViewCell : UITableViewCell
+@interface NewCellTableViewCell : UITableViewCell{
+    id delegate;
+}
+@property (nonatomic, assign) id delegate;
+
 @end

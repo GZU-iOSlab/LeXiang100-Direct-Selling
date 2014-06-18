@@ -30,6 +30,7 @@
 -(NSDictionary*)findByBusiName:(NSString *)bName;
 -(NSMutableArray*)findByParentId:(int)parentID;
 -(NSDictionary*)findById:(int)busiID ;
+-(NSDictionary *)findBybusiCode:(NSString *)busiCode;
 -(int)numOfRecords;
 -(void)openDB;
 

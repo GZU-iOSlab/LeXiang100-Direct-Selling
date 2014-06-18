@@ -77,6 +77,7 @@ extern connectionAPI * soap;
         //NSLog(@"%d  %d",xe,(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)?YES:NO);
         UIImage *BusinessRecommended = [UIImage imageNamed:@"iPhone.png"];
         
+        
         //设置搜索 通知 登录状态
         search =YES;
         message = YES;
@@ -222,6 +223,8 @@ extern connectionAPI * soap;
 -(void)viewDidAppear:(BOOL)animated{
 }
 
+#pragma mark UesrTouche
+
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     UITouch *touch = [touches anyObject];
     
@@ -240,7 +243,12 @@ extern connectionAPI * soap;
          [self.navigationController pushViewController:favourite animated:YES];
         NSLog(@"imgViewFavourite");
     }else if([touch view]== imgViewTop){
-        self.tables2.dataSources =  [DB findByParentId:2];
+        NSArray * readArray = [self readFileArray];
+        NSMutableArray * dataArray =[[[NSMutableArray alloc]init]autorelease];
+        for (NSDictionary * dic in readArray) {
+            [dataArray addObject: [DB findBybusiCode:[dic objectForKey:@"busiCode"]]];
+        }
+        self.tables2.dataSources =  dataArray;
         NSLog(@"热点业务count:%d",self.tables2.dataSources.count);
         service = @"热点业务";
         [self.navigationController pushViewController:self.tables2 animated:YES];
@@ -295,6 +303,31 @@ extern connectionAPI * soap;
     
 }
 
+#pragma mark readfile
+
+-(NSArray *)readFileArray
+{
+    NSLog(@"read hotBusi........\n");
+    //dataPath 表示当前目录下指定的一个文件 data.plist
+    //NSString *dataPath = [[NSBundle mainBundle] pathForResource:@"Data" ofType:@"plist"];
+    //filePath 表示程序目录下指定文件
+    NSString *filePath = [self documentsPath:@"hotBusi.txt"];
+    //从filePath 这个指定的文件里读
+    NSArray * hotBusiArray = [NSArray arrayWithContentsOfFile:filePath];
+    NSLog(@"%@",[hotBusiArray objectAtIndex:1] );
+    NSLog(@"%@",[hotBusiArray objectAtIndex:2] );
+    NSLog(@"%@",[hotBusiArray objectAtIndex:3] );
+    return hotBusiArray;
+}
+
+-(NSString *)documentsPath:(NSString *)fileName {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    return [documentsDirectory stringByAppendingPathComponent:fileName];
+}
+
+#pragma mark UesrClicked
+
 - (void)UesrClicked{
     NSLog(@"string");
     messageText.hidden = YES;
@@ -302,7 +335,7 @@ extern connectionAPI * soap;
     //searchText.center = CGPointMake(searchText.frame.size.width/2, searchText.frame.size.height/2);
     //textView.center = CGPointMake(textView.center.x, textView.center.y-20);
 }
-
+#pragma mark UesrSearch
 - (void)UesrSearch{
     NSLog(@"Search");
     [soap BusiInfoWithInterface:@"queryBusiInfo" Parameter1:@"versionTag" Version:@"Public"];
@@ -330,6 +363,8 @@ extern connectionAPI * soap;
         [searchText resignFirstResponder];
     }
 }
+
+#pragma mark textefield delegate
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
     if (textField == messageText) {
@@ -361,6 +396,7 @@ extern connectionAPI * soap;
     [textField resignFirstResponder];
     return YES;
 }
+
 
 - (void)didReceiveMemoryWarning
 {

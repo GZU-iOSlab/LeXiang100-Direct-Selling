@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FavoriteViewController : UIViewController
-
+@interface FavoriteViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+@property (nonatomic,strong)UITableView * tableview;
+@property (nonatomic,strong)NSMutableArray * dataSource;
 @end

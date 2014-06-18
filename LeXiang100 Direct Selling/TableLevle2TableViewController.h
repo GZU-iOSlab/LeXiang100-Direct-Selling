@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "DataBuffer.h"
 #import "DetailViewController.h"
-@interface TableLevle2TableViewController : UITableViewController{
-    
+@interface TableLevle2TableViewController : UITableViewController<UIAlertViewDelegate>{
+    UIAlertView *alert;
+    int  pressedCell;
 }
 @property (strong,nonatomic)NSDictionary * dataSource;
 @property (strong,nonatomic)NSMutableArray * keysArray;
