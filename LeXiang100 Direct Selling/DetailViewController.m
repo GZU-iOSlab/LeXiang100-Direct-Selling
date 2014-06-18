@@ -15,6 +15,7 @@
 @implementation DetailViewController
 extern SQLForLeXiang *DB;
 extern NSString * phoneNumber;
+extern connectionAPI * soap;
 
 #define viewWidth   self.view.frame.size.width
 #define viewHeight  self.view.frame.size.height
@@ -144,7 +145,6 @@ extern NSString * phoneNumber;
 
 - (void)recommended{
     [DB deleteDB];
-    connectionAPI * soap = [[connectionAPI alloc]init];
     [soap BusiInfoWithInterface:@"queryBusiInfo" Parameter1:@"versionTag" Version:@"Public"];
     [soap release];
 }

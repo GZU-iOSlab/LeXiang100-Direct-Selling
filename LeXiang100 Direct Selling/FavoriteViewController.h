@@ -7,8 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface FavoriteViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+#import "DetailViewController.h"
+@interface FavoriteViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>{
+    UIImageView *imgViewMetal;
+    UITextView * la;
+    UIAlertView * alert;
+    int pressedCell;
+}
 @property (nonatomic,strong)UITableView * tableview;
 @property (nonatomic,strong)NSMutableArray * dataSource;
+@property (strong,nonatomic)DetailViewController * detailView;
+
 @end

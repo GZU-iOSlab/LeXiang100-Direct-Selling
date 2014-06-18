@@ -15,7 +15,8 @@
 		563B6669193C23CB00D1076F /* TableLevel1TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 563B6668193C23CB00D1076F /* TableLevel1TableViewController.m */; };
 		563B666C193C23E100D1076F /* TableLevle2TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 563B666B193C23E100D1076F /* TableLevle2TableViewController.m */; };
 		5642E34D19511E9100C0AF79 /* ic_launcher.png in Resources */ = {isa = PBXBuildFile; fileRef = 5642E34C19511E9100C0AF79 /* ic_launcher.png */; };
-		564673581940C84E00772067 /* Folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 564673571940C84E00772067 /* Folder.png */; };
+		5642E34F1951940500C0AF79 /* paper.png in Resources */ = {isa = PBXBuildFile; fileRef = 5642E34E1951940500C0AF79 /* paper.png */; };
+		5642E3511951948C00C0AF79 /* folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 5642E3501951948C00C0AF79 /* folder.png */; };
 		5646735B1940D4D000772067 /* NewCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5646735A1940D4D000772067 /* NewCellTableViewCell.m */; };
 		564B0320194D607200C77DAA /* SQLForLeXiang.m in Sources */ = {isa = PBXBuildFile; fileRef = 564B031F194D607200C77DAA /* SQLForLeXiang.m */; };
 		564B0322194D6C5600C77DAA /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 564B0321194D6C5600C77DAA /* libsqlite3.dylib */; };
@@ -99,7 +100,8 @@
 		563B666A193C23E100D1076F /* TableLevle2TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableLevle2TableViewController.h; sourceTree = "<group>"; };
 		563B666B193C23E100D1076F /* TableLevle2TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableLevle2TableViewController.m; sourceTree = "<group>"; };
 		5642E34C19511E9100C0AF79 /* ic_launcher.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_launcher.png; sourceTree = "<group>"; };
-		564673571940C84E00772067 /* Folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Folder.png; sourceTree = "<group>"; };
+		5642E34E1951940500C0AF79 /* paper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = paper.png; sourceTree = "<group>"; };
+		5642E3501951948C00C0AF79 /* folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = folder.png; sourceTree = "<group>"; };
 		564673591940D4D000772067 /* NewCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewCellTableViewCell.h; sourceTree = "<group>"; };
 		5646735A1940D4D000772067 /* NewCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewCellTableViewCell.m; sourceTree = "<group>"; };
 		564B031E194D607200C77DAA /* SQLForLeXiang.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQLForLeXiang.h; sourceTree = "<group>"; };
@@ -227,8 +229,9 @@
 		564C5EFA19387EA30067160A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5642E34E1951940500C0AF79 /* paper.png */,
+				5642E3501951948C00C0AF79 /* folder.png */,
 				564C5F031938ECBD0067160A /* search1.png */,
-				564673571940C84E00772067 /* Folder.png */,
 				5642E34C19511E9100C0AF79 /* ic_launcher.png */,
 				56BAC10F1945CC72007DF7B0 /* mylx100_bank.png */,
 				56BAC1101945CC72007DF7B0 /* mylx100_query_recommend.png */,
@@ -494,11 +497,12 @@
 				568315CC19446783002FA689 /* busi_top.png in Resources */,
 				564C5F001938B45F0067160A /* error.png in Resources */,
 				564B3597193A106000D789DE /* my1.png in Resources */,
-				564673581940C84E00772067 /* Folder.png in Resources */,
 				568315C619446783002FA689 /* busi_family.png in Resources */,
 				568315CD19446783002FA689 /* busi_value.png in Resources */,
+				5642E3511951948C00C0AF79 /* folder.png in Resources */,
 				568315CA19446783002FA689 /* busi_service.png in Resources */,
 				564B35711939CCB100D789DE /* more.png in Resources */,
+				5642E34F1951940500C0AF79 /* paper.png in Resources */,
 				564B3596193A106000D789DE /* more1.png in Resources */,
 				564C5EFC19387F5D0067160A /* sound.png in Resources */,
 				564C5F041938ECBD0067160A /* search1.png in Resources */,

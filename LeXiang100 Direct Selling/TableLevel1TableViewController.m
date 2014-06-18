@@ -98,7 +98,7 @@ extern SQLForLeXiang * DB;
     if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
         [self.tableView setSeparatorInset:UIEdgeInsetsZero];
     }
-    UIImage * image = [UIImage imageNamed:@"Folder.png"];
+    UIImage * image = [UIImage imageNamed:@"folder.png"];
     cell.imageView.image = image;
     
     return cell;

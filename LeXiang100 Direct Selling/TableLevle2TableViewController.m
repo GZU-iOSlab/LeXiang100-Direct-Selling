@@ -94,7 +94,7 @@ extern SQLForLeXiang * DB;
     if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
         [self.tableView setSeparatorInset:UIEdgeInsetsZero];
     }
-    UIImage * image = [UIImage imageNamed:@"Folder.png"];
+    UIImage * image = [UIImage imageNamed:@"paper.png"];
     cell.imageView.image = image;
     
     //设置长按响应
@@ -125,7 +125,7 @@ extern SQLForLeXiang * DB;
     else    return 30;
 }
 
-- (void)tableView:(UITableView *)tableView didUnhighlightRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath{
     pressedCell =  indexPath.row;
 }
 
@@ -133,6 +133,12 @@ extern SQLForLeXiang * DB;
     if (alert.visible != YES) {
         [alert show];
     }
+}
+
++ (void)showAlertWithTitle:(NSString *)titles AndMessages:(NSString *)messages{
+    
+    UIAlertView * alert = [[UIAlertView alloc]initWithTitle:titles message:messages delegate:self cancelButtonTitle:@"关闭" otherButtonTitles: nil];
+    [alert show];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
@@ -143,22 +149,35 @@ extern SQLForLeXiang * DB;
             break;
         case 2:
             NSLog(@"查看业务介绍");
+            [self checkTheBusi];
             break;
         case 3:
             NSLog(@"办理推荐业务");
+            [self toDetailView];
             break;
         default:
             break;
     }
 }
 
+-(void)toDetailView{
+    self.detailView = [[[DetailViewController alloc]init]autorelease];
+    NSString * busiName = [[self.dataSources objectAtIndex:pressedCell]objectForKey:@"busiName"];
+    self.detailView.detailService = [DB findByBusiName:busiName];
+    [self.navigationController pushViewController:self.detailView animated:YES];
+}
 
+-(void)checkTheBusi{
+    NSString * busiDesc =[[self.dataSources objectAtIndex:pressedCell]objectForKey:@"busiDesc"];
+    [TableLevle2TableViewController showAlertWithTitle:@"业务描述" AndMessages:busiDesc];
+}
 
 - (void)pushToCollect{
-    NSLog(@"被按的cell:%d",pressedCell);
+    //NSLog(@"被按的cell:%d",pressedCell);
     //先读取路径下的数据
     NSArray * readArray = [self readFileArray];
     //将收藏的业务
+    NSLog(@"%d",pressedCell);
     NSString * collectedName =[[self.dataSources objectAtIndex:pressedCell]objectForKey:@"busiName"];
     NSDictionary * collectedBusi = [self.dataSources objectAtIndex:pressedCell];
     BOOL isCollected = NO;
@@ -185,8 +204,7 @@ extern SQLForLeXiang * DB;
         [alerts show];
         [alerts release];
         NSLog(@"业务%@已写入!\n",collectedName);
-        [self readFileArray];
-        
+        //[self readFileArray];
     }
 }
 

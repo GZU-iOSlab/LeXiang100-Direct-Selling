@@ -18,4 +18,6 @@
 @property (strong,nonatomic)NSMutableArray * tableArray;
 @property (strong,nonatomic)DetailViewController * detailView;
 @property (strong,nonatomic)NSMutableArray * dataSources;
+
++ (void)showAlertWithTitle:(NSString *)titles AndMessages:(NSString *)messages;
 @end
