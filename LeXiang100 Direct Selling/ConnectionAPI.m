@@ -42,9 +42,9 @@ extern NSNotificationCenter *nc;
                           "xmlns:xsi=\"http://www.w3.org/1999/XMLSchema-instance\" \r\n"
                           "xmlns:xsd=\"http://www.w3.org/1999/XMLSchema\">\r\n "
                           "<SOAP-ENV:Body>\r\n"
-                          "<%@>\r\n"
-                          "<%@ xsi:type=\"xsd:string\" xmlns:xsi=\"http://www.w3.org/1999/XMLSchema-instance\">%@</%@>\r\n"
-                          "</%@>\r\n"
+                          "<%@>\r\n"                //接口
+                          "<%@ xsi:type=\"xsd:string\" xmlns:xsi=\"http://www.w3.org/1999/XMLSchema-instance\">%@</%@>\r\n"//参数  值  参数
+                          "</%@>\r\n"               //接口
                           "</SOAP-ENV:Body>\r\n"
                           "</SOAP-ENV:Envelope>\r\n",interface,parameter1,value1,parameter1,interface];
     NSLog(@"%@",soapMsg);
@@ -96,6 +96,7 @@ extern NSNotificationCenter *nc;
     NSLog(@"%@",soapMsg);
     
     NSString * ur = [NSString stringWithFormat:@"http://www.gz.10086.cn/intflx100/ws/phoneintf"];
+    
     NSURL * url = [NSURL URLWithString:ur] ;
     NSMutableURLRequest * req = [NSMutableURLRequest requestWithURL:url];
     NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMsg length]];
