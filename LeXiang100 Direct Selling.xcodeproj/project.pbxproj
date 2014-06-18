@@ -67,6 +67,7 @@
 		56BAC1131945CC72007DF7B0 /* mylx100_query_recommend.png in Resources */ = {isa = PBXBuildFile; fileRef = 56BAC1101945CC72007DF7B0 /* mylx100_query_recommend.png */; };
 		56BAC1141945CC72007DF7B0 /* mylx100_userinfo.png in Resources */ = {isa = PBXBuildFile; fileRef = 56BAC1111945CC72007DF7B0 /* mylx100_userinfo.png */; };
 		C29F38DA19507FDE00C619D8 /* UpdateCheckingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C29F38D919507FDE00C619D8 /* UpdateCheckingViewController.m */; };
+		C2D5BF50195166B500FEC506 /* AdviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D5BF4F195166B500FEC506 /* AdviceViewController.m */; };
 		C2FAA904194F36380075990A /* Helplexiang100ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2FAA903194F36380075990A /* Helplexiang100ViewController.m */; };
 		C2FAA907194F36C90075990A /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2FAA906194F36C90075990A /* MoreViewController.m */; };
 /* End PBXBuildFile section */
@@ -167,6 +168,8 @@
 		56BAC1111945CC72007DF7B0 /* mylx100_userinfo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mylx100_userinfo.png; sourceTree = "<group>"; };
 		C29F38D819507FDE00C619D8 /* UpdateCheckingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateCheckingViewController.h; sourceTree = "<group>"; };
 		C29F38D919507FDE00C619D8 /* UpdateCheckingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateCheckingViewController.m; sourceTree = "<group>"; };
+		C2D5BF4E195166B500FEC506 /* AdviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdviceViewController.h; sourceTree = "<group>"; };
+		C2D5BF4F195166B500FEC506 /* AdviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdviceViewController.m; sourceTree = "<group>"; };
 		C2FAA902194F36380075990A /* Helplexiang100ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helplexiang100ViewController.h; sourceTree = "<group>"; };
 		C2FAA903194F36380075990A /* Helplexiang100ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Helplexiang100ViewController.m; sourceTree = "<group>"; };
 		C2FAA905194F36C90075990A /* MoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreViewController.h; sourceTree = "<group>"; };
@@ -265,6 +268,8 @@
 				56AA98CE194851510033D4DD /* AboutLeXiang100ViewController.m */,
 				C29F38D819507FDE00C619D8 /* UpdateCheckingViewController.h */,
 				C29F38D919507FDE00C619D8 /* UpdateCheckingViewController.m */,
+				C2D5BF4E195166B500FEC506 /* AdviceViewController.h */,
+				C2D5BF4F195166B500FEC506 /* AdviceViewController.m */,
 			);
 			name = MoreLeXiang;
 			sourceTree = "<group>";
@@ -528,6 +533,7 @@
 				5614F1AE193F0D7F00F646D5 /* DES3Util.m in Sources */,
 				56163D371947447B00CB7C2B /* BankAccountTableViewController.m in Sources */,
 				56AA98CF194851510033D4DD /* AboutLeXiang100ViewController.m in Sources */,
+				C2D5BF50195166B500FEC506 /* AdviceViewController.m in Sources */,
 				563B6669193C23CB00D1076F /* TableLevel1TableViewController.m in Sources */,
 				563B6666193C183900D1076F /* DataBuffer.m in Sources */,
 				56AE7820193786B100D5A76D /* AppDelegate.m in Sources */,

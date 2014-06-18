@@ -10,10 +10,12 @@
 #import "AboutLeXiang100ViewController.h"
 #import "Helplexiang100ViewController.h"
 #import "UpdateCheckingViewController.h"
+#import "AdviceViewController.h"
 @interface MoreViewController : UITableViewController{
     AboutLeXiang100ViewController * aboutLeXiang100ViewController;
     Helplexiang100ViewController * helpLeXiang100ViewController;
     UpdateCheckingViewController *updateCheckingViewController;
+    AdviceViewController *adviceViewController;
 }
 @property (strong,nonatomic)NSMutableArray * dataSource;
 

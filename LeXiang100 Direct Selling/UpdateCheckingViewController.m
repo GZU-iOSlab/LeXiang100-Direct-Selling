@@ -57,46 +57,48 @@ extern connectionAPI * soap;
         [self.view addSubview:imgView];
         
         //乐享100
-        UILabel * Lexiang100 = [[UILabel alloc]initWithFrame:CGRectMake(viewWidth/2-viewWidth/10, viewHeight/8, viewWidth/5, viewHeight/5)];
+        UILabel * Lexiang100 = [[UILabel alloc]initWithFrame:CGRectMake(viewWidth/2-viewWidth/10, viewHeight/8, viewWidth/5, viewHeight/20)];
         Lexiang100.text = @"乐享100";
         Lexiang100.font=font2;
+        Lexiang100.center=CGPointMake(viewWidth/2, viewHeight/3.5);
         Lexiang100.backgroundColor = [UIColor grayColor];
+        Lexiang100.textAlignment = NSTextAlignmentCenter;
         [self.view addSubview:Lexiang100];
         
         //版本号标题
-        UILabel * version = [[UILabel alloc]initWithFrame:CGRectMake(viewWidth/2-viewWidth/7+viewWidth/60, viewHeight/6-viewHeight/80+viewHeight/40, viewWidth/5, viewHeight/5)];
-        version.text = @"版 本 号：";
+        UILabel * version = [[UILabel alloc]initWithFrame:CGRectMake(viewWidth/2-viewWidth/7+viewWidth/60, viewHeight/6-viewHeight/80+viewHeight/40, viewWidth/4, viewHeight/20)];
+        version.text = @"版 本 号：1.48";
         version.font=font1;
+        version.center=CGPointMake(viewWidth/2, viewHeight/3);
+        version.textAlignment = NSTextAlignmentCenter;
         version.backgroundColor = [UIColor grayColor];
         [self.view addSubview:version];
         
-        //版本号
-        UILabel * versionNum = [[UILabel alloc]initWithFrame:CGRectMake(viewWidth/2, viewHeight/6-viewHeight/80+viewHeight/40, viewWidth/5, viewHeight/5)];
-        versionNum.text = @"1.48";
-        versionNum.font=font1;
-        versionNum.backgroundColor = [UIColor grayColor];
-        [self.view addSubview:versionNum];
+        
         
         //检查更新按钮
         UIButton *updateButton=[[UIButton alloc] initWithFrame:CGRectMake(viewWidth/3+viewWidth/70, viewHeight/3, viewWidth/4, viewHeight/20)];
         updateButton.backgroundColor=myColorRGB;
+        updateButton.center=CGPointMake(viewWidth/2, viewHeight/2.5);
         [updateButton setTitle:@"检查更新" forState:UIControlStateNormal];
         [updateButton addTarget:self action:@selector(updateData) forControlEvents:UIControlEventTouchUpInside];//添加点击按钮执行的方法
         [self.view addSubview:updateButton];
         
         //乐享版权标题
-        UILabel *  copyright= [[UILabel alloc]initWithFrame:CGRectMake(viewWidth/2-viewWidth/7, viewHeight/4+viewHeight/10, viewWidth/3, viewHeight/5)];
+        UILabel *  copyright= [[UILabel alloc]initWithFrame:CGRectMake(viewWidth/5, viewHeight/4+viewHeight/10, viewWidth/3, viewHeight/20)];
         copyright.text = @"乐享100 版权所有";
         copyright.font=font1;
+        copyright.center=CGPointMake(viewWidth/2, viewHeight/2);
+        copyright.textAlignment = NSTextAlignmentCenter;
         copyright.backgroundColor = [UIColor grayColor];
         [self.view addSubview:copyright];
         
         //乐享版权
-        UILabel *  copyright_c= [[UILabel alloc]initWithFrame:CGRectMake(viewWidth/5, viewHeight/4+viewHeight/5, viewWidth/1.5, viewHeight/10)];
+        UILabel *  copyright_c= [[UILabel alloc]initWithFrame:CGRectMake(viewWidth/5, viewHeight/4+viewHeight/5, viewWidth/1.5, viewHeight/20)];
         copyright_c.center = CGPointMake(viewWidth/2, viewHeight/1.8);
         copyright_c.text = @"Copyright 2010 乐享100.All Right Rreserved.";
         copyright_c.font=font1;
-        copyright_c.backgroundColor = [UIColor clearColor];
+        copyright_c.backgroundColor = [UIColor grayColor];
         copyright_c.textAlignment = NSTextAlignmentCenter;
         [self.view addSubview:copyright_c];
 

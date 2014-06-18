@@ -43,6 +43,7 @@
     aboutLeXiang100ViewController = [[AboutLeXiang100ViewController alloc]init];
     helpLeXiang100ViewController=[[Helplexiang100ViewController alloc]init];
     updateCheckingViewController=[[UpdateCheckingViewController alloc]init];
+    adviceViewController=[[AdviceViewController alloc]init];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -129,7 +130,7 @@
     }
     else if (indexPath.row==3)
     {
-        
+        [self.navigationController pushViewController:adviceViewController animated:YES];
     }
     else if (indexPath.row==4)
     {
