@@ -367,9 +367,15 @@ extern NSMutableDictionary * UserInfo;
         [UIView commitAnimations];
         [searchText resignFirstResponder];
     }
-    NSString * CustPhone = [UserInfo objectForKey:@"name" ];
+    NSString * custPhone = [UserInfo objectForKey:@"name" ];
     NSString * token = [UserInfo objectForKey:@"token"];
-    [soap  AwordShellWithInterface:@"awordShellQuery" Parameter1:@"custPhone" CustPhone:CustPhone Parameter2:@"token" Token:token];
+    [soap  AwordShellWithInterface:@"awordShellQuery" Parameter1:@"custPhone" CustPhone:custPhone Parameter2:@"token" Token:token];
+    
+    
+   // [soap UpdateUserMainOfferWithInterface:@"updateUserMainOffer" Parameter1:@"custPhone" CustPhone:custPhone Parameter2:@"OfferId" ParameterOfferId:@"211080300601" Parameter3:@"token" Token:token];
+  
+ 
+    //[soap OrderVasOfferWithInterface:@"orderVasOffer" Parameter1:@"custPhone" CustPhone:custPhone Parameter2:@"OfferId" ParameterOfferId:@"211080300601" Parameter3:@"token" Token:token];
 }
 
 #pragma mark textefield delegate
