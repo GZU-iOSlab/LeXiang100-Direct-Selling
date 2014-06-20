@@ -11,7 +11,6 @@
 @implementation connectionAPI
 
 
-
 @synthesize webData;
 @synthesize soapResults;
 @synthesize xmlParser;
@@ -31,7 +30,7 @@
 @synthesize elementFound3;
 @synthesize matchingElement4;       //SessionID
 extern NSNotificationCenter *nc;
-
+extern NSMutableDictionary * UserInfo;
 - (void)getSoapFromInterface:(NSString *)interface Parameter1:(NSString *)parameter1 Value1:(NSString *)value1{
     value1 = [DES3Util encrypt:value1];
     
@@ -139,7 +138,8 @@ extern NSNotificationCenter *nc;
     NSLog(@"%@",soapMsg);
     
     NSString * ur = [NSString stringWithFormat:@"http://www.gz.10086.cn/intflx100/ws/phoneintf"];
-    if ([interface isEqualToString:@"updateUserMainOffer"]) {
+    
+    if ([interface isEqualToString:@"updateUserMainOffer"] || [interface isEqualToString:@"orderVasOffer"]) {
         ur = [NSString stringWithFormat:@"http://www.gz.10086.cn/intflx100/ws/selfService"];
     }
     
@@ -241,7 +241,11 @@ extern NSNotificationCenter *nc;
 
 - (void)UpdateUserMainOfferWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 CustPhone:(NSString *)custPhone Parameter2:(NSString *)parameter2 ParameterOfferId:(NSString *)OfferId Parameter3:(NSString *)parameter3 Token:(NSString *)token {
     [self getSoapForInterface:interface Parameter1:parameter1 Value1:custPhone Parameter2:parameter2 Value2:OfferId Parameter3:parameter3 Value3:token];
-    [self showAlerView];
+}
+
+- (void)OrderVasOfferWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 CustPhone:(NSString *)custPhone Parameter2:(NSString *)parameter2 ParameterOfferId:(NSString *)OfferId Parameter3:(NSString *)parameter3 Token:(NSString *)token {
+    
+    [self getSoapForInterface:interface Parameter1:parameter1 Value1:custPhone Parameter2:parameter2 Value2:OfferId Parameter3:parameter3 Value3:token];
 }
 
 - (void)MockUpSMSWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 OpPhone:(NSString *)opPhone Parameter2:(NSString *)parameter2 SmsPort:(NSString *)smsPort Parameter3:(NSString *)parameter3 SmsContent:(NSString *)smsContent{
@@ -407,6 +411,7 @@ extern NSNotificationCenter *nc;
         if (alerts.visible == YES) {
             [self dimissAlert:alerts];
         }
+        //参数错误时返回soap中return为空
         if ([soapResults isEqualToString:@"{}"]) {
             [connectionAPI showAlertWithTitle:@"输入参数错误" AndMessages:@"输入参数错误，请检查输入项！"];
             [nc postNotificationName:@"loginFalse" object:self userInfo:nil];
@@ -419,11 +424,13 @@ extern NSNotificationCenter *nc;
         }else if ([soapResults isEqualToString:@"1"]&&[getXMLResults rangeOfString:@"mockUpSMSResponse"].length>0){
             [connectionAPI showAlertWithTitle:nil AndMessages:@"业务推荐失败！"];
             needToAnalysis = NO;
+
         }
         
         NSData *aData = [soapResults dataUsingEncoding: NSUTF8StringEncoding];
         resultDic = [NSJSONSerialization JSONObjectWithData:aData options:NSJSONReadingMutableContainers error:nil];
         
+
 
         //NSLog(@"stringfor:%@", [[resultArray objectAtIndex:0]objectForKey:@"busiName"]);
         
@@ -502,6 +509,7 @@ extern NSNotificationCenter *nc;
                 [nc postNotificationName:@"queryRecommendRecordsResponse" object:self userInfo:d];
             }
         }
+
         //业务数据返回
         else if ([getXMLResults rangeOfString:@"queryBusiInfoResponse"].length>0){
             if ([resultDic isKindOfClass:[NSArray class]]) {
@@ -513,25 +521,59 @@ extern NSNotificationCenter *nc;
                 [nc postNotificationName:@"queryBusiInfoResponse" object:self userInfo:d];
             }
         }
+        //热点业务
         else if([getXMLResults rangeOfString:@"queryBusiHotInfoResponse"].length>0){
             if (!([soapResults rangeOfString:@"busiCode"].length>0&&[soapResults rangeOfString:@"id"].length>0)) {
                 [connectionAPI showAlertWithTitle:@"获取热点业务失败" AndMessages:@"获取热点业务失败，请重试！"];
             }else {
                 [nc postNotificationName:@"queryBusiHotInfoResponse" object:self userInfo:d];
             }
-        } else if ([getXMLResults rangeOfString:@"awordShellQueryResponse"].length>0) {
-            NSLog(@"aaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-            
         }
+        //一句话营销
+        else if ([getXMLResults rangeOfString:@"awordShellQueryResponse"].length>0) {
+            NSLog(@"aaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+            if ([soapResults isEqualToString:@"{}"]) {
+            
+            }else{
+            NSString * custPhone = [UserInfo objectForKey:@"name" ];
+            NSString * token = [UserInfo objectForKey:@"token"];
+            NSDictionary * offerList = [resultDic objectForKey:@"returnOfferList"];
+            NSString * offerId;
+                if (offerList.count ==0) {
+                    NSLog(@"没有适合办理的业务");
+                    if (alerts.visible == YES) {
+                        [self dimissAlert:alerts];
+                    }
+                }else{
+                    if ([offerList isKindOfClass:[NSArray class]]) {
+                        NSLog(@"i'm a array");
+                        NSArray * offerArray = [resultDic objectForKey:@"returnOfferList"];
+                        offerId = [[offerArray objectAtIndex:0]objectForKey:@"OFFER_ID"];
+                    }
+                    else if ([offerList isKindOfClass:[NSDictionary class]]){
+                        offerId = [offerList objectForKey:@"OFFER_ID"];
+                    }
+                NSLog(@"offerID:%@",offerId);
+                [self UpdateUserMainOfferWithInterface:@"updateUserMainOffer" Parameter1:@"custPhone" CustPhone:custPhone Parameter2:@"OfferId"     ParameterOfferId:offerId Parameter3:@"token" Token:token];
+                }
+            }
+        }
+        //主推荐业务办理
+        else if (([getXMLResults rangeOfString:@"updateUserMainOfferResponse"].length>0)) {
+         NSLog(@"======================updateUserMainOfferResponse============================");
+     }
+        //增值业务办理
+        else if (([getXMLResults rangeOfString:@"orderVasOfferResponse"].length>0)) {
+         NSLog(@"======================orderVasOfferResponse============================");
+     }
         //返回数据为空
-        else if (soapResults.length<5) {
+     else if (soapResults.length<5) {
             //[connectionAPI showAlertWithTitle:@"返回数据错误" AndMessages:@"返回数据为空，请检查输入项！"];
             [nc postNotificationName:@"loginFalse" object:self userInfo:d];
         }
-
     }
-        //如果显示alert   取消
-    if (alerts.visible == YES) {
+    //如果显示alert   取消
+    if (alerts.visible == YES && [getXMLResults rangeOfString:@"awordShellQueryResponse"].length == 0) {
         [self dimissAlert:alerts];
     }
     
