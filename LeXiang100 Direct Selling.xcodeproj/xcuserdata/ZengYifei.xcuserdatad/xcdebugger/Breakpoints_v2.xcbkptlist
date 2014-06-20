@@ -31,7 +31,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "479"
             endingLineNumber = "479"
-            landmarkName = "-parserDidEndDocument:"
+            landmarkName = "-parser:didEndElement:namespaceURI:qualifiedName:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -47,7 +47,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "164"
             endingLineNumber = "164"
-            landmarkName = "-LoginWithInterface:Parameter1:UserName:Parameter2:Password:"
+            landmarkName = "-getSoapForInterface:Parameter1:Value1:Parameter2:Value2:Parameter3:Value3:Parameter4:Value4:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

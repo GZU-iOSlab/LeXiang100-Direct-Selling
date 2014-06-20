@@ -21,6 +21,8 @@ extern DataBuffer * data;
 extern Boolean login;
 extern SQLForLeXiang * DB;
 extern connectionAPI * soap;
+extern NSMutableDictionary * UserInfo;
+
 
 #define iOS7  ([[[UIDevice currentDevice]systemVersion] floatValue] >= 7.0)?YES:NO
 #define isPad (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)?YES:NO
@@ -365,6 +367,9 @@ extern connectionAPI * soap;
         [UIView commitAnimations];
         [searchText resignFirstResponder];
     }
+    NSString * CustPhone = [UserInfo objectForKey:@"name" ];
+    NSString * token = [UserInfo objectForKey:@"token"];
+    [soap  AwordShellWithInterface:@"awordShellQuery" Parameter1:@"custPhone" CustPhone:CustPhone Parameter2:@"token" Token:token];
 }
 
 #pragma mark textefield delegate
