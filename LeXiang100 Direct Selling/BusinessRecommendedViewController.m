@@ -343,7 +343,6 @@ extern connectionAPI * soap;
     NSLog(@"Search");
     [DB deleteDB];
     [soap BusiInfoWithInterface:@"queryBusiInfo" Parameter1:@"versionTag" Version:@"Public"];
-    [soap release];
 }
 
 - (void)beginSearch{
