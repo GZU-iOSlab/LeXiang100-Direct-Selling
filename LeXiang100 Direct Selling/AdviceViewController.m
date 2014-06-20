@@ -44,7 +44,7 @@
         UILabel * feedbackbackClass = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, viewWidth/4+viewWidth/50, viewHeight/35)];
         feedbackbackClass.text = @"反馈类型：";
         feedbackbackClass.font=font2;
-        feedbackbackClass.backgroundColor = [UIColor grayColor];
+        feedbackbackClass.backgroundColor = [UIColor clearColor];
         [self.view addSubview:feedbackbackClass];
         
         //反馈类型按钮
@@ -57,12 +57,13 @@
         UILabel * feedbackbackTitle = [[UILabel alloc]initWithFrame:CGRectMake(0, viewHeight/10+viewHeight/30, viewWidth/4+viewWidth/50, viewHeight/35)];
         feedbackbackTitle.text = @"反馈内容：";
         feedbackbackTitle.font=font2;
-        feedbackbackTitle.backgroundColor = [UIColor grayColor];
+        feedbackbackTitle.backgroundColor = [UIColor clearColor];
         [self.view addSubview:feedbackbackTitle];
         
         //输入反馈内容
         UITextView *inputFeedback=[[UITextView alloc]initWithFrame:CGRectMake(viewWidth/40, viewHeight/10+viewHeight/15, viewWidth*0.95, viewHeight/3)];
         inputFeedback.text=@"您的建议是我们不断改进的动力，请留下您在使用软件的过程中遇到的问题或提出宝贵意见。";
+        inputFeedback.delegate = self;
         inputFeedback.backgroundColor=myColorRGB;
         inputFeedback.font=font1;
         [self.view addSubview:inputFeedback];

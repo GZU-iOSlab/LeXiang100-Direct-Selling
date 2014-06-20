@@ -26,12 +26,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LeXiang100 Direct Selling/ConnectionAPI.m"
-            timestampString = "424880105.778485"
+            timestampString = "424922367.153003"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "413"
-            endingLineNumber = "413"
-            landmarkName = "-parser:didEndElement:namespaceURI:qualifiedName:"
+            startingLineNumber = "403"
+            endingLineNumber = "403"
+            landmarkName = "@implementation connectionAPI"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LeXiang100 Direct Selling/ConnectionAPI.m"
+            timestampString = "424922367.153003"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "306"
+            endingLineNumber = "306"
+            landmarkName = "-BusiInfoVersion:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -42,28 +58,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LeXiang100 Direct Selling/ConnectionAPI.m"
-            timestampString = "424879766.657612"
+            timestampString = "424922367.153003"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "316"
-            endingLineNumber = "316"
-            landmarkName = "-connectionDidFinishLoading:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LeXiang100 Direct Selling/ConnectionAPI.m"
-            timestampString = "424921736.08683"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "249"
-            endingLineNumber = "249"
-            landmarkName = "-UpdateUserMainOfferWithInterface:Parameter1:CustPhone:Parameter2:ParameterOfferId:Parameter3:Token:"
+            startingLineNumber = "241"
+            endingLineNumber = "241"
+            landmarkName = "-AwordShellWithInterface:Parameter1:CustPhone:Parameter2:Token:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

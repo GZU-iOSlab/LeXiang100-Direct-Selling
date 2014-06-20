@@ -144,6 +144,14 @@ extern SQLForLeXiang * DB;
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    self.detailView = [[[DetailViewController alloc]init]autorelease];
+    NSString * busiName = [[self.dataSource objectAtIndex:indexPath.row]objectForKey:@"busiName"];
+    self.detailView.detailService = [DB findByBusiName:busiName];
+    NSLog(@"busy:%@,count:%d",busiName,self.detailView.detailService.count);
+    [self.navigationController pushViewController:self.detailView animated:YES];
+}
+
 - (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath{
     pressedCell =  indexPath.row;
 }

@@ -42,9 +42,9 @@ extern NSNotificationCenter *nc;
                           "xmlns:xsi=\"http://www.w3.org/1999/XMLSchema-instance\" \r\n"
                           "xmlns:xsd=\"http://www.w3.org/1999/XMLSchema\">\r\n "
                           "<SOAP-ENV:Body>\r\n"
-                          "<%@>\r\n"
-                          "<%@ xsi:type=\"xsd:string\" xmlns:xsi=\"http://www.w3.org/1999/XMLSchema-instance\">%@</%@>\r\n"
-                          "</%@>\r\n"
+                          "<%@>\r\n"                //接口
+                          "<%@ xsi:type=\"xsd:string\" xmlns:xsi=\"http://www.w3.org/1999/XMLSchema-instance\">%@</%@>\r\n"//参数  值  参数
+                          "</%@>\r\n"               //接口
                           "</SOAP-ENV:Body>\r\n"
                           "</SOAP-ENV:Envelope>\r\n",interface,parameter1,value1,parameter1,interface];
     NSLog(@"%@",soapMsg);
@@ -99,6 +99,7 @@ extern NSNotificationCenter *nc;
     if ([interface isEqualToString:@"awordShellQuery"]) {
          ur = [NSString stringWithFormat:@"http://www.gz.10086.cn/intflx100/ws/selfService"];
     }
+
     NSURL * url = [NSURL URLWithString:ur] ;
     NSMutableURLRequest * req = [NSMutableURLRequest requestWithURL:url];
     NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMsg length]];
@@ -206,7 +207,6 @@ extern NSNotificationCenter *nc;
 {
     [self getSoapFromInterface:interface Parameter1:parameter1 Value1:NewUsername Parameter2:parameter2 Value2:NewPassword];
     [self showAlerView];
-
 }
 
 - (void)BusiInfoWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 Version:(NSString *)version{
@@ -234,22 +234,19 @@ extern NSNotificationCenter *nc;
 }
 
 - (void)HotServiceWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 Version:(NSString *)version{
-    
     [self getSoapFromInterface:interface Parameter1:parameter1 Value1:version];
     [self showAlerView];
 }
 
 - (void)AwordShellWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 CustPhone:(NSString *)custPhone Parameter2:(NSString *)parameter2 Token:(NSString *)token {
-    
     [self getSoapFromInterface:interface Parameter1:parameter1 Value1:custPhone Parameter2:parameter2 Value2:token];
+    [self showAlerView];
 }
 
 - (void)UpdateUserMainOfferWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 CustPhone:(NSString *)custPhone Parameter2:(NSString *)parameter2 ParameterOfferId:(NSString *)OfferId Parameter3:(NSString *)parameter3 Token:(NSString *)token {
     
     [self getSoapForInterface:interface Parameter1:parameter1 Value1:custPhone Parameter2:parameter2 Value2:OfferId Parameter3:parameter3 Value3:token];
-    
-   
-    
+    [self showAlerView];
 }
 
 - (void)LoginWithUserName:(NSString *)NewUsername Password:(NSString *)NewPassword{
@@ -548,6 +545,7 @@ extern NSNotificationCenter *nc;
     if (soapResults) {
         soapResults = nil;
     }
+    
 }
 
 // 出错时，例如强制结束解析
@@ -564,11 +562,11 @@ extern NSNotificationCenter *nc;
 }
 
 - (void)showAlerView{
-    alerts = [[UIAlertView alloc]initWithTitle:@"连接中"
+    alerts = [[[UIAlertView alloc]initWithTitle:@"连接中"
                                        message:nil
                                       delegate:nil
                              cancelButtonTitle:nil
-                             otherButtonTitles:nil];
+                             otherButtonTitles:nil]autorelease];
 //    alerts.frame = CGRectMake(0, 0, viewWidth/1.5, viewHeight/5);
 //    alerts.center = CGPointMake(0, viewHeight/2);
     [alerts show];
@@ -578,7 +576,7 @@ extern NSNotificationCenter *nc;
     alerts.delegate = self;
     [alerts addSubview:activeView];
     [activeView release];
-    [alerts release];
+    //[alerts release];
 }
 
 - (void) dimissAlert:(UIAlertView *)alert

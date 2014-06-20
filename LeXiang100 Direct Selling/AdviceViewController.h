@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AdviceViewController : UIViewController
+@interface AdviceViewController : UIViewController<UITextViewDelegate>
 
 @end

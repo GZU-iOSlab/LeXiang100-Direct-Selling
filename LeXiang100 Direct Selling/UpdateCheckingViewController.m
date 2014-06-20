@@ -61,7 +61,7 @@ extern connectionAPI * soap;
         Lexiang100.text = @"乐享100";
         Lexiang100.font=font2;
         Lexiang100.center=CGPointMake(viewWidth/2, viewHeight/3.5);
-        Lexiang100.backgroundColor = [UIColor grayColor];
+        Lexiang100.backgroundColor = [UIColor clearColor];
         Lexiang100.textAlignment = NSTextAlignmentCenter;
         [self.view addSubview:Lexiang100];
         
@@ -71,7 +71,7 @@ extern connectionAPI * soap;
         version.font=font1;
         version.center=CGPointMake(viewWidth/2, viewHeight/3);
         version.textAlignment = NSTextAlignmentCenter;
-        version.backgroundColor = [UIColor grayColor];
+        version.backgroundColor = [UIColor clearColor];
         [self.view addSubview:version];
         
         
@@ -90,7 +90,7 @@ extern connectionAPI * soap;
         copyright.font=font1;
         copyright.center=CGPointMake(viewWidth/2, viewHeight/2);
         copyright.textAlignment = NSTextAlignmentCenter;
-        copyright.backgroundColor = [UIColor grayColor];
+        copyright.backgroundColor = [UIColor clearColor];
         [self.view addSubview:copyright];
         
         //乐享版权
@@ -98,7 +98,7 @@ extern connectionAPI * soap;
         copyright_c.center = CGPointMake(viewWidth/2, viewHeight/1.8);
         copyright_c.text = @"Copyright 2010 乐享100.All Right Rreserved.";
         copyright_c.font=font1;
-        copyright_c.backgroundColor = [UIColor grayColor];
+        copyright_c.backgroundColor = [UIColor clearColor];
         copyright_c.textAlignment = NSTextAlignmentCenter;
         [self.view addSubview:copyright_c];
 
