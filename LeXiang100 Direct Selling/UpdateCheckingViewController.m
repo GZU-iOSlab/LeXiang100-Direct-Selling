@@ -14,6 +14,7 @@
 
 @implementation UpdateCheckingViewController
 extern connectionAPI * soap;
+extern SQLForLeXiang * DB;
 #define viewWidth   self.view.frame.size.width
 #define viewHeight  self.view.frame.size.height
 
@@ -119,7 +120,9 @@ extern connectionAPI * soap;
 
 - (void)updateData{
     //[soap BusiInfoWithInterface:@"queryBusiInfo" Parameter1:@"versionTag" Version:@"Public"];
-    [soap HotServiceWithInterface:@"queryBusiHotInfo" Parameter1:@"versionTag" Version:@"hotservice"];
+    //[soap HotServiceWithInterface:@"queryBusiHotInfo" Parameter1:@"versionTag" Version:@"hotservice"];
+    [DB deleteDB];
+    [soap BusiInfoWithInterface:@"queryBusiInfo" Parameter1:@"versionTag" Version:@"Public"];
 }
 
 - (void)didReceiveMemoryWarning

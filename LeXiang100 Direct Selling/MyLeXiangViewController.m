@@ -354,7 +354,7 @@ extern NSMutableDictionary * UserInfo;
     //[self.UserInfoDic release];
     self.UserInfoDic = [[[NSMutableDictionary alloc]init]autorelease];
     //[UserInfo release];
-    UserInfo = [[[NSMutableDictionary alloc]init]autorelease];
+    [UserInfo removeAllObjects];
     //释放查询页面
     if ( self.RecommendedViewController!=nil) {
         [self.RecommendedViewController release];

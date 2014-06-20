@@ -27,6 +27,7 @@ extern connectionAPI * soap;
     if (self) {
         // 设置导航栏
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"推荐" style:UIBarButtonItemStyleBordered target:self action:@selector(recommended)];
+        //self.navigationItem.rightBarButtonItem.enabled = NO;
         //背景色
         self.view.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
         //通讯录tableview初始化
@@ -144,9 +145,17 @@ extern connectionAPI * soap;
 }
 
 - (void)recommended{
-    [DB deleteDB];
-    [soap BusiInfoWithInterface:@"queryBusiInfo" Parameter1:@"versionTag" Version:@"Public"];
-    [soap release];
+    NSString * number = [[[NSString alloc]init]autorelease];
+    if ([phoneText.text isEqualToString:@""]) {
+        [connectionAPI showAlertWithTitle:nil AndMessages:@"手机号码不能为空,请检查后重新输入！"];
+    }else{
+        number = [phoneText.text substringWithRange:NSMakeRange(0,1)];
+        if (phoneText.text.length != 11 && ![number isEqualToString:@"1"]) {
+            [connectionAPI showAlertWithTitle:@"号码错误" AndMessages:@"手机号码错误,请检查后重新输入！"];
+        }else
+            
+            [soap MockUpSMSWithInterface:@"mockUpSMS" Parameter1:@"opPhone" OpPhone:phoneText.text Parameter2:@"smsPort" SmsPort:@"10658260" Parameter3:@"smsContent" SmsContent:@"OPIOS_15285987576#DX10"];
+    }
 }
 
 - (void)linkMan{
@@ -210,10 +219,17 @@ extern connectionAPI * soap;
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
+    if (![phoneText.text isEqualToString:@""]) {
+        self.navigationItem.rightBarButtonItem.enabled = YES;
+    }
     NSLog(@"进入编辑模式时调用");
 }
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField{
+    if (![phoneText.text isEqualToString:@""]){
+        //self.navigationItem.rightBarButtonItem.enabled = NO;
+        phoneText.placeholder = @"请输入号码";
+    }
     return YES;//NO 退出不了编辑模式
 }
 
