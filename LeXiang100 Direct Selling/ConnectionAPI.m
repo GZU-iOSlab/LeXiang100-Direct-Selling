@@ -96,6 +96,9 @@ extern NSNotificationCenter *nc;
     NSLog(@"%@",soapMsg);
     
     NSString * ur = [NSString stringWithFormat:@"http://www.gz.10086.cn/intflx100/ws/phoneintf"];
+    if ([interface isEqualToString:@"awordShellQuery"]) {
+         ur = [NSString stringWithFormat:@"http://www.gz.10086.cn/intflx100/ws/selfService"];
+    }
     NSURL * url = [NSURL URLWithString:ur] ;
     NSMutableURLRequest * req = [NSMutableURLRequest requestWithURL:url];
     NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMsg length]];
@@ -112,9 +115,50 @@ extern NSNotificationCenter *nc;
     }else NSLog(@"con为假  %@",webData);
 }
 
-- (void)getSoapForInterface:(NSString *)interface Parameter1:(NSString *)parameter1 Value1:(NSString *)value1 Value2:(NSString *)value2 Value3:(NSString *)value3{
+- (void)getSoapForInterface:(NSString *)interface Parameter1:(NSString *)parameter1 Value1:(NSString *)value1 Parameter2:(NSString *)parameter2 Value2:(NSString *)value2 Parameter3:(NSString *)parameter3 Value3:(NSString *)value3 {
+    NSLog(@"value1:%@ value2:%@ value3:%@", value1, value2, value3);
+    value1 = [DES3Util encrypt:value1];
+    value2 = [DES3Util encrypt:value2];
+    value3 = [DES3Util encrypt:value3];
     
+    NSString * soapMsg = [NSString stringWithFormat:
+                          @"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
+                          "<SOAP-ENV:Envelope \r\n"
+                          "xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\"\r\n "//
+                          "xmlns:xsi=\"http://www.w3.org/1999/XMLSchema-instance\" \r\n"
+                          "xmlns:xsd=\"http://www.w3.org/1999/XMLSchema\">\r\n "
+                          "<SOAP-ENV:Body>\r\n"
+                          "<%@>\r\n"
+                          "<%@ xsi:type=\"xsd:string\" xmlns:xsi=\"http://www.w3.org/1999/XMLSchema-instance\">%@</%@>\r\n"
+                          "<%@ xsi:type=\"xsd:string\" xmlns:xsi=\"http://www.w3.org/1999/XMLSchema-instance\">%@</%@>\r\n"
+                          "<%@ xsi:type=\"xsd:string\" xmlns:xsi=\"http://www.w3.org/1999/XMLSchema-instance\">%@</%@>\r\n"
+                         "</%@>\r\n"
+                          "</SOAP-ENV:Body>\r\n"
+                          "</SOAP-ENV:Envelope>\r\n",interface,parameter1,value1,parameter1,parameter2,value2,parameter2,parameter3,value3,parameter3,interface];
+    NSLog(@"%@",soapMsg);
+    
+    NSString * ur = [NSString stringWithFormat:@"http://www.gz.10086.cn/intflx100/ws/phoneintf"];
+    if ([interface isEqualToString:@"updateUserMainOffer"]) {
+        ur = [NSString stringWithFormat:@"http://www.gz.10086.cn/intflx100/ws/selfService"];
+    }
+    
+    
+    NSURL * url = [NSURL URLWithString:ur] ;
+    NSMutableURLRequest * req = [NSMutableURLRequest requestWithURL:url];
+    NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMsg length]];
+    
+    [req addValue: @"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [req addValue: msgLength forHTTPHeaderField:@"Content-Length"];
+    [req setHTTPMethod:@"POST"];
+    [req setHTTPBody:[soapMsg dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    conn = [[NSURLConnection alloc]initWithRequest:req delegate:self];
+    if(conn){
+        webData = [[NSMutableData data]retain];
+        //NSLog(@"%@  22222",webData);
+    }else NSLog(@"con为假  %@",webData);
 }
+
 
 - (void)getSoapForInterface:(NSString *)interface Parameter1:(NSString *)parameter1 Value1:(NSString *)value1 Parameter2:(NSString *)parameter2 Value2:(NSString *)value2 Parameter3:(NSString *)parameter3 Value3:(NSString *)value3 Parameter4:(NSString *)parameter4 Value4:(NSString *)value4{
     NSLog(@"value2:%@ value3:%@",value2,value3);
@@ -161,18 +205,26 @@ extern NSNotificationCenter *nc;
 - (void)LoginWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 UserName:(NSString *)NewUsername Parameter2:(NSString *)parameter2 Password:(NSString *)NewPassword ;
 {
     [self getSoapFromInterface:interface Parameter1:parameter1 Value1:NewUsername Parameter2:parameter2 Value2:NewPassword];
+    [self showAlerView];
+
 }
 
 - (void)BusiInfoWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 Version:(NSString *)version{
     [self getSoapFromInterface:interface Parameter1:parameter1 Value1:version];
+    [self showAlerView];
+
 }
 
 - (void)UserInfoWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 Name:(NSString *)name Parameter2:(NSString *)parameter2 Token:(NSString *)token {
     [self getSoapFromInterface:interface Parameter1:parameter1 Value1:name Parameter2:parameter2 Value2:token];
+    [self showAlerView];
+
 }
 
 - (void)BankAccountWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 Name:(NSString *)name Parameter2:(NSString *)parameter2 Token:(NSString *)token{
     [self getSoapFromInterface:interface Parameter1:parameter1 Value1:name Parameter2:parameter2 Value2:token];
+    [self showAlerView];
+
 }
 
 - (void)RecommendedRecordWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 Name:(NSString *)name Parameter2:(NSString *)parameter2 StartMonth:(NSString *)startmonth Parameter3:(NSString *)parameter3 EndMonth:(NSString *)endmonth Parameter4:(NSString *)parameter4 Token:(NSString *)token{
@@ -182,8 +234,22 @@ extern NSNotificationCenter *nc;
 }
 
 - (void)HotServiceWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 Version:(NSString *)version{
+    
     [self getSoapFromInterface:interface Parameter1:parameter1 Value1:version];
     [self showAlerView];
+}
+
+- (void)AwordShellWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 CustPhone:(NSString *)custPhone Parameter2:(NSString *)parameter2 Token:(NSString *)token {
+    
+    [self getSoapFromInterface:interface Parameter1:parameter1 Value1:custPhone Parameter2:parameter2 Value2:token];
+}
+
+- (void)UpdateUserMainOfferWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 CustPhone:(NSString *)custPhone Parameter2:(NSString *)parameter2 ParameterOfferId:(NSString *)OfferId Parameter3:(NSString *)parameter3 Token:(NSString *)token {
+    
+    [self getSoapForInterface:interface Parameter1:parameter1 Value1:custPhone Parameter2:parameter2 Value2:OfferId Parameter3:parameter3 Value3:token];
+    
+   
+    
 }
 
 - (void)LoginWithUserName:(NSString *)NewUsername Password:(NSString *)NewPassword{
@@ -304,6 +370,10 @@ extern NSNotificationCenter *nc;
         [connectionAPI showAlertWithTitle:@"网络返回为空" AndMessages:@"网络返回为空,请重新尝试！"];
         [nc postNotificationName:@"loginFalse" object:self userInfo:nil];
     }
+    else if([getXMLResults rangeOfString:@"faultcode"].length>0){
+        resultDic = [[[NSDictionary alloc]init]autorelease];
+        [connectionAPI showAlertWithTitle:@"调用地址错误" AndMessages:@"调用地址错误！"];
+    }
     //    ||[getXMLResults rangeOfString:@"window.location.href = "].length>0
     if ([getXMLResults rangeOfString:@"ResponseCode"].length==0){
         //port1=@"5000";
@@ -331,6 +401,7 @@ extern NSNotificationCenter *nc;
     if ([elementName isEqualToString:@"return"]) {    //||[elementName isEqualToString:matchingElement1]
         elementFound = YES;
     }//elementFound = YES;
+
 }
 
 // 追加找到的元素值，一个元素值可能要分几次追加
@@ -339,6 +410,10 @@ extern NSNotificationCenter *nc;
         soapResults = [[NSMutableString alloc]init];
         [soapResults appendString: [DES3Util decrypt:string]];
         NSLog(@"connection:%@",soapResults);
+        if ([soapResults isEqualToString:@"{}"]) {
+            [connectionAPI showAlertWithTitle:@"输入参数错误" AndMessages:@"输入参数错误，请检查输入项！"];
+            [nc postNotificationName:@"loginFalse" object:self userInfo:nil];
+        }
         //gbk中文编码
         //NSStringEncoding gbkEncoding =CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
         
@@ -398,7 +473,6 @@ extern NSNotificationCenter *nc;
     if([getXMLResults rangeOfString:@"modifyLoginResponse"].length>0 ){
         if ([soapResults rangeOfString:@":0,"].length>0) {
             [nc postNotificationName:@"loginResponse" object:self userInfo:d];
-            [self showAlerView];
         }else if([soapResults rangeOfString:@":1,"].length>0){
             [connectionAPI showAlertWithTitle:@"登录失败" AndMessages:@"账号或密码错误！"];
             [nc postNotificationName:@"loginFalse" object:self userInfo:d];
@@ -448,10 +522,13 @@ extern NSNotificationCenter *nc;
         }else {
             [nc postNotificationName:@"queryBusiHotInfoResponse" object:self userInfo:d];
         }
+    } else if ([getXMLResults rangeOfString:@"awordShellQueryResponse"].length>0) {
+        NSLog(@"aaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+    
     }
     //返回数据为空
     else if (soapResults.length<5) {
-        [connectionAPI showAlertWithTitle:@"返回数据错误" AndMessages:@"返回数据为空，请检查输入项！"];
+        //[connectionAPI showAlertWithTitle:@"返回数据错误" AndMessages:@"返回数据为空，请检查输入项！"];
         [nc postNotificationName:@"loginFalse" object:self userInfo:d];
     }
     //如果显示alert   取消
