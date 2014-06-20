@@ -354,7 +354,10 @@ extern NSMutableDictionary * UserInfo;
                                                         object:self
      ];
     NSLog(@"Connection failed! Error - ");//%@ %@",[error localizedDescription],[[error userInfo] objectForKey:NSErrorFailingURLStringKey]);
-    
+    //如果显示alert   取消
+    if (alerts.visible == YES) {
+        [self dimissAlert:alerts];
+    }
     [connectionAPI showAlertWithTitle:@"网络连接错误" AndMessages:@"网络连接错误,请重新尝试！"];
     [nc postNotificationName:@"loginFalse" object:self userInfo:nil];
     needToAnalysis = NO;
@@ -369,6 +372,10 @@ extern NSMutableDictionary * UserInfo;
     // 打印出得到的XML
     getXMLResults = [[NSMutableString alloc] initWithString:theXML];
     NSLog(@"接受的soap    %@    soap", getXMLResults);
+    //如果显示alert   取消
+    if (alerts.visible == YES) {
+        [self dimissAlert:alerts];
+    }
     if ([getXMLResults isEqualToString:@""]) {
         [connectionAPI showAlertWithTitle:@"网络返回为空" AndMessages:@"网络返回为空,请重新尝试！"];
         [nc postNotificationName:@"loginFalse" object:self userInfo:nil];
@@ -407,10 +414,7 @@ extern NSMutableDictionary * UserInfo;
         soapResults = [[NSMutableString alloc]init];
         [soapResults appendString: [DES3Util decrypt:string]];
         NSLog(@"connection:%@",soapResults);
-        //如果显示alert   取消
-        if (alerts.visible == YES) {
-            [self dimissAlert:alerts];
-        }
+
         //参数错误时返回soap中return为空
         if ([soapResults isEqualToString:@"{}"]) {
             [connectionAPI showAlertWithTitle:@"输入参数错误" AndMessages:@"输入参数错误，请检查输入项！"];
@@ -426,44 +430,9 @@ extern NSMutableDictionary * UserInfo;
             needToAnalysis = NO;
 
         }
-        
+        //json解析
         NSData *aData = [soapResults dataUsingEncoding: NSUTF8StringEncoding];
         resultDic = [NSJSONSerialization JSONObjectWithData:aData options:NSJSONReadingMutableContainers error:nil];
-        
-
-
-        //NSLog(@"stringfor:%@", [[resultArray objectAtIndex:0]objectForKey:@"busiName"]);
-        
-//        if ([resultDic isKindOfClass:[NSArray class]]) {
-//            NSLog(@"result is kind of arrry class");
-//            NSArray * resultArray = [NSJSONSerialization JSONObjectWithData:aData options:NSJSONReadingMutableContainers error:nil];
-//            for (NSDictionary *dic in resultArray) {
-//                NSLog(@"dic:%@",[dic objectForKey:@"busiName"]);
-//            }
-//        }
-//        NSData * str;
-//        for (str in resultDic) {
-//            NSLog(@"%@",str);
-//        }
-//        if ([resultDic isKindOfClass:[NSMutableDictionary class]]||[resultDic isKindOfClass:[NSDictionary class]]) {
-//            NSLog(@"Dic");
-//        }else if([resultDic isKindOfClass:[NSMutableString class]]||[resultDic isKindOfClass:[NSString class]]){
-//            NSLog(@"String");
-//        }else if([resultDic isKindOfClass:[NSArray class]]){
-//            NSLog(@"array");
-//            
-//            [resultDic objectForKey:@"busiDesc"];
-//        }
-//        if (soapResults.length>5) {
-//            //NSString * str = [resultDic objectForKey:@"status"];
-//            NSLog(@"%@",str);
-//            BOOL isTurnableToJSON =[NSJSONSerialization isValidJSONObject: aData];
-//            if (isTurnableToJSON) {
-//                NSLog(@"yes");
-//            }else NSLog(@"no");
-//        }
-        
-        
     }
 }
 
