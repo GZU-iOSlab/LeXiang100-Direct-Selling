@@ -16,7 +16,6 @@
     UIImageView * imgViewPersonal;
     UIImageView * imgViewAccount;
     UIImageView * imgViewSearch;
-    UIAlertView * alerts;
 }
 
 @property(nonatomic,strong)UITextField * backgroundText;

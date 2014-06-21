@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ConnectionAPI.h"
+#import "SQLForLeXiang.h"
 @interface UpdateCheckingViewController : UIViewController
 
 @end

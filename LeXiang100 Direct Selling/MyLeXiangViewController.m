@@ -290,23 +290,13 @@ extern NSMutableDictionary * UserInfo;
     }else if ([loginPasswordText.text  isEqual: @""]){
         [self showAlertWithTitle:nil AndMessages:@"密码不能为空"];
     }else{
-    connectionAPI * soap = [[[connectionAPI alloc]init]autorelease];
-    [soap LoginWithInterface:@"modifyLogin" Parameter1:@"loginPwd" UserName:loginPasswordText.text Parameter2:@"opPhone" Password:loginNameText.text ];
-//        if ([loginActivityIndicator isAnimating]) {
-//            [loginActivityIndicator stopAnimating];
-//        }
-//        [loginActivityIndicator startAnimating];
+        [soap LoginWithInterface:@"modifyLogin" Parameter1:@"loginPwd" UserName:loginPasswordText.text Parameter2:@"opPhone" Password:loginNameText.text ];
         [loginNameText resignFirstResponder];
         [loginPasswordText resignFirstResponder];
     }
-    //[self showAlerView];
 }
 
 - (void)loginFeedback:(NSNotification *)note{
-//    if ([loginActivityIndicator isAnimating]) {
-//        [loginActivityIndicator stopAnimating];
-//    }
-    //[self dimissAlert:alerts];
     
     [self.UserInfoDic setDictionary:[[note userInfo] objectForKey:@"1"]];
     login = YES;
@@ -314,16 +304,20 @@ extern NSMutableDictionary * UserInfo;
     imgViewAccount.userInteractionEnabled = YES;
     imgViewPersonal.userInteractionEnabled = YES;
     imgViewSearch.userInteractionEnabled = YES;
+    
     [UIView beginAnimations:@"上升" context:nil];
     [UIView setAnimationDuration:0.3];
     self.backgroundText.center= CGPointMake(self.view.center.x, -viewHeight);
     [UIView commitAnimations];
+    
     [loginNameText resignFirstResponder];
     [loginPasswordText resignFirstResponder];
+    
     [self.UserInfoDic setObject:loginNameText.text forKey:@"name"];
     if ([loginNameText.text isEqualToString:@"123"])  {
         [self.UserInfoDic setObject:@"15285987576" forKey:@"name"];
     }
+    
     UserInfo = self.UserInfoDic;
     NSLog(@"name:%@",[self.UserInfoDic objectForKey:@"name"]);
     
@@ -357,10 +351,10 @@ extern NSMutableDictionary * UserInfo;
     
     self.navigationItem.rightBarButtonItem.enabled = NO;
     login = NO;
-    [self.UserInfoDic release];
-    self.UserInfoDic = [[NSMutableDictionary alloc]init];
-    [UserInfo release];
-    UserInfo = [[NSMutableDictionary alloc]init];
+    //[self.UserInfoDic release];
+    self.UserInfoDic = [[[NSMutableDictionary alloc]init]autorelease];
+    //[UserInfo release];
+    [UserInfo removeAllObjects];
     //释放查询页面
     if ( self.RecommendedViewController!=nil) {
         [self.RecommendedViewController release];

@@ -21,6 +21,8 @@ extern DataBuffer * data;
 extern Boolean login;
 extern SQLForLeXiang * DB;
 extern connectionAPI * soap;
+extern NSMutableDictionary * UserInfo;
+
 
 #define iOS7  ([[[UIDevice currentDevice]systemVersion] floatValue] >= 7.0)?YES:NO
 #define isPad (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)?YES:NO
@@ -229,14 +231,14 @@ extern connectionAPI * soap;
     UITouch *touch = [touches anyObject];
     
     if (self.tables1 != NULL) {
-        [self.tables1 release];
-        self.tables1 = [[TableLevel1TableViewController alloc]init];
+        //[self.tables1 release];
+        self.tables1 = [[[TableLevel1TableViewController alloc]init]autorelease];
         self.tables1.dataSource = data.dataSource;
         self.tables1.keysArray = data.keys;
     }
     if (self.tables2 != NULL) {
-        self.tables2 = [[TableLevle2TableViewController alloc]init];
-        [self.tables2 release];
+        self.tables2 = [[[TableLevle2TableViewController alloc]init]autorelease];
+        //[self.tables2 release];
     }
     
      if ([touch view]== imgViewFavourite) {
@@ -343,7 +345,6 @@ extern connectionAPI * soap;
     NSLog(@"Search");
     [DB deleteDB];
     [soap BusiInfoWithInterface:@"queryBusiInfo" Parameter1:@"versionTag" Version:@"Public"];
-    [soap release];
 }
 
 - (void)beginSearch{
@@ -366,6 +367,15 @@ extern connectionAPI * soap;
         [UIView commitAnimations];
         [searchText resignFirstResponder];
     }
+    NSString * custPhone = [UserInfo objectForKey:@"name" ];
+    NSString * token = [UserInfo objectForKey:@"token"];
+    [soap  AwordShellWithInterface:@"awordShellQuery" Parameter1:@"custPhone" CustPhone:custPhone Parameter2:@"token" Token:token];
+    
+    
+   // [soap UpdateUserMainOfferWithInterface:@"updateUserMainOffer" Parameter1:@"custPhone" CustPhone:custPhone Parameter2:@"OfferId" ParameterOfferId:@"211080300601" Parameter3:@"token" Token:token];
+  
+ 
+    //[soap OrderVasOfferWithInterface:@"orderVasOffer" Parameter1:@"custPhone" CustPhone:custPhone Parameter2:@"OfferId" ParameterOfferId:@"211080300601" Parameter3:@"token" Token:token];
 }
 
 #pragma mark textefield delegate

@@ -71,6 +71,7 @@
         //输入反馈内容
         inputFeedback=[[UITextView alloc]initWithFrame:CGRectMake(viewWidth/40, viewHeight/10+viewHeight/15, viewWidth*0.95, viewHeight/3)];
         //inputFeedback.text=@"您的建议是我们不断改进的动力，请留下您在使用软件的过程中遇到的问题或提出宝贵意见。";
+        inputFeedback.delegate = self;
         inputFeedback.backgroundColor=myColorRGB;
        
         inputFeedback.font=font1;
