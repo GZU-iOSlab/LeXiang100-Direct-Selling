@@ -8,6 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AdviceViewController : UIViewController
-
+@interface AdviceViewController : UIViewController<UITextViewDelegate,UITableViewDelegate,UITableViewDataSource>
+{
+    UITableView *classTableviewtableview;
+    NSArray *array;
+    UIButton *feedbackButton;
+    UITextView *inputFeedback;
+    UILabel *tishi;
+}
+@property (nonatomic,assign) UITableView * classTableview;
+@property (nonatomic,assign) NSArray *array;
+@property (nonatomic,assign) UIButton *feedbackButton;
+@property (nonatomic,assign) UITextView *inputFeedback;
+@property (nonatomic,assign) UILabel *tishi;
 @end
