@@ -25,6 +25,10 @@
             self.modalPresentationCapturesStatusBarAppearance = NO;
             self.navigationController.navigationBar.translucent = NO;
         }
+        UIImage * metal = [UIImage imageNamed:@"metal.jpg"];
+        UIImageView *imgViewMetal = [[UIImageView alloc] initWithImage:metal];
+        imgViewMetal.frame = CGRectMake(0, 0, viewWidth, viewHeight);
+      
         
         UIScrollView *scrollview=[[UIScrollView alloc] initWithFrame:self.view.frame];
         scrollview.contentSize=CGSizeMake(viewWidth, viewHeight*1.1);
@@ -42,10 +46,13 @@
         user.text = @"   适用对象";
         user.font=font2;
         user.backgroundColor = [UIColor groupTableViewBackgroundColor];
+       // [user addSubview:imgViewMetal];
+        
         
       //  guid.textAlignment=UITextAlignmentCenter;
         user.layer.borderColor = [UIColor grayColor].CGColor;
         user.layer.borderWidth = 0.5;
+        
         [scrollview addSubview:user];
         
         UILabel * user_intro = [[UILabel alloc]initWithFrame:CGRectMake(0, viewHeight/30, viewWidth/2, viewHeight/28)];

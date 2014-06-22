@@ -7,7 +7,7 @@
 //
 
 #import "AdviceViewController.h"
-
+#import <UIKit/UIKit.h>
 @interface AdviceViewController ()
 
 @end
@@ -16,11 +16,13 @@
 
 #define viewWidth   self.view.frame.size.width
 #define viewHeight  self.view.frame.size.height
+extern connectionAPI * soap;
 @synthesize classTableview;
 @synthesize array;
 @synthesize feedbackButton;
 @synthesize inputFeedback;
 @synthesize tishi;
+@synthesize arrayImage;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -59,6 +61,8 @@
         feedbackButton.backgroundColor=myColorRGB;
         [feedbackButton setTitle:@"请选择反馈类型" forState:UIControlStateNormal];
         [feedbackButton addTarget:self action:@selector(showTable) forControlEvents:UIControlEventTouchUpInside];
+        selectedString = [[NSString alloc]initWithString:@"功能建议"];
+        [feedbackButton setTitle:selectedString forState:UIControlStateNormal];
         [self.view addSubview:feedbackButton];
         
         ////反馈内容标题
@@ -72,8 +76,9 @@
         inputFeedback=[[UITextView alloc]initWithFrame:CGRectMake(viewWidth/40, viewHeight/10+viewHeight/15, viewWidth*0.95, viewHeight/3)];
         //inputFeedback.text=@"您的建议是我们不断改进的动力，请留下您在使用软件的过程中遇到的问题或提出宝贵意见。";
         inputFeedback.delegate = self;
-        inputFeedback.backgroundColor=myColorRGB;
-       
+        inputFeedback.backgroundColor=[UIColor lightTextColor];
+        inputFeedback.layer.borderColor = [UIColor lightGrayColor].CGColor;
+        inputFeedback.layer.borderWidth = 0.8;
         inputFeedback.font=font1;
         [self.view addSubview:inputFeedback];
          inputFeedback.delegate=self;
@@ -112,7 +117,7 @@
 
 - (void)submitData
 {
-    
+    [soap SaveSuggestInfoWithInterface:@"saveSuggestInfo" Parameter1:@"opPhone" OpPhone:@"15085921612" Parameter2:@"suggestType" SuggestType:selectedString Parameter3:@"suggestContent" SuggestContent:inputFeedback.text];
 }
 
 - (void)viewDidLoad
@@ -126,6 +131,21 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView{
+    textView.keyboardType = UIReturnKeyDefault;
+    return YES;
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    //官方 取消第一响应者（就是退出编辑模式收键盘）
+    if ([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+        return NO;
+    }
+    return YES;
+}
+
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -144,7 +164,12 @@
     {
         //cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault:CellIdentifier];
         cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        
     }
+   // if(indexPath.section==0)
+    //{
+    cell.imageView.image=[arrayImage objectAtIndex:[indexPath row]];
+    //}
     cell.textLabel.text=[array objectAtIndex:[indexPath row]];
     return cell;
 }
@@ -159,13 +184,14 @@
 }
 -(void)showTable
 {
-    classTableview=[[UITableView alloc]initWithFrame:CGRectMake(viewWidth/2, viewHeight/2, viewWidth/2, viewHeight/2.9)style:UITableViewStylePlain];
+    classTableview=[[UITableView alloc]initWithFrame:CGRectMake(viewWidth/10, viewHeight/2, viewWidth*4/5, 300)style:UITableViewStylePlain];
     
     classTableview.delegate=self;
     classTableview.dataSource=self;
+    //classTablevie.backgroundView=
     [self.view addSubview:classTableview];
     classTableview.center=CGPointMake(viewWidth/2, viewHeight*1.5);
-    [UIView animateWithDuration:0.3 animations:^{self.classTableview.center = CGPointMake(viewWidth/2, viewHeight/3);}];
+    [UIView animateWithDuration:0.3 animations:^{self.classTableview.center = CGPointMake(viewWidth/2, viewHeight/2);}];
     NSMutableArray *arrayValue=[[NSMutableArray alloc]init];
     [arrayValue addObject:@"功能建议"];
     [arrayValue addObject:@"界面建议"];
@@ -176,7 +202,24 @@
     
     array=arrayValue;
     
+    NSMutableArray *arrayImageValue=[[NSMutableArray alloc] init];
+    UIImage *aboutUsImg=[UIImage imageNamed:@"aboutus__moreview.png"];
+    UIImage *helpImg=[UIImage imageNamed:@"help_moreview.png"];
+    UIImage *updateImg=[UIImage imageNamed:@"update__moreview.png"];
+    UIImage *adviceImg=[UIImage imageNamed:@"advice_moreview.png"];
+    UIImage *shareImg=[UIImage imageNamed:@"share_moreview.png"];
+    UIImage *elseImg=[UIImage imageNamed:@"share_moreview.png"];
     
+    
+    [arrayImageValue addObject:aboutUsImg];
+    [arrayImageValue addObject:helpImg];
+    [arrayImageValue addObject:updateImg];
+    [arrayImageValue addObject:adviceImg];
+    [arrayImageValue addObject:shareImg];
+    [arrayImageValue addObject:elseImg];
+    
+    
+    arrayImage=arrayImageValue;
     
 }
 
@@ -184,7 +227,7 @@
 {
    // classTableview.center=CGPointMake(viewWidth/2, viewHeight*1.5);
     [UIView animateWithDuration:0.3 animations:^{self.classTableview.center = CGPointMake(viewWidth/2, viewHeight*1.5);}];
-    NSString *selectedString=[array objectAtIndex:indexPath.row];
+    selectedString=[array objectAtIndex:indexPath.row];
     
     [feedbackButton setTitle:selectedString forState:UIControlStateNormal];
     

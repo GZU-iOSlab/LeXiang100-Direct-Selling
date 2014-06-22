@@ -253,6 +253,11 @@ extern NSMutableDictionary * UserInfo;
     [self showAlerView];
 }
 
+- (void)SaveSuggestInfoWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 OpPhone:(NSString *)opPhone Parameter2:(NSString *)parameter2 SuggestType:(NSString *)suggestType Parameter3:(NSString *)parameter3 SuggestContent:(NSString *)suggestContent{
+    [self getSoapForInterface:interface Parameter1:parameter1 Value1:opPhone Parameter2:parameter2 Value2:suggestType Parameter3:parameter3 Value3:suggestContent];
+    [self showAlerView];
+}
+
 - (void)LoginWithUserName:(NSString *)NewUsername Password:(NSString *)NewPassword{
     NewPassword = [DES3Util encrypt:NewPassword];
     NewUsername = [DES3Util encrypt:NewUsername];

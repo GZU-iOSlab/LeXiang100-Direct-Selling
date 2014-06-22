@@ -24,6 +24,7 @@
 - (void)UpdateUserMainOfferWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 CustPhone:(NSString *)custPhone Parameter2:(NSString *)parameter2 ParameterOfferId:(NSString *)OfferId Parameter3:(NSString *)parameter3 Token:(NSString *)token;
 - (void)MockUpSMSWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 OpPhone:(NSString *)opPhone Parameter2:(NSString *)parameter2 SmsPort:(NSString *)smsPort Parameter3:(NSString *)parameter3 SmsContent:(NSString *)smsContent;
 - (void)OrderVasOfferWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 CustPhone:(NSString *)custPhone Parameter2:(NSString *)parameter2 ParameterOfferId:(NSString *)OfferId Parameter3:(NSString *)parameter3 Token:(NSString *)token;
+- (void)SaveSuggestInfoWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 OpPhone:(NSString *)opPhone Parameter2:(NSString *)parameter2 SuggestType:(NSString *)suggestType Parameter3:(NSString *)parameter3 SuggestContent:(NSString *)suggestContent;
 + (void)showAlertWithTitle:(NSString *)titles AndMessages:(NSString *)messages;
 @property (strong, nonatomic) NSMutableData *webData;
 @property (strong, nonatomic) NSMutableString *soapResults;

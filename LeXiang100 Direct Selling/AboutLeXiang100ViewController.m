@@ -28,6 +28,11 @@
             self.modalPresentationCapturesStatusBarAppearance = NO;
             self.navigationController.navigationBar.translucent = NO;
         }
+       
+        UIImage * metal = [UIImage imageNamed:@"metal.jpg"];
+        UIImageView *imgViewMetal = [[UIImageView alloc] initWithImage:metal];
+        imgViewMetal.frame = CGRectMake(0, 0, viewWidth, viewHeight);
+        
         
         UIScrollView *scrollview=[[UIScrollView alloc] initWithFrame:self.view.frame];
         scrollview.contentSize=CGSizeMake(viewWidth, viewHeight*1.1);
@@ -37,6 +42,7 @@
         UITextView * background = [[UITextView alloc]initWithFrame:CGRectMake(0, 0, viewWidth, viewHeight)];
         background.editable = NO;
         [scrollview addSubview:background];
+        
         
         //平台介绍标题
         UILabel * platform = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, viewWidth, viewHeight/30)];
@@ -52,6 +58,7 @@
         intro.text = @"1.乐享100简介:";
         intro.font = [UIFont systemFontOfSize:viewHeight/40];
         intro.backgroundColor = [UIColor clearColor];
+        //[intro addSubview:imgViewMetal];
         [scrollview addSubview:intro];
 
         UILabel *platform_intro=[[UILabel alloc]initWithFrame:CGRectMake(0, viewHeight/30+viewHeight/28, viewWidth, viewHeight/20)];
@@ -129,6 +136,7 @@
         UILabel * web = [[UILabel alloc]initWithFrame:CGRectMake(0, viewHeight/4+viewHeight/10+viewHeight/17+viewHeight/10, viewWidth, viewHeight/30)];
         web.text = @"   官方网站";
         web.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        
         web.layer.borderColor = [UIColor grayColor].CGColor;
         web.layer.borderWidth = 0.5;
         [scrollview addSubview:web];
@@ -144,6 +152,8 @@
         website.font =font1;
         [scrollview addSubview:website];
         [self.view addSubview:scrollview];
+        
+      
         
         
         
