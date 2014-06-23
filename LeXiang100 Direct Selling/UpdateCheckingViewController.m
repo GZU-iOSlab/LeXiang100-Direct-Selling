@@ -121,8 +121,10 @@ extern SQLForLeXiang * DB;
 - (void)updateData{
     //[soap BusiInfoWithInterface:@"queryBusiInfo" Parameter1:@"versionTag" Version:@"Public"];
     //[soap HotServiceWithInterface:@"queryBusiHotInfo" Parameter1:@"versionTag" Version:@"hotservice"];
-    [DB deleteDB];
-    [soap BusiInfoWithInterface:@"queryBusiInfo" Parameter1:@"versionTag" Version:@"Public"];
+    //[DB deleteDB];
+    //[soap BusiInfoWithInterface:@"queryBusiInfo" Parameter1:@"versionTag" Version:@"Public"];
+    
+    [soap CheckVersionWithInterface:@"queryVersionInfo" Parameter1:@"clientVersion" ClientVersion:@"1.0.0" Parameter2:@"dataVersion" DataVersion:@"2014040111412123" Parameter3:@"appName" AppName:@"lx100-operatoer-iPhone"];
 }
 
 - (void)didReceiveMemoryWarning

@@ -13,9 +13,13 @@
 @end
 
 @implementation BusinessRecommendedViewController
+@synthesize searchTableview;
+@synthesize searchTableArray;
 @synthesize messageText;
 @synthesize tables1;
 @synthesize tables2;
+@synthesize resultArray;
+@synthesize detailView;
 extern NSString * service;
 extern DataBuffer * data;
 extern Boolean login;
@@ -85,16 +89,14 @@ extern NSMutableDictionary * UserInfo;
         message = YES;
         login = NO;
         
-//        NSDictionary *dict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:[UIColor colorWithRed:200 green:200 blue:200 alpha:1],[UIFont boldSystemFontOfSize:40.0f],[UIColor colorWithWhite:0.0 alpha:1], nil] forKeys:[NSArray arrayWithObjects:UITextAttributeTextColor,UITextAttributeFont,UITextAttributeTextShadowColor, nil]];
-//        
-//        self.navigationController.navigationBar.titleTextAttributes = dict;
         self.title = @"乐享100";
         self.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"业务推荐" image:BusinessRecommended tag:0];
-        UIBarButtonItem * searchBtn = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(beginSearch)];
-        self.navigationItem.rightBarButtonItem = searchBtn;
+        //UIBarButtonItem * searchBtn = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(beginSearch)];
+        //self.navigationItem.rightBarButtonItem = searchBtn;
+        
         self.view.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
         
-        messageText = [[UITextField  alloc] initWithFrame:CGRectMake(0,0,viewWidth,viewHeight/30)];
+        messageText = [[UITextField  alloc] initWithFrame:CGRectMake(0,45,viewWidth,viewHeight/30)];
         messageText.text = @"贵州移动用户有福啦！微信关注gzlx100即可...";
         NSInteger font = viewHeight/35;
         messageText.font= [UIFont systemFontOfSize:font];
@@ -203,26 +205,49 @@ extern NSMutableDictionary * UserInfo;
         imgViewLdtx.userInteractionEnabled = YES;
         
         data = [[[DataBuffer alloc]init]retain];
+ 
+        //初始化搜索条
+        self.mSearchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, viewWidth, viewHeight/60)];
+        //[self.mSearchBar setBackgroundImage:[UIImage imageNamed:@"search1.png"]];
+        //[self.mSearchBar setPrompt:@"Prompt"];// 顶部提示文本,相当于控件的Title
+        //[self.mSearchBar setBarStyle:UIBarStyleDefault];// 搜索框样式
+        //[self.mSearchBar setTintColor:[UIColor blackColor]];// 搜索框的颜色，当设置此属性时，barStyle将失效
+        //[self.mSearchBar setTranslucent:YES];// 设置是否透明
+        [self.mSearchBar setSearchFieldBackgroundPositionAdjustment:UIOffsetMake(0,0)];// 设置搜索框中文本框的背景的偏移量
+        [self.mSearchBar setSearchResultsButtonSelected:NO];// 设置搜索结果按钮是否选中
+        [self.mSearchBar setShowsSearchResultsButton:YES];// 是否显示搜索结果按钮
+        self.mSearchBar.backgroundColor = [UIColor clearColor];
+        [self.mSearchBar setPlaceholder:@"搜索业务名称"];
+        self.mSearchBar.delegate = self;
+        [self.mSearchBar sizeToFit];
         
-        self.tables2 = [[TableLevle2TableViewController alloc]init];
-        self.tables1 = [[TableLevel1TableViewController alloc]init];
+        [self.view addSubview: self.mSearchBar];
+        
+        //初始化UISearchDisplayController
+        self.searchController =[[UISearchDisplayController alloc] initWithSearchBar:self.mSearchBar contentsController:self];
+        
+        self.searchController.searchResultsDelegate= self;
+        self.searchController.searchResultsDataSource = self;
+        self.searchController.delegate = self;
+        
+        self.resultArray = [[NSMutableArray alloc]init];
+        
         self.tables1.dataSource = data.dataSource;
         self.tables1.keysArray = data.keys;
         self.tables2.dataSource = data.dataSource;
         self.tables2.keysArray = data.keys;
         favourite = [[FavoriteViewController alloc]init];
+        
+        if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad){
+            messageText.frame = CGRectMake(0,viewHeight/25,viewWidth,viewHeight/30);
+        }
         }
     return self;
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-
-}
-
--(void)viewDidAppear:(BOOL)animated{
+-(BOOL) respondsToSelector : (SEL)aSelector {
+    //printf("SELECTOR: %s\n", [NSStringFromSelector(aSelector) UTF8String]);
+    return [super respondsToSelector:aSelector];
 }
 
 #pragma mark UesrTouche
@@ -230,27 +255,19 @@ extern NSMutableDictionary * UserInfo;
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     UITouch *touch = [touches anyObject];
     
-    if (self.tables1 != NULL) {
-        //[self.tables1 release];
-        self.tables1 = [[[TableLevel1TableViewController alloc]init]autorelease];
-        self.tables1.dataSource = data.dataSource;
-        self.tables1.keysArray = data.keys;
-    }
-    if (self.tables2 != NULL) {
-        self.tables2 = [[[TableLevle2TableViewController alloc]init]autorelease];
-        //[self.tables2 release];
-    }
+    self.tables1 = [[[TableLevel1TableViewController alloc]init]autorelease];
+    self.tables2 = [[[TableLevle2TableViewController alloc]init]autorelease];
     
-     if ([touch view]== imgViewFavourite) {
-         [self.navigationController pushViewController:favourite animated:YES];
+    if ([touch view]== imgViewFavourite) {
+        [self.navigationController pushViewController:favourite animated:YES];
         NSLog(@"imgViewFavourite");
     }else if([touch view]== imgViewTop){
-//        NSArray * readArray = [self readFileArray];
-//        NSMutableArray * dataArray =[[[NSMutableArray alloc]init]autorelease];
-//        for (NSDictionary * dic in readArray) {
-//            NSDictionary * dics =[DB findBybusiCode:[dic objectForKey:@"busiCode"]];
-//            [dataArray addObject: dics];
-//        }
+        //        NSArray * readArray = [self readFileArray];
+        //        NSMutableArray * dataArray =[[[NSMutableArray alloc]init]autorelease];
+        //        for (NSDictionary * dic in readArray) {
+        //            NSDictionary * dics =[DB findBybusiCode:[dic objectForKey:@"busiCode"]];
+        //            [dataArray addObject: dics];
+        //        }
         NSMutableArray * dataArray =[[[NSMutableArray alloc]init]autorelease];
         [dataArray setArray:[DB findByIsTopbusi]];
         self.tables2.dataSources =  dataArray;
@@ -275,13 +292,11 @@ extern NSMutableDictionary * UserInfo;
         [self.navigationController pushViewController:self.tables2 animated:YES];
         NSLog(@"手机报 imgViewSjb");
     }else if ([touch view]== imgViewCamp){
-
-
         self.tables2.dataSources =  [DB findByParentId:@"6"];
         NSLog(@"count:%d",self.tables2.dataSources.count);
         service = @"营销活动";
         [self.navigationController pushViewController:self.tables2 animated:YES];
-
+        
         NSLog(@"营销活动 imgViewCamp");
     }else if ([touch view]== imgViewFamily) {
         self.tables2.dataSources =  [DB findByParentId:@"7"];
@@ -301,11 +316,204 @@ extern NSMutableDictionary * UserInfo;
         service = @"集团业务";
         [self.navigationController pushViewController:self.tables2 animated:YES];
         NSLog(@"集团业务 imgViewEnt");
-    }else if ([touch view]== imgViewCancel){
+    }else if ([touch view]== imgViewLdtx){
+        service = @"优惠活动";
+        if (login) {
+            SpecialOfferViewController * specialView = [[[SpecialOfferViewController alloc]init]autorelease];
+            [self.navigationController pushViewController:specialView animated:YES];
+        }else{
+            [self showAlerView];
+        }
+        
+    }
+    else if ([touch view]== imgViewCancel){
         NSLog(@" imgViewCancel");
         [self UesrClicked];
     }
     
+}
+
+#pragma mark - alertview 协议
+
+
+- (void)showAlerView{
+    UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"请登录"
+                                                    message:nil
+                                                   delegate:nil
+                                          cancelButtonTitle:@"取消"
+                                          otherButtonTitles:@"登录",nil];
+    alert.alertViewStyle = UIAlertViewStyleLoginAndPasswordInput;
+    alert.delegate = self;
+    [alert show];
+    [alert release];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0) {
+        [self dimissAlert:alertView]; ;
+    }
+    else{
+        UITextField * loginName = [alertView textFieldAtIndex:0];
+        UITextField * loginPsd = [alertView textFieldAtIndex:1];
+        if ([loginName.text isEqualToString:@""] || [loginPsd.text isEqualToString:@""]) {
+            [connectionAPI showAlertWithTitle:@"输入错误" AndMessages:@"帐号或密码不能为空！"];
+        }else{
+            [soap LoginWithInterface:@"modifyLogin" Parameter1:@"loginPwd" UserName:loginPsd.text Parameter2:@"opPhone" Password:loginName.text ];
+            NSLog(@"%@",loginName.text);
+            NSLog(@"%@",loginPsd.text);
+        }
+        
+        
+    }
+}
+
+- (void) dimissAlert:(UIAlertView *)alert
+{
+        [alert dismissWithClickedButtonIndex:[alert cancelButtonIndex]animated:YES];
+}
+
+#pragma mark - UISearchBarDelegate 协议
+
+// UISearchBar得到焦点并开始编辑时，执行该方法
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
+    return YES;
+}
+
+// 取消按钮被按下时，执行的方法
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
+    
+}
+
+// 键盘中，搜索按钮被按下，执行的方法
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+    self.searchTableview2 = [[[TableLevle2TableViewController alloc]init]autorelease];
+    service =@"业务搜索";
+    self.searchTableview2.dataSources = [DB findByFuzzyBusiName:searchBar.text ];
+    [self.navigationController pushViewController:self.searchTableview2 animated:YES];
+}
+
+// 当搜索内容变化时，执行该方法。很有用，可以实现时实搜索
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText;{
+    NSLog(@"string");
+    //self.searchTableArray = [DB findByFuzzyBusiName:searchBar.text ];
+}
+
+
+#pragma mark Content Filtering
+
+- (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope{
+	/*
+	 Update the filtered array based on the search text and scope.
+	 */
+	
+	[self.self.resultArray removeAllObjects];// First clear the filtered array.
+	
+	/*
+	 Search the main list for products whose type matches the scope (if selected) and whose name matches searchText; add items that match to the filtered array.
+	 */
+	self.searchTableArray = [DB findByFuzzyBusiName:self.mSearchBar.text ];
+    NSLog(@"count %d",self.searchTableArray.count);
+    for (NSDictionary *dic in self.searchTableArray ) {
+        [self.resultArray addObject:[dic objectForKey:@"busiName"]];
+    }
+    
+}
+
+
+#pragma mark UISearchDisplayController Delegate Methods
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString{
+    [self filterContentForSearchText:searchString scope:
+	 [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
+    
+    // Return YES to cause the search result table view to be reloaded.
+    return YES;
+}
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption{
+    [self filterContentForSearchText:[self.searchDisplayController.searchBar text] scope:
+	 [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:searchOption]];
+    
+    // Return YES to cause the search result table view to be reloaded.
+    return YES;
+}
+
+- (void)searchDisplayControllerDidBeginSearch:(UISearchDisplayController *)controller{
+	/*
+     Bob: Because the searchResultsTableView will be released and allocated automatically, so each time we start to begin search, we set its delegate here.
+     */
+	[self.searchDisplayController.searchResultsTableView setDelegate:self];
+}
+
+- (void)searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller{
+	/*
+	 Hide the search bar
+	 */
+	//[self.tableView setContentOffset:CGPointMake(0, 44.f) animated:YES];
+}
+
+#pragma mark tableview delegate
+- (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath{
+    return sourceIndexPath;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    NSLog(@"count : %d",[self.resultArray count]);
+    return [self.resultArray count];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.resultArray.count >5) {
+        tableView.scrollEnabled = YES;
+    }else
+        tableView.scrollEnabled = NO;
+    tableView.tableHeaderView = nil;
+    //tableView.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
+    static NSString * identifier = @"basis-cell";
+    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    if (nil == cell) {
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        [cell autorelease];
+    }    // Configure the cell...
+    
+    NSString * text = [self.resultArray objectAtIndex:indexPath.row];
+    NSLog(@"%d:%@",indexPath.row,text);
+    cell.textLabel.text = text;
+    cell.textLabel.backgroundColor = [UIColor clearColor];
+    //cell.textLabel.font = [UIFont systemFontOfSize:viewHeight/35];
+    
+    if ([tableView respondsToSelector:@selector(setSeparatorInset:)]) {
+        [tableView setSeparatorInset:UIEdgeInsetsZero];
+    }
+    // 去掉guop tableview的背景
+    if ([[[UIDevice currentDevice]systemVersion]floatValue]>=7) {
+    tableView.backgroundView = nil;
+    tableView.backgroundColor = [UIColor clearColor];
+    cell.backgroundColor = [UIColor lightTextColor];
+    }
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
+    //NSLog(@"%d  row",indexPath.row);
+    service = [self.resultArray objectAtIndex:indexPath.row];
+    //    NSLog(@"%@  service",service);
+    //    if (self.detailView != NULL) {
+    //        //[self.detailView release];
+    //    }
+    self.detailView = [[[DetailViewController alloc]init]autorelease];
+    self.detailView.detailService = [self.searchTableArray objectAtIndex:indexPath.row];
+    [self.navigationController pushViewController:self.detailView animated:YES];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 0.1;
 }
 
 #pragma mark readfile
@@ -343,8 +551,8 @@ extern NSMutableDictionary * UserInfo;
 #pragma mark UesrSearch
 - (void)UesrSearch{
     NSLog(@"Search");
-    [DB deleteDB];
-    [soap BusiInfoWithInterface:@"queryBusiInfo" Parameter1:@"versionTag" Version:@"Public"];
+    //[DB deleteDB];
+    //[soap BusiInfoWithInterface:@"queryBusiInfo" Parameter1:@"versionTag" Version:@"Public"];
 }
 
 - (void)beginSearch{
@@ -410,6 +618,18 @@ extern NSMutableDictionary * UserInfo;
     [textField resignFirstResponder];
     return YES;
 }
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    //[self restoreOriginalTableView];
+}
+
 
 
 - (void)didReceiveMemoryWarning

@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "sqlite3.h"
+#import "NSArray+FirstLetterArray.h"
+#import "NSString+FirstLetter.h"
 @interface SQLForLeXiang : NSObject{
     sqlite3 * database;
     NSString *database_path;

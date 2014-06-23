@@ -94,7 +94,7 @@ extern SQLForLeXiang * DB;
     NSString * text = [[self.dataSources objectAtIndex:indexPath.row]objectForKey:@"busiName"];
     cell.textLabel.text = text;
     cell.textLabel.font = [UIFont systemFontOfSize:22];
-    cell.detailTextLabel.text = [[self.dataSources objectAtIndex:indexPath.row]objectForKey:@"busiMoney"];;
+    cell.detailTextLabel.text = [[self.dataSources objectAtIndex:indexPath.row]objectForKey:@"busiMoney"];
     if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
         [self.tableView setSeparatorInset:UIEdgeInsetsZero];
     }

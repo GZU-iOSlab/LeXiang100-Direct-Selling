@@ -23,7 +23,6 @@
 @synthesize UserInfoDic;
 extern Boolean login;
 extern NSNotificationCenter *nc;
-
 extern connectionAPI * soap;
 extern NSMutableDictionary * UserInfo;
 
@@ -157,6 +156,10 @@ extern NSMutableDictionary * UserInfo;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    //初始化查询页面
+    self.BankViewController = [[BankAccountTableViewController alloc]init];
+    self.UserViewController = [[UserTableViewController alloc]init];
+    self.RecommendedViewController = [[RecommendedRecordViewController  alloc]init];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -177,6 +180,13 @@ extern NSMutableDictionary * UserInfo;
         self.backgroundText.center= CGPointMake(self.view.center.x, -viewHeight);
         [UIView commitAnimations];
         [loginNameText resignFirstResponder];
+        [loginPasswordText resignFirstResponder];
+        imgViewAccount.userInteractionEnabled = YES;
+        imgViewPersonal.userInteractionEnabled = YES;
+        imgViewSearch.userInteractionEnabled = YES;
+        self.navigationItem.rightBarButtonItem.enabled = YES;
+        
+
     }
 }
 
@@ -230,8 +240,8 @@ extern NSMutableDictionary * UserInfo;
 //        [loginName setString: @""];
 //        [loginName appendString:loginName1];
 //    }1111
-    NSString * loginName =  [self.UserInfoDic objectForKey:@"name"];
-    NSString * token = [self.UserInfoDic objectForKey:@"token"];
+    NSString * loginName =  [UserInfo objectForKey:@"name"];
+    NSString * token = [UserInfo objectForKey:@"token"];
     NSLog(@"name:%@  token:%@",loginName,token);
     [soap BankAccountWithInterface:@"queryBankInfo" Parameter1:@"opPhone" Name:loginName Parameter2:@"token" Token:token];
     self.view.userInteractionEnabled = NO;
@@ -257,8 +267,8 @@ extern NSMutableDictionary * UserInfo;
 //    [token appendString:token1];
     
     
-    NSString * loginName = [self.UserInfoDic objectForKey:@"name"];
-    NSString * token = [self.UserInfoDic objectForKey:@"token"];
+    NSString * loginName = [UserInfo objectForKey:@"name"];
+    NSString * token = [UserInfo objectForKey:@"token"];
     NSLog(@"name:%@  token:%@",loginName,token);
     [soap UserInfoWithInterface:@"queryUserInfo" Parameter1:@"opPhone" Name:loginName Parameter2:@"token" Token:token];
     //阻止多次推送同个viewController
@@ -286,9 +296,11 @@ extern NSMutableDictionary * UserInfo;
 
 - (void)loginWithName:(NSString *)name AndPassword:(NSString *)password{
     if ([loginNameText.text  isEqual: @""]) {
-        [self showAlertWithTitle:nil AndMessages:@"手机号码不能为空"];
+        [connectionAPI showAlertWithTitle:nil AndMessages:@"手机号码不能为空"];
+        //[self showAlertWithTitle:nil AndMessages:@"手机号码不能为空"];
     }else if ([loginPasswordText.text  isEqual: @""]){
-        [self showAlertWithTitle:nil AndMessages:@"密码不能为空"];
+        [connectionAPI showAlertWithTitle:nil AndMessages:@"密码不能为空"];
+        //[self showAlertWithTitle:nil AndMessages:@"密码不能为空"];
     }else{
         [soap LoginWithInterface:@"modifyLogin" Parameter1:@"loginPwd" UserName:loginPasswordText.text Parameter2:@"opPhone" Password:loginNameText.text ];
         [loginNameText resignFirstResponder];
@@ -318,28 +330,13 @@ extern NSMutableDictionary * UserInfo;
         [self.UserInfoDic setObject:@"15285987576" forKey:@"name"];
     }
     
-    UserInfo = self.UserInfoDic;
+    [UserInfo setDictionary:self.UserInfoDic];
     NSLog(@"name:%@",[self.UserInfoDic objectForKey:@"name"]);
     
-    //初始化查询页面
-    if ( self.RecommendedViewController == nil) {
-        self.RecommendedViewController = [[RecommendedRecordViewController  alloc]init];
-    }else {
-        //[self.RecommendedViewController release];
-        self.RecommendedViewController = [[RecommendedRecordViewController  alloc]init];
-    }
-    if (self.UserViewController == nil) {
-        self.UserViewController = [[UserTableViewController alloc]init];
-    }else{
-        //[self.UserViewController release];
-        self.UserViewController = [[UserTableViewController alloc]init];
-    }
-    if (self.BankViewController == nil) {
-        self.BankViewController = [[BankAccountTableViewController alloc]init];
-    }else{
-        //[self.BankViewController release];
-        self.BankViewController = [[BankAccountTableViewController alloc]init];
-    }
+    
+    imgViewAccount.userInteractionEnabled = YES;
+    imgViewPersonal.userInteractionEnabled = YES;
+    imgViewSearch.userInteractionEnabled = YES;
 }
 
 - (void)logout{
@@ -354,7 +351,13 @@ extern NSMutableDictionary * UserInfo;
     //[self.UserInfoDic release];
     self.UserInfoDic = [[[NSMutableDictionary alloc]init]autorelease];
     //[UserInfo release];
+    NSLog(@"UserInfo:%@",UserInfo );
     [UserInfo removeAllObjects];
+    
+    //不能触摸
+    imgViewAccount.userInteractionEnabled = NO;
+    imgViewPersonal.userInteractionEnabled = NO;
+    imgViewSearch.userInteractionEnabled =NO;
     //释放查询页面
     if ( self.RecommendedViewController!=nil) {
         [self.RecommendedViewController release];
@@ -365,6 +368,11 @@ extern NSMutableDictionary * UserInfo;
     if ( self.BankViewController!=nil) {
         [self.BankViewController release];
     }
+    
+    self.BankViewController = [[BankAccountTableViewController alloc]init];
+    self.UserViewController = [[UserTableViewController alloc]init];
+    self.RecommendedViewController = [[RecommendedRecordViewController  alloc]init];
+
 
 }
 
@@ -391,17 +399,17 @@ extern NSMutableDictionary * UserInfo;
     return YES;
 }
 
-#pragma mark - alert
+//#pragma mark - alert
 
-- (void)showAlertWithTitle:(NSString *)titles AndMessages:(NSString *)messages{
-    
-    
-//    if ([loginActivityIndicator isAnimating]) {
-//        [loginActivityIndicator stopAnimating];
-//    }
-    UIAlertView * alert = [[UIAlertView alloc]initWithTitle:titles message:messages delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"知道", nil];
-    [alert show];
-}
+//- (void)showAlertWithTitle:(NSString *)titles AndMessages:(NSString *)messages{
+//    
+//    
+////    if ([loginActivityIndicator isAnimating]) {
+////        [loginActivityIndicator stopAnimating];
+////    }
+//    UIAlertView * alert = [[UIAlertView alloc]initWithTitle:titles message:messages delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"知道", nil];
+//    [alert show];
+//}
 
 //- (void)showAlerView{
 //    alerts = [[UIAlertView alloc]initWithTitle:@"连接中"

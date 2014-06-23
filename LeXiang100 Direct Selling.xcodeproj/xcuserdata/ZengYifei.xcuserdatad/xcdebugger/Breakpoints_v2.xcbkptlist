@@ -6,16 +6,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LeXiang100 Direct Selling/SQLForLeXiang.m"
-            timestampString = "424784016.103636"
+            filePath = "LeXiang100 Direct Selling/ConnectionAPI.m"
+            timestampString = "425147592.136377"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "400"
-            endingLineNumber = "400"
-            landmarkName = "-findBybusiCode:"
+            startingLineNumber = "426"
+            endingLineNumber = "426"
+            landmarkName = "-parser:foundCharacters:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

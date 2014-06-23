@@ -28,6 +28,7 @@ extern NSNotificationCenter *nc;
     if (self) {
         // Custom initialization
         [nc addObserver:self selector:@selector(showTableview:) name:@"queryRecommendRecordsResponse" object:nil];
+        self.title = @"推荐记录";
         self.view.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
         self.tableArray = [[NSMutableArray alloc]init];
         self.tableCellArray  = [[NSMutableArray alloc]init];
@@ -295,9 +296,6 @@ extern NSNotificationCenter *nc;
     tableView.backgroundView = nil;
     tableView.backgroundColor = [UIColor clearColor];
     cell.backgroundColor = [UIColor lightTextColor];
-    
-    NSLog(@"recordTableview：%f",self.recordTableview.center.y);
-
     return cell;
     
 }

@@ -16,6 +16,7 @@
 extern SQLForLeXiang *DB;
 extern NSString * phoneNumber;
 extern connectionAPI * soap;
+extern NSMutableDictionary * UserInfo;
 
 #define viewWidth   self.view.frame.size.width
 #define viewHeight  self.view.frame.size.height
@@ -105,7 +106,7 @@ extern connectionAPI * soap;
         
         //针对iPad的界面调整
         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-            backgroudText.frame = CGRectMake(viewWidth/40, viewHeight/60, viewWidth-viewWidth/20, viewHeight-viewHeight/8);//ios6    iPad
+            backgroudText.frame = CGRectMake(viewWidth/40, viewHeight/60, viewWidth-viewWidth/20, viewHeight-viewHeight/8);
             linkManBtn.frame = CGRectMake(viewWidth/1.3, viewHeight/50+viewHeight/60, viewWidth/8, viewHeight/18);
             phoneText.keyboardType = UIKeyboardTypeNumberPad;
             if ([[[UIDevice currentDevice]systemVersion]floatValue]>=7) {
@@ -147,14 +148,19 @@ extern connectionAPI * soap;
 - (void)recommended{
     NSString * number = [[[NSString alloc]init]autorelease];
     if ([phoneText.text isEqualToString:@""]) {
-        [connectionAPI showAlertWithTitle:nil AndMessages:@"手机号码不能为空,请检查后重新输入！"];
+        [connectionAPI showAlertWithTitle:@"请输入手机号" AndMessages:@"手机号码不能为空,请检查后重新输入！"];
     }else{
         number = [phoneText.text substringWithRange:NSMakeRange(0,1)];
         if (phoneText.text.length != 11 && ![number isEqualToString:@"1"]) {
             [connectionAPI showAlertWithTitle:@"号码错误" AndMessages:@"手机号码错误,请检查后重新输入！"];
-        }else
-            
-            [soap MockUpSMSWithInterface:@"mockUpSMS" Parameter1:@"opPhone" OpPhone:phoneText.text Parameter2:@"smsPort" SmsPort:@"10658260" Parameter3:@"smsContent" SmsContent:@"OPIOS_15285987576#DX10"];
+        }else{
+            NSString * opPhone = [UserInfo objectForKey:@"name"];
+            if ([opPhone rangeOfString:@"1"].length>0) {
+                NSString * busiCode = [[DB findByBusiName:[self.detailService objectForKey:@"busiName"]]objectForKey:@"busiCode"];
+                NSString * smsContent = [NSString stringWithFormat:@"OPIOS_%@#%@",phoneText.text,busiCode];
+              [soap MockUpSMSWithInterface:@"mockUpSMS" Parameter1:@"opPhone" OpPhone:opPhone Parameter2:@"smsPort" SmsPort:@"10658260" Parameter3:@"smsContent" SmsContent:smsContent];
+            }else [connectionAPI showAlertWithTitle:@"请登录" AndMessages:@"请登录后在使用推荐功能！"];
+        }
     }
 }
 

@@ -28,6 +28,7 @@ extern NSMutableDictionary * UserInfo;
         [nc addObserver:self selector:@selector(userInfoFeedback:) name:@"queryUserInfoResponse" object:nil];
         self.tableArray = [[NSArray alloc]initWithObjects:@"手机号码：",@"姓名：",@"状态：",@"类型：",@"归属地区：",@"归属县市：",@"归属营业厅：",@"注册时间：", nil];
         self.tableCellArray = [[NSMutableArray alloc]init];
+        self.title = @"个人信息";
     }
     return self;
 }

@@ -23,6 +23,7 @@
 		5642E35C1951B11100C0AF79 /* iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = 5642E35A1951B11100C0AF79 /* iPhone.png */; };
 		5642E35D1951B11100C0AF79 /* iPhone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5642E35B1951B11100C0AF79 /* iPhone@2x.png */; };
 		5646735B1940D4D000772067 /* NewCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5646735A1940D4D000772067 /* NewCellTableViewCell.m */; };
+		564A5395195746CD00DD7F98 /* right.png in Resources */ = {isa = PBXBuildFile; fileRef = 564A5394195746CD00DD7F98 /* right.png */; };
 		564B0320194D607200C77DAA /* SQLForLeXiang.m in Sources */ = {isa = PBXBuildFile; fileRef = 564B031F194D607200C77DAA /* SQLForLeXiang.m */; };
 		564B0322194D6C5600C77DAA /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 564B0321194D6C5600C77DAA /* libsqlite3.dylib */; };
 		564B356D1939BF5C00D789DE /* my.png in Resources */ = {isa = PBXBuildFile; fileRef = 564B356C1939BF5C00D789DE /* my.png */; };
@@ -40,7 +41,12 @@
 		56503B1B195013A100086322 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56503B19195013A100086322 /* AddressBookUI.framework */; };
 		56503B211950325A00086322 /* AddresseBookTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56503B201950325A00086322 /* AddresseBookTableViewController.m */; };
 		5651D91B1944158B00597801 /* UIColorForiOS7Colors.m in Sources */ = {isa = PBXBuildFile; fileRef = 5651D91A1944158B00597801 /* UIColorForiOS7Colors.m */; };
+		565393CF1956D046006749BE /* SpecialOfferViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 565393CE1956D046006749BE /* SpecialOfferViewController.m */; };
 		56588B221948B7A7004F17DC /* RecommendedRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56588B211948B7A7004F17DC /* RecommendedRecordViewController.m */; };
+		5664B3F41957D190000716EB /* NSArray+FirstLetterArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 5664B3ED1957D190000716EB /* NSArray+FirstLetterArray.m */; };
+		5664B3F51957D190000716EB /* NSString+FirstLetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5664B3EF1957D190000716EB /* NSString+FirstLetter.m */; };
+		5664B3F61957D190000716EB /* pinyin.m in Sources */ = {isa = PBXBuildFile; fileRef = 5664B3F11957D190000716EB /* pinyin.m */; };
+		5664B3F71957D190000716EB /* POAPinyin.m in Sources */ = {isa = PBXBuildFile; fileRef = 5664B3F31957D190000716EB /* POAPinyin.m */; };
 		566A6F0C1939B10000A45D1A /* BusinessRecommendedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 566A6F0B1939B10000A45D1A /* BusinessRecommendedViewController.m */; };
 		566A6F0F1939B11D00A45D1A /* MyLeXiangViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 566A6F0E1939B11D00A45D1A /* MyLeXiangViewController.m */; };
 		566B2B751953132D001FBC22 /* folders.png in Resources */ = {isa = PBXBuildFile; fileRef = 566B2B741953132D001FBC22 /* folders.png */; };
@@ -114,6 +120,7 @@
 		5642E35B1951B11100C0AF79 /* iPhone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone@2x.png"; sourceTree = "<group>"; };
 		564673591940D4D000772067 /* NewCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewCellTableViewCell.h; sourceTree = "<group>"; };
 		5646735A1940D4D000772067 /* NewCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewCellTableViewCell.m; sourceTree = "<group>"; };
+		564A5394195746CD00DD7F98 /* right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right.png; sourceTree = "<group>"; };
 		564B031E194D607200C77DAA /* SQLForLeXiang.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQLForLeXiang.h; sourceTree = "<group>"; };
 		564B031F194D607200C77DAA /* SQLForLeXiang.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQLForLeXiang.m; sourceTree = "<group>"; };
 		564B0321194D6C5600C77DAA /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/libsqlite3.dylib; sourceTree = DEVELOPER_DIR; };
@@ -136,8 +143,18 @@
 		56503B201950325A00086322 /* AddresseBookTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddresseBookTableViewController.m; sourceTree = "<group>"; };
 		5651D9191944158B00597801 /* UIColorForiOS7Colors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIColorForiOS7Colors.h; sourceTree = "<group>"; };
 		5651D91A1944158B00597801 /* UIColorForiOS7Colors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIColorForiOS7Colors.m; sourceTree = "<group>"; };
+		565393CD1956D046006749BE /* SpecialOfferViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpecialOfferViewController.h; sourceTree = "<group>"; };
+		565393CE1956D046006749BE /* SpecialOfferViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpecialOfferViewController.m; sourceTree = "<group>"; };
 		56588B201948B7A7004F17DC /* RecommendedRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendedRecordViewController.h; sourceTree = "<group>"; };
 		56588B211948B7A7004F17DC /* RecommendedRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendedRecordViewController.m; sourceTree = "<group>"; };
+		5664B3EC1957D190000716EB /* NSArray+FirstLetterArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+FirstLetterArray.h"; sourceTree = "<group>"; };
+		5664B3ED1957D190000716EB /* NSArray+FirstLetterArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+FirstLetterArray.m"; sourceTree = "<group>"; };
+		5664B3EE1957D190000716EB /* NSString+FirstLetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FirstLetter.h"; sourceTree = "<group>"; };
+		5664B3EF1957D190000716EB /* NSString+FirstLetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FirstLetter.m"; sourceTree = "<group>"; };
+		5664B3F01957D190000716EB /* pinyin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pinyin.h; sourceTree = "<group>"; };
+		5664B3F11957D190000716EB /* pinyin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pinyin.m; sourceTree = "<group>"; };
+		5664B3F21957D190000716EB /* POAPinyin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POAPinyin.h; sourceTree = "<group>"; };
+		5664B3F31957D190000716EB /* POAPinyin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POAPinyin.m; sourceTree = "<group>"; };
 		566A6F0A1939B10000A45D1A /* BusinessRecommendedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusinessRecommendedViewController.h; sourceTree = "<group>"; };
 		566A6F0B1939B10000A45D1A /* BusinessRecommendedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusinessRecommendedViewController.m; sourceTree = "<group>"; };
 		566A6F0D1939B11D00A45D1A /* MyLeXiangViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyLeXiangViewController.h; sourceTree = "<group>"; };
@@ -239,6 +256,7 @@
 		564C5EFA19387EA30067160A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				564A5394195746CD00DD7F98 /* right.png */,
 				5642E3521951A87E00C0AF79 /* iPhone2.png */,
 				5642E3531951A87E00C0AF79 /* iphone1.png */,
 				5642E35A1951B11100C0AF79 /* iPhone.png */,
@@ -292,6 +310,21 @@
 			name = MoreLeXiang;
 			sourceTree = "<group>";
 		};
+		5664B3EB1957D17C000716EB /* PinYIn */ = {
+			isa = PBXGroup;
+			children = (
+				5664B3EC1957D190000716EB /* NSArray+FirstLetterArray.h */,
+				5664B3ED1957D190000716EB /* NSArray+FirstLetterArray.m */,
+				5664B3EE1957D190000716EB /* NSString+FirstLetter.h */,
+				5664B3EF1957D190000716EB /* NSString+FirstLetter.m */,
+				5664B3F01957D190000716EB /* pinyin.h */,
+				5664B3F11957D190000716EB /* pinyin.m */,
+				5664B3F21957D190000716EB /* POAPinyin.h */,
+				5664B3F31957D190000716EB /* POAPinyin.m */,
+			);
+			name = PinYIn;
+			sourceTree = "<group>";
+		};
 		566A6F091939B07B00A45D1A /* tab */ = {
 			isa = PBXGroup;
 			children = (
@@ -309,6 +342,8 @@
 				566A6F0B1939B10000A45D1A /* BusinessRecommendedViewController.m */,
 				564B359A193A499400D789DE /* FavoriteViewController.h */,
 				564B359B193A499400D789DE /* FavoriteViewController.m */,
+				565393CD1956D046006749BE /* SpecialOfferViewController.h */,
+				565393CE1956D046006749BE /* SpecialOfferViewController.m */,
 				563B6667193C23CB00D1076F /* TableLevel1TableViewController.h */,
 				563B6668193C23CB00D1076F /* TableLevel1TableViewController.m */,
 				563B666A193C23E100D1076F /* TableLevle2TableViewController.h */,
@@ -370,6 +405,7 @@
 				564B031F194D607200C77DAA /* SQLForLeXiang.m */,
 				56A1AFBA193E228800EB9133 /* ConnectionAPI.h */,
 				56A1AFBB193E228800EB9133 /* ConnectionAPI.m */,
+				5664B3EB1957D17C000716EB /* PinYIn */,
 				566A6F091939B07B00A45D1A /* tab */,
 				564B3599193A494B00D789DE /* detailView */,
 				5614F1B3193F15ED00F646D5 /* Security */,
@@ -515,6 +551,7 @@
 				564B3597193A106000D789DE /* my1.png in Resources */,
 				568315C619446783002FA689 /* busi_family.png in Resources */,
 				5642E3581951ADDA00C0AF79 /* more@2x.png in Resources */,
+				564A5395195746CD00DD7F98 /* right.png in Resources */,
 				568315CD19446783002FA689 /* busi_value.png in Resources */,
 				566B2B751953132D001FBC22 /* folders.png in Resources */,
 				5642E3541951A87E00C0AF79 /* iPhone2.png in Resources */,
@@ -555,7 +592,9 @@
 				564B359C193A499400D789DE /* FavoriteViewController.m in Sources */,
 				566A6F0C1939B10000A45D1A /* BusinessRecommendedViewController.m in Sources */,
 				5614F1AE193F0D7F00F646D5 /* DES3Util.m in Sources */,
+				5664B3F41957D190000716EB /* NSArray+FirstLetterArray.m in Sources */,
 				56163D371947447B00CB7C2B /* BankAccountTableViewController.m in Sources */,
+				5664B3F71957D190000716EB /* POAPinyin.m in Sources */,
 				56AA98CF194851510033D4DD /* AboutLeXiang100ViewController.m in Sources */,
 				C2D5BF50195166B500FEC506 /* AdviceViewController.m in Sources */,
 				563B6669193C23CB00D1076F /* TableLevel1TableViewController.m in Sources */,
@@ -567,6 +606,7 @@
 				56B0B8FF193CBB7100F514C5 /* DetailViewController.m in Sources */,
 				56588B221948B7A7004F17DC /* RecommendedRecordViewController.m in Sources */,
 				56A1AFBC193E228800EB9133 /* ConnectionAPI.m in Sources */,
+				5664B3F51957D190000716EB /* NSString+FirstLetter.m in Sources */,
 				56503B211950325A00086322 /* AddresseBookTableViewController.m in Sources */,
 				C29F38DA19507FDE00C619D8 /* UpdateCheckingViewController.m in Sources */,
 				564C5EF9193830910067160A /* MainViewController.m in Sources */,
@@ -577,6 +617,8 @@
 				56AE781C193786B100D5A76D /* main.m in Sources */,
 				5614F1B2193F15AF00F646D5 /* GTMBase64.m in Sources */,
 				56163D341947084900CB7C2B /* UserTableViewController.m in Sources */,
+				5664B3F61957D190000716EB /* pinyin.m in Sources */,
+				565393CF1956D046006749BE /* SpecialOfferViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

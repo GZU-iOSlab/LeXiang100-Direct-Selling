@@ -26,6 +26,7 @@ extern NSMutableDictionary * UserInfo;
         [nc addObserver:self selector:@selector(bankAccountFeedback:) name:@"queryBankInfoResponse" object:nil];
         self.tableArray = [[NSArray alloc]initWithObjects:@"开户人姓名：",@"开户银行：",@"银行卡号：",@"登记时间：", nil];
         self.tableCellArray = [[NSMutableArray alloc]init];
+        self.title = @"银行账户";
     }
     return self;
 }
