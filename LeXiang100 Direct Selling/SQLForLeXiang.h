@@ -37,6 +37,8 @@
 -(NSDictionary*)findById:(NSString *)ids;
 -(NSDictionary *)findBybusiCode:(NSString *)bCode;
 -(int)numOfRecords;
+-(NSMutableArray*)getBusiNameByLetter:(NSString *)inputLetter;
+-(NSMutableArray*)findAll;
 
 
 @end
