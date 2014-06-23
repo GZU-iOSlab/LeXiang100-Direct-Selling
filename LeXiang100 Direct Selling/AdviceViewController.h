@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #include "ConnectionAPI.h"
+#import "SQLForLeXiang.h"
+#import "UIColorForiOS7Colors.h"
 @interface AdviceViewController : UIViewController<UITextViewDelegate,UITableViewDelegate,UITableViewDataSource>
 {
     UITableView *classTableviewtableview;

@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "ConnectionAPI.h"
 #import "SQLForLeXiang.h"
+#import "UIColorForiOS7Colors.h"
+
 @interface UpdateCheckingViewController : UIViewController
 
 @end

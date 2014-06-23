@@ -39,12 +39,7 @@ extern connectionAPI * soap;
         }
         UITextView * background = [[UITextView alloc]initWithFrame:CGRectMake(0, 0, viewWidth, viewHeight)];
         background.editable=NO;
-        UIColor *myColorRGB = [ UIColor colorWithRed: 0.75
-                                               green: 0.75
-                                                blue: 0.75
-                                               alpha: 1.0
-                               ];
-        UIFont *font1 = [UIFont fontWithName:@"Arial" size:viewHeight/47];
+               UIFont *font1 = [UIFont fontWithName:@"Arial" size:viewHeight/47];
         UIFont *font2=[UIFont fontWithName:@"Arial" size:viewHeight/35];
         [self.view addSubview:background];
         
@@ -58,10 +53,11 @@ extern connectionAPI * soap;
         
         //反馈类型按钮
         feedbackButton=[[UIButton alloc] initWithFrame:CGRectMake(viewWidth/40, viewHeight/30, viewWidth*0.95, viewHeight/20)];
-        feedbackButton.backgroundColor=myColorRGB;
+        feedbackButton.backgroundColor=[UIColor iOS7tealGradientEndColor];
         [feedbackButton setTitle:@"请选择反馈类型" forState:UIControlStateNormal];
         [feedbackButton addTarget:self action:@selector(showTable) forControlEvents:UIControlEventTouchUpInside];
         selectedString = [[NSString alloc]initWithString:@"功能建议"];
+        
         [feedbackButton setTitle:selectedString forState:UIControlStateNormal];
         [self.view addSubview:feedbackButton];
         
@@ -92,7 +88,7 @@ extern connectionAPI * soap;
         //提交按钮
         //
         UIButton *submitButton=[[UIButton alloc] initWithFrame:CGRectMake(viewWidth/3+viewWidth/70, viewHeight/2+viewHeight/80, viewWidth/4, viewHeight/20)];
-        submitButton.backgroundColor=myColorRGB;
+        submitButton.backgroundColor=[UIColor iOS7greenGradientEndColor];
         [submitButton setTitle:@"提交" forState:UIControlStateNormal];
         [submitButton addTarget:self action:@selector(submitData) forControlEvents:UIControlEventTouchUpInside];//添加点击按钮执行的方法
         [self.view addSubview:submitButton];
@@ -170,6 +166,7 @@ extern connectionAPI * soap;
     //{
     cell.imageView.image=[arrayImage objectAtIndex:[indexPath row]];
     //}
+    cell.backgroundColor=[UIColor iOS7tealGradientStartColor];
     cell.textLabel.text=[array objectAtIndex:[indexPath row]];
     return cell;
 }
@@ -188,7 +185,7 @@ extern connectionAPI * soap;
     
     classTableview.delegate=self;
     classTableview.dataSource=self;
-    //classTablevie.backgroundView=
+    classTableview.backgroundColor=[UIColor iOS7lightBlueColor];
     [self.view addSubview:classTableview];
     classTableview.center=CGPointMake(viewWidth/2, viewHeight*1.5);
     [UIView animateWithDuration:0.3 animations:^{self.classTableview.center = CGPointMake(viewWidth/2, viewHeight/2);}];
@@ -202,24 +199,7 @@ extern connectionAPI * soap;
     
     array=arrayValue;
     
-    NSMutableArray *arrayImageValue=[[NSMutableArray alloc] init];
-    UIImage *aboutUsImg=[UIImage imageNamed:@"aboutus__moreview.png"];
-    UIImage *helpImg=[UIImage imageNamed:@"help_moreview.png"];
-    UIImage *updateImg=[UIImage imageNamed:@"update__moreview.png"];
-    UIImage *adviceImg=[UIImage imageNamed:@"advice_moreview.png"];
-    UIImage *shareImg=[UIImage imageNamed:@"share_moreview.png"];
-    UIImage *elseImg=[UIImage imageNamed:@"share_moreview.png"];
     
-    
-    [arrayImageValue addObject:aboutUsImg];
-    [arrayImageValue addObject:helpImg];
-    [arrayImageValue addObject:updateImg];
-    [arrayImageValue addObject:adviceImg];
-    [arrayImageValue addObject:shareImg];
-    [arrayImageValue addObject:elseImg];
-    
-    
-    arrayImage=arrayImageValue;
     
 }
 

@@ -81,6 +81,7 @@ extern SQLForLeXiang * DB;
         UIButton *updateButton=[[UIButton alloc] initWithFrame:CGRectMake(viewWidth/3+viewWidth/70, viewHeight/3, viewWidth/4, viewHeight/20)];
         updateButton.backgroundColor=myColorRGB;
         updateButton.center=CGPointMake(viewWidth/2, viewHeight/2.5);
+        updateButton.backgroundColor = [UIColor iOS7greenColor];
         [updateButton setTitle:@"检查更新" forState:UIControlStateNormal];
         [updateButton addTarget:self action:@selector(updateData) forControlEvents:UIControlEventTouchUpInside];//添加点击按钮执行的方法
         [self.view addSubview:updateButton];

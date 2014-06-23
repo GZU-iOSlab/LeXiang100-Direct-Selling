@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
 
-@interface ShareViewController : UIViewController<MFMessageComposeViewControllerDelegate>
+@interface ShareViewController : UIViewController
 {
-    MFMessageComposeViewController *message;
+    UIViewController * shareController;
 
 }
 @property (nonatomic,assign) MFMessageComposeViewController *message;
