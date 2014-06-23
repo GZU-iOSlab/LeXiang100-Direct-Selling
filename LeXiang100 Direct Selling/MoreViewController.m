@@ -28,6 +28,12 @@
         NSMutableArray * data = [[NSMutableArray  alloc]initWithObjects:@"关于乐享",@"使用帮助",@"检查更新",@"用户建议",@"分享给好友", nil];
         self.tableView.scrollEnabled = NO;
         self.dataSource = data;
+        
+        UIImage * metal = [UIImage imageNamed:@"metal.jpg"];
+        UIImageView *imgViewMetal = [[UIImageView alloc] initWithImage:metal];
+        imgViewMetal.frame = CGRectMake(0, 0, viewWidth, viewHeight);
+       // [self.view addSubview:imgViewMetal];
+        //[self.view sendSubviewToBack:imgViewMetal];
     }
     return self;
 }
@@ -44,7 +50,7 @@
     helpLeXiang100ViewController=[[Helplexiang100ViewController alloc]init];
     updateCheckingViewController=[[UpdateCheckingViewController alloc]init];
     adviceViewController=[[AdviceViewController alloc]init];
-    
+    shareViewController=[[ShareViewController alloc]init];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -100,6 +106,10 @@
 //    }
     //UIImage * image = [UIImage imageNamed:@"Folder.png"];
     //cell.imageView.image = image;
+    // 去掉guop tableview的背景
+    tableView.backgroundView = nil;
+    tableView.backgroundColor = [UIColor clearColor];
+    cell.backgroundColor = [UIColor lightTextColor];
     return cell;
 }
 
@@ -134,7 +144,7 @@
     }
     else if (indexPath.row==4)
     {
-        
+        [self.navigationController pushViewController:shareViewController animated:YES];
     }
     
 }

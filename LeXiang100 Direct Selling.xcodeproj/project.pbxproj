@@ -78,6 +78,13 @@
 		56BAC1121945CC72007DF7B0 /* mylx100_bank.png in Resources */ = {isa = PBXBuildFile; fileRef = 56BAC10F1945CC72007DF7B0 /* mylx100_bank.png */; };
 		56BAC1131945CC72007DF7B0 /* mylx100_query_recommend.png in Resources */ = {isa = PBXBuildFile; fileRef = 56BAC1101945CC72007DF7B0 /* mylx100_query_recommend.png */; };
 		56BAC1141945CC72007DF7B0 /* mylx100_userinfo.png in Resources */ = {isa = PBXBuildFile; fileRef = 56BAC1111945CC72007DF7B0 /* mylx100_userinfo.png */; };
+		C29DE4AF1956654D002A72E9 /* share_moreview.png in Resources */ = {isa = PBXBuildFile; fileRef = C29DE4AE1956654D002A72E9 /* share_moreview.png */; };
+		C29DE4B41956656D002A72E9 /* advice_moreview.png in Resources */ = {isa = PBXBuildFile; fileRef = C29DE4B01956656D002A72E9 /* advice_moreview.png */; };
+		C29DE4B51956656D002A72E9 /* update__moreview.png in Resources */ = {isa = PBXBuildFile; fileRef = C29DE4B11956656D002A72E9 /* update__moreview.png */; };
+		C29DE4B61956656D002A72E9 /* aboutus__moreview.png in Resources */ = {isa = PBXBuildFile; fileRef = C29DE4B21956656D002A72E9 /* aboutus__moreview.png */; };
+		C29DE4B71956656D002A72E9 /* help_moreview.png in Resources */ = {isa = PBXBuildFile; fileRef = C29DE4B31956656D002A72E9 /* help_moreview.png */; };
+		C29DE4BA1956AD5B002A72E9 /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C29DE4B91956AD5B002A72E9 /* ShareViewController.m */; };
+		C29DE4BC1956B20C002A72E9 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C29DE4BB1956B20C002A72E9 /* MessageUI.framework */; };
 		C29F38DA19507FDE00C619D8 /* UpdateCheckingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C29F38D919507FDE00C619D8 /* UpdateCheckingViewController.m */; };
 		C2D5BF50195166B500FEC506 /* AdviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D5BF4F195166B500FEC506 /* AdviceViewController.m */; };
 		C2FAA904194F36380075990A /* Helplexiang100ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2FAA903194F36380075990A /* Helplexiang100ViewController.m */; };
@@ -195,6 +202,14 @@
 		56BAC10F1945CC72007DF7B0 /* mylx100_bank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mylx100_bank.png; sourceTree = "<group>"; };
 		56BAC1101945CC72007DF7B0 /* mylx100_query_recommend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mylx100_query_recommend.png; sourceTree = "<group>"; };
 		56BAC1111945CC72007DF7B0 /* mylx100_userinfo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mylx100_userinfo.png; sourceTree = "<group>"; };
+		C29DE4AE1956654D002A72E9 /* share_moreview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share_moreview.png; sourceTree = "<group>"; };
+		C29DE4B01956656D002A72E9 /* advice_moreview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = advice_moreview.png; sourceTree = "<group>"; };
+		C29DE4B11956656D002A72E9 /* update__moreview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = update__moreview.png; sourceTree = "<group>"; };
+		C29DE4B21956656D002A72E9 /* aboutus__moreview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aboutus__moreview.png; sourceTree = "<group>"; };
+		C29DE4B31956656D002A72E9 /* help_moreview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = help_moreview.png; sourceTree = "<group>"; };
+		C29DE4B81956AD5B002A72E9 /* ShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
+		C29DE4B91956AD5B002A72E9 /* ShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
+		C29DE4BB1956B20C002A72E9 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		C29F38D819507FDE00C619D8 /* UpdateCheckingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateCheckingViewController.h; sourceTree = "<group>"; };
 		C29F38D919507FDE00C619D8 /* UpdateCheckingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateCheckingViewController.m; sourceTree = "<group>"; };
 		C2D5BF4E195166B500FEC506 /* AdviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdviceViewController.h; sourceTree = "<group>"; };
@@ -210,6 +225,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C29DE4BC1956B20C002A72E9 /* MessageUI.framework in Frameworks */,
 				56503B1A195013A100086322 /* AddressBook.framework in Frameworks */,
 				56503B1B195013A100086322 /* AddressBookUI.framework in Frameworks */,
 				564B0322194D6C5600C77DAA /* libsqlite3.dylib in Frameworks */,
@@ -258,6 +274,11 @@
 			children = (
 				564A5394195746CD00DD7F98 /* right.png */,
 				5642E3521951A87E00C0AF79 /* iPhone2.png */,
+				C29DE4AE1956654D002A72E9 /* share_moreview.png */,
+				C29DE4B01956656D002A72E9 /* advice_moreview.png */,
+				C29DE4B11956656D002A72E9 /* update__moreview.png */,
+				C29DE4B21956656D002A72E9 /* aboutus__moreview.png */,
+				C29DE4B31956656D002A72E9 /* help_moreview.png */,
 				5642E3531951A87E00C0AF79 /* iphone1.png */,
 				5642E35A1951B11100C0AF79 /* iPhone.png */,
 				5642E35B1951B11100C0AF79 /* iPhone@2x.png */,
@@ -306,6 +327,8 @@
 				C29F38D919507FDE00C619D8 /* UpdateCheckingViewController.m */,
 				C2D5BF4E195166B500FEC506 /* AdviceViewController.h */,
 				C2D5BF4F195166B500FEC506 /* AdviceViewController.m */,
+				C29DE4B81956AD5B002A72E9 /* ShareViewController.h */,
+				C29DE4B91956AD5B002A72E9 /* ShareViewController.m */,
 			);
 			name = MoreLeXiang;
 			sourceTree = "<group>";
@@ -381,6 +404,7 @@
 		56AE780E193786B100D5A76D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C29DE4BB1956B20C002A72E9 /* MessageUI.framework */,
 				56503B18195013A100086322 /* AddressBook.framework */,
 				56503B19195013A100086322 /* AddressBookUI.framework */,
 				564B0321194D6C5600C77DAA /* libsqlite3.dylib */,
@@ -537,11 +561,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C29DE4B41956656D002A72E9 /* advice_moreview.png in Resources */,
 				5642E35C1951B11100C0AF79 /* iPhone.png in Resources */,
 				568315CB19446783002FA689 /* busi_sjb.png in Resources */,
 				568315C519446783002FA689 /* busi_ent.png in Resources */,
 				568315C419446783002FA689 /* busi_camp.png in Resources */,
 				564B3591193A0E5600D789DE /* metal.jpg in Resources */,
+				C29DE4AF1956654D002A72E9 /* share_moreview.png in Resources */,
 				56AE781A193786B100D5A76D /* InfoPlist.strings in Resources */,
 				568315C819446783002FA689 /* busi_ldtx.png in Resources */,
 				56BAC1131945CC72007DF7B0 /* mylx100_query_recommend.png in Resources */,
@@ -558,16 +584,19 @@
 				5642E35D1951B11100C0AF79 /* iPhone@2x.png in Resources */,
 				568315CA19446783002FA689 /* busi_service.png in Resources */,
 				564B35711939CCB100D789DE /* more.png in Resources */,
+				C29DE4B51956656D002A72E9 /* update__moreview.png in Resources */,
 				5642E3591951ADDA00C0AF79 /* my@2x.png in Resources */,
 				5642E34F1951940500C0AF79 /* paper.png in Resources */,
 				564B3596193A106000D789DE /* more1.png in Resources */,
 				564C5EFC19387F5D0067160A /* sound.png in Resources */,
+				C29DE4B61956656D002A72E9 /* aboutus__moreview.png in Resources */,
 				564C5F041938ECBD0067160A /* search1.png in Resources */,
 				5642E34D19511E9100C0AF79 /* ic_launcher.png in Resources */,
 				5642E3551951A87E00C0AF79 /* iphone1.png in Resources */,
 				568315C919446783002FA689 /* busi_package.png in Resources */,
 				56AE7822193786B100D5A76D /* Images.xcassets in Resources */,
 				564C5EFE193883BE0067160A /* cancel.png in Resources */,
+				C29DE4B71956656D002A72E9 /* help_moreview.png in Resources */,
 				56BAC1141945CC72007DF7B0 /* mylx100_userinfo.png in Resources */,
 				564B356D1939BF5C00D789DE /* my.png in Resources */,
 				568315C719446783002FA689 /* busi_favorite.png in Resources */,
@@ -601,6 +630,7 @@
 				563B6666193C183900D1076F /* DataBuffer.m in Sources */,
 				56AE7820193786B100D5A76D /* AppDelegate.m in Sources */,
 				566A6F0F1939B11D00A45D1A /* MyLeXiangViewController.m in Sources */,
+				C29DE4BA1956AD5B002A72E9 /* ShareViewController.m in Sources */,
 				C2FAA907194F36C90075990A /* MoreViewController.m in Sources */,
 				564B0320194D607200C77DAA /* SQLForLeXiang.m in Sources */,
 				56B0B8FF193CBB7100F514C5 /* DetailViewController.m in Sources */,
