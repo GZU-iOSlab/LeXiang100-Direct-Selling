@@ -81,7 +81,7 @@ extern NSString * service;
         busiText.borderStyle = UITextBorderStyleRoundedRect;
         UIImage * rightImage = [UIImage imageNamed:@"right.png"];
         UIImageView * imgViewRight = [[[UIImageView alloc]initWithImage:rightImage]autorelease];
-        imgViewRight.frame = CGRectMake(0, 0, viewWidth/30, viewWidth/30);
+        imgViewRight.frame = CGRectMake(0, 0, viewWidth/30, viewWidth/20);
         busiText.font = [UIFont systemFontOfSize:viewHeight/30];
         busiText.delegate = self;
         busiText.rightView = imgViewRight;
@@ -274,7 +274,9 @@ extern NSString * service;
     if ([offerList isKindOfClass:[NSArray class]]) {
         NSLog(@"i'm a array");
         NSArray * offerArray = [dic objectForKey:@"returnOfferList"];
+        [offerID setString:@""];
         [offerID appendString:[[offerArray objectAtIndex:0]objectForKey:@"OFFER_ID"]];
+        [HELLOWORD setString:@""];
         [HELLOWORD appendString:[[offerArray objectAtIndex:0]objectForKey:@"HELLO_WORD"]];
     }
     else if ([offerList isKindOfClass:[NSDictionary class]]){

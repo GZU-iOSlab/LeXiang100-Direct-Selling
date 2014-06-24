@@ -246,11 +246,13 @@ extern NSMutableDictionary * UserInfo;
 
 - (void)UpdateUserMainOfferWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 CustPhone:(NSString *)custPhone Parameter2:(NSString *)parameter2 ParameterOfferId:(NSString *)OfferId Parameter3:(NSString *)parameter3 Token:(NSString *)token {
     [self getSoapForInterface:interface Parameter1:parameter1 Value1:custPhone Parameter2:parameter2 Value2:OfferId Parameter3:parameter3 Value3:token];
+    [self showAlerView];
 }
 
 - (void)OrderVasOfferWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 CustPhone:(NSString *)custPhone Parameter2:(NSString *)parameter2 ParameterOfferId:(NSString *)OfferId Parameter3:(NSString *)parameter3 Token:(NSString *)token {
     
     [self getSoapForInterface:interface Parameter1:parameter1 Value1:custPhone Parameter2:parameter2 Value2:OfferId Parameter3:parameter3 Value3:token];
+    [self showAlerView];
 }
 
 - (void)MockUpSMSWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 OpPhone:(NSString *)opPhone Parameter2:(NSString *)parameter2 SmsPort:(NSString *)smsPort Parameter3:(NSString *)parameter3 SmsContent:(NSString *)smsContent{
