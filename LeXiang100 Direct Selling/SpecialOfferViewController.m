@@ -30,7 +30,7 @@ extern NSString * service;
         [nc addObserver:self selector:@selector(awordShellFeedback:) name:@"awordShellQueryResponse" object:nil];
         self.title = service;
         self.view.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"查询" style:UIBarButtonItemStyleBordered target:self action:@selector(search)];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"查询" style:UIBarButtonItemStyleBordered target:self action:@selector(searchFor)];
         UITextView * background = [[[UITextView alloc]init]autorelease];
         background.frame = self.view.frame;
         //[self.view addSubview: background];
@@ -183,9 +183,9 @@ extern NSString * service;
     return  YES;//NO进入不了编辑模式
 }
 
-- (void)search{
+- (void)searchFor{
     if (busiText.frame.origin.y<viewHeight && busiLabel.frame.origin.y<viewHeight) {
-        [UIView animateWithDuration:0.3 animations:^{busiLabel.center = CGPointMake(viewWidth/2, viewHeight);busiText.center = CGPointMake(viewWidth/2, viewHeight+70);}];
+        [UIView animateWithDuration:0.3 animations:^{busiLabel.center = CGPointMake(viewWidth/2, viewHeight*5/4);busiText.center = CGPointMake(viewWidth/2, viewHeight*5/4);}];
     }
     
     NSString * number = [[[NSString alloc]init]autorelease];

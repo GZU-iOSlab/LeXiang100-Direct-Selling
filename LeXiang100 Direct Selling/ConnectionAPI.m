@@ -476,10 +476,11 @@ extern NSMutableDictionary * UserInfo;
         }
         //主推荐业务办理
         else if (([getXMLResults rangeOfString:@"updateUserMainOfferResponse"].length>0)) {
-            if ([soapResults rangeOfString:@"不是主策划"].length>0) {
-                //[nc postNotificationName:@"awordShellQueryResponse" object:self userInfo:d];
-            }//else if (soapResults rangeOfString:<#(NSString *)#>)
-         NSLog(@"======================updateUserMainOfferResponse============================");
+            NSString * returnSingal = [resultDic objectForKey:@"X_RESULTCODE"];
+            if ([returnSingal isEqualToString:@"0"]) {
+                [connectionAPI showAlertWithTitle:@"推荐成功！" AndMessages:nil];
+            }else   [connectionAPI showAlertWithTitle:@"推荐失败！" AndMessages:nil];
+                NSLog(@"======================updateUserMainOfferResponse============================");
         }
         //增值业务办理
         else if (([getXMLResults rangeOfString:@"orderVasOfferResponse"].length>0)) {
@@ -491,6 +492,14 @@ extern NSMutableDictionary * UserInfo;
                 [connectionAPI showAlertWithTitle:nil AndMessages:@"业务推荐成功！"];
             }else if ([soapResults isEqualToString:@"1"]){
                 [connectionAPI showAlertWithTitle:nil AndMessages:@"业务推荐失败！"];
+            }
+        }
+        //建议提交返回
+        else if ([getXMLResults rangeOfString:@"saveSuggestInfoResponse"].length>0){
+            if ([soapResults isEqualToString:@"0"]) {
+                [connectionAPI showAlertWithTitle:nil AndMessages:@"建议提交成功！"];
+            }else if ([soapResults isEqualToString:@"1"]){
+                [connectionAPI showAlertWithTitle:nil AndMessages:@"建议提交失败！"];
             }
         }
         //返回数据为空

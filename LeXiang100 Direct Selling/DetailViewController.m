@@ -175,11 +175,11 @@ extern NSMutableDictionary * UserInfo;
                 [connectionAPI showAlertWithTitle:@"号码错误" AndMessages:@"手机号码错误,请检查后重新输入！"];
             }else{
                 NSString * opPhone = [UserInfo objectForKey:@"name"];
-                if ([opPhone rangeOfString:@"1"].length>0) {
+                //if ([opPhone rangeOfString:@"1"].length>0) {
                     NSString * busiCode = [[DB findByBusiName:[self.detailService objectForKey:@"busiName"]]objectForKey:@"busiCode"];
                     NSString * smsContent = [NSString stringWithFormat:@"OPIOS_%@#%@",phoneText.text,busiCode];
                     [soap MockUpSMSWithInterface:@"mockUpSMS" Parameter1:@"opPhone" OpPhone:opPhone Parameter2:@"smsPort" SmsPort:@"10658260"     Parameter3:@"smsContent" SmsContent:smsContent];
-                }else [connectionAPI showAlertWithTitle:@"请登录" AndMessages:@"请登录后在使用推荐功能！"];
+                //}else [connectionAPI showAlertWithTitle:@"请登录" AndMessages:@"请登录后在使用推荐功能！"];
             }
         }
     }else if([self.haveBtn isEqualToString:@"1"]){
