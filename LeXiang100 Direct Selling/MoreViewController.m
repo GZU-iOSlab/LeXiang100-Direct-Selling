@@ -31,7 +31,6 @@
         self.dataSource = data;
         
         
-        
         UIImage * metal = [UIImage imageNamed:@"metal.jpg"];
         UIImageView *imgViewMetal = [[UIImageView alloc] initWithImage:metal];
         imgViewMetal.frame = CGRectMake(0, 0, viewWidth, viewHeight);
@@ -133,10 +132,10 @@
     //cell.imageView.image = image;
     // 去掉guop tableview的背景
     
-  
-    
     tableView.backgroundView = nil;
-    tableView.backgroundColor = [UIColor clearColor];
+    if ([[[UIDevice currentDevice]systemVersion]floatValue]>=7) {
+        tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    }else tableView.backgroundColor = [UIColor clearColor];
     cell.backgroundColor = [UIColor lightTextColor];
     return cell;
 }
