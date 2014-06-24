@@ -17,6 +17,8 @@
 #define viewWidth   self.view.frame.size.width
 #define viewHeight  self.view.frame.size.height
 extern connectionAPI * soap;
+extern NSMutableDictionary * UserInfo;
+
 @synthesize classTableview;
 @synthesize array;
 @synthesize feedbackButton;
@@ -117,7 +119,9 @@ extern connectionAPI * soap;
 
 - (void)submitData
 {
-    [soap SaveSuggestInfoWithInterface:@"saveSuggestInfo" Parameter1:@"opPhone" OpPhone:@"15085921612" Parameter2:@"suggestType" SuggestType:selectedString Parameter3:@"suggestContent" SuggestContent:inputFeedback.text];
+    NSString *phone = [UserInfo objectForKey:@"name" ];
+    NSString *info  = [NSString stringWithFormat:@"{\"opPhone\":\"%@\",\"suggestType\":\"%@\",\"suggestContent\":\"%@\"}",phone,selectedString,inputFeedback.text];
+    [soap SaveSuggestInfoWithInterface:@"saveSuggestInfo" Parameter1:@"suggestInfo" SuggestInfo:info];
 }
 
 - (void)viewDidLoad

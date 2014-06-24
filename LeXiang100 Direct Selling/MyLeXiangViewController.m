@@ -50,6 +50,19 @@ extern NSMutableDictionary * UserInfo;
         [nc addObserver:self selector:@selector(tunrToBankAccountView) name:@"queryBankInfoResponse" object:nil];
         [nc addObserver:self selector:@selector(stopIndicator) name:@"loginFalse" object:nil];
 
+        int firsty,secondy,thirdy,fouthy;
+        if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad){
+            firsty = viewHeight/7;
+            secondy = viewHeight/7+viewHeight/5.5;
+            thirdy = viewHeight/7+viewHeight/5.5*2;
+            fouthy = viewHeight/7+viewHeight/5.5*3;
+        }else{
+            firsty = viewHeight/7;
+            secondy = viewHeight/7+viewHeight/6.5;
+            thirdy = viewHeight/7+viewHeight/6.5*2;
+            fouthy = viewHeight/7+viewHeight/6.5*3;
+        }
+        
         self.UserInfoDic = [[NSMutableDictionary alloc]init];
         
         self.view.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
@@ -58,17 +71,37 @@ extern NSMutableDictionary * UserInfo;
         self.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"我的乐享" image:MyLeXiang tag:1];
         self.view.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
         
+        UILabel * personalLabel = [[[UILabel alloc]initWithFrame:CGRectMake(firstX, firsty+iconSize, iconSize, viewHeight/32)]autorelease];
+        personalLabel.text = @"个人信息";
+        personalLabel.font = [UIFont systemFontOfSize:viewHeight/40];
+        personalLabel.backgroundColor = [UIColor clearColor];
+        personalLabel.textAlignment =NSTextAlignmentCenter;
+        [self.view addSubview:personalLabel];
         UIImage * personalImg = [UIImage imageNamed:@"mylx100_userinfo.png"];
         imgViewPersonal = [[UIImageView alloc] initWithImage:personalImg];
-        imgViewPersonal.frame = CGRectMake(firstX, firstY, iconSize, iconSize);
+        imgViewPersonal.frame = CGRectMake(firstX, firsty, iconSize, iconSize);
         [self.view addSubview:imgViewPersonal];
+        
+        UILabel * accountLabel = [[[UILabel alloc]initWithFrame:CGRectMake(secondX, firsty+iconSize, iconSize, viewHeight/32)]autorelease];
+        accountLabel.text = @"银行账户";
+        accountLabel.font = [UIFont systemFontOfSize:viewHeight/40];
+        accountLabel.backgroundColor = [UIColor clearColor];
+        accountLabel.textAlignment =NSTextAlignmentCenter;
+        [self.view addSubview:accountLabel];
         UIImage * accountImg = [UIImage imageNamed:@"mylx100_bank.png"];
         imgViewAccount = [[UIImageView alloc] initWithImage:accountImg];
-        imgViewAccount.frame = CGRectMake(secondX, firstY, iconSize, iconSize);
+        imgViewAccount.frame = CGRectMake(secondX, firsty, iconSize, iconSize);
         [self.view addSubview:imgViewAccount];
+        
+        UILabel * searchLabel = [[[UILabel alloc]initWithFrame:CGRectMake(thirdX, firsty+iconSize, iconSize, viewHeight/32)]autorelease];
+        searchLabel.text = @"推荐记录";
+        searchLabel.font = [UIFont systemFontOfSize:viewHeight/40];
+        searchLabel.backgroundColor = [UIColor clearColor];
+        searchLabel.textAlignment =NSTextAlignmentCenter;
+        [self.view addSubview:searchLabel];
         UIImage * searchImg = [UIImage imageNamed:@"mylx100_query_recommend.png"];
         imgViewSearch = [[UIImageView alloc] initWithImage:searchImg];
-        imgViewSearch.frame = CGRectMake(thirdX, firstY, iconSize, iconSize);
+        imgViewSearch.frame = CGRectMake(thirdX, firsty, iconSize, iconSize);
         [self.view addSubview:imgViewSearch];
         
         self.backgroundText = [[UITextField alloc]initWithFrame:CGRectMake(viewWidth/8, -viewHeight, viewWidth - viewWidth/4, viewHeight/2.7)];

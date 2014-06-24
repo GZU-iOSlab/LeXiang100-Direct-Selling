@@ -118,9 +118,13 @@ extern NSMutableDictionary * UserInfo;
 
 - (void)getSoapForInterface:(NSString *)interface Parameter1:(NSString *)parameter1 Value1:(NSString *)value1 Parameter2:(NSString *)parameter2 Value2:(NSString *)value2 Parameter3:(NSString *)parameter3 Value3:(NSString *)value3 {
     NSLog(@"value1:%@ value2:%@ value3:%@", value1, value2, value3);
+    if ( [interface isEqualToString:@"orderVasOffer"]) {
+        //
+    }else{
     value1 = [DES3Util encrypt:value1];
     value2 = [DES3Util encrypt:value2];
     value3 = [DES3Util encrypt:value3];
+    }
     
     NSString * soapMsg = [NSString stringWithFormat:
                           @"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
@@ -259,84 +263,10 @@ extern NSMutableDictionary * UserInfo;
     [self showAlerView];
 }
 
-- (void)SaveSuggestInfoWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 OpPhone:(NSString *)opPhone Parameter2:(NSString *)parameter2 SuggestType:(NSString *)suggestType Parameter3:(NSString *)parameter3 SuggestContent:(NSString *)suggestContent{
-    [self getSoapForInterface:interface Parameter1:parameter1 Value1:opPhone Parameter2:parameter2 Value2:suggestType Parameter3:parameter3 Value3:suggestContent];
+-(void) SaveSuggestInfoWithInterface:(NSString*)interface Parameter1:(NSString*)parameter1 SuggestInfo:(NSString*)suggestInfo{
+    [self getSoapFromInterface:interface Parameter1:parameter1 Value1:suggestInfo];
     [self showAlerView];
 }
-
-
-//- (void)LoginWithUserName:(NSString *)NewUsername Password:(NSString *)NewPassword{
-//    NewPassword = [DES3Util encrypt:NewPassword];
-//    NewUsername = [DES3Util encrypt:NewUsername];
-//    
-//    NSString * soapMsg = [NSString stringWithFormat:
-//                          @"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
-//                          "<SOAP-ENV:Envelope \r\n"
-//                          "xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\"\r\n "//
-//                          "xmlns:xsi=\"http://www.w3.org/1999/XMLSchema-instance\" \r\n"
-//                          "xmlns:xsd=\"http://www.w3.org/1999/XMLSchema\">\r\n "
-//                          "<SOAP-ENV:Body>\r\n"
-//                          "<modifyLogin>\r\n"
-//                          "<loginPwd xsi:type=\"xsd:string\" xmlns:xsi=\"http://www.w3.org/1999/XMLSchema-instance\">%@</loginPwd>\r\n"
-//                          "<opPhone xsi:type=\"xsd:string\" xmlns:xsi=\"http://www.w3.org/1999/XMLSchema-instance\">%@</opPhone>\r\n"
-//                          "</modifyLogin>\r\n"
-//                          "</SOAP-ENV:Body>\r\n"
-//                          "</SOAP-ENV:Envelope>\r\n",NewPassword,NewUsername];
-//    NSLog(@"%@",soapMsg);
-//    
-//    NSString * ur = [NSString stringWithFormat:@"http://www.gz.10086.cn/intflx100/ws/phoneintf"];
-//    NSURL * url = [NSURL URLWithString:ur] ;
-//    NSMutableURLRequest * req = [NSMutableURLRequest requestWithURL:url];
-//    NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMsg length]];
-//    
-//    [req addValue: @"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-//    [req addValue: msgLength forHTTPHeaderField:@"Content-Length"];
-//    [req setHTTPMethod:@"POST"];
-//    [req setHTTPBody:[soapMsg dataUsingEncoding:NSUTF8StringEncoding]];
-//    
-//    conn = [[NSURLConnection alloc]initWithRequest:req delegate:self];
-//    if(conn){
-//        webData = [[NSMutableData data]retain];
-//        //NSLog(@"%@  22222",webData);
-//        }else NSLog(@"con为假  %@",webData);
-//}
-//
-//-(void)BusiInfoVersion:(NSString *)version;
-//{
-//    
-//    version = [DES3Util encrypt:version];
-//    
-//    
-//    NSString * soapMsg = [NSString stringWithFormat:
-//                          @"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
-//                          "<SOAP-ENV:Envelope \r\n"
-//                          "xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\"\r\n "//
-//                          "xmlns:xsi=\"http://www.w3.org/1999/XMLSchema-instance\" \r\n"
-//                          "xmlns:xsd=\"http://www.w3.org/1999/XMLSchema\">\r\n "
-//                          "<SOAP-ENV:Body>\r\n"
-//                          "<queryBusiInfo>\r\n"
-//                          "<versionTag xsi:type=\"xsd:string\" xmlns:xsi=\"http://www.w3.org/1999/XMLSchema-instance\">%@</versionTag>\r\n"
-//                          "</queryBusiInfo>\r\n"
-//                          "</SOAP-ENV:Body>\r\n"
-//                          "</SOAP-ENV:Envelope>\r\n",version];
-//    NSLog(@"%@",soapMsg);
-//    
-//    NSString * ur = [NSString stringWithFormat:@"http://www.gz.10086.cn/intflx100/ws/phoneintf"];
-//    NSURL * url = [NSURL URLWithString:ur] ;
-//    NSMutableURLRequest * req = [NSMutableURLRequest requestWithURL:url];
-//    NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMsg length]];
-//    
-//    [req addValue: @"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-//    [req addValue: msgLength forHTTPHeaderField:@"Content-Length"];
-//    [req setHTTPMethod:@"POST"];
-//    [req setHTTPBody:[soapMsg dataUsingEncoding:NSUTF8StringEncoding]];
-//    
-//    conn = [[NSURLConnection alloc]initWithRequest:req delegate:self];
-//    if(conn){
-//        webData = [[NSMutableData data]retain];
-//        //NSLog(@"%@  22222",webData);
-//    }else NSLog(@"con为假  %@",webData);
-//}
 
 #pragma mark -
 #pragma mark URL Connection Data Delegate Methods
@@ -424,20 +354,25 @@ extern NSMutableDictionary * UserInfo;
 -(void)parser:(NSXMLParser *) parser foundCharacters:(NSString *)string {
     if (elementFound) {                                         //respondse
         soapResults = [[NSMutableString alloc]init];
-        [soapResults appendString: [DES3Util decrypt:string]];
+        //不加密接口相应也不解密
+        if ([getXMLResults rangeOfString:@"orderVasOfferResponse"].length > 0 ) {
+            [soapResults appendString: string];
+        }else{
+            [soapResults appendString: [DES3Util decrypt:string]];
+        }
         NSLog(@"connection:%@",soapResults);
 
         //参数错误时返回soap中return为空   并忽略orderVasOfferResponse接口16
-        if (([soapResults isEqualToString:@"{}"]||soapResults.length<4)&&[getXMLResults rangeOfString:@"orderVasOfferResponse"].length==0) {
+        if (([soapResults isEqualToString:@"{}"])&&[getXMLResults rangeOfString:@"queryBankInfoResponse"].length==0&&[getXMLResults rangeOfString:@"mockUpSMSResponse"].length==0) {
             [connectionAPI showAlertWithTitle:@"输入参数错误" AndMessages:@"输入参数错误，请检查输入项！"];
             [nc postNotificationName:@"loginFalse" object:self userInfo:nil];
             needToAnalysis = NO;
+            //||soapResults.length<4
         }
         
         //json解析
         NSData *aData = [soapResults dataUsingEncoding: NSUTF8StringEncoding];
        
-        
             resultDic = [NSJSONSerialization JSONObjectWithData:aData options:NSJSONReadingMutableContainers error:nil];
         if (resultDic == nil) {
             resultDic = [[[NSDictionary alloc]init]autorelease];
@@ -515,13 +450,13 @@ extern NSMutableDictionary * UserInfo;
             if ([soapResults isEqualToString:@"{}"]) {
             
             }else{
-            NSString * custPhone = [UserInfo objectForKey:@"name" ];
-            NSString * token = [UserInfo objectForKey:@"token"];
+            //NSString * custPhone = [UserInfo objectForKey:@"name" ];
+            //NSString * token = [UserInfo objectForKey:@"token"];
             NSDictionary * offerList = [resultDic objectForKey:@"returnOfferList"];
             NSString * offerId;
                 if (offerList.count ==0 ) {
                     NSLog(@"没有适合办理的业务");
-                    [nc postNotificationName:@"awordShellQueryResponseNo" object:self userInfo:d];
+                    [nc postNotificationName:@"awordResponseNo" object:self userInfo:d];
                 }else{
                     if ([offerList isKindOfClass:[NSArray class]]) {
                         NSLog(@"i'm a array");
@@ -533,8 +468,8 @@ extern NSMutableDictionary * UserInfo;
                     }
                 NSLog(@"offerID:%@",offerId);
                     [nc postNotificationName:@"awordShellQueryResponse" object:self userInfo:d];
-                [self UpdateUserMainOfferWithInterface:@"updateUserMainOffer" Parameter1:@"custPhone" CustPhone:custPhone Parameter2:@"OfferId"     ParameterOfferId:offerId Parameter3:@"token" Token:token];
-                [self OrderVasOfferWithInterface:@"orderVasOffer" Parameter1:@"custPhone" CustPhone:custPhone Parameter2:@"OfferId"     ParameterOfferId:offerId Parameter3:@"token" Token:token];
+               // [self UpdateUserMainOfferWithInterface:@"updateUserMainOffer" Parameter1:@"custPhone" CustPhone:custPhone Parameter2:@"OfferId"     ParameterOfferId:offerId Parameter3:@"token" Token:token];
+                //[self OrderVasOfferWithInterface:@"orderVasOffer" Parameter1:@"custPhone" CustPhone:custPhone Parameter2:@"OfferId"     ParameterOfferId:offerId Parameter3:@"token" Token:token];
                 }
                 
             }
@@ -542,7 +477,7 @@ extern NSMutableDictionary * UserInfo;
         //主推荐业务办理
         else if (([getXMLResults rangeOfString:@"updateUserMainOfferResponse"].length>0)) {
             if ([soapResults rangeOfString:@"不是主策划"].length>0) {
-                [nc postNotificationName:@"awordShellQueryResponse" object:self userInfo:d];
+                //[nc postNotificationName:@"awordShellQueryResponse" object:self userInfo:d];
             }//else if (soapResults rangeOfString:<#(NSString *)#>)
          NSLog(@"======================updateUserMainOfferResponse============================");
         }

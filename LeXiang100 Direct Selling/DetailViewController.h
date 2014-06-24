@@ -18,9 +18,13 @@
     UILabel * servicesDetailLabel;
     AddresseBookTableViewController * addressBook;
     UITextField * phoneText;
+    UIButton * linkManBtn;
 //    NSString *firstname;
 //    NSString *lastname;
 //    NSString *phoneNumber;
 }
 @property (nonatomic,strong)NSDictionary * detailService;
+@property (nonatomic,strong)NSString * haveBtn;
+@property (nonatomic,strong)NSString * phoneNmubers;
+
 @end

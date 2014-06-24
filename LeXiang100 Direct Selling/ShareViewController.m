@@ -36,8 +36,8 @@
         UITextView * background = [[UITextView alloc]initWithFrame:CGRectMake(0, 0, viewWidth, viewHeight)];
         background.editable=NO;
         [self.view addSubview:background];
-        message=[[MFMessageComposeViewController alloc]init];
-        message.messageComposeDelegate=self;
+        //message=[[MFMessageComposeViewController alloc]init];
+        //message.messageComposeDelegate=self;
         //[self.view addSubview:message];
         
         

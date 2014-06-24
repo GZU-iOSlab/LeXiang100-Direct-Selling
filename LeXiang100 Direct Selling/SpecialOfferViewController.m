@@ -19,7 +19,6 @@ extern NSMutableDictionary * UserInfo;
 extern Boolean login;
 extern connectionAPI * soap;
 extern NSNotificationCenter *nc;
-
 @synthesize alerts;
 extern NSString * service;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -27,7 +26,7 @@ extern NSString * service;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        [nc addObserver:self selector:@selector(awordShellFeedback) name:@"awordShellQueryResponseNo" object:nil];
+        [nc addObserver:self selector:@selector(awordShellFeedback) name:@"awordResponseNo" object:nil];
         [nc addObserver:self selector:@selector(awordShellFeedback:) name:@"awordShellQueryResponse" object:nil];
         self.title = service;
         self.view.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
@@ -55,7 +54,7 @@ extern NSString * service;
         phoneText.backgroundColor = [UIColor whiteColor];
         phoneText.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
         phoneText.clearButtonMode = UITextFieldViewModeWhileEditing;
-        phoneText.text = @"15285921612";
+        phoneText.text = @"15285987576";
         phoneText.delegate = self;
         [self.view addSubview:phoneText];
         
@@ -71,6 +70,30 @@ extern NSString * service;
         servicesLabel.font = [UIFont systemFontOfSize:viewHeight/40];
         servicesLabel.backgroundColor = [UIColor groupTableViewBackgroundColor];
         [self.view addSubview:servicesLabel];
+        
+        busiLabel = [[UILabel alloc]initWithFrame:CGRectMake(viewWidth/40, viewHeight, viewWidth-viewWidth/20, viewHeight/20)];
+        busiLabel.text = @"适合参加的业务：";
+        busiLabel.font = [UIFont systemFontOfSize:viewHeight/40];
+        busiLabel.backgroundColor = [UIColor clearColor];
+        [self.view addSubview:busiLabel];
+        
+        busiText = [[[UITextField alloc]initWithFrame:CGRectMake(viewWidth/40, viewHeight+viewHeight/20, viewWidth-viewWidth/20, viewHeight/5)]autorelease];
+        busiText.borderStyle = UITextBorderStyleRoundedRect;
+        UIImage * rightImage = [UIImage imageNamed:@"right.png"];
+        UIImageView * imgViewRight = [[[UIImageView alloc]initWithImage:rightImage]autorelease];
+        imgViewRight.frame = CGRectMake(0, 0, viewWidth/30, viewWidth/30);
+        busiText.font = [UIFont systemFontOfSize:viewHeight/30];
+        busiText.delegate = self;
+        busiText.rightView = imgViewRight;
+        busiText.rightViewMode = UITextFieldViewModeAlways;
+        busiText.textAlignment = NSTextAlignmentCenter;
+        busiText.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+        busiText.backgroundColor = [UIColor lightTextColor];
+        [self.view addSubview:busiText];
+        toDetail = NO;
+        
+        HELLOWORD = [[NSMutableString alloc]init];
+        offerID = [[NSMutableString alloc]init];
         
         //解决ios7界面上移  配色等问题
         if ([[[UIDevice currentDevice]systemVersion]floatValue]>=7) {
@@ -125,7 +148,46 @@ extern NSString * service;
     }
 }
 
+#pragma mark UesrTouche
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    UITouch *touch = [touches anyObject];
+    if ([touch view] != phoneText) {
+        [phoneText resignFirstResponder];
+    }
+    
+    
+}
+
+#pragma mark textefield delegate
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+    if (textField == busiText && toDetail) {
+        DetailViewController * detailView = [[[DetailViewController alloc]init]autorelease];
+        detailView.haveBtn = @"1";
+        detailView.phoneNmubers = phoneText.text;
+        
+        NSMutableDictionary * dic = [[NSMutableDictionary alloc]init];//WithObjectsAndKeys:busiText.text,@"busiName",HELLO_WORD,@"busiDesc" ,nil];
+        [dic setObject:busiText.text forKey:@"busiName"];
+        [dic setObject:HELLOWORD forKey:@"busiDesc"];
+        [dic setObject:phoneText.text forKey:@"name"];
+        [dic setObject:offerID forKey:@"OFFER_ID"];
+        detailView.detailService = dic;
+        
+        [self.navigationController pushViewController:detailView animated:YES];
+    }
+    if (textField == busiText) {
+        return NO;
+    }
+    
+    return  YES;//NO进入不了编辑模式
+}
+
 - (void)search{
+    if (busiText.frame.origin.y<viewHeight && busiLabel.frame.origin.y<viewHeight) {
+        [UIView animateWithDuration:0.3 animations:^{busiLabel.center = CGPointMake(viewWidth/2, viewHeight);busiText.center = CGPointMake(viewWidth/2, viewHeight+70);}];
+    }
+    
     NSString * number = [[[NSString alloc]init]autorelease];
     if ([phoneText.text isEqualToString:@""]) {
         [connectionAPI showAlertWithTitle:@"请输入手机号" AndMessages:@"手机号码不能为空,请检查后重新输入！"];
@@ -190,57 +252,59 @@ extern NSString * service;
 }
 
 - (void)awordShellFeedback{
-    UILabel * busiLabel = [[UILabel alloc]initWithFrame:CGRectMake(viewWidth/40, viewHeight, viewWidth-viewWidth/20, viewHeight/20)];
-    busiLabel.text = @"适合参加的业务：";
-    busiLabel.font = [UIFont systemFontOfSize:viewHeight/40];
-    [self.view addSubview:busiLabel];
-    UITextField * busiText = [[UITextField alloc]initWithFrame:CGRectMake(viewWidth/40, viewHeight+viewHeight/20, viewWidth-viewWidth/20, viewHeight/5)];
-    busiText.borderStyle = UITextBorderStyleRoundedRect;
-    UIImage * rightImage = [UIImage imageNamed:@"right.png"];
-    UIImageView * imgViewRight = [[UIImageView alloc]initWithImage:rightImage];
-    //imgViewRight.frame = CGRectMake(0, 0, viewWidth/10, viewHeight/8);
-    busiText.font = [UIFont systemFontOfSize:viewHeight/30];
     busiText.text = @"没有适合参加的业务";
-    busiText.rightView = imgViewRight;
-    busiText.rightViewMode = UITextFieldViewModeAlways;
-    [self.view addSubview:busiText];
-    [UIView animateWithDuration:0.3 animations:^{busiLabel.center = CGPointMake(viewWidth/2, viewHeight/2.2-60);busiText.center = CGPointMake(viewWidth/2, viewHeight/2.2);}];
-    //[self.UserInfoDic setDictionary:[[note userInfo] objectForKey:@"1"]];
+    toDetail = NO;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        [UIView animateWithDuration:0.3 animations:^{busiLabel.center = CGPointMake(viewWidth/2, viewHeight/2.2-120);busiText.center = CGPointMake(viewWidth/2, viewHeight/2.2);}];
+    }else{
+    [UIView animateWithDuration:0.3 animations:^{busiLabel.center = CGPointMake(viewWidth/2, viewHeight/2.2-70);busiText.center = CGPointMake(viewWidth/2, viewHeight/2.2);}];
+    }
+}
+
+-(BOOL) respondsToSelector : (SEL)aSelector {
+    printf("SELECTOR: %s\n", [NSStringFromSelector(aSelector) UTF8String]);
+    return [super respondsToSelector:aSelector];
 }
 
 - (void)awordShellFeedback:(NSNotification *)note{
+    toDetail = YES;
     NSDictionary * dic =[[note userInfo] objectForKey:@"1"];
     NSDictionary * offerList = [dic objectForKey:@"returnOfferList"];
-    NSString * text;
+    
     if ([offerList isKindOfClass:[NSArray class]]) {
         NSLog(@"i'm a array");
         NSArray * offerArray = [dic objectForKey:@"returnOfferList"];
-        text = [[offerArray objectAtIndex:0]objectForKey:@"HELLO_WORD"];
+        [offerID appendString:[[offerArray objectAtIndex:0]objectForKey:@"OFFER_ID"]];
+        [HELLOWORD appendString:[[offerArray objectAtIndex:0]objectForKey:@"HELLO_WORD"]];
     }
     else if ([offerList isKindOfClass:[NSDictionary class]]){
-        text = [offerList objectForKey:@"HELLO_WORD"];
+        HELLOWORD = [offerList objectForKey:@"HELLO_WORD"];
     }
-    NSString * text1 = [text substringWithRange:NSMakeRange(7, text.length-7)];
-    
-    UITextField * busiText = [[UITextField alloc]initWithFrame:CGRectMake(viewWidth/40, viewHeight+viewHeight/20, viewWidth-viewWidth/20, viewHeight/5)];
-    busiText.borderStyle = UITextBorderStyleRoundedRect;
-    UIImage * rightImage = [UIImage imageNamed:@"right.png"];
-    UIImageView * imgViewRight = [[UIImageView alloc]initWithImage:rightImage];
-    //imgViewRight.frame = CGRectMake(0, 0, viewWidth/10, viewHeight/8);
-    busiText.font = [UIFont systemFontOfSize:viewHeight/30];
+    NSString * text1;
+    if ([HELLOWORD rangeOfString:@"建议您换成最适合您消费的"].length > 0) {
+        NSArray * list = [HELLOWORD componentsSeparatedByString:@"，"];
+        for (NSString * str in list) {
+            if ([str rangeOfString:@"建议您换成最适合您消费的"].length>0) {
+                text1 = [str substringWithRange:NSMakeRange(12, str.length-12)];
+                busiText.text = text1;
+            }
+        }
+    }else{
+        text1 = [HELLOWORD substringWithRange:NSMakeRange(7, HELLOWORD.length-8)];
     busiText.text = text1;
-    busiText.textAlignment = NSTextAlignmentCenter;
-    busiText.rightView = imgViewRight;
-    busiText.rightViewMode = UITextFieldViewModeAlways;
-    busiText.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:busiText];
+    }
     
-    UILabel * busiLabel = [[UILabel alloc]initWithFrame:CGRectMake(viewWidth/10, viewHeight/40, viewWidth-viewWidth/20, viewHeight/20)];
-    busiLabel.text = @"适合参加的业务：";
-    busiLabel.font = [UIFont systemFontOfSize:viewHeight/40];
-    [busiText addSubview:busiLabel];
-    
-    [UIView animateWithDuration:0.3 animations:^{busiText.center = CGPointMake(viewWidth/2, viewHeight/2.2);}];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        [UIView animateWithDuration:0.3 animations:^{busiLabel.center = CGPointMake(viewWidth/2, viewHeight/2.2-120);busiText.center = CGPointMake(viewWidth/2, viewHeight/2.2);}];
+    }else{
+        [UIView animateWithDuration:0.3 animations:^{busiLabel.center = CGPointMake(viewWidth/2, viewHeight/2.2-70);busiText.center = CGPointMake(viewWidth/2, viewHeight/2.2);}];
+    }
+}
+
+- (void)dealloc{
+    [super dealloc];
+    [HELLOWORD release];
+    [offerID release];
 }
 
 - (void)didReceiveMemoryWarning

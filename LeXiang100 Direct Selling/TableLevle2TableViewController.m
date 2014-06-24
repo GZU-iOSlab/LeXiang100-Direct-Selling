@@ -114,6 +114,7 @@ extern SQLForLeXiang * DB;
     self.detailView = [[[DetailViewController alloc]init]autorelease];
     NSString * busiName = [[self.dataSources objectAtIndex:indexPath.row]objectForKey:@"busiName"];
     self.detailView.detailService = [DB findByBusiName:busiName];
+    self.detailView.haveBtn = @"0";
     NSLog(@"busy:%@,count:%d",busiName,self.detailView.detailService.count);
     [self.navigationController pushViewController:self.detailView animated:YES];
 }

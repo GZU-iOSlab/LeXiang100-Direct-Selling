@@ -12,9 +12,16 @@
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
 #import "AddresseBookTableViewController.h"
+#import "DetailViewController.h"
 @interface SpecialOfferViewController : UIViewController<UITextFieldDelegate>{
     UITextField * phoneText;
     AddresseBookTableViewController * addressBook;
+    UILabel * busiLabel;
+    UITextField * busiText;
+    NSMutableString * HELLOWORD;
+    NSMutableString * offerID;
+    BOOL toDetail;
+    //NSArray * offerArray;
 }
 
 

@@ -41,15 +41,15 @@ extern NSMutableDictionary * UserInfo;
 
 
 //#if isPhone
-#   define firstY (viewHeight/8)
-#   define secondY (viewHeight/8+viewHeight/6.5)
-#   define thirdY (viewHeight/8+viewHeight/6.5*2)
-#   define fouthY (viewHeight/8+viewHeight/6.5*3)
+//#   define firstY (viewHeight/8)
+//#   define secondY (viewHeight/8+viewHeight/6.5)
+//#   define thirdY (viewHeight/8+viewHeight/6.5*2)
+//#   define fouthY (viewHeight/8+viewHeight/6.5*3)
 //#else
-//#   define firstY (viewHeight/7)
-//#   define secondY (viewHeight/7+viewHeight/5)
-//#   define thirdY (viewHeight/7+viewHeight/5*2)
-//#   define fouthY (viewHeight/7+viewHeight/5*3)
+#   define firstY (viewHeight/7)
+#   define secondY (viewHeight/7+viewHeight/5.5)
+#   define thirdY (viewHeight/7+viewHeight/5.5*2)
+#   define fouthY (viewHeight/7+viewHeight/5.5*3)
 //#endif
 
 #define iconSize   (viewWidth/5.5)
@@ -67,22 +67,23 @@ extern NSMutableDictionary * UserInfo;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        //解决ios界面上移
-        if ([[[UIDevice currentDevice]systemVersion]floatValue]>=7) {
-            self.edgesForExtendedLayout = UIRectEdgeNone;
-            self.extendedLayoutIncludesOpaqueBars =NO;
-            self.modalPresentationCapturesStatusBarAppearance = NO;
-            self.navigationController.navigationBar.translucent = NO;
-            //self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
-            UIImage * metal = [UIImage imageNamed:@"metal.jpg"];
-            UIImageView *imgViewMetal = [[UIImageView alloc] initWithImage:metal];
-            imgViewMetal.frame = CGRectMake(0, 0, viewWidth, viewHeight);
-            [self.view addSubview:imgViewMetal];
-        }
+        
         //NSLog(@"!!!%f   isPad%d    phone%d",firstY,  isPad,isPhone);
         //NSLog(@"%d  %d",xe,(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)?YES:NO);
         UIImage *BusinessRecommended = [UIImage imageNamed:@"iPhone.png"];
         
+        int firsty,secondy,thirdy,fouthy;
+        if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad){
+            firsty = viewHeight/7;
+            secondy = viewHeight/7+viewHeight/5.5;
+            thirdy = viewHeight/7+viewHeight/5.5*2;
+            fouthy = viewHeight/7+viewHeight/5.5*3;
+        }else{
+            firsty = viewHeight/8;
+            secondy = viewHeight/8+viewHeight/6.5;
+            thirdy = viewHeight/8+viewHeight/6.5*2;
+            fouthy = viewHeight/8+viewHeight/6.5*3;
+        }
         
         //设置搜索 通知 登录状态
         search =YES;
@@ -144,63 +145,124 @@ extern NSMutableDictionary * UserInfo;
         [imgViewSearch addGestureRecognizer:singleSearchTap];
         [singleSearchTap release];
         
+        UILabel * favouritLabel = [[[UILabel alloc]initWithFrame:CGRectMake(firstX, firsty+iconSize, iconSize, viewHeight/32)]autorelease];
+        favouritLabel.text = @"收藏夹";
+        favouritLabel.font = [UIFont systemFontOfSize:viewHeight/40];
+        favouritLabel.backgroundColor = [UIColor clearColor];
+        favouritLabel.textAlignment =NSTextAlignmentCenter;
+        [self.view addSubview:favouritLabel];
         UIImage * favouriteImg = [UIImage imageNamed:@"busi_favorite.png"];
         imgViewFavourite = [[UIImageView alloc] initWithImage:favouriteImg];
-        imgViewFavourite.frame = CGRectMake(firstX, firstY, iconSize, iconSize);
+        imgViewFavourite.frame = CGRectMake(firstX, firsty, iconSize, iconSize);
+        //imgViewFavourite.backgroundColor = [UIColor redColor];
         [self.view addSubview:imgViewFavourite];
         imgViewFavourite.userInteractionEnabled = YES;
         
+        UILabel * topLabel = [[[UILabel alloc]initWithFrame:CGRectMake(secondX, firsty+iconSize, iconSize, viewHeight/32)]autorelease];
+        topLabel.text = @"热点业务";
+        topLabel.font = [UIFont systemFontOfSize:viewHeight/40];
+        topLabel.backgroundColor = [UIColor clearColor];
+        topLabel.textAlignment =NSTextAlignmentCenter;
+        [self.view addSubview:topLabel];
         UIImage * topImg = [UIImage imageNamed:@"busi_top.png"];
         imgViewTop = [[UIImageView alloc] initWithImage:topImg];
-        imgViewTop.frame = CGRectMake(secondX, firstY, iconSize, iconSize);
+        imgViewTop.frame = CGRectMake(secondX, firsty, iconSize, iconSize);
         [self.view addSubview:imgViewTop];
         imgViewTop.userInteractionEnabled = YES;
         
+        UILabel * packageLabel = [[[UILabel alloc]initWithFrame:CGRectMake(thirdX, firsty+iconSize, iconSize, viewHeight/32)]autorelease];
+        packageLabel.text = @"资费套餐";
+        packageLabel.font = [UIFont systemFontOfSize:viewHeight/40];
+        packageLabel.backgroundColor = [UIColor clearColor];
+        packageLabel.textAlignment =NSTextAlignmentCenter;
+        [self.view addSubview:packageLabel];
         UIImage * packageImg = [UIImage imageNamed:@"busi_package.png"];
         imgViewPackage = [[UIImageView alloc] initWithImage:packageImg];
-        imgViewPackage.frame = CGRectMake(thirdX, firstY, iconSize, iconSize);
+        imgViewPackage.frame = CGRectMake(thirdX, firsty, iconSize, iconSize);
         [self.view addSubview:imgViewPackage];
         imgViewPackage.userInteractionEnabled = YES;
         
+        UILabel * valueLabel = [[[UILabel alloc]initWithFrame:CGRectMake(firstX, secondy+iconSize, iconSize, viewHeight/32)]autorelease];
+        valueLabel.text = @"增值业务";
+        valueLabel.font = [UIFont systemFontOfSize:viewHeight/40];
+        valueLabel.backgroundColor = [UIColor clearColor];
+        valueLabel.textAlignment =NSTextAlignmentCenter;
+        [self.view addSubview:valueLabel];
         UIImage * valueImg = [UIImage imageNamed:@"busi_value.png"];
         imgViewValue = [[UIImageView alloc] initWithImage:valueImg];
-        imgViewValue.frame = CGRectMake(firstX, secondY, iconSize, iconSize);
+        imgViewValue.frame = CGRectMake(firstX, secondy, iconSize, iconSize);
         [self.view addSubview:imgViewValue];
         imgViewValue.userInteractionEnabled = YES;
         
+        UILabel * sjbLabel = [[[UILabel alloc]initWithFrame:CGRectMake(secondX, secondy+iconSize, iconSize, viewHeight/32)]autorelease];
+        sjbLabel.text = @"手机报";
+        sjbLabel.font = [UIFont systemFontOfSize:viewHeight/40];
+        sjbLabel.backgroundColor = [UIColor clearColor];
+        sjbLabel.textAlignment =NSTextAlignmentCenter;
+        [self.view addSubview:sjbLabel];
         UIImage * sjbImg = [UIImage imageNamed:@"busi_sjb.png"];
         imgViewSjb = [[UIImageView alloc] initWithImage:sjbImg];
-        imgViewSjb.frame = CGRectMake(secondX, secondY, iconSize, iconSize);
+        imgViewSjb.frame = CGRectMake(secondX, secondy, iconSize, iconSize);
         [self.view addSubview:imgViewSjb];
         imgViewSjb.userInteractionEnabled = YES;
         
+        UILabel * campLabel = [[[UILabel alloc]initWithFrame:CGRectMake(thirdX, secondy+iconSize, iconSize, viewHeight/32)]autorelease];
+        campLabel.text = @"营销活动";
+        campLabel.font = [UIFont systemFontOfSize:viewHeight/40];
+        campLabel.backgroundColor = [UIColor clearColor];
+        campLabel.textAlignment =NSTextAlignmentCenter;
+        [self.view addSubview:campLabel];
         UIImage * campImg = [UIImage imageNamed:@"busi_camp.png"];
         imgViewCamp = [[UIImageView alloc] initWithImage:campImg];
-        imgViewCamp.frame = CGRectMake(thirdX, secondY, iconSize, iconSize);
+        imgViewCamp.frame = CGRectMake(thirdX, secondy, iconSize, iconSize);
         [self.view addSubview:imgViewCamp];
         imgViewCamp.userInteractionEnabled = YES;
         
+        UILabel * familyLabel = [[[UILabel alloc]initWithFrame:CGRectMake(firstX, thirdy+iconSize, iconSize, viewHeight/32)]autorelease];
+        familyLabel.text = @"家庭产品";
+        familyLabel.font = [UIFont systemFontOfSize:viewHeight/40];
+        familyLabel.backgroundColor = [UIColor clearColor];
+        familyLabel.textAlignment =NSTextAlignmentCenter;
+        [self.view addSubview:familyLabel];
         UIImage * familyImg = [UIImage imageNamed:@"busi_family.png"];
         imgViewFamily = [[UIImageView alloc] initWithImage:familyImg];
-        imgViewFamily.frame = CGRectMake(firstX, thirdY, iconSize, iconSize);
+        imgViewFamily.frame = CGRectMake(firstX, thirdy, iconSize, iconSize);
         [self.view addSubview:imgViewFamily];
         imgViewFamily.userInteractionEnabled = YES;
         
+        UILabel * serviceLabel = [[[UILabel alloc]initWithFrame:CGRectMake(secondX, thirdy+iconSize, iconSize, viewHeight/32)]autorelease];
+        serviceLabel.text = @"基础服务";
+        serviceLabel.font = [UIFont systemFontOfSize:viewHeight/40];
+        serviceLabel.backgroundColor = [UIColor clearColor];
+        serviceLabel.textAlignment =NSTextAlignmentCenter;
+        [self.view addSubview:serviceLabel];
         UIImage * serviceImg = [UIImage imageNamed:@"busi_service.png"];
         imgViewService = [[UIImageView alloc] initWithImage:serviceImg];
-        imgViewService.frame = CGRectMake(secondX, thirdY, iconSize, iconSize);
+        imgViewService.frame = CGRectMake(secondX, thirdy, iconSize, iconSize);
         [self.view addSubview:imgViewService];
         imgViewService.userInteractionEnabled = YES;
         
+        UILabel * entLabel = [[[UILabel alloc]initWithFrame:CGRectMake(thirdX, thirdy+iconSize, iconSize, viewHeight/32)]autorelease];
+        entLabel.text = @"集团业务";
+        entLabel.font = [UIFont systemFontOfSize:viewHeight/40];
+        entLabel.backgroundColor = [UIColor clearColor];
+        entLabel.textAlignment =NSTextAlignmentCenter;
+        [self.view addSubview:entLabel];
         UIImage * entImg = [UIImage imageNamed:@"busi_ent.png"];
         imgViewEnt = [[UIImageView alloc] initWithImage:entImg];
-        imgViewEnt.frame = CGRectMake(thirdX, thirdY, iconSize, iconSize);
+        imgViewEnt.frame = CGRectMake(thirdX, thirdy, iconSize, iconSize);
         [self.view addSubview:imgViewEnt];
         imgViewEnt.userInteractionEnabled = YES;
         
+        UILabel * ldxLabel = [[[UILabel alloc]initWithFrame:CGRectMake(firstX, fouthy+iconSize, iconSize, viewHeight/32)]autorelease];
+        ldxLabel.text = @"优惠活动";
+        ldxLabel.font = [UIFont systemFontOfSize:viewHeight/40];
+        ldxLabel.backgroundColor = [UIColor clearColor];
+        ldxLabel.textAlignment =NSTextAlignmentCenter;
+        [self.view addSubview:ldxLabel];
         UIImage * ldtxImg = [UIImage imageNamed:@"busi_ldtx.png"];
         imgViewLdtx = [[UIImageView alloc] initWithImage:ldtxImg];
-        imgViewLdtx.frame = CGRectMake(firstX, fouthY, iconSize, iconSize);
+        imgViewLdtx.frame = CGRectMake(firstX, fouthy, iconSize, iconSize);
         [self.view addSubview:imgViewLdtx];
         imgViewLdtx.userInteractionEnabled = YES;
         
@@ -238,11 +300,41 @@ extern NSMutableDictionary * UserInfo;
         self.tables2.keysArray = data.keys;
         favourite = [[FavoriteViewController alloc]init];
         
+        //解决ios界面上移
+        if ([[[UIDevice currentDevice]systemVersion]floatValue]>=7) {
+            self.edgesForExtendedLayout = UIRectEdgeNone;
+            self.extendedLayoutIncludesOpaqueBars =NO;
+            self.modalPresentationCapturesStatusBarAppearance = NO;
+            self.navigationController.navigationBar.translucent = NO;
+            self.view.backgroundColor = [UIColor lightTextColor];
+            UIImage * metal = [UIImage imageNamed:@"metal.jpg"];
+            UIImageView *imgViewMetal = [[UIImageView alloc] initWithImage:metal];
+            imgViewMetal.frame = CGRectMake(0, 0, viewWidth, viewHeight);
+            [self.view addSubview:imgViewMetal];
+            [self.view sendSubviewToBack:imgViewMetal];
+        }
+        
         if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad){
             messageText.frame = CGRectMake(0,viewHeight/25,viewWidth,viewHeight/30);
         }
-        }
+    }
     return self;
+}
+
+- (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+	return (toInterfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (BOOL)shouldAutorotate {
+	return NO;
+}
+
+- (NSUInteger)supportedInterfaceOrientations {
+	return UIInterfaceOrientationMaskPortrait;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+	return UIInterfaceOrientationPortrait;
 }
 
 -(BOOL) respondsToSelector : (SEL)aSelector {
