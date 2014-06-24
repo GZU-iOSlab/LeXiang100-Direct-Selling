@@ -12,13 +12,13 @@
 #import "UIColorForiOS7Colors.h"
 @interface AdviceViewController : UIViewController<UITextViewDelegate,UITableViewDelegate,UITableViewDataSource>
 {
-    UITableView *classTableviewtableview;
     NSArray *array;
     UIButton *feedbackButton;
     UITextView *inputFeedback;
     UILabel *tishi;
     NSString *selectedString;
     NSArray *arrayImage;
+    BOOL tableShowed;
 }
 @property (nonatomic,assign) UITableView * classTableview;
 @property (nonatomic,assign) NSArray *array;

@@ -47,7 +47,9 @@
         UIImage *shareImg=[UIImage imageNamed:@"share_moreview.png"];
         //UIImage *elseImg=[UIImage imageNamed:@"share_moreview.png"];
         
-        
+        //if  ([[[UIDevice currentDevice]systemVersion]floatValue]<7)  {
+        //    self.view.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
+        //}
         [arrayImageValue addObject:aboutUsImg];
         [arrayImageValue addObject:helpImg];
         [arrayImageValue addObject:updateImg];
@@ -135,8 +137,13 @@
     tableView.backgroundView = nil;
     if ([[[UIDevice currentDevice]systemVersion]floatValue]>=7) {
         tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
-    }else tableView.backgroundColor = [UIColor clearColor];
-    cell.backgroundColor = [UIColor lightTextColor];
+        cell.backgroundColor = [UIColor lightTextColor];
+        cell.textLabel.backgroundColor = [UIColor clearColor];
+    }else {
+        tableView.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
+        cell.backgroundColor = [UIColor lightTextColor];
+        cell.textLabel.backgroundColor = [UIColor clearColor];
+    }
     return cell;
 }
 

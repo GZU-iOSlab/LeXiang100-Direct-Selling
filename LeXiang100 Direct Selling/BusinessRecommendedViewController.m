@@ -638,6 +638,7 @@ extern NSMutableDictionary * UserInfo;
     //    }
     self.detailView = [[[DetailViewController alloc]init]autorelease];
     self.detailView.detailService = [self.searchTableArray objectAtIndex:indexPath.row];
+    self.detailView.haveBtn = @"YES";
     [self.navigationController pushViewController:self.detailView animated:YES];
 }
 

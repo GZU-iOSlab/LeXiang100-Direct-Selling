@@ -32,18 +32,11 @@ extern NSMutableDictionary * UserInfo;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        //解决ios7界面上移  配色等问题
-        if ([[[UIDevice currentDevice]systemVersion]floatValue]>=7) {
-            self.edgesForExtendedLayout = UIRectEdgeNone;
-            self.extendedLayoutIncludesOpaqueBars =NO;
-            self.modalPresentationCapturesStatusBarAppearance = NO;
-            self.navigationController.navigationBar.translucent = NO;
-        }
-        UITextView * background = [[UITextView alloc]initWithFrame:CGRectMake(0, 0, viewWidth, viewHeight)];
-        background.editable=NO;
-               UIFont *font1 = [UIFont fontWithName:@"Arial" size:viewHeight/47];
+       
+        
+        UIFont *font1 = [UIFont fontWithName:@"Arial" size:viewHeight/47];
         UIFont *font2=[UIFont fontWithName:@"Arial" size:viewHeight/35];
-        [self.view addSubview:background];
+        self.view .backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
         
         //反馈类型标题
         UILabel * feedbackbackClass = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, viewWidth/4+viewWidth/50, viewHeight/35)];
@@ -55,7 +48,7 @@ extern NSMutableDictionary * UserInfo;
         
         //反馈类型按钮
         feedbackButton=[[UIButton alloc] initWithFrame:CGRectMake(viewWidth/40, viewHeight/30, viewWidth*0.95, viewHeight/20)];
-        feedbackButton.backgroundColor=[UIColor iOS7tealGradientEndColor];
+        feedbackButton.backgroundColor=[UIColor lightTextColor];
         [feedbackButton setTitle:@"请选择反馈类型" forState:UIControlStateNormal];
         [feedbackButton addTarget:self action:@selector(showTable) forControlEvents:UIControlEventTouchUpInside];
         selectedString = [[NSString alloc]initWithString:@"功能建议"];
@@ -83,6 +76,7 @@ extern NSMutableDictionary * UserInfo;
         
         tishi=[[UILabel alloc]initWithFrame:CGRectMake(viewWidth/40, viewHeight/60, viewWidth*0.95, viewHeight/3)];
         tishi.text=@"您的建议是我们不断改进的动力，请留下您在使用软件的过程中遇到的问题或提出宝贵意见。";
+        tishi.font = [UIFont systemFontOfSize:viewHeight/40];
         tishi.enabled=NO;
         tishi.backgroundColor=[UIColor clearColor];
         [self.view addSubview:tishi];
@@ -90,12 +84,40 @@ extern NSMutableDictionary * UserInfo;
         //提交按钮
         //
         UIButton *submitButton=[[UIButton alloc] initWithFrame:CGRectMake(viewWidth/3+viewWidth/70, viewHeight/2+viewHeight/80, viewWidth/4, viewHeight/20)];
-        submitButton.backgroundColor=[UIColor iOS7greenGradientEndColor];
+        submitButton.backgroundColor=[UIColor lightTextColor];
         [submitButton setTitle:@"提交" forState:UIControlStateNormal];
         [submitButton addTarget:self action:@selector(submitData) forControlEvents:UIControlEventTouchUpInside];//添加点击按钮执行的方法
         [self.view addSubview:submitButton];
         
-
+        classTableview=[[UITableView alloc]initWithFrame:CGRectMake(viewWidth/10, viewHeight/2, viewWidth*4/5, 300)style:UITableViewStylePlain];
+        
+        classTableview.delegate=self;
+        classTableview.dataSource=self;
+        classTableview.backgroundColor=[UIColor whiteColor];
+        [self.view addSubview:classTableview];
+        classTableview.center=CGPointMake(viewWidth/2, viewHeight*1.5);
+        NSMutableArray *arrayValue=[[NSMutableArray alloc]init];
+        [arrayValue addObject:@"功能建议"];
+        [arrayValue addObject:@"界面建议"];
+        [arrayValue addObject:@"新的需求"];
+        [arrayValue addObject:@"流量问题"];
+        [arrayValue addObject:@"BUG报错"];
+        [arrayValue addObject:@"其他"];
+        
+        array=arrayValue;
+        tableShowed = NO;
+        
+        //解决ios7界面上移  配色等问题
+        if ([[[UIDevice currentDevice]systemVersion]floatValue]>=7) {
+            self.edgesForExtendedLayout = UIRectEdgeNone;
+            self.extendedLayoutIncludesOpaqueBars =NO;
+            self.modalPresentationCapturesStatusBarAppearance = NO;
+            self.navigationController.navigationBar.translucent = NO;
+            classTableview.backgroundColor=[UIColor iOS7blueGradientStartColor];
+            self.view .backgroundColor = [UIColor groupTableViewBackgroundColor];
+            feedbackButton.backgroundColor=[UIColor iOS7tealGradientEndColor];
+            submitButton.backgroundColor=[UIColor iOS7tealGradientEndColor];
+        }
 
     }
     return self;
@@ -113,6 +135,18 @@ extern NSMutableDictionary * UserInfo;
     }
 }
 
+#pragma mark UesrTouche
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    UITouch *touch = [touches anyObject];
+    if ([touch view] != inputFeedback) {
+        [inputFeedback resignFirstResponder];
+    }
+    if ([touch view] != classTableview) {
+        [UIView animateWithDuration:0.3 animations:^{self.classTableview.center = CGPointMake(viewWidth/2, viewHeight*3/2);}];
+    }
+}
+
 - (void)submitData
 {
     NSString *phone = [UserInfo objectForKey:@"name" ];
@@ -124,6 +158,12 @@ extern NSMutableDictionary * UserInfo;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [inputFeedback resignFirstResponder];
+    [UIView animateWithDuration:0.3 animations:^{self.classTableview.center = CGPointMake(viewWidth/2, viewHeight*3/2);}];
+    tableShowed = NO;
 }
 
 - (void)didReceiveMemoryWarning
@@ -170,8 +210,9 @@ extern NSMutableDictionary * UserInfo;
     //{
     cell.imageView.image=[arrayImage objectAtIndex:[indexPath row]];
     //}
-    cell.backgroundColor=[UIColor iOS7tealGradientStartColor];
+    cell.backgroundColor=[UIColor groupTableViewBackgroundColor];
     cell.textLabel.text=[array objectAtIndex:[indexPath row]];
+    cell.textLabel.font = [UIFont systemFontOfSize:viewHeight/25];
     return cell;
 }
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -181,30 +222,19 @@ extern NSMutableDictionary * UserInfo;
 }
 -(NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
 {
-    return @"   ";
+    return @"反馈类型";
 }
 -(void)showTable
 {
-    classTableview=[[UITableView alloc]initWithFrame:CGRectMake(viewWidth/10, viewHeight/2, viewWidth*4/5, 300)style:UITableViewStylePlain];
     
-    classTableview.delegate=self;
-    classTableview.dataSource=self;
-    classTableview.backgroundColor=[UIColor iOS7lightBlueColor];
-    [self.view addSubview:classTableview];
-    classTableview.center=CGPointMake(viewWidth/2, viewHeight*1.5);
+    
+    if (tableShowed) {
+    [UIView animateWithDuration:0.3 animations:^{self.classTableview.center = CGPointMake(viewWidth/2, viewHeight*3/2);}];
+        tableShowed = NO;
+    }else{
     [UIView animateWithDuration:0.3 animations:^{self.classTableview.center = CGPointMake(viewWidth/2, viewHeight/2);}];
-    NSMutableArray *arrayValue=[[NSMutableArray alloc]init];
-    [arrayValue addObject:@"功能建议"];
-    [arrayValue addObject:@"界面建议"];
-    [arrayValue addObject:@"新的需求"];
-    [arrayValue addObject:@"流量问题"];
-    [arrayValue addObject:@"BUG报错"];
-    [arrayValue addObject:@"其他"];
-    
-    array=arrayValue;
-    
-    
-    
+        tableShowed = YES;
+    }
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
