@@ -15,11 +15,13 @@
 @implementation UpdateCheckingViewController
 extern connectionAPI * soap;
 extern SQLForLeXiang * DB;
+extern NSNotificationCenter *nc;
 #define viewWidth   self.view.frame.size.width
 #define viewHeight  self.view.frame.size.height
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
+    [nc addObserver:self selector:@selector(versionInfoFeedback:) name:@"VersionInfoUpadate" object:nil];
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
@@ -68,7 +70,7 @@ extern SQLForLeXiang * DB;
         
         //版本号标题
         UILabel * version = [[UILabel alloc]initWithFrame:CGRectMake(viewWidth/2-viewWidth/7+viewWidth/60, viewHeight/6-viewHeight/80+viewHeight/40, viewWidth/4, viewHeight/20)];
-        version.text = @"版 本 号：1.48";
+        version.text = @"版 本 号：1.0.0";
         version.font=font1;
         version.center=CGPointMake(viewWidth/2, viewHeight/3);
         version.textAlignment = NSTextAlignmentCenter;
@@ -120,13 +122,52 @@ extern SQLForLeXiang * DB;
 }
 
 - (void)updateData{
-    //[soap BusiInfoWithInterface:@"queryBusiInfo" Parameter1:@"versionTag" Version:@"Public"];
-    //[soap HotServiceWithInterface:@"queryBusiHotInfo" Parameter1:@"versionTag" Version:@"hotservice"];
-    //[DB deleteDB];
-    //[soap BusiInfoWithInterface:@"queryBusiInfo" Parameter1:@"versionTag" Version:@"Public"];
-    
-    [soap CheckVersionWithInterface:@"queryVersionInfo" Parameter1:@"clientVersion" ClientVersion:@"1.0.0" Parameter2:@"dataVersion" DataVersion:@"2014040111412123" Parameter3:@"appName" AppName:@"lx100-operatoer-iPhone"];
+    NSDictionary * dic = [self readFileDic];
+    NSDictionary * phoneUpdateCfg = [dic objectForKeyedSubscript:@"phoneUpdateCfg"];
+    NSString * version = [phoneUpdateCfg objectForKey:@"versionCode"];
+    NSLog(@"version:%@",version);
+    if ([version rangeOfString:@"2014"].length == 0) {
+        version = @"123";
+    }
+    [soap CheckVersionWithInterface:@"queryVersionInfo" Parameter1:@"clientVersion" ClientVersion:@"1.0.0" Parameter2:@"dataVersion" DataVersion:version Parameter3:@"appName" AppName:@"lx100-iPhone"];
 }
+
+- (void)versionInfoFeedback:(NSNotification *)note{
+    
+    NSDictionary * dic =[note userInfo] ;
+    NSString * resultFor = [NSString stringWithFormat:@"%@",[dic objectForKey:@"status"]];
+
+    if ([resultFor isEqualToString:@"2"]) {
+        [DB deleteDB];
+        [soap BusiInfoWithInterface:@"queryBusiInfo" Parameter1:@"versionTag" Version:@"Public"];
+    }else if ([resultFor isEqualToString:@"3"]) {
+        //[DB deleteDB];
+        [soap HotServiceWithInterface:@"queryBusiHotInfo" Parameter1:@"versionTag" Version:@"public"];
+    }
+    
+    [dic writeToFile:[self documentsPath:@"version.txt"] atomically:YES];
+    NSLog(@"read %@",[self readFileDic]);
+}
+
+#pragma mark readfile
+
+-(NSDictionary *)readFileDic
+{
+    NSLog(@"To read collectBusi........\n");
+    //filePath 表示程序目录下指定文件
+    NSString *filePath = [self documentsPath:@"version.txt"];
+    //从filePath 这个指定的文件里读
+    NSDictionary * collectBusiArray = [NSDictionary dictionaryWithContentsOfFile:filePath];//[NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];//[NSArray arrayWithContentsOfFile:filePath];
+    //NSLog(@"%@",[collectBusiArray objectAtIndex:0] );
+    return collectBusiArray;
+}
+
+-(NSString *)documentsPath:(NSString *)fileName {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    return [documentsDirectory stringByAppendingPathComponent:fileName];
+}
+
 
 - (void)didReceiveMemoryWarning
 {

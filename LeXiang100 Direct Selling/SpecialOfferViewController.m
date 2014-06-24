@@ -19,6 +19,7 @@ extern NSMutableDictionary * UserInfo;
 extern Boolean login;
 extern connectionAPI * soap;
 extern NSNotificationCenter *nc;
+extern NSString * phoneNumber;
 @synthesize alerts;
 extern NSString * service;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -94,6 +95,7 @@ extern NSString * service;
         
         HELLOWORD = [[NSMutableString alloc]init];
         offerID = [[NSMutableString alloc]init];
+        offerType = [[NSMutableString alloc]init];
         
         //解决ios7界面上移  配色等问题
         if ([[[UIDevice currentDevice]systemVersion]floatValue]>=7) {
@@ -127,6 +129,14 @@ extern NSString * service;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    phoneText.text = phoneNumber;
+}
+
+- (void)viewDidDisappear:(BOOL)animated{
+    phoneNumber = @"";
 }
 
 #pragma mark - AlertView
@@ -172,6 +182,7 @@ extern NSString * service;
         [dic setObject:HELLOWORD forKey:@"busiDesc"];
         [dic setObject:phoneText.text forKey:@"name"];
         [dic setObject:offerID forKey:@"OFFER_ID"];
+        [dic setObject:offerType forKey:@"OFFER_TYPE"];
         detailView.detailService = dic;
         
         [self.navigationController pushViewController:detailView animated:YES];
@@ -270,31 +281,46 @@ extern NSString * service;
     toDetail = YES;
     NSDictionary * dic =[[note userInfo] objectForKey:@"1"];
     NSDictionary * offerList = [dic objectForKey:@"returnOfferList"];
+    NSArray * offerArray = [dic objectForKey:@"returnOfferList"];
+    [offerID setString:@""];
     
-    if ([offerList isKindOfClass:[NSArray class]]) {
+    if ([offerArray isKindOfClass:[NSArray class]]) {
         NSLog(@"i'm a array");
-        NSArray * offerArray = [dic objectForKey:@"returnOfferList"];
         [offerID setString:@""];
         [offerID appendString:[[offerArray objectAtIndex:0]objectForKey:@"OFFER_ID"]];
         [HELLOWORD setString:@""];
         [HELLOWORD appendString:[[offerArray objectAtIndex:0]objectForKey:@"HELLO_WORD"]];
+        [offerType setString:@""];
+        [offerType appendString:[[offerArray objectAtIndex:0]objectForKey:@"OFFER_TYPE"]];
     }
     else if ([offerList isKindOfClass:[NSDictionary class]]){
-        HELLOWORD = [offerList objectForKey:@"HELLO_WORD"];
+        //HELLOWORD = [offerList objectForKey:@"HELLO_WORD"];
+        NSLog(@"i'm a dic");
     }
     NSString * text1;
-    if ([HELLOWORD rangeOfString:@"建议您换成最适合您消费的"].length > 0) {
+    if ([offerType isEqualToString:@"1"]) {
         NSArray * list = [HELLOWORD componentsSeparatedByString:@"，"];
         for (NSString * str in list) {
-            if ([str rangeOfString:@"建议您换成最适合您消费的"].length>0) {
-                text1 = [str substringWithRange:NSMakeRange(12, str.length-12)];
-                busiText.text = text1;
+            if ([str rangeOfString:@"消费的"].length>0) {
+                NSRange range = [str rangeOfString:@"消费的"];
+                NSUInteger location = range.location;
+                
+                text1 = [str substringWithRange:NSMakeRange(location+3, str.length-location-3)];
             }
         }
-    }else{
-        text1 = [HELLOWORD substringWithRange:NSMakeRange(7, HELLOWORD.length-8)];
-    busiText.text = text1;
     }
+    else if ([offerType isEqualToString:@"2"]){
+        NSArray * list = [HELLOWORD componentsSeparatedByString:@"，"];
+        for (NSString * str in list) {
+            if ([str rangeOfString:@"推荐"].length>0) {
+                NSRange range = [str rangeOfString:@"推荐"];
+                NSUInteger location = range.location;
+                
+                text1 = [str substringWithRange:NSMakeRange(location+2, str.length-location-2)];
+            }
+        }
+    }
+    busiText.text = text1;
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         [UIView animateWithDuration:0.3 animations:^{busiLabel.center = CGPointMake(viewWidth/2, viewHeight/2.2-120);busiText.center = CGPointMake(viewWidth/2, viewHeight/2.2);}];
@@ -307,6 +333,7 @@ extern NSString * service;
     [super dealloc];
     [HELLOWORD release];
     [offerID release];
+    [offerType release];
 }
 
 - (void)didReceiveMemoryWarning

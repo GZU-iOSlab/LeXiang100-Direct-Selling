@@ -354,14 +354,14 @@ extern NSMutableDictionary * UserInfo;
         [self.navigationController pushViewController:favourite animated:YES];
         NSLog(@"imgViewFavourite");
     }else if([touch view]== imgViewTop){
-        //        NSArray * readArray = [self readFileArray];
-        //        NSMutableArray * dataArray =[[[NSMutableArray alloc]init]autorelease];
-        //        for (NSDictionary * dic in readArray) {
-        //            NSDictionary * dics =[DB findBybusiCode:[dic objectForKey:@"busiCode"]];
-        //            [dataArray addObject: dics];
-        //        }
-        NSMutableArray * dataArray =[[[NSMutableArray alloc]init]autorelease];
-        [dataArray setArray:[DB findByIsTopbusi]];
+                NSArray * readArray = [self readFileArray];
+                NSMutableArray * dataArray =[[[NSMutableArray alloc]init]autorelease];
+                for (NSDictionary * dic in readArray) {
+                    NSDictionary * dics =[DB findBybusiCode:[dic objectForKey:@"busiCode"]];
+                    [dataArray addObject: dics];
+                }
+//        NSMutableArray * dataArray =[[[NSMutableArray alloc]init]autorelease];
+//        [dataArray setArray:[DB findByIsTopbusi]];
         self.tables2.dataSources =  dataArray;
         NSLog(@"热点业务count:%d",self.tables2.dataSources.count);
         service = @"热点业务";
@@ -705,15 +705,9 @@ extern NSMutableDictionary * UserInfo;
         [UIView commitAnimations];
         [searchText resignFirstResponder];
     }
-    NSString * custPhone = [UserInfo objectForKey:@"name" ];
-    NSString * token = [UserInfo objectForKey:@"token"];
-    [soap  AwordShellWithInterface:@"awordShellQuery" Parameter1:@"custPhone" CustPhone:custPhone Parameter2:@"token" Token:token];
-    
-    
-   // [soap UpdateUserMainOfferWithInterface:@"updateUserMainOffer" Parameter1:@"custPhone" CustPhone:custPhone Parameter2:@"OfferId" ParameterOfferId:@"211080300601" Parameter3:@"token" Token:token];
-  
- 
-    //[soap OrderVasOfferWithInterface:@"orderVasOffer" Parameter1:@"custPhone" CustPhone:custPhone Parameter2:@"OfferId" ParameterOfferId:@"211080300601" Parameter3:@"token" Token:token];
+//    NSString * custPhone = [UserInfo objectForKey:@"name" ];
+//    NSString * token = [UserInfo objectForKey:@"token"];
+//    [soap  AwordShellWithInterface:@"awordShellQuery" Parameter1:@"custPhone" CustPhone:custPhone Parameter2:@"token" Token:token];
 }
 
 #pragma mark textefield delegate

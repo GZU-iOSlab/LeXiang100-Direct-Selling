@@ -20,6 +20,7 @@
     UITextField * busiText;
     NSMutableString * HELLOWORD;
     NSMutableString * offerID;
+    NSMutableString * offerType;
     BOOL toDetail;
     //NSArray * offerArray;
 }

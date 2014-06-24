@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "DES3Util.h"
-@interface connectionAPI : NSObject<NSXMLParserDelegate, NSURLConnectionDelegate>{
+@interface connectionAPI : NSObject<NSXMLParserDelegate, NSURLConnectionDelegate,UIAlertViewDelegate>{
     //UIAlertView * alerts;
     BOOL needToAnalysis;
 }

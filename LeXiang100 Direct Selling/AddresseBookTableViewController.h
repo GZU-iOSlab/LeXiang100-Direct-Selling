@@ -8,9 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AddresseBookTableViewController : UITableViewController{
+@interface AddresseBookTableViewController : UITableViewController<UISearchDisplayDelegate, UISearchBarDelegate>{
     
 }
+@property (nonatomic, retain) NSMutableArray *filteredListContentDic;
+@property (nonatomic, retain) NSMutableArray *filteredListContentPhone;
+@property (nonatomic, retain) NSMutableArray *nameArray;
+@property (nonatomic, retain) NSMutableArray *phoneNumberArray;
+@property (nonatomic, retain) UISearchDisplayController	*searchDisplayController;
+
+
 @property(nonatomic,strong)NSMutableArray * firstname;
 @property(nonatomic,strong)NSMutableArray * lastname;
 @property(nonatomic,strong)NSMutableArray * phoneNumber;

@@ -64,8 +64,54 @@ extern NSString * phoneNumber;
     UserInfo = [[NSMutableDictionary alloc]init] ;
     nc = [NSNotificationCenter defaultCenter];
     DB = [[SQLForLeXiang alloc]init];
+    
+    NSDictionary * versionDic = [self readFileDic];
+    NSArray * hotArray = [self readFileArray];
+    //检查是否写入了版本信息
+    if (versionDic == NULL) {
+        NSString * version = @"20140404144444";
+        NSDictionary * phoneUpdateCfg = [[NSDictionary alloc]initWithObjectsAndKeys:version ,@"releaseDate", nil];
+        NSDictionary * versionDic = [[NSDictionary alloc]initWithObjectsAndKeys:phoneUpdateCfg ,@"phoneUpdateCfg", nil];
+        [versionDic writeToFile:[self documentsPath:@"version.txt"] atomically:YES];
+         [soap CheckVersionWithInterface:@"queryVersionInfo" Parameter1:@"clientVersion" ClientVersion:@"1.0.0" Parameter2:@"dataVersion" DataVersion:version Parameter3:@"appName" AppName:@"lx100-iPhone"];
+    }
+    //检测是否写入了热点业务
+    if (hotArray == NULL) {
+        [soap HotServiceWithInterface:@"queryBusiHotInfo" Parameter1:@"versionTag" Version:@"public"];
+    }
+    //检测数据库是否有数据
     //phoneNumber = [[NSString alloc]init];
    
+}
+
+#pragma mark readfile
+
+-(NSDictionary *)readFileDic
+{
+    NSLog(@"To read versionDic........\n");
+    //filePath 表示程序目录下指定文件
+    NSString *filePath = [self documentsPath:@"version.txt"];
+    //从filePath 这个指定的文件里读
+    NSDictionary * collectBusiArray = [NSDictionary dictionaryWithContentsOfFile:filePath];//[NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];//[NSArray arrayWithContentsOfFile:filePath];
+    //NSLog(@"%@",[collectBusiArray objectAtIndex:0] );
+    return collectBusiArray;
+}
+
+-(NSArray *)readFileArray
+{
+    NSLog(@"To read hotBusi........\n");
+    //filePath 表示程序目录下指定文件
+    NSString *filePath = [self documentsPath:@"hotBusi.txt"];
+    //从filePath 这个指定的文件里读
+    NSArray * collectBusiArray = [NSArray arrayWithContentsOfFile:filePath];
+    //NSLog(@"%@",[collectBusiArray objectAtIndex:0] );
+    return collectBusiArray;
+}
+
+-(NSString *)documentsPath:(NSString *)fileName {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    return [documentsDirectory stringByAppendingPathComponent:fileName];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

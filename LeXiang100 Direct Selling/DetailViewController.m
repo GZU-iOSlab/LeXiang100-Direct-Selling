@@ -35,6 +35,8 @@ extern NSMutableDictionary * UserInfo;
         //通讯录tableview初始化
         addressBook = [[AddresseBookTableViewController alloc]init];
         addressBook.uerInfoArray = [[NSMutableArray alloc]init];
+        addressBook.nameArray = [[NSMutableArray alloc]init];
+        addressBook.phoneNumberArray = [[NSMutableArray alloc]init];
         
         UILabel * phoneLabel = [[UILabel alloc]initWithFrame:CGRectMake(viewWidth/32+viewWidth/40, viewHeight/32, viewWidth/3, viewHeight/25)];
         phoneLabel.text = @"客户手机号码:";
@@ -186,7 +188,14 @@ extern NSMutableDictionary * UserInfo;
         NSString * custPhone = [self.detailService objectForKey:@"name" ];
         NSString * token = [UserInfo objectForKey:@"token"];
         NSString * offerID = [self.detailService objectForKey:@"OFFER_ID"];
-        [soap UpdateUserMainOfferWithInterface:@"updateUserMainOffer" Parameter1:@"custPhone" CustPhone:custPhone Parameter2:@"OfferId" ParameterOfferId:offerID Parameter3:@"token" Token:token];
+        NSString * offerType = [self.detailService objectForKey:@"OFFER_TYPE"];
+        //调用15接口
+        if ([offerType isEqualToString:@"1"]) {
+            [soap UpdateUserMainOfferWithInterface:@"updateUserMainOffer" Parameter1:@"custPhone" CustPhone:custPhone Parameter2:@"OfferId" ParameterOfferId:offerID Parameter3:@"token" Token:token];
+        }else if ([offerType isEqualToString:@"2"]){
+            [soap OrderVasOfferWithInterface:@"orderVasOffer" Parameter1:@"custPhone" CustPhone:custPhone Parameter2:@"OfferId" ParameterOfferId:offerID Parameter3:@"token" Token:token];
+        }
+        
     }
 }
 
@@ -237,7 +246,8 @@ extern NSMutableDictionary * UserInfo;
         [dic setObject:phoneNumber forKey:@"phoneNumber"];
         //[NSDictionary dictionaryWithObjectsAndKeys:firstname,@"firstname", lastname,@"lastname",phoneNumber,@"phoneNumber",nil ];
         [addressBook.uerInfoArray addObject:dic];
-
+        [addressBook.nameArray addObject:str];
+        [addressBook.phoneNumberArray addObject:phoneNumber];
         }
     
     [self.navigationController pushViewController:addressBook animated:YES];

@@ -11,6 +11,6 @@
 #import "SQLForLeXiang.h"
 #import "UIColorForiOS7Colors.h"
 
-@interface UpdateCheckingViewController : UIViewController
+@interface UpdateCheckingViewController : UIViewController<UIAlertViewDelegate>
 
 @end
