@@ -775,12 +775,7 @@
 				GCC_PREFIX_HEADER = "LeXiang100 Direct Selling/LeXiang100 Direct Selling-Prefix.pch";
 				INFOPLIST_FILE = "LeXiang100 Direct Selling/LeXiang100 Direct Selling-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-					/Users/renweixiang/Downloads/ShareLib/ShareLib/ShareLib/SSDK/libWeiboSDK,
-					/Users/renweixiang/Downloads/ShareLib/ShareLib/ShareLib/SSDK/WeiChatSDKExport,
-				);
+				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos7.1;
@@ -800,12 +795,7 @@
 				GCC_PREFIX_HEADER = "LeXiang100 Direct Selling/LeXiang100 Direct Selling-Prefix.pch";
 				INFOPLIST_FILE = "LeXiang100 Direct Selling/LeXiang100 Direct Selling-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-					/Users/renweixiang/Downloads/ShareLib/ShareLib/ShareLib/SSDK/libWeiboSDK,
-					/Users/renweixiang/Downloads/ShareLib/ShareLib/ShareLib/SSDK/WeiChatSDKExport,
-				);
+				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos7.1;
