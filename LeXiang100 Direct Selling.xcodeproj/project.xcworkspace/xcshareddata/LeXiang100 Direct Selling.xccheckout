@@ -10,6 +10,8 @@
 	<string>LeXiang100 Direct Selling</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>223E52E2-0121-4A80-A681-53EF02C3F085</key>
+		<string>https://github.com/wangjufan/ShareLib.git</string>
 		<key>A5ECDA33-C269-45FE-856A-4EAE2644CD32</key>
 		<string>https://github.com/GZU-iOSlab/LeXiang100-Direct-Selling.git</string>
 	</dict>
@@ -17,6 +19,8 @@
 	<string>LeXiang100 Direct Selling.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
+		<key>223E52E2-0121-4A80-A681-53EF02C3F085</key>
+		<string>../../../../../Downloads/ShareLib</string>
 		<key>A5ECDA33-C269-45FE-856A-4EAE2644CD32</key>
 		<string>../..</string>
 	</dict>
@@ -35,6 +39,14 @@
 			<string>A5ECDA33-C269-45FE-856A-4EAE2644CD32</string>
 			<key>IDESourceControlWCCName</key>
 			<string>LeXiang100-Direct-Selling</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>223E52E2-0121-4A80-A681-53EF02C3F085</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ShareLib</string>
 		</dict>
 	</array>
 </dict>

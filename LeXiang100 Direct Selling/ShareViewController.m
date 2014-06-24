@@ -39,6 +39,7 @@
         //message=[[MFMessageComposeViewController alloc]init];
         //message.messageComposeDelegate=self;
         //[self.view addSubview:message];
+
         
         
         
@@ -52,18 +53,13 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-
--(void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
-{
-    
 }
 
 /*

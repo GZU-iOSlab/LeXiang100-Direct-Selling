@@ -474,15 +474,32 @@ extern NSMutableDictionary * UserInfo;
 // 取消按钮被按下时，执行的方法
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
     
+    
 }
+
 
 // 键盘中，搜索按钮被按下，执行的方法
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     self.searchTableview2 = [[[TableLevle2TableViewController alloc]init]autorelease];
     service =@"业务搜索";
-    self.searchTableview2.dataSources = [DB findByFuzzyBusiName:searchBar.text ];
+    NSMutableArray *array = [[NSMutableArray alloc]init];
+    
+    const char *letterPoint = [self.mSearchBar.text UTF8String];
+    
+    //如果开头不是大小写字母则读取 首字符
+    if (!(*letterPoint > 'a' && *letterPoint < 'z') &&
+        !(*letterPoint > 'A' && *letterPoint < 'Z')) {
+        
+        array = [DB findByFuzzyBusiName:searchBar.text ];
+    } else {
+       NSString *searchBarText = [[NSString stringWithFormat:@"%@", searchBar.text] lowercaseString];
+        array = [DB getBusiNameByLetter:searchBarText];
+    }
+   
+   self.searchTableview2.dataSources = array;
+
     [self.navigationController pushViewController:self.searchTableview2 animated:YES];
-}
+  }
 
 // 当搜索内容变化时，执行该方法。很有用，可以实现时实搜索
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText;{
@@ -503,7 +520,27 @@ extern NSMutableDictionary * UserInfo;
 	/*
 	 Search the main list for products whose type matches the scope (if selected) and whose name matches searchText; add items that match to the filtered array.
 	 */
-	self.searchTableArray = [DB findByFuzzyBusiName:self.mSearchBar.text ];
+	//self.searchTableArray = [DB findByFuzzyBusiName:self.mSearchBar.text ];
+    
+    
+   
+    
+    NSMutableArray *array = [[NSMutableArray alloc]init];
+    
+    const char *letterPoint = [self.mSearchBar.text UTF8String];
+    
+    //如果开头不是大小写字母则读取 首字符
+    if (!(*letterPoint > 'a' && *letterPoint < 'z') &&
+        !(*letterPoint > 'A' && *letterPoint < 'Z')) {
+        
+        array = [DB findByFuzzyBusiName:self.mSearchBar.text ];
+    } else {
+        NSString *mSearchBarText = [[NSString stringWithFormat:@"%@", self.mSearchBar.text] lowercaseString];
+        array = [DB getBusiNameByLetter:mSearchBarText];
+    }
+    self.searchTableArray = array;
+    //self.searchTableArray = [DB getBusiNameByLetter:self.mSearchBar.text];
+    
     NSLog(@"count %d",self.searchTableArray.count);
     for (NSDictionary *dic in self.searchTableArray ) {
         [self.resultArray addObject:[dic objectForKey:@"busiName"]];

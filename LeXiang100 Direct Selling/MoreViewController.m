@@ -14,6 +14,7 @@
 
 @implementation MoreViewController
 @synthesize dataSource;
+@synthesize array;
 #define viewWidth   self.view.frame.size.width
 #define viewHeight  self.view.frame.size.height
 - (id)initWithStyle:(UITableViewStyle)style
@@ -29,11 +30,33 @@
         self.tableView.scrollEnabled = NO;
         self.dataSource = data;
         
+        
+        
         UIImage * metal = [UIImage imageNamed:@"metal.jpg"];
         UIImageView *imgViewMetal = [[UIImageView alloc] initWithImage:metal];
         imgViewMetal.frame = CGRectMake(0, 0, viewWidth, viewHeight);
        // [self.view addSubview:imgViewMetal];
         //[self.view sendSubviewToBack:imgViewMetal];
+        
+        NSMutableArray *arrayImageValue=[[NSMutableArray alloc] init];
+        UIImage *aboutUsImg=[UIImage imageNamed:@"ahoutus_moreview.png"];
+        //[aboutUsImg drawInRect:CGRectMake(0, 0,viewWidth/100, viewHeight/10)];
+        
+        UIImage *helpImg=[UIImage imageNamed:@"help_moreview.png"];
+        UIImage *updateImg=[UIImage imageNamed:@"update_moreview.png"];
+        UIImage *adviceImg=[UIImage imageNamed:@"advice_moreview.png"];
+        UIImage *shareImg=[UIImage imageNamed:@"share_moreview.png"];
+        //UIImage *elseImg=[UIImage imageNamed:@"share_moreview.png"];
+        
+        
+        [arrayImageValue addObject:aboutUsImg];
+        [arrayImageValue addObject:helpImg];
+        [arrayImageValue addObject:updateImg];
+        [arrayImageValue addObject:adviceImg];
+        [arrayImageValue addObject:shareImg];
+        //[arrayImageValue addObject:elseImg];
+        array=[[NSArray alloc]init];
+        array=arrayImageValue;
     }
     return self;
 }
@@ -98,6 +121,8 @@
     //    float sw=10/cell.imageView.image.size.width;
     //    float sh=10/cell.imageView.image.size.height;
     //    cell.imageView.transform=CGAffineTransformMakeScale(sw,sh);
+    cell.imageView.image=[array objectAtIndex:[indexPath row]];;
+
     cell.textLabel.text = text;
     cell.textLabel.font = [UIFont systemFontOfSize:22];
     //cell.detailTextLabel.text = @"haha";
@@ -107,6 +132,9 @@
     //UIImage * image = [UIImage imageNamed:@"Folder.png"];
     //cell.imageView.image = image;
     // 去掉guop tableview的背景
+    
+  
+    
     tableView.backgroundView = nil;
     tableView.backgroundColor = [UIColor clearColor];
     cell.backgroundColor = [UIColor lightTextColor];
