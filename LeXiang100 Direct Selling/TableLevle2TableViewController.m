@@ -106,15 +106,16 @@ extern SQLForLeXiang * DB;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
     //NSLog(@"%d  row",indexPath.row);
-    service = [self.tableArray objectAtIndex:indexPath.row];
+    
 //    NSLog(@"%@  service",service);
 //    if (self.detailView != NULL) {
 //        //[self.detailView release];
 //    }
+    service = [self.tableArray objectAtIndex:indexPath.row];
     self.detailView = [[[DetailViewController alloc]init]autorelease];
     NSString * busiName = [[self.dataSources objectAtIndex:indexPath.row]objectForKey:@"busiName"];
     self.detailView.detailService = [DB findByBusiName:busiName];
-    self.detailView.haveBtn = @"0";
+    self.detailView.haveBtn = @"1";
     NSLog(@"busy:%@,count:%d",busiName,self.detailView.detailService.count);
     [self.navigationController pushViewController:self.detailView animated:YES];
 }
@@ -128,6 +129,7 @@ extern SQLForLeXiang * DB;
     pressedCell =  indexPath.row;
 }
 
+#pragma mark - 长按提示
 - (void)longPress:(UILongPressGestureRecognizer *)recognizer {
     if (alert.visible != YES) {
         [alert show];
@@ -161,6 +163,7 @@ extern SQLForLeXiang * DB;
 
 -(void)toDetailView{
     self.detailView = [[[DetailViewController alloc]init]autorelease];
+    self.detailView.haveBtn = @"1";
     NSString * busiName = [[self.dataSources objectAtIndex:pressedCell]objectForKey:@"busiName"];
     self.detailView.detailService = [DB findByBusiName:busiName];
     [self.navigationController pushViewController:self.detailView animated:YES];

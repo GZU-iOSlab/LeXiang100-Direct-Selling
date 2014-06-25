@@ -22,6 +22,7 @@ extern SQLForLeXiang * DB;
 @synthesize tableArray;
 @synthesize table2View;
 @synthesize dataSources;
+@synthesize detailView;
 #define viewWidth   self.view.frame.size.width
 #define viewHeight  self.view.frame.size.height
 
@@ -34,7 +35,7 @@ extern SQLForLeXiang * DB;
         //self.dataSource = data.dataSource;
         //self.keysArray = data.keys;
         self.table2View = [[TableLevle2TableViewController alloc]init];
-
+        alert = [[UIAlertView alloc] initWithTitle:@"请选择操作"message:nil delegate:self cancelButtonTitle:@"关闭" otherButtonTitles:@"添加到收藏夹",@"查看业务介绍",@"推荐办理业务", nil];
 //        self.table2View.dataSource = data.dataSource;
 //        self.table2View.keysArray = data.keys;
         //self.tableArray = [self.dataSource objectForKey:service];
@@ -98,7 +99,16 @@ extern SQLForLeXiang * DB;
     if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
         [self.tableView setSeparatorInset:UIEdgeInsetsZero];
     }
-    UIImage * image = [UIImage imageNamed:@"folders.png"];
+    UIImage * image;
+    //关于页面的特殊处理
+    if ([text rangeOfString:@"集团V网"].length>0||[text rangeOfString:@"集团通讯录"].length>0||[text rangeOfString:@"集团彩铃5元"].length>0) {
+        image = [UIImage imageNamed:@"paper.png"];
+        //设置长按响应
+        UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
+        [cell addGestureRecognizer:recognizer];
+    }else{
+        image = [UIImage imageNamed:@"folders.png"];
+    }
     cell.imageView.image = image;
     
     return cell;
@@ -131,9 +141,123 @@ extern SQLForLeXiang * DB;
         self.table2View.dataSources = [DB findByParentId:ids];
         NSLog(@"%d",self.table2View.dataSources.count);
     }
+    NSString * item = [[self.dataSources objectAtIndex:indexPath.row]objectForKey:@"busiName"];
+    if ([item rangeOfString:@"集团V网"].length>0||[item rangeOfString:@"集团通讯录"].length>0||[item rangeOfString:@"集团彩铃5元"].length>0) {
+        service = [[self.dataSources objectAtIndex:indexPath.row]objectForKey:@"busiName"];
+        self.detailView = [[[DetailViewController alloc]init]autorelease];
+        NSString * busiName = [[self.dataSources objectAtIndex:indexPath.row]objectForKey:@"busiName"];
+        self.detailView.detailService = [DB findByBusiName:busiName];
+        self.detailView.haveBtn = @"1";
+        //NSLog(@"busy:%@,count:%d",busiName,self.detailView.detailService.count);
+        [self.navigationController pushViewController:self.detailView animated:YES];
+    }else{
     [self.navigationController pushViewController:self.table2View animated:YES];
+    }
 }
 
+- (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath{
+    pressedCell =  indexPath.row;
+}
+
+#pragma mark - 长按提示
+- (void)longPress:(UILongPressGestureRecognizer *)recognizer {
+    if (alert.visible != YES) {
+        [alert show];
+    }
+}
+
++ (void)showAlertWithTitle:(NSString *)titles AndMessages:(NSString *)messages{
+    
+    UIAlertView * alert = [[UIAlertView alloc]initWithTitle:titles message:messages delegate:self cancelButtonTitle:@"关闭" otherButtonTitles: nil];
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    switch (buttonIndex) {
+        case 1:
+            NSLog(@"添加到收藏夹");
+            [self pushToCollect];
+            break;
+        case 2:
+            NSLog(@"查看业务介绍");
+            [self checkTheBusi];
+            break;
+        case 3:
+            NSLog(@"办理推荐业务");
+            [self toDetailView];
+            break;
+        default:
+            break;
+    }
+}
+
+-(void)toDetailView{
+    self.detailView = [[[DetailViewController alloc]init]autorelease];
+    self.detailView.haveBtn = @"1";
+    NSString * busiName = [[self.dataSources objectAtIndex:pressedCell]objectForKey:@"busiName"];
+    self.detailView.detailService = [DB findByBusiName:busiName];
+    [self.navigationController pushViewController:self.detailView animated:YES];
+}
+
+-(void)checkTheBusi{
+    NSString * busiDesc =[[self.dataSources objectAtIndex:pressedCell]objectForKey:@"busiDesc"];
+    [TableLevle2TableViewController showAlertWithTitle:@"业务描述" AndMessages:busiDesc];
+}
+
+- (void)pushToCollect{
+    //NSLog(@"被按的cell:%d",pressedCell);
+    //先读取路径下的数据
+    NSArray * readArray = [self readFileArray];
+    //将收藏的业务
+    NSLog(@"%d",pressedCell);
+    NSString * collectedName =[[self.dataSources objectAtIndex:pressedCell]objectForKey:@"busiName"];
+    NSDictionary * collectedBusi = [self.dataSources objectAtIndex:pressedCell];
+    BOOL isCollected = NO;
+    //查找是否有重复
+    for (NSDictionary * dic in readArray) {
+        if ([collectedName isEqualToString:[dic objectForKey:@"busiName"]]) {
+            NSString * str =[NSString stringWithFormat: @"%@已收藏，无需重复添加！",collectedName ];
+            UIAlertView * alerts = [[UIAlertView alloc] initWithTitle:@"业务已收藏"message:str delegate:nil cancelButtonTitle:@"关闭" otherButtonTitles: nil];
+            [alerts show];
+            [alerts release];
+            isCollected = YES;
+            NSLog(@"业务重复，无需写入!\n");
+            break;
+        }
+    }
+    //如果没重复
+    if (!isCollected) {
+        //把resultArray这个数组存入程序指定的一个文件里
+        NSMutableArray * writeArray = [[NSMutableArray alloc]initWithArray:readArray];
+        [writeArray addObject:collectedBusi];
+        [writeArray writeToFile:[self documentsPath:@"collectedBusi.txt"] atomically:YES];
+        NSString * str =[NSString stringWithFormat: @"%@收藏成功",collectedName ];
+        UIAlertView * alerts = [[UIAlertView alloc] initWithTitle:@"收藏业务成功"message:str delegate:nil cancelButtonTitle:@"关闭" otherButtonTitles: nil];
+        [alerts show];
+        [alerts release];
+        NSLog(@"业务%@已写入!\n",collectedName);
+        //[self readFileArray];
+    }
+}
+
+#pragma mark readfile
+
+-(NSArray *)readFileArray
+{
+    NSLog(@"read collectBusi........\n");
+    //filePath 表示程序目录下指定文件
+    NSString *filePath = [self documentsPath:@"collectedBusi.txt"];
+    //从filePath 这个指定的文件里读
+    NSArray * collectBusiArray = [NSArray arrayWithContentsOfFile:filePath];
+    NSLog(@"%@",collectBusiArray  );
+    return collectBusiArray;
+}
+
+-(NSString *)documentsPath:(NSString *)fileName {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    return [documentsDirectory stringByAppendingPathComponent:fileName];
+}
 //- (void)showMenu:(id)cell
 //{
 //    [cell becomeFirstResponder];

@@ -147,6 +147,7 @@ extern SQLForLeXiang * DB;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     self.detailView = [[[DetailViewController alloc]init]autorelease];
     NSString * busiName = [[self.dataSource objectAtIndex:indexPath.row]objectForKey:@"busiName"];
+    self.detailView.haveBtn = @"1";
     self.detailView.detailService = [DB findByBusiName:busiName];
     NSLog(@"busy:%@,count:%d",busiName,self.detailView.detailService.count);
     [self.navigationController pushViewController:self.detailView animated:YES];
@@ -194,6 +195,7 @@ extern SQLForLeXiang * DB;
 
 -(void)toDetailView{
     self.detailView = [[[DetailViewController alloc]init]autorelease];
+    self.detailView.haveBtn = @"1";
     NSString * busiName = [[self.dataSource objectAtIndex:pressedCell]objectForKey:@"busiName"];
     self.detailView.detailService = [DB findByBusiName:busiName];
     [self.navigationController pushViewController:self.detailView animated:YES];

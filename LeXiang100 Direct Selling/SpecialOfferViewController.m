@@ -174,7 +174,7 @@ extern NSString * service;
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
     if (textField == busiText && toDetail) {
         DetailViewController * detailView = [[[DetailViewController alloc]init]autorelease];
-        detailView.haveBtn = @"1";
+        detailView.haveBtn = @"0";
         detailView.phoneNmubers = phoneText.text;
         
         NSMutableDictionary * dic = [[NSMutableDictionary alloc]init];//WithObjectsAndKeys:busiText.text,@"busiName",HELLO_WORD,@"busiDesc" ,nil];

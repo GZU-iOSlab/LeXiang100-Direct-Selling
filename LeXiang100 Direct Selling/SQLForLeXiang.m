@@ -90,8 +90,8 @@ extern NSNotificationCenter *nc;
 //创建表
 - (BOOL) createTable:(sqlite3*)db {
     
-    //这句是大家熟悉的SQL语句
-    char *sql = "CREATE TABLE IF NOT EXISTS BUSIINFO (id INTEGER PRIMARY KEY , busiAlias TEXT, busiCode TEXT, busiDesc TEXT, busiIcon TEXT, busiMoney TEXT, busiName TEXT, isLeaf INTEGER, isTopBusi INTEGER, parentId INTEGERf)";
+    //这句是大家熟悉的SQL语句         PRIMARY KEY
+    char *sql = "CREATE TABLE IF NOT EXISTS BUSIINFO (id INTEGER , busiAlias TEXT, busiCode TEXT, busiDesc TEXT, busiIcon TEXT, busiMoney TEXT, busiName TEXT, isLeaf INTEGER, isTopBusi INTEGER, parentId INTEGERf)";
     sqlite3_stmt *statement;
     //sqlite3_prepare_v2 接口把一条SQL语句解析到statement结构里去. 使用该接口访问数据库是当前比较好的的一种方法
     NSInteger sqlReturn = sqlite3_prepare_v2(db, sql, -1, &statement, nil);
@@ -730,7 +730,7 @@ extern NSNotificationCenter *nc;
     //判断返回的数据类型
     if ([[[note userInfo] objectForKey:@"1"] isKindOfClass:[NSArray class]]) {
         NSArray * resultArray = (NSArray *)[[note userInfo] objectForKey:@"1"];
-        int prepareToInsert = resultArray.count;
+        //int prepareToInsert = resultArray.count;
         int insertOK = 0;
         int count = 0;
         for (NSDictionary *dic in resultArray) {

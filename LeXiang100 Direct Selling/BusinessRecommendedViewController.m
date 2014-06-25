@@ -403,10 +403,10 @@ extern NSMutableDictionary * UserInfo;
         [self.navigationController pushViewController:self.tables2 animated:YES];
         NSLog(@"基础服务 imgViewService");
     }else if ([touch view]== imgViewEnt){
-        self.tables2.dataSources =  [DB findByParentId:@"9"];
-        NSLog(@"count:%d",self.tables2.dataSources.count);
+        self.tables1.dataSources =  [DB findByParentId:@"9"];
+        NSLog(@"count:%d",self.tables1.dataSources.count);
         service = @"集团业务";
-        [self.navigationController pushViewController:self.tables2 animated:YES];
+        [self.navigationController pushViewController:self.tables1 animated:YES];
         NSLog(@"集团业务 imgViewEnt");
     }else if ([touch view]== imgViewLdtx){
         service = @"优惠活动";
@@ -638,7 +638,7 @@ extern NSMutableDictionary * UserInfo;
     //    }
     self.detailView = [[[DetailViewController alloc]init]autorelease];
     self.detailView.detailService = [self.searchTableArray objectAtIndex:indexPath.row];
-    self.detailView.haveBtn = @"YES";
+    self.detailView.haveBtn = @"1";
     [self.navigationController pushViewController:self.detailView animated:YES];
 }
 

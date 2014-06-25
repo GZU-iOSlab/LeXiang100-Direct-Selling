@@ -154,7 +154,7 @@ extern NSMutableDictionary * UserInfo;
         phoneText.text = phoneNumber;
     }else phoneText.text =@"";
     
-    if (![self.haveBtn isEqualToString:@"0"]) {
+    if (![self.haveBtn isEqualToString:@"1"]) {
         linkManBtn.hidden = YES;
         phoneText.text = self.phoneNmubers;
         phoneText.enabled = NO;
@@ -167,7 +167,7 @@ extern NSMutableDictionary * UserInfo;
 }
 
 - (void)recommended{
-    if ([self.haveBtn isEqualToString:@"0"]) {
+    if ([self.haveBtn isEqualToString:@"1"]) {
         NSString * number = [[[NSString alloc]init]autorelease];
         if ([phoneText.text isEqualToString:@""]) {
             [connectionAPI showAlertWithTitle:@"请输入手机号" AndMessages:@"手机号码不能为空,请检查后重新输入！"];
@@ -184,7 +184,7 @@ extern NSMutableDictionary * UserInfo;
                 //}else [connectionAPI showAlertWithTitle:@"请登录" AndMessages:@"请登录后在使用推荐功能！"];
             }
         }
-    }else if([self.haveBtn isEqualToString:@"1"]){
+    }else if([self.haveBtn isEqualToString:@"0"]){
         NSString * custPhone = [self.detailService objectForKey:@"name" ];
         NSString * token = [UserInfo objectForKey:@"token"];
         NSString * offerID = [self.detailService objectForKey:@"OFFER_ID"];
