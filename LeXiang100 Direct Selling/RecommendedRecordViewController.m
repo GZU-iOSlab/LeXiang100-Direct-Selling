@@ -257,7 +257,7 @@ extern NSNotificationCenter *nc;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    NSLog(@"return:%d",[self.tableArray count]);
+    //NSLog(@"return:%d",[self.tableArray count]);
     return [self.tableArray count];
 }
 

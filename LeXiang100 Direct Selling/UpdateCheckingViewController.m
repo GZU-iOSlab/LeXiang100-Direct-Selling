@@ -21,11 +21,12 @@ extern NSNotificationCenter *nc;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    [nc addObserver:self selector:@selector(versionInfoFeedback:) name:@"VersionInfoUpadate" object:nil];
+    
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        
+        [nc addObserver:self selector:@selector(busiInfoVersionUpadateFeedback:) name:@"BusiInfoVersionUpadate" object:nil];
+        [nc addObserver:self selector:@selector(hotBusiUpdateFeedback:) name:@"HotBusiVersionUpdate" object:nil];
         //解决ios7界面上移  配色等问题
         if ([[[UIDevice currentDevice]systemVersion]floatValue]>=7) {
             self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -69,15 +70,13 @@ extern NSNotificationCenter *nc;
         [self.view addSubview:Lexiang100];
         
         //版本号标题
-        UILabel * version = [[UILabel alloc]initWithFrame:CGRectMake(viewWidth/2-viewWidth/7+viewWidth/60, viewHeight/6-viewHeight/80+viewHeight/40, viewWidth/4, viewHeight/20)];
+        UILabel * version = [[UILabel alloc]initWithFrame:CGRectMake(viewWidth/2-viewWidth/7+viewWidth/60, viewHeight/6-viewHeight/80+viewHeight/40, viewWidth/3, viewHeight/20)];
         version.text = @"版 本 号：1.0.0";
         version.font=font1;
         version.center=CGPointMake(viewWidth/2, viewHeight/3);
         version.textAlignment = NSTextAlignmentCenter;
         version.backgroundColor = [UIColor clearColor];
         [self.view addSubview:version];
-        
-        
         
         //检查更新按钮
         UIButton *updateButton=[[UIButton alloc] initWithFrame:CGRectMake(viewWidth/3+viewWidth/70, viewHeight/3, viewWidth/4, viewHeight/20)];
@@ -123,7 +122,7 @@ extern NSNotificationCenter *nc;
 
 - (void)updateData{
     NSDictionary * dic = [self readFileDic];
-    NSDictionary * phoneUpdateCfg = [dic objectForKeyedSubscript:@"phoneUpdateCfg"];
+    NSDictionary * phoneUpdateCfg = [dic objectForKey:@"phoneUpdateCfg"];
     NSString * version = [phoneUpdateCfg objectForKey:@"versionCode"];
     NSLog(@"version:%@",version);
     if ([version rangeOfString:@"2014"].length == 0) {
@@ -132,21 +131,25 @@ extern NSNotificationCenter *nc;
     [soap CheckVersionWithInterface:@"queryVersionInfo" Parameter1:@"clientVersion" ClientVersion:@"1.0.0" Parameter2:@"dataVersion" DataVersion:version Parameter3:@"appName" AppName:@"lx100-iPhone"];
 }
 
-- (void)versionInfoFeedback:(NSNotification *)note{
-    
+//发送业务更新
+- (void)busiInfoVersionUpadateFeedback:(NSNotification *)note{
     NSDictionary * dic =[note userInfo] ;
     NSString * resultFor = [NSString stringWithFormat:@"%@",[dic objectForKey:@"status"]];
 
     if ([resultFor isEqualToString:@"2"]) {
         [DB deleteDB];
         [soap BusiInfoWithInterface:@"queryBusiInfo" Parameter1:@"versionTag" Version:@"Public"];
-    }else if ([resultFor isEqualToString:@"3"]) {
+    }
+}
+
+//发送热点业务更新
+- (void)hotBusiUpdateFeedback:(NSNotification *)note{
+    NSDictionary * dic =[note userInfo] ;
+    NSString * resultFor = [NSString stringWithFormat:@"%@",[dic objectForKey:@"status"]];
+    if ([resultFor isEqualToString:@"3"]) {
         //[DB deleteDB];
         [soap HotServiceWithInterface:@"queryBusiHotInfo" Parameter1:@"versionTag" Version:@"public"];
     }
-    
-    [dic writeToFile:[self documentsPath:@"version.txt"] atomically:YES];
-    NSLog(@"read %@",[self readFileDic]);
 }
 
 #pragma mark readfile

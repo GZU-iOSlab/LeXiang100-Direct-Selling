@@ -10,7 +10,8 @@
 #import "sqlite3.h"
 #import "NSArray+FirstLetterArray.h"
 #import "NSString+FirstLetter.h"
-@interface SQLForLeXiang : NSObject{
+#import "ConnectionAPI.h"
+@interface SQLForLeXiang : NSObject<UIAlertViewDelegate>{
     sqlite3 * database;
     NSString *database_path;
     NSString * rBusiAlias;
@@ -23,6 +24,8 @@
     NSString * rIsTopBusi;
     NSString * rParentId;
     NSString * rID;
+    UIAlertView * alertForHotBusi;
+    UIAlertView * alertForBusiInfo;
 }
 
 - (BOOL)insertDBWithBusiAlias:(NSString *)busiAlias BusiCode:(NSString *)busiCode BusiDesc:(NSString *)busiDesc BusiIcon:(NSString *)busiIcon BusiMoney:(NSString *)busiMoney BusiName:(NSString *)busiName IDs:(NSString *)ids IsLeaf:(NSString *)isLeaf IsTopBusi:(NSString *)isTopBusi ParentId:(NSString *)parentId;

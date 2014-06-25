@@ -39,7 +39,7 @@ extern NSMutableDictionary * UserInfo;
         self.view .backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
         
         //反馈类型标题
-        UILabel * feedbackbackClass = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, viewWidth/4+viewWidth/50, viewHeight/35)];
+        UILabel * feedbackbackClass = [[UILabel alloc]initWithFrame:CGRectMake(0, viewHeight/45, viewWidth/4+viewWidth/50, viewHeight/35)];
         feedbackbackClass.text = @"反馈类型：";
         feedbackbackClass.font=font2;
         feedbackbackClass.backgroundColor = [UIColor clearColor];
@@ -47,7 +47,7 @@ extern NSMutableDictionary * UserInfo;
         [self.view addSubview:feedbackbackClass];
         
         //反馈类型按钮
-        feedbackButton=[[UIButton alloc] initWithFrame:CGRectMake(viewWidth/40, viewHeight/30, viewWidth*0.95, viewHeight/20)];
+        feedbackButton=[[UIButton alloc] initWithFrame:CGRectMake(viewWidth/40, viewHeight/15, viewWidth*0.95, viewHeight/20)];
         feedbackButton.backgroundColor=[UIColor lightTextColor];
         [feedbackButton setTitle:@"请选择反馈类型" forState:UIControlStateNormal];
         [feedbackButton addTarget:self action:@selector(showTable) forControlEvents:UIControlEventTouchUpInside];

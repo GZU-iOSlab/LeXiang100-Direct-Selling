@@ -6,32 +6,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LeXiang100 Direct Selling/UpdateCheckingViewController.m"
-            timestampString = "425320794.772886"
+            filePath = "LeXiang100 Direct Selling/SQLForLeXiang.m"
+            timestampString = "425379841.855051"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "136"
-            endingLineNumber = "136"
-            landmarkName = "-versionInfoFeedback:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LeXiang100 Direct Selling/ConnectionAPI.m"
-            timestampString = "425324208.663164"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "580"
-            endingLineNumber = "580"
-            landmarkName = "-alertView:clickedButtonAtIndex:"
+            startingLineNumber = "754"
+            endingLineNumber = "754"
+            landmarkName = "-busiInfoFeedback:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

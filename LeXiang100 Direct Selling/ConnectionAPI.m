@@ -32,6 +32,11 @@
 @synthesize matchingElement4;       //SessionID
 extern NSNotificationCenter *nc;
 extern NSMutableDictionary * UserInfo;
+
+- (id)init{
+    count = 0;
+    return self;
+}
 - (void)getSoapFromInterface:(NSString *)interface Parameter1:(NSString *)parameter1 Value1:(NSString *)value1{
     value1 = [DES3Util encrypt:value1];
     
@@ -397,28 +402,30 @@ extern NSMutableDictionary * UserInfo;
         //版本更新
         if ([getXMLResults rangeOfString:@"queryVersionInfoResponse"].length>0 ) {
             NSString * resultFor = [NSString stringWithFormat:@"%@",[self.resultDic objectForKey:@"status"]];
+            count ++;
             if ([resultFor isEqualToString:@"0"]) {
-                [connectionAPI showAlertWithTitle:nil AndMessages:@"数据无需更新！"];
+                if (count != 1) {
+                    [connectionAPI showAlertWithTitle:nil AndMessages:@"数据无需更新！"];
+                }
             }else if([resultFor isEqualToString:@"2"]){
                 NSDictionary * phoneUpdateCfg = [self.resultDic objectForKeyedSubscript:@"phoneUpdateCfg"];
                 NSString * releaseDate = [phoneUpdateCfg objectForKey:@"releaseDate"];
                 NSString * updateContent = [phoneUpdateCfg objectForKey:@"updateContent"];
                 NSString * messageToShow = [NSString stringWithFormat:@"发布日期：%@ \n更新内容：%@",releaseDate,updateContent];
-                UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"常规业务更新" message:messageToShow delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"好的", nil];
-                alert.delegate = self;
-                [alert show];
-                [alert release];
+                alertForBusiInfo = [[UIAlertView alloc]initWithTitle:@"常规业务更新" message:messageToShow delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"好的", nil];
+                alertForBusiInfo.delegate = self;
+                [alertForBusiInfo show];
+                [alertForBusiInfo release];
             }else if([resultFor isEqualToString:@"3"]){
                 NSDictionary * phoneUpdateCfg = [self.resultDic objectForKeyedSubscript:@"phoneUpdateCfg"];
                 NSString * releaseDate = [phoneUpdateCfg objectForKey:@"releaseDate"];
                 NSString * updateContent = [phoneUpdateCfg objectForKey:@"updateContent"];
                 NSString * messageToShow = [NSString stringWithFormat:@"发布日期：%@ \n更新内容：%@",releaseDate,updateContent];
-                UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"热点业务更新" message:messageToShow delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"好的", nil];
-                alert.delegate = self;
-                [alert show];
-                [alert release];
+                 alertForHotBusi = [[UIAlertView alloc]initWithTitle:@"热点业务更新" message:messageToShow delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"好的", nil];
+                alertForHotBusi.delegate = self;
+                [alertForHotBusi show];
+                [alertForHotBusi release];
             }
-            
         }
         //登录返回解析
         else if([getXMLResults rangeOfString:@"modifyLoginResponse"].length>0 ){
@@ -464,7 +471,8 @@ extern NSMutableDictionary * UserInfo;
                 //            for (NSDictionary *dic in resultArray) {
                 //                NSLog(@"dic:%@",[dic objectForKey:@"busiName"]);
                 //            }
-                [connectionAPI showAlertWithTitle:@"数据更新成功！" AndMessages:nil];
+                //[connectionAPI showAlertWithTitle:@"常规数据更新成功！" AndMessages:nil];
+                //换在数据库写入成功后提示
                 [nc postNotificationName:@"queryBusiInfoResponse" object:self userInfo:d];
             }
         }
@@ -473,7 +481,8 @@ extern NSMutableDictionary * UserInfo;
             if (!([soapResults rangeOfString:@"busiCode"].length>0&&[soapResults rangeOfString:@"id"].length>0)) {
                 [connectionAPI showAlertWithTitle:@"获取热点业务失败" AndMessages:@"获取热点业务失败，请重试！"];
             }else {
-                [connectionAPI showAlertWithTitle:@"热点业务更新成功！" AndMessages:nil];
+                //[connectionAPI showAlertWithTitle:@"热点业务更新成功！" AndMessages:nil];
+                //换成在写入成功后显示成功提示
                 [nc postNotificationName:@"queryBusiHotInfoResponse" object:self userInfo:d];
             }
         }
@@ -500,7 +509,6 @@ extern NSMutableDictionary * UserInfo;
                 NSLog(@"offerID:%@",offerId);
                     [nc postNotificationName:@"awordShellQueryResponse" object:self userInfo:d];
                 }
-                
             }
         }
         //主推荐业务办理
@@ -580,9 +588,16 @@ extern NSMutableDictionary * UserInfo;
     if (buttonIndex == 0) {
         //[nc postNotificationName:@"VersionInfoUpadate" object:self userInfo:self.resultDic];
     }else if (buttonIndex == 1){
-        [nc postNotificationName:@"VersionInfoUpadate" object:self userInfo:self.resultDic];
+        if ([alertView isEqual:alertForBusiInfo]) {
+            [nc postNotificationName:@"BusiInfoVersionUpadate" object:self userInfo:self.resultDic];
+            
+        }else if([alertView isEqual:alertForHotBusi]){
+            [nc postNotificationName:@"HotBusiVersionUpdate" object:self userInfo:self.resultDic];
+            
+        }
     }
 }
+
 + (void)showAlertWithTitle:(NSString *)titles AndMessages:(NSString *)messages{
     
     UIAlertView * alert = [[UIAlertView alloc]initWithTitle:titles message:messages delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"好的", nil];

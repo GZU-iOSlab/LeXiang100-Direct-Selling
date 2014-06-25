@@ -65,38 +65,56 @@ extern NSString * phoneNumber;
     nc = [NSNotificationCenter defaultCenter];
     DB = [[SQLForLeXiang alloc]init];
     
+    //首先检查数据库
     NSDictionary * versionDic = [self readFileDic];
-    NSArray * hotArray = [self readFileArray];
-    //检查是否写入了版本信息
-    if (versionDic == NULL) {
+    //检查数据库是否为空
+    int recordNumber = [DB numOfRecords];
+//    NSArray * hotArray = [self readFileArray];
+    if (recordNumber == 0) {
         NSString * version = @"20140404144444";
-        NSDictionary * phoneUpdateCfg = [[NSDictionary alloc]initWithObjectsAndKeys:version ,@"releaseDate", nil];
-        NSDictionary * versionDic = [[NSDictionary alloc]initWithObjectsAndKeys:phoneUpdateCfg ,@"phoneUpdateCfg", nil];
-        [versionDic writeToFile:[self documentsPath:@"version.txt"] atomically:YES];
+//        NSDictionary * phoneUpdateCfg = [[NSDictionary alloc]initWithObjectsAndKeys:version ,@"versionCode", nil];
+//        NSDictionary * versionDic = [[NSDictionary alloc]initWithObjectsAndKeys:phoneUpdateCfg ,@"phoneUpdateCfg", nil];
+        //[versionDic writeToFile:[self documentsPath:@"version.txt"] atomically:YES];
          [soap CheckVersionWithInterface:@"queryVersionInfo" Parameter1:@"clientVersion" ClientVersion:@"1.0.0" Parameter2:@"dataVersion" DataVersion:version Parameter3:@"appName" AppName:@"lx100-iPhone"];
     }
-    //检测是否写入了热点业务
-    if (hotArray == NULL) {
-        [soap HotServiceWithInterface:@"queryBusiHotInfo" Parameter1:@"versionTag" Version:@"public"];
+    else{
+        NSDictionary * phoneUpdateCfg = [versionDic objectForKey:@"phoneUpdateCfg"];
+        NSString * version = [phoneUpdateCfg objectForKey:@"versionCode"];
+        [soap CheckVersionWithInterface:@"queryVersionInfo" Parameter1:@"clientVersion" ClientVersion:@"1.0.0" Parameter2:@"dataVersion" DataVersion:version Parameter3:@"appName" AppName:@"lx100-iPhone"];
     }
+    //检测是否写入了热点业务
+//    else if (hotArray == NULL) {
+//        UIAlertView * alertForHotBusi = [[UIAlertView alloc]initWithTitle:@"热点业务更新" message:@"是否更新热点业务？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"更新", nil];
+//        alertForHotBusi.delegate = self;
+//        [alertForHotBusi show];
+//        [alertForHotBusi release];
+//    }
+//
+//    //读取版本信息
+//    NSDictionary * versionDic = [self readFileDic];
+    
+    
+    
+    
+
     //检测数据库是否有数据
     //phoneNumber = [[NSString alloc]init];
    
 }
 
 #pragma mark readfile
-
+//读取版本信息
 -(NSDictionary *)readFileDic
 {
     NSLog(@"To read versionDic........\n");
     //filePath 表示程序目录下指定文件
     NSString *filePath = [self documentsPath:@"version.txt"];
     //从filePath 这个指定的文件里读
-    NSDictionary * collectBusiArray = [NSDictionary dictionaryWithContentsOfFile:filePath];//[NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];//[NSArray arrayWithContentsOfFile:filePath];
-    //NSLog(@"%@",[collectBusiArray objectAtIndex:0] );
+    NSDictionary * collectBusiArray = [NSDictionary dictionaryWithContentsOfFile:filePath];
     return collectBusiArray;
 }
 
+//读取热点业务
 -(NSArray *)readFileArray
 {
     NSLog(@"To read hotBusi........\n");
@@ -154,6 +172,15 @@ extern NSString * phoneNumber;
 //    NSString *documentsDirectory = [paths objectAtIndex:0];
 //    return [documentsDirectory stringByAppendingPathComponent:fileName];
 //}
+#pragma mark - AlertView
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0) {
+        //[nc postNotificationName:@"VersionInfoUpadate" object:self userInfo:self.resultDic];
+    }else if (buttonIndex == 1){
+        [soap HotServiceWithInterface:@"queryBusiHotInfo" Parameter1:@"versionTag" Version:@"public"];
+    }
+}
 
 + (void)showAlertWithTitle:(NSString *)titles AndMessages:(NSString *)messages{
     

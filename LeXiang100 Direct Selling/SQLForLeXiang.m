@@ -21,9 +21,16 @@
 #define ISTOPBUSI   @"isTopBusi"
 #define PARENTID    @"parentId"
 #define TABLENAME   @"BUSIINFO"
-
+extern connectionAPI * soap;
 extern NSNotificationCenter *nc;
 @implementation SQLForLeXiang
+
+- (id)init{
+    //数据业务通知注册
+    [nc addObserver:self selector:@selector(busiInfoFeedback:) name:@"queryBusiInfoResponse" object:nil];
+    [nc addObserver:self selector:@selector(hotbusiInfoFeedback:) name:@"queryBusiHotInfoResponse" object:nil];
+    return self;
+}
 
 //获取document目录并返回数据库目录
 - (NSString *)dataFilePath{
@@ -180,6 +187,7 @@ extern NSNotificationCenter *nc;
         char *err;
         if (sqlite3_exec(database, [sql UTF8String], NULL, NULL, &err) != SQLITE_OK) {
             NSLog(@"Error: failed to insert:testTable");
+            NSLog(@"dic:%@",busiName);
             sqlite3_close(database);
             return NO;
         }
@@ -225,48 +233,6 @@ extern NSNotificationCenter *nc;
     return NO;
     
 }
-
-
-- (void)busiInfoFeedback:(NSNotification *)note{
-    
-     [self openDB];
-    //判断返回的数据类型
-    if ([[[note userInfo] objectForKey:@"1"] isKindOfClass:[NSArray class]]) {
-        NSArray * resultArray = (NSArray *)[[note userInfo] objectForKey:@"1"];
-        for (NSDictionary *dic in resultArray) {
-            NSLog(@"dic:%@",[dic objectForKey:@"busiName"]);
-            rBusiAlias  = [dic objectForKey:BUSIALIAS];
-            rBusiCode   = [dic objectForKey:BUSICODE];
-            rBusiDesc   = [dic objectForKey:BUSIDESC];
-            rBusiIcon   = [dic objectForKey:BUSIICON];
-            rBusiMoney  = [dic objectForKey:BUSIMONEY];
-            rBusiName   = [dic objectForKey:BUSINAME];
-            rID         = [dic objectForKey:ID];
-            rIsLeaf     = [dic objectForKey:ISLEAF];
-            rIsTopBusi  = [dic objectForKey:ISTOPBUSI];
-            rParentId   = [dic objectForKey:PARENTID];
-            [self insertDBWithBusiAlias:rBusiAlias BusiCode:rBusiCode BusiDesc:rBusiDesc BusiIcon:rBusiIcon BusiMoney:rBusiMoney BusiName:rBusiName IDs:rID IsLeaf:rIsLeaf IsTopBusi:rIsTopBusi ParentId:rParentId];
-        }
-    }
-     sqlite3_close(database);
-}
-
-//热点业务内容写入一个数组
-- (void)hotbusiInfoFeedback:(NSNotification *)note{
-    if ([[[note userInfo] objectForKey:@"1"] isKindOfClass:[NSArray class]]){
-        NSArray * resultArray = (NSArray *)[[note userInfo] objectForKey:@"1"];
-        //把resultArray这个数组存入程序指定的一个文件里
-        [resultArray writeToFile:[self documentsPath:@"hotBusi.txt"] atomically:YES];
-    }
-    NSLog(@"hotBusi had writed!\n");
-}
-
--(NSString *)documentsPath:(NSString *)fileName {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    return [documentsDirectory stringByAppendingPathComponent:fileName];
-}
-
 
 //根据业务名称查找
 -(NSDictionary*)findByBusiName:(NSString *)bName {
@@ -756,28 +722,131 @@ extern NSNotificationCenter *nc;
     
 }
 
+#pragma mark 业务返回
 
-
-- (id)init{
-    //数据业务通知注册
-    [nc addObserver:self selector:@selector(busiInfoFeedback:) name:@"queryBusiInfoResponse" object:nil];
-    [nc addObserver:self selector:@selector(hotbusiInfoFeedback:) name:@"queryBusiHotInfoResponse" object:nil];
-
+- (void)busiInfoFeedback:(NSNotification *)note{
     
- /**   //打开数据库
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documents = [paths objectAtIndex:0];
-    database_path = [documents stringByAppendingPathComponent:DBNAME];
-    if (sqlite3_open([database_path UTF8String], &db) != SQLITE_OK) {
-        sqlite3_close(db);
-        NSLog(@"数据库打开失败");
+    [self openDB];
+    //判断返回的数据类型
+    if ([[[note userInfo] objectForKey:@"1"] isKindOfClass:[NSArray class]]) {
+        NSArray * resultArray = (NSArray *)[[note userInfo] objectForKey:@"1"];
+        int prepareToInsert = resultArray.count;
+        int insertOK = 0;
+        int count = 0;
+        for (NSDictionary *dic in resultArray) {
+            rBusiAlias  = [dic objectForKey:BUSIALIAS];
+            rBusiCode   = [dic objectForKey:BUSICODE];
+            rBusiDesc   = [dic objectForKey:BUSIDESC];
+            rBusiIcon   = [dic objectForKey:BUSIICON];
+            rBusiMoney  = [dic objectForKey:BUSIMONEY];
+            rBusiName   = [dic objectForKey:BUSINAME];
+            rID         = [dic objectForKey:ID];
+            rIsLeaf     = [dic objectForKey:ISLEAF];
+            rIsTopBusi  = [dic objectForKey:ISTOPBUSI];
+            rParentId   = [dic objectForKey:PARENTID];
+            count++;
+            BOOL isInsert =[self insertDBWithBusiAlias:rBusiAlias BusiCode:rBusiCode BusiDesc:rBusiDesc BusiIcon:rBusiIcon BusiMoney:rBusiMoney BusiName:rBusiName IDs:rID IsLeaf:rIsLeaf IsTopBusi:rIsTopBusi ParentId:rParentId];
+            if(isInsert) {
+                insertOK ++;
+            }
+        }
+//        NSLog(@"count:%d insert:%d array:%d",count,insertOK,resultArray.count);
+//        if (insertOK == prepareToInsert) {
+        //[self showAlertWithAlert:alertForBusiInfo Title:nil Message:@"常规数据更新成功！" Button:@"好的"];
+        alertForBusiInfo = [[UIAlertView alloc]initWithTitle:nil message:@"常规数据更新成功！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"好的", nil];
+        alertForBusiInfo.delegate = self;
+        [alertForBusiInfo show];
+        [alertForBusiInfo release];
+            NSString* version;
+            NSDateFormatter* formatter = [[NSDateFormatter alloc]init];
+            [formatter setDateFormat:@"YYYYMMddhhmmss"];
+            version = [formatter stringFromDate:[NSDate date]];
+            NSDictionary * phoneUpdateCfg = [[NSDictionary alloc]initWithObjectsAndKeys:version,@"versionCode", nil];
+            NSDictionary * dic = [[NSDictionary alloc]initWithObjectsAndKeys:phoneUpdateCfg,@"phoneUpdateCfg", nil];
+            [dic writeToFile:[self documentsPath:@"version.txt"] atomically:YES];
+//        }
     }
-    //创建表
-    NSString *sqlCreateTable = @"CREATE TABLE IF NOT EXISTS BUSIINFO (ID INTEGER primary key, busiAlias TEXT, busiCode TEXT, busiDesc TEXT, busiIcon TEXT, busiMoney TEXT, busiName TEXT, isLeaf INTEGER, isTopBusi INTEGER, parentId INTEGER)";
-    [self execSql:sqlCreateTable];
-    NSLog(@"数据库创建成功!");**/
+    sqlite3_close(database);
+}
 
-    return self;
+#pragma mark 热点业务返回相关
+
+//热点业务内容写入一个数组
+- (void)hotbusiInfoFeedback:(NSNotification *)note{
+    if ([[[note userInfo] objectForKey:@"1"] isKindOfClass:[NSArray class]]){
+        NSArray * resultArray = (NSArray *)[[note userInfo] objectForKey:@"1"];
+        //把resultArray这个数组存入程序指定的一个文件里
+        [resultArray writeToFile:[self documentsPath:@"hotBusi.txt"] atomically:YES];
+        
+        if ([resultArray isEqual:[self readFileArray]]) {
+            [connectionAPI showAlertWithTitle:@"热点业务更新成功!" AndMessages:nil];
+            //写入版本
+            NSString* version;
+            NSDateFormatter* formatter = [[NSDateFormatter alloc]init];
+            [formatter setDateFormat:@"YYYYMMddhhmmss"];
+            version = [formatter stringFromDate:[NSDate date]];
+            NSDictionary * phoneUpdateCfg = [[NSDictionary alloc]initWithObjectsAndKeys:version,@"versionCode", nil];
+            NSDictionary * dic = [[NSDictionary alloc]initWithObjectsAndKeys:phoneUpdateCfg,@"phoneUpdateCfg", nil];
+            [dic writeToFile:[self documentsPath:@"version.txt"] atomically:YES];
+        }
+    }
+    NSLog(@"hotBusi had writed!\n");
+}
+
+//读取热点业务
+-(NSArray *)readFileArray
+{
+    NSLog(@"To read hotBusi........\n");
+    //filePath 表示程序目录下指定文件
+    NSString *filePath = [self documentsPath:@"hotBusi.txt"];
+    //从filePath 这个指定的文件里读
+    NSArray * collectBusiArray = [NSArray arrayWithContentsOfFile:filePath];
+    //NSLog(@"%@",[collectBusiArray objectAtIndex:0] );
+    return collectBusiArray;
+}
+
+-(NSString *)documentsPath:(NSString *)fileName {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    return [documentsDirectory stringByAppendingPathComponent:fileName];
+}
+
+#pragma mark - AlertView
+
+- (void)showAlertWithAlert:(UIAlertView *)alert Title:(NSString*)title Message:(NSString*)message Button:(NSString*)button{
+    alert = [[UIAlertView alloc]initWithTitle:title message:message delegate:self cancelButtonTitle:@"取消" otherButtonTitles:button, nil];
+    alert.delegate = self;
+    [alert show];
+    //[alert release];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0) {
+        if ([alertView isEqual:alertForBusiInfo]) {
+            //检测是否写入了热点业务
+            NSArray * hotArray = [self readFileArray];
+            if (hotArray == NULL) {
+                alertForHotBusi = [[UIAlertView alloc]initWithTitle:@"热点业务更新" message:@"是否更新热点业务？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"更新", nil];
+                alertForHotBusi.delegate = self;
+                [alertForHotBusi show];
+                [alertForHotBusi release];
+            }
+        }
+        //[nc postNotificationName:@"VersionInfoUpadate" object:self userInfo:self.resultDic];
+    }else if (buttonIndex == 1){
+        if ([alertView isEqual:alertForHotBusi]) {
+            [soap HotServiceWithInterface:@"queryBusiHotInfo" Parameter1:@"versionTag" Version:@"public"];
+        }else if ([alertView isEqual:alertForBusiInfo]) {
+            //检测是否写入了热点业务
+            NSArray * hotArray = [self readFileArray];
+            if (hotArray == NULL) {
+                alertForHotBusi = [[UIAlertView alloc]initWithTitle:@"热点业务更新" message:@"是否更新热点业务？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"更新", nil];
+                alertForHotBusi.delegate = self;
+                [alertForHotBusi show];
+                [alertForHotBusi release];
+            }
+        }
+    }
 }
 
 @end
