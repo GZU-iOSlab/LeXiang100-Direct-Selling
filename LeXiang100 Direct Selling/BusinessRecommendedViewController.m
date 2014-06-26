@@ -20,7 +20,7 @@
 @synthesize tables2;
 @synthesize resultArray;
 @synthesize detailView;
-extern NSString * service;
+extern NSMutableString * service;
 extern DataBuffer * data;
 extern Boolean login;
 extern SQLForLeXiang * DB;
@@ -377,7 +377,8 @@ extern NSMutableDictionary * UserInfo;
 //        [dataArray setArray:[DB findByIsTopbusi]];
             self.tables2.dataSources =  dataArray;
             NSLog(@"热点业务count:%d",self.tables2.dataSources.count);
-            service = @"热点业务";
+            [service setString:@""];
+            [service appendString: @"热点业务"];
             [self.navigationController pushViewController:self.tables2 animated:YES];
         }else{
             HotBusiAlerts = [[UIAlertView alloc]initWithTitle:@"热点业务无数据"
@@ -391,47 +392,55 @@ extern NSMutableDictionary * UserInfo;
         NSLog(@"热点业务 imgViewTop");
     }else if ([touch view]== imgViewPackage){
         self.tables1.dataSources =  [DB findByParentId:@"3"];
-        service = @"资费套餐";
+        [service setString:@""];
+        [service appendString: @"资费套餐"];
         [self.navigationController pushViewController:self.tables1 animated:YES];
         NSLog(@"资费套餐 imgViewPackage");
     }else if ([touch view]== imgViewValue) {
         self.tables1.dataSources =  [DB findByParentId:@"4"];
-        service = @"增值业务";
+        [service setString:@""];
+        [service appendString: @"增值业务"];
         [self.navigationController pushViewController:self.tables1 animated:YES];
         NSLog(@"增值业务 imgViewValue");
     }else if([touch view]== imgViewSjb){
         self.tables2.dataSources =  [DB findByParentId:@"5"];
         NSLog(@"count:%d",self.tables2.dataSources.count);
-        service = @"手机报";
+        [service setString:@""];
+        [service appendString: @"手机报"];
         [self.navigationController pushViewController:self.tables2 animated:YES];
         NSLog(@"手机报 imgViewSjb");
     }else if ([touch view]== imgViewCamp){
         self.tables2.dataSources =  [DB findByParentId:@"6"];
         NSLog(@"count:%d",self.tables2.dataSources.count);
-        service = @"营销活动";
+        [service setString:@""];
+        [service appendString: @"营销活动"];
         [self.navigationController pushViewController:self.tables2 animated:YES];
         
         NSLog(@"营销活动 imgViewCamp");
     }else if ([touch view]== imgViewFamily) {
         self.tables2.dataSources =  [DB findByParentId:@"7"];
         NSLog(@"count:%d",self.tables2.dataSources.count);
-        service = @"家庭产品";
+        [service setString:@""];
+        [service appendString: @"家庭产品"];
         [self.navigationController pushViewController:self.tables2 animated:YES];
         NSLog(@"家庭产品 imgViewFamily");
     }else if([touch view]== imgViewService){
         self.tables2.dataSources =  [DB findByParentId:@"8"];
         NSLog(@"count:%d",self.tables2.dataSources.count);
-        service = @"基础服务";
+        [service setString:@""];
+        [service appendString: @"基础服务"];
         [self.navigationController pushViewController:self.tables2 animated:YES];
         NSLog(@"基础服务 imgViewService");
     }else if ([touch view]== imgViewEnt){
         self.tables1.dataSources =  [DB findByParentId:@"9"];
         NSLog(@"count:%d",self.tables1.dataSources.count);
-        service = @"集团业务";
+        [service setString:@""];
+        [service appendString: @"集团业务"];
         [self.navigationController pushViewController:self.tables1 animated:YES];
         NSLog(@"集团业务 imgViewEnt");
     }else if ([touch view]== imgViewLdtx){
-        service = @"优惠活动";
+        [service setString:@""];
+        [service appendString: @"优惠活动"];
         if (login) {
             SpecialOfferViewController * specialView = [[[SpecialOfferViewController alloc]init]autorelease];
             [self.navigationController pushViewController:specialView animated:YES];
@@ -508,7 +517,8 @@ extern NSMutableDictionary * UserInfo;
 // 键盘中，搜索按钮被按下，执行的方法
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     self.searchTableview2 = [[[TableLevle2TableViewController alloc]init]autorelease];
-    service =@"业务搜索";
+    [service setString:@""];
+    [service appendString: @"热点业务"];
     NSMutableArray *array = [[NSMutableArray alloc]init];
     
     const char *letterPoint = [self.mSearchBar.text UTF8String];
