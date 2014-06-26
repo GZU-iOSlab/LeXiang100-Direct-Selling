@@ -46,44 +46,6 @@ extern connectionAPI * soap;
     self.tableArray = [dataSource objectForKey:service];
     
     self.title = service;
-    
-    int count = [DB numOfRecords];
-    if (count == 0) {
-        UIAlertView * alerts = [[UIAlertView alloc]initWithTitle:@"无数据"
-                                                         message:@"现在更新常规数据吗？"
-                                                        delegate:self
-                                               cancelButtonTitle:@"不更新"
-                                               otherButtonTitles:@"更新",nil];
-        [alerts show];
-        [alerts release];
-    }else if ([service isEqualToString:@"热点业务"]){
-        //检测热点业务是否为空
-        NSArray * hotArray = [self readHotFileArray];
-        if (hotArray == NULL){
-            UIAlertView * alerts = [[UIAlertView alloc]initWithTitle:@"无数据"
-                                                             message:@"现在更新热点业务数据吗？"
-                                                            delegate:self
-                                                   cancelButtonTitle:@"不更新"
-                                                   otherButtonTitles:@"更新",nil];
-            [alerts show];
-            [alerts release];
-        }
-    }
-    
-}
-
-//读取热点业务
--(NSMutableArray *)readHotFileArray
-{
-    NSLog(@"To read hotBusi........\n");
-    //filePath 表示程序目录下指定文件
-    NSString *filePath = [self documentsPath:@"hotBusi.txt"];
-    //从filePath 这个指定的文件里读
-    NSMutableArray * collectBusiArray = [NSMutableArray arrayWithContentsOfFile:filePath];
-    for (NSString * str in collectBusiArray) {
-        NSLog(@"%@",str );
-    }
-    return collectBusiArray;
 }
 
 - (void)didReceiveMemoryWarning
@@ -139,13 +101,7 @@ extern connectionAPI * soap;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
-    //NSLog(@"%d  row",indexPath.row);
-    
-//    NSLog(@"%@  service",service);
-//    if (self.detailView != NULL) {
-//        //[self.detailView release];
-//    }
-    service = [self.tableArray objectAtIndex:indexPath.row];
+    //service = [self.tableArray objectAtIndex:indexPath.row];
     self.detailView = [[[DetailViewController alloc]init]autorelease];
     NSString * busiName = [[self.dataSources objectAtIndex:indexPath.row]objectForKey:@"busiName"];
     self.detailView.detailService = [DB findByBusiName:busiName];
@@ -179,15 +135,8 @@ extern connectionAPI * soap;
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     switch (buttonIndex) {
         case 1:
-            if ([DB numOfRecords] == 0) {
-                [DB deleteDB];
-                [soap BusiInfoWithInterface:@"queryBusiInfo" Parameter1:@"versionTag" Version:@"Public"];
-            }else if ([self readHotFileArray] == NULL){
-                [soap HotServiceWithInterface:@"queryBusiHotInfo" Parameter1:@"versionTag" Version:@"public"];
-            }
-            else{
-                NSLog(@"添加到收藏夹");
-                [self pushToCollect];}
+            NSLog(@"添加到收藏夹");
+            [self pushToCollect];
             break;
         case 2:
             NSLog(@"查看业务介绍");

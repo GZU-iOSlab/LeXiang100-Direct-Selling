@@ -17,13 +17,15 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        
+        self.title = @"使用帮助";
+        self.view.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
         //解决ios7界面上移  配色等问题
         if ([[[UIDevice currentDevice]systemVersion]floatValue]>=7) {
             self.edgesForExtendedLayout = UIRectEdgeNone;
             self.extendedLayoutIncludesOpaqueBars =NO;
             self.modalPresentationCapturesStatusBarAppearance = NO;
             self.navigationController.navigationBar.translucent = NO;
+            self.view.backgroundColor = [UIColor whiteColor];
         }
         UIImage * metal = [UIImage imageNamed:@"metal.jpg"];
         UIImageView *imgViewMetal = [[UIImageView alloc] initWithImage:metal];
@@ -36,7 +38,7 @@
         scrollview.showsVerticalScrollIndicator=TRUE;
         UITextView * background = [[UITextView alloc]initWithFrame:CGRectMake(0, 0, viewWidth, viewHeight)];
         background.editable=NO;
-        [scrollview addSubview:background];
+        //[scrollview addSubview:background];
         
         CGSize size1 = CGSizeMake(viewWidth - viewWidth/10,MAXFLOAT);
         UIFont *font1 = [UIFont fontWithName:@"Arial" size:viewHeight/47];

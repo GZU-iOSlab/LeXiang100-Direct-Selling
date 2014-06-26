@@ -33,7 +33,7 @@ extern NSMutableDictionary * UserInfo;
     if (self) {
         // Custom initialization
        
-        
+        self.title = @"用户建议";
         UIFont *font1 = [UIFont fontWithName:@"Arial" size:viewHeight/47];
         UIFont *font2=[UIFont fontWithName:@"Arial" size:viewHeight/35];
         self.view .backgroundColor = [UIColor scrollViewTexturedBackgroundColor];

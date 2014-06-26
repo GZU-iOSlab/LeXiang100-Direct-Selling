@@ -27,6 +27,8 @@ extern NSNotificationCenter *nc;
         // Custom initialization
         [nc addObserver:self selector:@selector(busiInfoVersionUpadateFeedback:) name:@"BusiInfoVersionUpadate" object:nil];
         [nc addObserver:self selector:@selector(hotBusiUpdateFeedback:) name:@"HotBusiVersionUpdate" object:nil];
+        self.title = @"检查更新";
+        self.view.backgroundColor = [UIColor whiteColor];
         //解决ios7界面上移  配色等问题
         if ([[[UIDevice currentDevice]systemVersion]floatValue]>=7) {
             self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -41,7 +43,7 @@ extern NSNotificationCenter *nc;
         scrollview.showsVerticalScrollIndicator=TRUE;
         UITextView * background = [[UITextView alloc]initWithFrame:CGRectMake(0, 0, viewWidth, viewHeight)];
         background.editable=NO;
-        [self.view addSubview:background];
+        //[self.view addSubview:background];
         
        
         UIFont *font1 = [UIFont fontWithName:@"Arial" size:viewHeight/47];

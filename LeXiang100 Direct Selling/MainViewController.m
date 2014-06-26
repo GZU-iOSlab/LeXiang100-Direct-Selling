@@ -21,6 +21,7 @@ extern NSMutableDictionary * UserInfo;
 extern NSNotificationCenter *nc;
 extern SQLForLeXiang * DB;
 extern NSString * phoneNumber;
+extern NSMutableString * service;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -64,7 +65,7 @@ extern NSString * phoneNumber;
     UserInfo = [[NSMutableDictionary alloc]init] ;
     nc = [NSNotificationCenter defaultCenter];
     DB = [[SQLForLeXiang alloc]init];
-    
+    //service = [[NSMutableString alloc]init];
     //首先检查数据库
     NSDictionary * versionDic = [self readFileDic];
     //检查数据库是否为空

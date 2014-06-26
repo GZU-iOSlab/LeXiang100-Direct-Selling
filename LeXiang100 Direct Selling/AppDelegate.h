@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MainViewController.h"
 #import "SQLForLeXiang.h"
-NSString * service;
+NSMutableString * service;
 DataBuffer * data ;
 Boolean login;
 NSNotificationCenter *nc;

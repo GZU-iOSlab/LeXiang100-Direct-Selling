@@ -20,14 +20,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        
-        //解决ios7界面上移  配色等问题
-        if ([[[UIDevice currentDevice]systemVersion]floatValue]>=7) {
-            self.edgesForExtendedLayout = UIRectEdgeNone;
-            self.extendedLayoutIncludesOpaqueBars =NO;
-            self.modalPresentationCapturesStatusBarAppearance = NO;
-            self.navigationController.navigationBar.translucent = NO;
-        }
+        self.title = @"关于乐享";
+        self.view.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
        
         UIImage * metal = [UIImage imageNamed:@"metal.jpg"];
         UIImageView *imgViewMetal = [[UIImageView alloc] initWithImage:metal];
@@ -41,14 +35,14 @@
         
         UITextView * background = [[UITextView alloc]initWithFrame:CGRectMake(0, 0, viewWidth, viewHeight)];
         background.editable = NO;
-        [scrollview addSubview:background];
+        //[scrollview addSubview:background];
         
         
         //平台介绍标题
         UILabel * platform = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, viewWidth, viewHeight/30)];
         platform.text = @"   平台介绍";
-        platform.backgroundColor = [UIColor groupTableViewBackgroundColor];
         //platform.textAlignment=UITextAlignmentCenter;
+        platform.backgroundColor = [UIColor lightTextColor];
         platform.layer.borderColor = [UIColor grayColor].CGColor;
         platform.layer.borderWidth = 0.5;
         [scrollview addSubview:platform];
@@ -76,20 +70,20 @@
         platform_intro.font =font1;
         [scrollview addSubview:platform_intro];
         
-        UILabel * platform_chara = [[UILabel alloc]initWithFrame:CGRectMake(0, viewHeight/30+viewHeight/5, viewWidth/2, viewHeight/28)];
+        UILabel * platform_chara = [[UILabel alloc]initWithFrame:CGRectMake(0, viewHeight/35+viewHeight/5, viewWidth/2, viewHeight/28)];
         platform_chara.text = @"2.乐享100的特点:";
         platform_chara.font = [UIFont systemFontOfSize:viewHeight/40];
         platform_chara.backgroundColor = [UIColor clearColor];
         [scrollview addSubview:platform_chara];
         
-        UILabel *platform_charaIntro=[[UILabel alloc]initWithFrame:CGRectMake(0, viewHeight/30+viewHeight/15, viewWidth/2, viewHeight/28)];
+        UILabel *platform_charaIntro=[[UILabel alloc]initWithFrame:CGRectMake(0, viewHeight/20+viewHeight/15, viewWidth/2, viewHeight/28)];
         platform_charaIntro.text = @"使用乐享100办理推荐业务快捷又方便，业务办理不再受时间、地点的限制。";
         platform_charaIntro.font = [UIFont systemFontOfSize:viewHeight/40];
         platform_charaIntro.backgroundColor = [UIColor clearColor];
         platform_charaIntro.numberOfLines=0;
         platform_charaIntro.lineBreakMode=NSLineBreakByCharWrapping;
         platform_charaIntro.backgroundColor = [UIColor clearColor];
-        platform_charaIntro.frame = CGRectMake(0, viewHeight/30+viewHeight/5, viewWidth, labelsize1.height);
+        platform_charaIntro.frame = CGRectMake(0, viewHeight/40+viewHeight/5, viewWidth, labelsize1.height);
         platform_charaIntro.font =font1;
         [scrollview addSubview:platform_charaIntro];
         
@@ -97,7 +91,8 @@
         //短信端口标题
         UILabel * message = [[UILabel alloc]initWithFrame:CGRectMake(0, viewHeight/4+viewHeight/10, viewWidth, viewHeight/30)];
         message.text = @"   短信端口";
-        message.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        message.backgroundColor = [UIColor lightTextColor];
+
         message.layer.borderColor = [UIColor grayColor].CGColor;
         message.layer.borderWidth = 0.5;
         [scrollview addSubview:message];
@@ -109,8 +104,6 @@
         platform_message.numberOfLines=0;
         platform_message.lineBreakMode=NSLineBreakByCharWrapping;
         platform_message.backgroundColor = [UIColor clearColor];
-        platform_charaIntro.frame = CGRectMake(0, viewHeight/30+viewHeight/5, viewWidth, labelsize1.height);
-        platform_charaIntro.font =font1;
         [scrollview addSubview:platform_message];
         
         //客服电话标题
@@ -154,7 +147,18 @@
         [self.view addSubview:scrollview];
         
       
-        
+        //解决ios7界面上移  配色等问题
+        if ([[[UIDevice currentDevice]systemVersion]floatValue]>=7) {
+            self.edgesForExtendedLayout = UIRectEdgeNone;
+            self.extendedLayoutIncludesOpaqueBars =NO;
+            self.modalPresentationCapturesStatusBarAppearance = NO;
+            self.navigationController.navigationBar.translucent = NO;
+            self.view.backgroundColor = [UIColor whiteColor];
+            platform.backgroundColor = [UIColor groupTableViewBackgroundColor];
+            message.backgroundColor = [UIColor groupTableViewBackgroundColor];
+            tel.backgroundColor = [UIColor groupTableViewBackgroundColor];
+            web.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        }
         
         
         

@@ -55,16 +55,7 @@ extern connectionAPI * soap;
     self.title = service;
     self.tableView.rowHeight = 228;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    int count = [DB numOfRecords];
-    if (count == 0) {
-        UIAlertView * alerts = [[UIAlertView alloc]initWithTitle:@"无数据"
-                                                message:@"现在更新数据吗"
-                                               delegate:self
-                                      cancelButtonTitle:@"不更新"
-                                      otherButtonTitles:@"更新",nil];
-        [alerts show];
-        [alerts release];
-    }
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -138,7 +129,7 @@ extern connectionAPI * soap;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
     //NSLog(@"%d  row",indexPath.row);
-    service = [self.tableArray objectAtIndex:indexPath.row];
+    //service = [self.tableArray objectAtIndex:indexPath.row];
     //NSLog(@"%@  service",service);
     if (self.table2View != NULL) {
         [self.table2View release];
@@ -187,12 +178,8 @@ extern connectionAPI * soap;
     switch (buttonIndex) {
             
         case 1:
-            if ([DB numOfRecords] == 0) {
-                [DB deleteDB];
-                [soap BusiInfoWithInterface:@"queryBusiInfo" Parameter1:@"versionTag" Version:@"Public"];
-            }else{
             NSLog(@"添加到收藏夹");
-                [self pushToCollect];}
+                [self pushToCollect];
             break;
         case 2:
             NSLog(@"查看业务介绍");

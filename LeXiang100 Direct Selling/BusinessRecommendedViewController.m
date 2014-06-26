@@ -350,24 +350,44 @@ extern NSMutableDictionary * UserInfo;
     self.tables1 = [[[TableLevel1TableViewController alloc]init]autorelease];
     self.tables2 = [[[TableLevle2TableViewController alloc]init]autorelease];
     
-    if ([touch view]== imgViewFavourite) {
+//读取数据库
+    if ([DB numOfRecords] == 0) {
+        BusiInfoAlerts = [[UIAlertView alloc]initWithTitle:@"数据库无数据"
+                                                  message:@"现在更新常规数据吗？"
+                                                 delegate:self
+                                        cancelButtonTitle:@"不更新"
+                                        otherButtonTitles:@"更新",nil];
+        [BusiInfoAlerts show];
+        [BusiInfoAlerts release];
+    }
+    else if ([touch view]== imgViewFavourite) {
         [self.navigationController pushViewController:favourite animated:YES];
         NSLog(@"imgViewFavourite");
     }else if([touch view]== imgViewTop){
 //读本地热点业务
-                NSMutableArray * readArray = (NSMutableArray*)[self readFileArray];
+        NSMutableArray * readArray = (NSMutableArray*)[self readFileArray];
+        if (readArray.count != 0){
 //数据库匹配取热点业务
-        NSMutableArray * dataArray =[[[NSMutableArray alloc]init]autorelease];
+            NSMutableArray * dataArray =[[[NSMutableArray alloc]init]autorelease];
                 for (NSDictionary * dic in readArray) {
                     NSDictionary * dics =[DB findBybusiCode:[dic objectForKey:@"busiCode"]];
                     [dataArray addObject: dics];
                 }
 //        NSMutableArray * dataArray =[[[NSMutableArray alloc]init]autorelease];
 //        [dataArray setArray:[DB findByIsTopbusi]];
-        self.tables2.dataSources =  dataArray;
-        NSLog(@"热点业务count:%d",self.tables2.dataSources.count);
-        service = @"热点业务";
-        [self.navigationController pushViewController:self.tables2 animated:YES];
+            self.tables2.dataSources =  dataArray;
+            NSLog(@"热点业务count:%d",self.tables2.dataSources.count);
+            service = @"热点业务";
+            [self.navigationController pushViewController:self.tables2 animated:YES];
+        }else{
+            HotBusiAlerts = [[UIAlertView alloc]initWithTitle:@"热点业务无数据"
+                                                      message:@"现在更新热点业务数据吗？"
+                                                     delegate:self
+                                            cancelButtonTitle:@"不更新"
+                                            otherButtonTitles:@"更新",nil];
+            [HotBusiAlerts show];
+            [HotBusiAlerts release];
+        }
         NSLog(@"热点业务 imgViewTop");
     }else if ([touch view]== imgViewPackage){
         self.tables1.dataSources =  [DB findByParentId:@"3"];
@@ -431,33 +451,38 @@ extern NSMutableDictionary * UserInfo;
 
 
 - (void)showAlerView{
-    UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"请登录"
+    LoginAlert = [[UIAlertView alloc]initWithTitle:@"请登录"
                                                     message:nil
                                                    delegate:nil
                                           cancelButtonTitle:@"取消"
                                           otherButtonTitles:@"登录",nil];
-    alert.alertViewStyle = UIAlertViewStyleLoginAndPasswordInput;
-    alert.delegate = self;
-    [alert show];
-    [alert release];
+    LoginAlert.alertViewStyle = UIAlertViewStyleLoginAndPasswordInput;
+    LoginAlert.delegate = self;
+    [LoginAlert show];
+    [LoginAlert release];
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 0) {
         [self dimissAlert:alertView]; ;
     }
-    else{
-        UITextField * loginName = [alertView textFieldAtIndex:0];
-        UITextField * loginPsd = [alertView textFieldAtIndex:1];
-        if ([loginName.text isEqualToString:@""] || [loginPsd.text isEqualToString:@""]) {
-            [connectionAPI showAlertWithTitle:@"输入错误" AndMessages:@"帐号或密码不能为空！"];
-        }else{
-            [soap LoginWithInterface:@"modifyLogin" Parameter1:@"loginPwd" UserName:loginPsd.text Parameter2:@"opPhone" Password:loginName.text ];
-            NSLog(@"%@",loginName.text);
-            NSLog(@"%@",loginPsd.text);
+    else if(buttonIndex == 1){
+        if ([alertView isEqual:LoginAlert]) {
+            UITextField * loginName = [alertView textFieldAtIndex:0];
+            UITextField * loginPsd = [alertView textFieldAtIndex:1];
+            if ([loginName.text isEqualToString:@""] || [loginPsd.text isEqualToString:@""]) {
+                [connectionAPI showAlertWithTitle:@"输入错误" AndMessages:@"帐号或密码不能为空！"];
+            }else{
+                [soap LoginWithInterface:@"modifyLogin" Parameter1:@"loginPwd" UserName:loginPsd.text Parameter2:@"opPhone" Password:loginName.text ];
+                NSLog(@"%@",loginName.text);
+                NSLog(@"%@",loginPsd.text);
+            }
+        }else if ([alertView isEqual:HotBusiAlerts]) {
+            [soap HotServiceWithInterface:@"queryBusiHotInfo" Parameter1:@"versionTag" Version:@"public"];
+        }else if ([alertView isEqual:BusiInfoAlerts]){
+            [DB deleteDB];
+            [soap BusiInfoWithInterface:@"queryBusiInfo" Parameter1:@"versionTag" Version:@"Public"];
         }
-        
-        
     }
 }
 
@@ -615,6 +640,7 @@ extern NSMutableDictionary * UserInfo;
     NSString * text = [self.resultArray objectAtIndex:indexPath.row];
     NSLog(@"%d:%@",indexPath.row,text);
     cell.textLabel.text = text;
+    cell.textLabel.font = [UIFont systemFontOfSize:22];
     cell.textLabel.backgroundColor = [UIColor clearColor];
     //cell.textLabel.font = [UIFont systemFontOfSize:viewHeight/35];
     

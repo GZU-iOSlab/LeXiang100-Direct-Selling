@@ -36,6 +36,9 @@
     FavoriteViewController * favourite;
     TableLevle2TableViewController * tables2;
     TableLevel1TableViewController * tables1;
+    UIAlertView *LoginAlert;
+    UIAlertView * HotBusiAlerts;
+    UIAlertView * BusiInfoAlerts;
     //SQLForLeXiang * initDB;
 }
 //@property (nonatomic,retain)  UINavigationController * navigationController;
