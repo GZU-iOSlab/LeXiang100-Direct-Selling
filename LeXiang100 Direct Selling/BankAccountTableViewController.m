@@ -24,9 +24,12 @@ extern NSMutableDictionary * UserInfo;
         // Custom initialization
         //nc = [NSNotificationCenter defaultCenter];
         [nc addObserver:self selector:@selector(bankAccountFeedback:) name:@"queryBankInfoResponse" object:nil];
-        self.tableArray = [[NSArray alloc]initWithObjects:@"开户人姓名：",@"开户银行：",@"银行卡号：",@"登记时间：", nil];
+        self.tableArray = [[NSArray alloc]initWithObjects:@"姓名：",@"开户银行：",@"银行卡号：",@"登记时间：", nil];
         self.tableCellArray = [[NSMutableArray alloc]init];
         self.title = @"银行账户";
+        
+        UIBarButtonItem * errorBtn = [[UIBarButtonItem alloc]initWithTitle:@"个人信息报错" style:UIBarButtonItemStyleBordered target:self action:@selector(tel)];
+        self.navigationItem.rightBarButtonItem = errorBtn;
     }
     return self;
 }
@@ -67,6 +70,13 @@ extern NSMutableDictionary * UserInfo;
     // Dispose of any resources that can be recreated.
 }
 
+-(void)tel{
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad){
+        [connectionAPI showAlertWithTitle:@"拨打电话失败" AndMessages:@"对不起，因为iPad不能拨打电话，请您用手机拨乐享100客服电话：15718509310。"];
+    }else
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel:15718509310"]];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -94,7 +104,10 @@ extern NSMutableDictionary * UserInfo;
     NSString * text = [self.tableArray objectAtIndex:indexPath.row];
     NSString * detailtext = [self.tableCellArray objectAtIndex:indexPath.row];
     cell.textLabel.text = text;
+    cell.textLabel.textAlignment = NSTextAlignmentLeft;
     cell.detailTextLabel.text = detailtext;
+    cell.textLabel.font = [UIFont systemFontOfSize:13];
+    cell.detailTextLabel.font = [UIFont systemFontOfSize:18];
     if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
         [self.tableView setSeparatorInset:UIEdgeInsetsZero];
     }

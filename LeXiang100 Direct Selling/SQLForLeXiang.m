@@ -774,7 +774,12 @@ extern NSNotificationCenter *nc;
 //热点业务内容写入一个数组
 - (void)hotbusiInfoFeedback:(NSNotification *)note{
     if ([[[note userInfo] objectForKey:@"1"] isKindOfClass:[NSArray class]]){
-        NSArray * resultArray = (NSArray *)[[note userInfo] objectForKey:@"1"];
+        if ([[[note userInfo] objectForKey:@"1" ] isKindOfClass:[NSMutableArray class]]) {
+            NSLog(@"nsmutable");
+        }else if ([[[note userInfo] objectForKey:@"1" ] isKindOfClass:[NSArray class]]){
+            NSLog(@"array");
+        }
+        NSMutableArray * resultArray = (NSMutableArray *)[[note userInfo] objectForKey:@"1"];
         //把resultArray这个数组存入程序指定的一个文件里
         [resultArray writeToFile:[self documentsPath:@"hotBusi.txt"] atomically:YES];
         
@@ -794,14 +799,16 @@ extern NSNotificationCenter *nc;
 }
 
 //读取热点业务
--(NSArray *)readFileArray
+-(NSMutableArray *)readFileArray
 {
     NSLog(@"To read hotBusi........\n");
     //filePath 表示程序目录下指定文件
     NSString *filePath = [self documentsPath:@"hotBusi.txt"];
     //从filePath 这个指定的文件里读
-    NSArray * collectBusiArray = [NSArray arrayWithContentsOfFile:filePath];
-    //NSLog(@"%@",[collectBusiArray objectAtIndex:0] );
+    NSMutableArray * collectBusiArray = [NSMutableArray arrayWithContentsOfFile:filePath];
+    for (NSString * str in collectBusiArray) {
+        NSLog(@"%@",str );
+    }
     return collectBusiArray;
 }
 

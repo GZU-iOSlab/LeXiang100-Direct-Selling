@@ -178,11 +178,49 @@
     }
     else if (indexPath.row==4)
     {
-        [self.navigationController pushViewController:shareViewController animated:YES];
+        //[[UIApplication sharedApplication] openURL:[[NSURL alloc] initWithString:@"sms:123"]];
+        //[self.navigationController pushViewController:shareViewController animated:YES];
+        [self sendSMS:@"你知道吗？乐享100推出了Android版的手机客户端软件，从此再也不用记忆那繁锁的业务代码了，推荐业务快捷又方便！下载地址：http://www.gz.10086.cn/lx100" recipientList:nil];
     }
     
 }
 
+//内容，收件人列表
+- (void)sendSMS:(NSString *)bodyOfMessage recipientList:(NSArray *)recipients
+{
+    
+    MFMessageComposeViewController *controller = [[[MFMessageComposeViewController alloc] init] autorelease];
+    
+    if([MFMessageComposeViewController canSendText])
+        
+    {
+        
+        controller.body = bodyOfMessage;
+        
+        controller.recipients = recipients;
+        
+        controller.messageComposeDelegate = self;
+        
+         //[self presentModalViewController:controller animated:YES];
+        [self presentViewController:controller animated:YES completion:^(void){ }];
+    }   
+    
+}
+
+// 处理发送完的响应结果
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+{
+     //[self dismissModalViewControllerAnimated:YES];
+    
+    [self dismissViewControllerAnimated:YES completion:^(void){ }];
+    
+    if (result == MessageComposeResultCancelled)
+        NSLog(@"Message cancelled");
+    else if (result == MessageComposeResultSent)
+        NSLog(@"Message sent");
+    else
+        NSLog(@"Message failed")  ;
+}
 
 /*
 #pragma mark - Navigation

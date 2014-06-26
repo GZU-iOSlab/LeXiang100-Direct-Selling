@@ -243,7 +243,7 @@ extern NSMutableDictionary * UserInfo;
 
 - (void)HotServiceWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 Version:(NSString *)version{
     [self getSoapFromInterface:interface Parameter1:parameter1 Value1:version];
-    if (self.alerts.visible == NO) {
+    if (count != 1) {
         [self showAlerView];
     }
     
@@ -272,7 +272,9 @@ extern NSMutableDictionary * UserInfo;
 
 - (void)CheckVersionWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 ClientVersion:(NSString *)clientVersion Parameter2:(NSString *)parameter2 DataVersion:(NSString *)dataVersion Parameter3:(NSString *)parameter3 AppName:(NSString *)appName{
     [self getSoapForInterface:interface Parameter1:parameter1 Value1:clientVersion Parameter2:parameter2 Value2:dataVersion Parameter3:parameter3 Value3:appName];
-    [self showAlerView];
+    if (count != 0) {
+        [self showAlerView];
+    }
 }
 
 -(void) SaveSuggestInfoWithInterface:(NSString*)interface Parameter1:(NSString*)parameter1 SuggestInfo:(NSString*)suggestInfo{
@@ -309,10 +311,9 @@ extern NSMutableDictionary * UserInfo;
                                                         object:self
      ];
     NSLog(@"Connection failed! Error - ");//%@ %@",[error localizedDescription],[[error userInfo] objectForKey:NSErrorFailingURLStringKey]);
-    //如果显示alert   取消
-    if (self.alerts.visible == YES) {
-        [self dimissAlert:self.alerts];
-    }
+    [self dimissAlert:alerts];
+
+    
     [connectionAPI showAlertWithTitle:@"网络连接错误" AndMessages:@"网络连接错误,请重新尝试！"];
     [nc postNotificationName:@"loginFalse" object:self userInfo:nil];
     needToAnalysis = NO;
@@ -572,6 +573,10 @@ extern NSMutableDictionary * UserInfo;
     if (soapResults) {
         soapResults = nil;
     }
+    //如果显示alert   取消
+    if (self.alerts.visible == YES) {
+        [self dimissAlert:self.alerts];
+    }
     
 }
 
@@ -580,12 +585,43 @@ extern NSMutableDictionary * UserInfo;
     if (soapResults) {
         soapResults = nil;
     }
+    //如果显示alert   取消
+    if (self.alerts.visible == YES) {
+        [self dimissAlert:self.alerts];
+    }
+}
+
+#pragma mark - readFileArray
+
+//读取热点业务
+-(NSArray *)readFileArray
+{
+    NSLog(@"To read hotBusi........\n");
+    //filePath 表示程序目录下指定文件
+    NSString *filePath = [self documentsPath:@"hotBusi.txt"];
+    //从filePath 这个指定的文件里读
+    NSArray * collectBusiArray = [NSArray arrayWithContentsOfFile:filePath];
+    //NSLog(@"%@",[collectBusiArray objectAtIndex:0] );
+    return collectBusiArray;
+}
+
+-(NSString *)documentsPath:(NSString *)fileName {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    return [documentsDirectory stringByAppendingPathComponent:fileName];
 }
 
 #pragma mark - AlertView
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 0) {
+        if ([alertView isEqual:alertForBusiInfo]) {
+            NSArray * hotArray = [self readFileArray];
+            if (hotArray == NULL) {
+                //取消掉业务更新后检查热点业务  如果需要更新再提示
+                //[self HotServiceWithInterface:@"queryBusiHotInfo" Parameter1:@"versionTag" Version:@"public"];
+            }
+        }
         //[nc postNotificationName:@"VersionInfoUpadate" object:self userInfo:self.resultDic];
     }else if (buttonIndex == 1){
         if ([alertView isEqual:alertForBusiInfo]) {

@@ -36,7 +36,7 @@
         UITextView * background = [[UITextView alloc]initWithFrame:CGRectMake(0, 0, viewWidth, viewHeight)];
         background.editable=NO;
         [self.view addSubview:background];
-        //message=[[MFMessageComposeViewController alloc]init];
+               //message=[[MFMessageComposeViewController alloc]init];
         //message.messageComposeDelegate=self;
         //[self.view addSubview:message];
 
@@ -53,7 +53,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    //[[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"sms://10000"]];
+    //[[UIApplication sharedApplication] openURL:[[NSURL alloc] initWithString:@"sms:123456789"]];
 }
 
 - (void)didReceiveMemoryWarning

@@ -12,7 +12,8 @@
 #import "UpdateCheckingViewController.h"
 #import "AdviceViewController.h"
 #import "ShareViewController.h"
-@interface MoreViewController : UITableViewController<UIAccelerometerDelegate,UITableViewDataSource>{
+#import <MessageUI/MFMessageComposeViewController.h>
+@interface MoreViewController : UITableViewController<UIAccelerometerDelegate,UITableViewDataSource,MFMessageComposeViewControllerDelegate>{
     AboutLeXiang100ViewController * aboutLeXiang100ViewController;
     Helplexiang100ViewController * helpLeXiang100ViewController;
     UpdateCheckingViewController *updateCheckingViewController;

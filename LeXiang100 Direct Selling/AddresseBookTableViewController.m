@@ -208,7 +208,7 @@ extern NSString * phoneNumber;
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     
-    return @"反馈类型";
+    return @"请选择联系人";
 }
 
 

@@ -89,18 +89,6 @@ extern NSString * phoneNumber;
         NSString * version = [phoneUpdateCfg objectForKey:@"versionCode"];
         [soap CheckVersionWithInterface:@"queryVersionInfo" Parameter1:@"clientVersion" ClientVersion:@"1.0.0" Parameter2:@"dataVersion" DataVersion:version Parameter3:@"appName" AppName:@"lx100-iPhone"];
     }
-    
-//
-//    //读取版本信息
-//    NSDictionary * versionDic = [self readFileDic];
-    
-    
-    
-    
-
-    //检测数据库是否有数据
-    //phoneNumber = [[NSString alloc]init];
-   
 }
 
 #pragma mark readfile

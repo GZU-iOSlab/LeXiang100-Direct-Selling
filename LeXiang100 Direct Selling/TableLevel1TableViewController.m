@@ -16,6 +16,7 @@
 extern NSString * service;
 extern DataBuffer * data ;
 extern SQLForLeXiang * DB;
+extern connectionAPI * soap;
 
 @synthesize dataSource;
 @synthesize keysArray;
@@ -54,6 +55,16 @@ extern SQLForLeXiang * DB;
     self.title = service;
     self.tableView.rowHeight = 228;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    int count = [DB numOfRecords];
+    if (count == 0) {
+        UIAlertView * alerts = [[UIAlertView alloc]initWithTitle:@"无数据"
+                                                message:@"现在更新数据吗"
+                                               delegate:self
+                                      cancelButtonTitle:@"不更新"
+                                      otherButtonTitles:@"更新",nil];
+        [alerts show];
+        [alerts release];
+    }
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -174,9 +185,14 @@ extern SQLForLeXiang * DB;
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     switch (buttonIndex) {
+            
         case 1:
+            if ([DB numOfRecords] == 0) {
+                [DB deleteDB];
+                [soap BusiInfoWithInterface:@"queryBusiInfo" Parameter1:@"versionTag" Version:@"Public"];
+            }else{
             NSLog(@"添加到收藏夹");
-            [self pushToCollect];
+                [self pushToCollect];}
             break;
         case 2:
             NSLog(@"查看业务介绍");

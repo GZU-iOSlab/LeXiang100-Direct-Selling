@@ -19,6 +19,8 @@ extern NSMutableString * loginName;
 extern NSMutableDictionary * UserInfo;
 @synthesize tableArray;
 @synthesize tableCellArray;
+#define viewWidth   self.view.frame.size.width
+#define viewHeight  self.view.frame.size.height
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:UITableViewStyleGrouped];
@@ -26,9 +28,14 @@ extern NSMutableDictionary * UserInfo;
         // Custom initialization
         //nc = [NSNotificationCenter defaultCenter];
         [nc addObserver:self selector:@selector(userInfoFeedback:) name:@"queryUserInfoResponse" object:nil];
-        self.tableArray = [[NSArray alloc]initWithObjects:@"手机号码：",@"姓名：",@"状态：",@"类型：",@"归属地区：",@"归属县市：",@"归属营业厅：",@"注册时间：", nil];
+        self.tableArray = [[NSArray alloc]initWithObjects:@"手机号码：",@"姓名：",@"状态：",@"类型：",@"归属地区：",@"归属县市：",@"营业厅：",@"注册时间：", nil];
         self.tableCellArray = [[NSMutableArray alloc]init];
         self.title = @"个人信息";
+        
+        //self.navigationItem.rightBarButtonItem = contact;
+        UIBarButtonItem * errorBtn = [[UIBarButtonItem alloc]initWithTitle:@"个人信息报错" style:UIBarButtonItemStyleBordered target:self action:@selector(tel)];
+        self.navigationItem.rightBarButtonItem = errorBtn;
+
     }
     return self;
 }
@@ -36,12 +43,19 @@ extern NSMutableDictionary * UserInfo;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+-(void)tel{
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad){
+        [connectionAPI showAlertWithTitle:@"拨打电话失败" AndMessages:@"对不起，因为iPad不能拨打电话，请您用手机拨乐享100客服电话：15718509310。"];
+    }else
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel:15718509310"]];
 }
 
 - (void)userInfoFeedback:(NSNotification *)note{
@@ -109,8 +123,19 @@ extern NSMutableDictionary * UserInfo;
     }    // Configure the cell...
     NSString * text = [self.tableArray objectAtIndex:indexPath.row];
     NSString * detailtext = [self.tableCellArray objectAtIndex:indexPath.row];
+//    UIFont *font = [UIFont systemFontOfSize:13];
+//    CGFloat contentWidth = self.tableView.frame.size.width;
+//    CGSize size = [text sizeWithFont:font constrainedToSize:CGSizeMake(contentWidth, 1000) lineBreakMode:NSLineBreakByCharWrapping];
+//    cell.textLabel.frame = CGRectMake(0, 0, 100, 30);
+//    CGRect rect = [cell.textLabel textRectForBounds:cell.textLabel.frame  limitedToNumberOfLines:0];
+//    rect.size =size;
+//    cell.textLabel.frame = rect;
+//    cell.textLabel.numberOfLines = 0;
     cell.textLabel.text = text;
+    cell.textLabel.textAlignment = NSTextAlignmentLeft;
     cell.detailTextLabel.text = detailtext;
+    cell.textLabel.font = [UIFont systemFontOfSize:13];
+    cell.detailTextLabel.font = [UIFont systemFontOfSize:18];
     if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
         [self.tableView setSeparatorInset:UIEdgeInsetsZero];
     }
@@ -127,6 +152,17 @@ extern NSMutableDictionary * UserInfo;
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if ([[[UIDevice currentDevice]systemVersion]floatValue]>=7) return 10;
     else    return 30;}
+
+-(NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
+{
+    return @"";
+}
+
+//- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+//    return contact;
+//}
+
+
 
 /*
 // Override to support conditional editing of the table view.

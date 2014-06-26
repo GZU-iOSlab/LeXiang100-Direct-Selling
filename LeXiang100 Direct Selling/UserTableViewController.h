@@ -10,6 +10,7 @@
 #import "ConnectionAPI.h"
 @class MainViewController;
 @interface UserTableViewController : UITableViewController{
+    UIButton * contact;
 }
 @property(nonatomic,strong) NSArray * tableArray;
 @property(nonatomic,strong) NSMutableArray * tableCellArray;

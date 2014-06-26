@@ -354,8 +354,10 @@ extern NSMutableDictionary * UserInfo;
         [self.navigationController pushViewController:favourite animated:YES];
         NSLog(@"imgViewFavourite");
     }else if([touch view]== imgViewTop){
-                NSArray * readArray = [self readFileArray];
-                NSMutableArray * dataArray =[[[NSMutableArray alloc]init]autorelease];
+//读本地热点业务
+                NSMutableArray * readArray = (NSMutableArray*)[self readFileArray];
+//数据库匹配取热点业务
+        NSMutableArray * dataArray =[[[NSMutableArray alloc]init]autorelease];
                 for (NSDictionary * dic in readArray) {
                     NSDictionary * dics =[DB findBybusiCode:[dic objectForKey:@"busiCode"]];
                     [dataArray addObject: dics];
