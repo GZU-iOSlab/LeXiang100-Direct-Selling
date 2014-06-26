@@ -669,7 +669,8 @@ extern NSMutableDictionary * UserInfo;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
     //NSLog(@"%d  row",indexPath.row);
-    service = [self.resultArray objectAtIndex:indexPath.row];
+    [service setString:@""];
+    [service appendString: [self.resultArray objectAtIndex:indexPath.row]];
     //    NSLog(@"%@  service",service);
     //    if (self.detailView != NULL) {
     //        //[self.detailView release];

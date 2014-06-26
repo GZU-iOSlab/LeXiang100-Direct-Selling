@@ -65,7 +65,7 @@ extern NSMutableString * service;
     UserInfo = [[NSMutableDictionary alloc]init] ;
     nc = [NSNotificationCenter defaultCenter];
     DB = [[SQLForLeXiang alloc]init];
-    //service = [[NSMutableString alloc]init];
+    service = [[NSMutableString alloc]init];
     //首先检查数据库
     NSDictionary * versionDic = [self readFileDic];
     //检查数据库是否为空

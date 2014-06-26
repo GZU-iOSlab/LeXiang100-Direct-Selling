@@ -17,7 +17,7 @@
 @synthesize tableArray;
 @synthesize detailView;
 @synthesize dataSources;
-extern NSString * service;
+extern NSMutableString * service;
 extern DataBuffer * data ;
 extern SQLForLeXiang * DB;
 extern connectionAPI * soap;
@@ -104,6 +104,8 @@ extern connectionAPI * soap;
     //service = [self.tableArray objectAtIndex:indexPath.row];
     self.detailView = [[[DetailViewController alloc]init]autorelease];
     NSString * busiName = [[self.dataSources objectAtIndex:indexPath.row]objectForKey:@"busiName"];
+    [service setString:@""];
+    [service appendString: busiName];
     self.detailView.detailService = [DB findByBusiName:busiName];
     self.detailView.haveBtn = @"1";
     NSLog(@"busy:%@,count:%d",busiName,self.detailView.detailService.count);
