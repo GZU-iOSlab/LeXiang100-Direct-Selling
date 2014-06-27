@@ -13,11 +13,10 @@
 @end
 
 @implementation FavoriteViewController
-extern SQLForLeXiang * DB;
-
 @synthesize tableview;
 @synthesize dataSource;
 @synthesize detailView;
+extern SQLForLeXiang * DB;
 #define viewWidth   self.view.frame.size.width
 #define viewHeight  self.view.frame.size.height
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -71,8 +70,20 @@ extern SQLForLeXiang * DB;
             self.modalPresentationCapturesStatusBarAppearance = NO;
             self.navigationController.navigationBar.translucent = NO;
         }
+        
+        self.detailView = [[DetailViewController alloc]init];
     }
     return self;
+}
+
+- (void)dealloc{
+    [super dealloc];
+    [la release];
+    [alert release];
+    [self.dataSource release];
+    [self.tableview release];
+    [self.detailView release];
+    if ([[[UIDevice currentDevice]systemVersion]floatValue]>=7) [imgViewMetal release];
 }
 
 - (void)viewDidLoad
@@ -145,7 +156,6 @@ extern SQLForLeXiang * DB;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    self.detailView = [[[DetailViewController alloc]init]autorelease];
     NSString * busiName = [[self.dataSource objectAtIndex:indexPath.row]objectForKey:@"busiName"];
     self.detailView.haveBtn = @"1";
     self.detailView.detailService = [DB findByBusiName:busiName];

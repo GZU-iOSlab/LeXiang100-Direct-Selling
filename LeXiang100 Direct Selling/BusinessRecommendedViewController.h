@@ -10,16 +10,12 @@
 #import "FavoriteViewController.h"
 #import "TableLevle2TableViewController.h"
 #import "TableLevel1TableViewController.h"
-#import "DataBuffer.h"
 #import "SQLForLeXiang.h"
 #import "DetailViewController.h"
 #import "SpecialOfferViewController.h"
 @interface BusinessRecommendedViewController : UIViewController<UITextFieldDelegate,UITextViewDelegate,UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,UISearchDisplayDelegate>{
     UITextField * messageText;
-    //UINavigationController * navigationController;
     UITextField * searchText;
-    //UIImageView *imgViewCancel;
-    //UIImageView * searchView;
     UIImageView *imgViewFavourite;
     UIImageView *imgViewTop ;
     UIImageView *imgViewPackage;

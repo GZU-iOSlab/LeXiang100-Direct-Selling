@@ -22,11 +22,6 @@
         // Custom initialization
         self.title = @"关于乐享";
         self.view.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
-       
-        UIImage * metal = [UIImage imageNamed:@"metal.jpg"];
-        UIImageView *imgViewMetal = [[UIImageView alloc] initWithImage:metal];
-        imgViewMetal.frame = CGRectMake(0, 0, viewWidth, viewHeight);
-        
         
         UIScrollView *scrollview=[[UIScrollView alloc] initWithFrame:self.view.frame];
         scrollview.contentSize=CGSizeMake(viewWidth, viewHeight*1.1);
@@ -159,9 +154,6 @@
             tel.backgroundColor = [UIColor groupTableViewBackgroundColor];
             web.backgroundColor = [UIColor groupTableViewBackgroundColor];
         }
-        
-        
-        
         
     }
     return self;

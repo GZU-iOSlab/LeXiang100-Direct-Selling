@@ -12,13 +12,9 @@
 @end
 
 @implementation TableLevle2TableViewController
-@synthesize dataSource;
-@synthesize keysArray;
-@synthesize tableArray;
 @synthesize detailView;
 @synthesize dataSources;
 extern NSMutableString * service;
-extern DataBuffer * data ;
 extern SQLForLeXiang * DB;
 extern connectionAPI * soap;
 
@@ -30,21 +26,27 @@ extern connectionAPI * soap;
     self = [super initWithStyle:UITableViewStyleGrouped];
     if (self) {
         // Custom initialization
-        //DataBuffer * data = [[DataBuffer alloc]init];
-        self.dataSource = data.dataSource;
-        self.keysArray = data.keys;
         alert = [[UIAlertView alloc] initWithTitle:@"请选择操作"message:nil delegate:self cancelButtonTitle:@"关闭" otherButtonTitles:@"添加到收藏夹",@"查看业务介绍",@"推荐办理业务", nil];
-        //self.detailView = [[DetailViewController alloc]init];
-        
+        self.detailView = [[DetailViewController alloc]init];
     }
     return self;
+}
+
+- (void)dealloc{
+    [super dealloc];
+    //[self.detailView release];
+    //[self.dataSources release];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.tableArray = [dataSource objectForKey:service];
     
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [self.tableView reloadData];
+    //self.tableArray = [self.dataSource objectForKey:service];
     self.title = service;
 }
 
@@ -96,16 +98,16 @@ extern connectionAPI * soap;
     //设置长按响应
     UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
     [cell addGestureRecognizer:recognizer];
+    [recognizer release];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
     //service = [self.tableArray objectAtIndex:indexPath.row];
-    self.detailView = [[[DetailViewController alloc]init]autorelease];
     NSString * busiName = [[self.dataSources objectAtIndex:indexPath.row]objectForKey:@"busiName"];
-    [service setString:@""];
-    [service appendString: busiName];
+//    [service setString:@""];
+//    [service appendString: busiName];
     self.detailView.detailService = [DB findByBusiName:busiName];
     self.detailView.haveBtn = @"1";
     NSLog(@"busy:%@,count:%d",busiName,self.detailView.detailService.count);
@@ -132,6 +134,7 @@ extern connectionAPI * soap;
     
     UIAlertView * alert = [[UIAlertView alloc]initWithTitle:titles message:messages delegate:self cancelButtonTitle:@"关闭" otherButtonTitles: nil];
     [alert show];
+    [alert release];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
@@ -154,7 +157,6 @@ extern connectionAPI * soap;
 }
 
 -(void)toDetailView{
-    self.detailView = [[[DetailViewController alloc]init]autorelease];
     self.detailView.haveBtn = @"1";
     NSString * busiName = [[self.dataSources objectAtIndex:pressedCell]objectForKey:@"busiName"];
     self.detailView.detailService = [DB findByBusiName:busiName];
@@ -190,7 +192,7 @@ extern connectionAPI * soap;
     //如果没重复
     if (!isCollected) {
         //把resultArray这个数组存入程序指定的一个文件里
-        NSMutableArray * writeArray = [[NSMutableArray alloc]initWithArray:readArray];
+        NSMutableArray * writeArray = [[[NSMutableArray alloc]initWithArray:readArray]autorelease];
         [writeArray addObject:collectedBusi];
         [writeArray writeToFile:[self documentsPath:@"collectedBusi.txt"] atomically:YES];
         NSString * str =[NSString stringWithFormat: @"%@收藏成功",collectedName ];

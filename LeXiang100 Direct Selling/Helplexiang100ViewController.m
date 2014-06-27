@@ -27,18 +27,11 @@
             self.navigationController.navigationBar.translucent = NO;
             self.view.backgroundColor = [UIColor whiteColor];
         }
-        UIImage * metal = [UIImage imageNamed:@"metal.jpg"];
-        UIImageView *imgViewMetal = [[UIImageView alloc] initWithImage:metal];
-        imgViewMetal.frame = CGRectMake(0, 0, viewWidth, viewHeight);
-      
         
         UIScrollView *scrollview=[[UIScrollView alloc] initWithFrame:self.view.frame];
         scrollview.contentSize=CGSizeMake(viewWidth, viewHeight*1.1);
         scrollview.showsHorizontalScrollIndicator=FALSE;
         scrollview.showsVerticalScrollIndicator=TRUE;
-        UITextView * background = [[UITextView alloc]initWithFrame:CGRectMake(0, 0, viewWidth, viewHeight)];
-        background.editable=NO;
-        //[scrollview addSubview:background];
         
         CGSize size1 = CGSizeMake(viewWidth - viewWidth/10,MAXFLOAT);
         UIFont *font1 = [UIFont fontWithName:@"Arial" size:viewHeight/47];

@@ -10,7 +10,6 @@
 #import "MainViewController.h"
 #import "SQLForLeXiang.h"
 NSMutableString * service;
-DataBuffer * data ;
 Boolean login;
 NSNotificationCenter *nc;
 NSMutableDictionary * UserInfo;

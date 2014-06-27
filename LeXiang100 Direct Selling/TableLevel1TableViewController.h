@@ -7,19 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#include "DataBuffer.h"
 #import "TableLevle2TableViewController.h"
-#import "NewCellTableViewCell.h"
 #import "SQLForLeXiang.h"
 
 @interface TableLevel1TableViewController : UITableViewController<UIAlertViewDelegate>{
     UIAlertView *alert;
     int  pressedCell;
 }
-@property (strong,nonatomic)NSDictionary * dataSource;
 @property (strong,nonatomic)NSMutableArray * dataSources;
-@property (strong,nonatomic)NSMutableArray * keysArray;
-@property (strong,nonatomic)NSMutableArray * tableArray;
 @property (strong,nonatomic)TableLevle2TableViewController * table2View;
 @property (strong,nonatomic)DetailViewController * detailView;
 @end

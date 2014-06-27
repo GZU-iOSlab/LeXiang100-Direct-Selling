@@ -40,6 +40,13 @@ extern NSMutableDictionary * UserInfo;
     return self;
 }
 
+- (void)dealloc{
+    [super dealloc];
+    [self.tableArray release];
+    [self.tableCellArray release];
+   
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -53,34 +60,13 @@ extern NSMutableDictionary * UserInfo;
 
 -(void)tel{
     if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad){
-        [connectionAPI showAlertWithTitle:@"拨打电话失败" AndMessages:@"对不起，因为iPad不能拨打电话，请您用手机拨乐享100客服电话：15718509310。"];
+        [connectionAPI showAlertWithTitle:@"拨打电话失败" AndMessages:@"对不起，iPad不能拨打电话，请您用手机拨乐享100客服电话：15718509310。"];
     }else
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel:15718509310"]];
 }
 
 - (void)userInfoFeedback:(NSNotification *)note{
-//    NSString * userInfo = [[NSString alloc]initWithString:[[note userInfo] objectForKey:@"1"]];
-//    //if ([userInfo rangeOfString:@"opName"].length>0&&[userInfo rangeOfString:@"opStatus"].length>0) {
-//        NSLog(@"userInfo %@",userInfo);
-//        NSArray * resultArray1 = [userInfo componentsSeparatedByString:@","];
-//        NSMutableArray * resultArray = [[NSMutableArray alloc]init];
-//        NSLog(@"loginName:%@",loginName);
-//        [self.tableCellArray addObject:[UserInfo objectForKey:@"name" ]];
-//        for (NSString * str in resultArray1) {
-//            if ([str rangeOfString:@"regTime"].length==0) {
-//                NSArray * resultOfCut = [str componentsSeparatedByString:@":"];
-//                NSString * token1 =[resultOfCut objectAtIndex:resultOfCut.count-1];
-//                str = [token1 substringWithRange:NSMakeRange(1, token1.length-2)];
-//                NSLog(@"%@",str);
-//                [resultArray addObject:str];
-//            }else{
-//                str = [str substringWithRange:NSMakeRange(11, 19)];
-//                NSLog(@"%@",str);
-//                [resultArray addObject:str];
-//            }
-//            [self.tableCellArray addObject:str];
-//        }
-    NSMutableDictionary * CellDic = [[NSMutableDictionary alloc]initWithDictionary:[[note userInfo] objectForKey:@"1"]];
+    NSMutableDictionary * CellDic = [[[NSMutableDictionary alloc]initWithDictionary:[[note userInfo] objectForKey:@"1"]]autorelease];
     [CellDic setObject:[UserInfo objectForKey:@"name" ] forKey:@"name"];
     NSArray * array = [NSArray arrayWithObjects:@"name",@"opName",@"opStatus",@"regTime",@"opType",@"cityName",@"countyName",@"channelName", nil];
     for (NSString * str in array) {

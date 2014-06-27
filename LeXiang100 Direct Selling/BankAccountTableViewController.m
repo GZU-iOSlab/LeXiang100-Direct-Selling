@@ -30,6 +30,7 @@ extern NSMutableDictionary * UserInfo;
         
         UIBarButtonItem * errorBtn = [[UIBarButtonItem alloc]initWithTitle:@"个人信息报错" style:UIBarButtonItemStyleBordered target:self action:@selector(tel)];
         self.navigationItem.rightBarButtonItem = errorBtn;
+        [errorBtn release];
     }
     return self;
 }
@@ -52,7 +53,7 @@ extern NSMutableDictionary * UserInfo;
 }
 
 - (void)bankAccountFeedback:(NSNotification *)note{
-    NSMutableDictionary * CellDic = [[NSMutableDictionary alloc]initWithDictionary:[[note userInfo] objectForKey:@"1"]];
+    NSMutableDictionary * CellDic = [[[NSMutableDictionary alloc]initWithDictionary:[[note userInfo] objectForKey:@"1"]]autorelease];
     //[CellDic setObject:[UserInfo objectForKey:@"name" ] forKey:@"name"];
     NSArray * array = [NSArray arrayWithObjects:@"userName",@"bankName",@"bankAccount",@"regTime", nil];
     for (NSString * str in array) {
@@ -72,7 +73,7 @@ extern NSMutableDictionary * UserInfo;
 
 -(void)tel{
     if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad){
-        [connectionAPI showAlertWithTitle:@"拨打电话失败" AndMessages:@"对不起，因为iPad不能拨打电话，请您用手机拨乐享100客服电话：15718509310。"];
+        [connectionAPI showAlertWithTitle:@"拨打电话失败" AndMessages:@"对不起，iPad不能拨打电话，请您用手机拨乐享100客服电话：15718509310。"];
     }else
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel:15718509310"]];
 }

@@ -11,7 +11,6 @@
 		5614F1B2193F15AF00F646D5 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 5614F1B0193F15AF00F646D5 /* GTMBase64.m */; };
 		56163D341947084900CB7C2B /* UserTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56163D331947084900CB7C2B /* UserTableViewController.m */; };
 		56163D371947447B00CB7C2B /* BankAccountTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56163D361947447B00CB7C2B /* BankAccountTableViewController.m */; };
-		563B6666193C183900D1076F /* DataBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 563B6665193C183900D1076F /* DataBuffer.m */; };
 		563B6669193C23CB00D1076F /* TableLevel1TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 563B6668193C23CB00D1076F /* TableLevel1TableViewController.m */; };
 		563B666C193C23E100D1076F /* TableLevle2TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 563B666B193C23E100D1076F /* TableLevle2TableViewController.m */; };
 		5642E34D19511E9100C0AF79 /* ic_launcher.png in Resources */ = {isa = PBXBuildFile; fileRef = 5642E34C19511E9100C0AF79 /* ic_launcher.png */; };
@@ -22,7 +21,6 @@
 		5642E3591951ADDA00C0AF79 /* my@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5642E3571951ADDA00C0AF79 /* my@2x.png */; };
 		5642E35C1951B11100C0AF79 /* iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = 5642E35A1951B11100C0AF79 /* iPhone.png */; };
 		5642E35D1951B11100C0AF79 /* iPhone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5642E35B1951B11100C0AF79 /* iPhone@2x.png */; };
-		5646735B1940D4D000772067 /* NewCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5646735A1940D4D000772067 /* NewCellTableViewCell.m */; };
 		564A5395195746CD00DD7F98 /* right.png in Resources */ = {isa = PBXBuildFile; fileRef = 564A5394195746CD00DD7F98 /* right.png */; };
 		564B0320194D607200C77DAA /* SQLForLeXiang.m in Sources */ = {isa = PBXBuildFile; fileRef = 564B031F194D607200C77DAA /* SQLForLeXiang.m */; };
 		564B0322194D6C5600C77DAA /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 564B0321194D6C5600C77DAA /* libsqlite3.dylib */; };
@@ -111,8 +109,6 @@
 		56163D331947084900CB7C2B /* UserTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserTableViewController.m; sourceTree = "<group>"; };
 		56163D351947447B00CB7C2B /* BankAccountTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BankAccountTableViewController.h; sourceTree = "<group>"; };
 		56163D361947447B00CB7C2B /* BankAccountTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BankAccountTableViewController.m; sourceTree = "<group>"; };
-		563B6664193C183900D1076F /* DataBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataBuffer.h; sourceTree = "<group>"; };
-		563B6665193C183900D1076F /* DataBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataBuffer.m; sourceTree = "<group>"; };
 		563B6667193C23CB00D1076F /* TableLevel1TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableLevel1TableViewController.h; sourceTree = "<group>"; };
 		563B6668193C23CB00D1076F /* TableLevel1TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableLevel1TableViewController.m; sourceTree = "<group>"; };
 		563B666A193C23E100D1076F /* TableLevle2TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableLevle2TableViewController.h; sourceTree = "<group>"; };
@@ -125,8 +121,6 @@
 		5642E3571951ADDA00C0AF79 /* my@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "my@2x.png"; sourceTree = "<group>"; };
 		5642E35A1951B11100C0AF79 /* iPhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone.png; sourceTree = "<group>"; };
 		5642E35B1951B11100C0AF79 /* iPhone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone@2x.png"; sourceTree = "<group>"; };
-		564673591940D4D000772067 /* NewCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewCellTableViewCell.h; sourceTree = "<group>"; };
-		5646735A1940D4D000772067 /* NewCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewCellTableViewCell.m; sourceTree = "<group>"; };
 		564A5394195746CD00DD7F98 /* right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right.png; sourceTree = "<group>"; };
 		564B031E194D607200C77DAA /* SQLForLeXiang.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQLForLeXiang.h; sourceTree = "<group>"; };
 		564B031F194D607200C77DAA /* SQLForLeXiang.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQLForLeXiang.m; sourceTree = "<group>"; };
@@ -375,8 +369,6 @@
 				56B0B8FE193CBB7100F514C5 /* DetailViewController.m */,
 				56503B1F1950325A00086322 /* AddresseBookTableViewController.h */,
 				56503B201950325A00086322 /* AddresseBookTableViewController.m */,
-				564673591940D4D000772067 /* NewCellTableViewCell.h */,
-				5646735A1940D4D000772067 /* NewCellTableViewCell.m */,
 			);
 			name = businessTab;
 			sourceTree = "<group>";
@@ -423,8 +415,6 @@
 				56AE781F193786B100D5A76D /* AppDelegate.m */,
 				564C5EF7193830910067160A /* MainViewController.h */,
 				564C5EF8193830910067160A /* MainViewController.m */,
-				563B6664193C183900D1076F /* DataBuffer.h */,
-				563B6665193C183900D1076F /* DataBuffer.m */,
 				564B031E194D607200C77DAA /* SQLForLeXiang.h */,
 				564B031F194D607200C77DAA /* SQLForLeXiang.m */,
 				56A1AFBA193E228800EB9133 /* ConnectionAPI.h */,
@@ -628,7 +618,6 @@
 				56AA98CF194851510033D4DD /* AboutLeXiang100ViewController.m in Sources */,
 				C2D5BF50195166B500FEC506 /* AdviceViewController.m in Sources */,
 				563B6669193C23CB00D1076F /* TableLevel1TableViewController.m in Sources */,
-				563B6666193C183900D1076F /* DataBuffer.m in Sources */,
 				56AE7820193786B100D5A76D /* AppDelegate.m in Sources */,
 				566A6F0F1939B11D00A45D1A /* MyLeXiangViewController.m in Sources */,
 				C29DE4BA1956AD5B002A72E9 /* ShareViewController.m in Sources */,
@@ -643,7 +632,6 @@
 				564C5EF9193830910067160A /* MainViewController.m in Sources */,
 				5651D91B1944158B00597801 /* UIColorForiOS7Colors.m in Sources */,
 				563B666C193C23E100D1076F /* TableLevle2TableViewController.m in Sources */,
-				5646735B1940D4D000772067 /* NewCellTableViewCell.m in Sources */,
 				C2FAA904194F36380075990A /* Helplexiang100ViewController.m in Sources */,
 				56AE781C193786B100D5A76D /* main.m in Sources */,
 				5614F1B2193F15AF00F646D5 /* GTMBase64.m in Sources */,

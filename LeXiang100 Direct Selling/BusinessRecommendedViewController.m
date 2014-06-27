@@ -21,7 +21,6 @@
 @synthesize resultArray;
 @synthesize detailView;
 extern NSMutableString * service;
-extern DataBuffer * data;
 extern Boolean login;
 extern SQLForLeXiang * DB;
 extern connectionAPI * soap;
@@ -105,7 +104,7 @@ extern NSMutableDictionary * UserInfo;
         messageText.textAlignment=NSTextAlignmentLeft;
         //messageText.enabled = NO;
         UIImage * soundImg = [UIImage imageNamed:@"sound.png"];
-        UIImageView *imgViewSound = [[UIImageView alloc] initWithImage:soundImg];
+        UIImageView *imgViewSound = [[[UIImageView alloc] initWithImage:soundImg]autorelease];
         //imgViewSound.frame = CGRectMake(0, 0, viewWidth/20, viewWidth/20);
         messageText.leftView =imgViewSound;
         messageText.leftViewMode =UITextFieldViewModeAlways;
@@ -133,7 +132,7 @@ extern NSMutableDictionary * UserInfo;
         searchText.clearsOnBeginEditing = YES;
         //searchText.backgroundColor = [UIColor groupTableViewBackgroundColor];
         UIImage * searchImage = [UIImage imageNamed:@"search1.png"];
-        UIImageView * imgViewSearch = [[UIImageView alloc]initWithImage:searchImage];
+        UIImageView * imgViewSearch = [[[UIImageView alloc]initWithImage:searchImage]autorelease];
         imgViewSearch.frame = CGRectMake(0, 0, viewHeight/23, viewHeight/23);
         searchText.rightView = imgViewSearch;
         searchText.rightViewMode = UITextFieldViewModeUnlessEditing;
@@ -266,8 +265,6 @@ extern NSMutableDictionary * UserInfo;
         [self.view addSubview:imgViewLdtx];
         imgViewLdtx.userInteractionEnabled = YES;
         
-        data = [[[DataBuffer alloc]init]retain];
- 
         //初始化搜索条
         self.mSearchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, viewWidth, viewHeight/60)];
         //[self.mSearchBar setBackgroundImage:[UIImage imageNamed:@"search1.png"]];
@@ -291,15 +288,13 @@ extern NSMutableDictionary * UserInfo;
         self.searchController.searchResultsDelegate= self;
         self.searchController.searchResultsDataSource = self;
         self.searchController.delegate = self;
-        
+        //搜索结果数组
         self.resultArray = [[NSMutableArray alloc]init];
         
-        self.tables1.dataSource = data.dataSource;
-        self.tables1.keysArray = data.keys;
-        self.tables2.dataSource = data.dataSource;
-        self.tables2.keysArray = data.keys;
         favourite = [[FavoriteViewController alloc]init];
-        
+        self.tables1 = [[TableLevel1TableViewController alloc]init];
+        self.tables2 = [[TableLevle2TableViewController alloc]init];
+
         //解决ios界面上移
         if ([[[UIDevice currentDevice]systemVersion]floatValue]>=7) {
             self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -319,6 +314,13 @@ extern NSMutableDictionary * UserInfo;
         }
     }
     return self;
+}
+
+
+- (void)dealloc{
+    [super dealloc];
+    [self.tables2 release];
+    [self.tables1 release];
 }
 
 - (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
@@ -347,8 +349,8 @@ extern NSMutableDictionary * UserInfo;
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     UITouch *touch = [touches anyObject];
     
-    self.tables1 = [[[TableLevel1TableViewController alloc]init]autorelease];
-    self.tables2 = [[[TableLevle2TableViewController alloc]init]autorelease];
+//    self.tables1 = [[[TableLevel1TableViewController alloc]init]autorelease];
+//    self.tables2 = [[[TableLevle2TableViewController alloc]init]autorelease];
     
 //读取数据库
     if ([DB numOfRecords] == 0) {
@@ -801,11 +803,6 @@ extern NSMutableDictionary * UserInfo;
     // Dispose of any resources that can be recreated.
 }
 
-- (void)dealloc{
-    [super dealloc];
-    [self.tables2 release];
-    [self.tables1 release];
-}
 
 /*
 #pragma mark - Navigation

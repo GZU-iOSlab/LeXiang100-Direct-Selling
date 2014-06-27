@@ -16,6 +16,6 @@
 }
 @property (nonatomic,strong)UITableView * tableview;
 @property (nonatomic,strong)NSMutableArray * dataSource;
-@property (strong,nonatomic)DetailViewController * detailView;
+@property (assign,nonatomic)DetailViewController * detailView;
 
 @end

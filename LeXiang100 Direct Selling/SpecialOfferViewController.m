@@ -41,7 +41,7 @@ extern NSString * service;
         addressBook.uerInfoArray = [[NSMutableArray alloc]init];
         
         //背景框
-        UITextField * backgroundText = [[UITextField alloc]initWithFrame:CGRectMake(viewWidth/40, viewHeight/60, viewWidth-viewWidth/20, viewHeight/5) ];
+        UITextField * backgroundText = [[[UITextField alloc]initWithFrame:CGRectMake(viewWidth/40, viewHeight/60, viewWidth-viewWidth/20, viewHeight/5) ]autorelease];
         backgroundText.enabled = NO;
         backgroundText.borderStyle = UITextBorderStyleRoundedRect;
         backgroundText.backgroundColor = [UIColor lightTextColor];
@@ -66,7 +66,7 @@ extern NSString * service;
         [linkManBtn addTarget:self action:@selector(linkMan) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:linkManBtn];
         
-        UILabel * servicesLabel = [[UILabel alloc]initWithFrame:CGRectMake(viewWidth/32+viewWidth/40, viewHeight/30, viewWidth/2, viewHeight/20)];
+        UILabel * servicesLabel = [[[UILabel alloc]initWithFrame:CGRectMake(viewWidth/32+viewWidth/40, viewHeight/30, viewWidth/2, viewHeight/20)]autorelease];
         servicesLabel.text = @"客户手机号码:";
         servicesLabel.font = [UIFont systemFontOfSize:viewHeight/40];
         servicesLabel.backgroundColor = [UIColor groupTableViewBackgroundColor];
@@ -78,7 +78,7 @@ extern NSString * service;
         busiLabel.backgroundColor = [UIColor clearColor];
         [self.view addSubview:busiLabel];
         
-        busiText = [[[UITextField alloc]initWithFrame:CGRectMake(viewWidth/40, viewHeight+viewHeight/20, viewWidth-viewWidth/20, viewHeight/5)]autorelease];
+        busiText = [[UITextField alloc]initWithFrame:CGRectMake(viewWidth/40, viewHeight+viewHeight/20, viewWidth-viewWidth/20, viewHeight/5)];
         busiText.borderStyle = UITextBorderStyleRoundedRect;
         UIImage * rightImage = [UIImage imageNamed:@"right.png"];
         UIImageView * imgViewRight = [[[UIImageView alloc]initWithImage:rightImage]autorelease];
@@ -123,6 +123,15 @@ extern NSString * service;
         }
     }
     return self;
+}
+
+- (void)dealloc{
+    [super dealloc];
+    [busiLabel release];
+    [busiText release];
+    [HELLOWORD release];
+    [offerID release];
+    [offerType release];
 }
 
 - (void)viewDidLoad
@@ -190,8 +199,12 @@ extern NSString * service;
     if (textField == busiText) {
         return NO;
     }
-    
     return  YES;//NO进入不了编辑模式
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return YES;
 }
 
 - (void)searchFor{
@@ -273,7 +286,7 @@ extern NSString * service;
 }
 
 -(BOOL) respondsToSelector : (SEL)aSelector {
-    printf("SELECTOR: %s\n", [NSStringFromSelector(aSelector) UTF8String]);
+    //printf("SELECTOR: %s\n", [NSStringFromSelector(aSelector) UTF8String]);
     return [super respondsToSelector:aSelector];
 }
 
@@ -327,13 +340,6 @@ extern NSString * service;
     }else{
         [UIView animateWithDuration:0.3 animations:^{busiLabel.center = CGPointMake(viewWidth/2, viewHeight/2.2-70);busiText.center = CGPointMake(viewWidth/2, viewHeight/2.2);}];
     }
-}
-
-- (void)dealloc{
-    [super dealloc];
-    [HELLOWORD release];
-    [offerID release];
-    [offerType release];
 }
 
 - (void)didReceiveMemoryWarning

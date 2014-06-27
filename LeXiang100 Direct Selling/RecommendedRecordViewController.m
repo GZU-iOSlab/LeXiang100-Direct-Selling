@@ -43,13 +43,13 @@ extern NSNotificationCenter *nc;
         backgroudText.delegate = self;
         [self.view addSubview:backgroudText];
         
-        UILabel * startMonthLabel = [[UILabel alloc]initWithFrame:CGRectMake(viewWidth/10, viewHeight/15, viewWidth/4, viewHeight/20)];
+        UILabel * startMonthLabel = [[[UILabel alloc]initWithFrame:CGRectMake(viewWidth/10, viewHeight/15, viewWidth/4, viewHeight/20)]autorelease];
         startMonthLabel.text = @"起始月份";
         startMonthLabel.font = [UIFont systemFontOfSize:viewHeight/40];
         startMonthLabel.backgroundColor = [UIColor clearColor];
         [backgroudText addSubview:startMonthLabel];
         
-        UILabel * endMonthLabel = [[UILabel alloc]initWithFrame:CGRectMake(viewWidth/10, viewHeight/6.5, viewWidth/4, viewHeight/20)];
+        UILabel * endMonthLabel = [[[UILabel alloc]initWithFrame:CGRectMake(viewWidth/10, viewHeight/6.5, viewWidth/4, viewHeight/20)]autorelease];
         endMonthLabel.text = @"截止月份";
         endMonthLabel.font = [UIFont systemFontOfSize:viewHeight/40];
         endMonthLabel.backgroundColor = [UIColor clearColor];
@@ -138,6 +138,11 @@ extern NSNotificationCenter *nc;
     return self;
 }
 
+- (void)dealloc{
+    [super dealloc];
+    [formatter release];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -222,16 +227,10 @@ extern NSNotificationCenter *nc;
     [UIView commitAnimations];
     startDatePickerShowed = NO;
     endDatePickerShowed = NO;
-    
-//    if (self.recordTableview != nil) {
-//        self.recordTableview = [[UITableView alloc]initWithFrame:CGRectMake(0, viewHeight, viewWidth, viewHeight/2) style:UITableViewStyleGrouped];
-//    }else{
-//        self.recordTableview = [[UITableView alloc]initWithFrame:CGRectMake(0, viewHeight, viewWidth, viewHeight/2) style:UITableViewStyleGrouped];
-//    }
 
     [self.tableCellArray removeAllObjects];
     [self.tableArray removeAllObjects];
-    NSArray * cellArray = [[NSArray alloc]initWithArray:[[note userInfo] objectForKey:@"1"]];
+    NSArray * cellArray = [[[NSArray alloc]initWithArray:[[note userInfo] objectForKey:@"1"]]autorelease];
     for (NSMutableDictionary * dic in cellArray){
         NSString * str = [NSString stringWithFormat:@"总推荐量%@笔,成功%@笔，失败%@笔",[dic objectForKey: @"totalRecommend"],[dic objectForKey: @"succRecommend"],[dic objectForKey: @"failRecommend"]];
         [self.tableCellArray addObject:str];

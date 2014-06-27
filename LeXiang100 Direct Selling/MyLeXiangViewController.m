@@ -184,6 +184,15 @@ extern NSMutableDictionary * UserInfo;
     return self;
 }
 
+
+- (void)dealloc{
+    [super dealloc];
+    [self.UserViewController release];
+    [self.RecommendedViewController release];
+    [self.BankViewController release];
+    //[self release];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -485,12 +494,6 @@ extern NSMutableDictionary * UserInfo;
     // Dispose of any resources that can be recreated.
 }
 
-- (void)dealloc{
-    [super dealloc];
-    [self.UserViewController release];
-    [self.RecommendedViewController release];
-    [self.BankViewController release];
-}
 
 /*
 #pragma mark - Navigation

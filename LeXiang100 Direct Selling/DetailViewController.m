@@ -38,11 +38,12 @@ extern NSMutableDictionary * UserInfo;
         addressBook.nameArray = [[NSMutableArray alloc]init];
         addressBook.phoneNumberArray = [[NSMutableArray alloc]init];
         
-        UILabel * phoneLabel = [[UILabel alloc]initWithFrame:CGRectMake(viewWidth/32+viewWidth/40, viewHeight/32, viewWidth/3, viewHeight/25)];
+        UILabel * phoneLabel = [[[UILabel alloc]initWithFrame:CGRectMake(viewWidth/32+viewWidth/40, viewHeight/32, viewWidth/3, viewHeight/25)]autorelease];
         phoneLabel.text = @"客户手机号码:";
         phoneLabel.textColor = [UIColor blueColor];
         phoneLabel.font = [UIFont systemFontOfSize:viewHeight/40];
         phoneLabel.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        
         //[self.view addSubview:phoneLabel];
 
         //背景框
@@ -71,7 +72,7 @@ extern NSMutableDictionary * UserInfo;
         [linkManBtn addTarget:self action:@selector(linkMan) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:linkManBtn];
         
-        UILabel * servicesLabel = [[UILabel alloc]initWithFrame:CGRectMake(viewWidth/32+viewWidth/40, viewHeight/6.1, viewWidth/4, viewHeight/28)];
+        UILabel * servicesLabel = [[[UILabel alloc]initWithFrame:CGRectMake(viewWidth/32+viewWidth/40, viewHeight/6.1, viewWidth/4, viewHeight/28)]autorelease];
         servicesLabel.text = @"业务名称:";
         servicesLabel.font = [UIFont systemFontOfSize:viewHeight/40];
         servicesLabel.backgroundColor = [UIColor groupTableViewBackgroundColor];
@@ -83,7 +84,7 @@ extern NSMutableDictionary * UserInfo;
         servicesDetailLabel.backgroundColor = [UIColor groupTableViewBackgroundColor];
         [self.view addSubview:servicesDetailLabel];
         
-        UILabel * descriptionLabel = [[UILabel alloc]initWithFrame:CGRectMake(viewWidth/32+viewWidth/40, viewHeight/3.7, viewWidth/4, viewHeight/28)];
+        UILabel * descriptionLabel = [[[UILabel alloc]initWithFrame:CGRectMake(viewWidth/32+viewWidth/40, viewHeight/3.7, viewWidth/4, viewHeight/28)]autorelease];
         descriptionLabel.text = @"描述:";
         descriptionLabel.font = [UIFont systemFontOfSize:viewHeight/40];
         descriptionLabel.backgroundColor = [UIColor groupTableViewBackgroundColor];
@@ -129,6 +130,14 @@ extern NSMutableDictionary * UserInfo;
         }
     }
     return self;
+}
+
+- (void)dealloc{
+    [super dealloc];
+    [servicesDetailLabel release];
+    [descriptionDetailLabel release];
+    [phoneText release];
+    [linkManBtn release];
 }
 
 - (void)viewDidLoad

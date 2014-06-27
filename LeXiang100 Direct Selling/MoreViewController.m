@@ -22,7 +22,6 @@
     self = [super initWithStyle:UITableViewStyleGrouped];
     if (self) {
         // Custom initialization
-        //DataBuffer * data = [[DataBuffer alloc]init];
         self.title = @"更多";
         UIImage *more = [UIImage imageNamed:@"more.png"];
         self.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"更多" image:more tag:1];
@@ -30,14 +29,7 @@
         self.tableView.scrollEnabled = NO;
         self.dataSource = data;
         
-        
-        UIImage * metal = [UIImage imageNamed:@"metal.jpg"];
-        UIImageView *imgViewMetal = [[UIImageView alloc] initWithImage:metal];
-        imgViewMetal.frame = CGRectMake(0, 0, viewWidth, viewHeight);
-       // [self.view addSubview:imgViewMetal];
-        //[self.view sendSubviewToBack:imgViewMetal];
-        
-        NSMutableArray *arrayImageValue=[[NSMutableArray alloc] init];
+        NSMutableArray *arrayImageValue=[[[NSMutableArray alloc] init]autorelease];
         UIImage *aboutUsImg=[UIImage imageNamed:@"ahoutus_moreview.png"];
         //[aboutUsImg drawInRect:CGRectMake(0, 0,viewWidth/100, viewHeight/10)];
         
@@ -56,13 +48,25 @@
         [arrayImageValue addObject:adviceImg];
         [arrayImageValue addObject:shareImg];
         //[arrayImageValue addObject:elseImg];
-        array=[[NSArray alloc]init];
-        array=arrayImageValue;
+        array=[[NSArray alloc]initWithArray:arrayImageValue];
+        
     }
     return self;
 }
 
+-(BOOL) respondsToSelector : (SEL)aSelector {
+    //printf("SELECTOR: %s\n", [NSStringFromSelector(aSelector) UTF8String]);
+    return [super respondsToSelector:aSelector];
+}
 
+- (void)dealloc{
+    [super dealloc];
+    [array release];
+    [aboutLeXiang100ViewController release];
+    [helpLeXiang100ViewController release];
+    [adviceViewController release];
+    
+}
 
 - (void)viewDidLoad
 {
@@ -74,7 +78,6 @@
     helpLeXiang100ViewController=[[Helplexiang100ViewController alloc]init];
     updateCheckingViewController=[[UpdateCheckingViewController alloc]init];
     adviceViewController=[[AdviceViewController alloc]init];
-    shareViewController=[[ShareViewController alloc]init];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     

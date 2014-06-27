@@ -39,7 +39,7 @@ extern NSMutableDictionary * UserInfo;
         self.view .backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
         
         //反馈类型标题
-        UILabel * feedbackbackClass = [[UILabel alloc]initWithFrame:CGRectMake(0, viewHeight/45, viewWidth/4+viewWidth/50, viewHeight/35)];
+        UILabel * feedbackbackClass = [[[UILabel alloc]initWithFrame:CGRectMake(0, viewHeight/45, viewWidth/4+viewWidth/50, viewHeight/35)]autorelease];
         feedbackbackClass.text = @"反馈类型：";
         feedbackbackClass.font=font2;
         feedbackbackClass.backgroundColor = [UIColor clearColor];
@@ -121,6 +121,13 @@ extern NSMutableDictionary * UserInfo;
 
     }
     return self;
+}
+
+- (void)dealloc{
+    [super dealloc];
+    [feedbackButton release];
+    [inputFeedback release];
+    
 }
 -(void)textViewDidChange:(UITextView *)textView
 {

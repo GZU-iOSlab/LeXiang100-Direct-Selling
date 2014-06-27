@@ -14,13 +14,10 @@
 
 @implementation TableLevel1TableViewController
 extern NSMutableString * service;
-extern DataBuffer * data ;
 extern SQLForLeXiang * DB;
 extern connectionAPI * soap;
 
-@synthesize dataSource;
-@synthesize keysArray;
-@synthesize tableArray;
+
 @synthesize table2View;
 @synthesize dataSources;
 @synthesize detailView;
@@ -31,36 +28,27 @@ extern connectionAPI * soap;
 {
     self = [super initWithStyle:UITableViewStyleGrouped];
     if (self) {
-        // Custom initialization
-        //DataBuffer * data = [[DataBuffer alloc]init];
-        //self.dataSource = data.dataSource;
-        //self.keysArray = data.keys;
+
         self.table2View = [[TableLevle2TableViewController alloc]init];
         alert = [[UIAlertView alloc] initWithTitle:@"请选择操作"message:nil delegate:self cancelButtonTitle:@"关闭" otherButtonTitles:@"添加到收藏夹",@"查看业务介绍",@"推荐办理业务", nil];
-//        self.table2View.dataSource = data.dataSource;
-//        self.table2View.keysArray = data.keys;
-        //self.tableArray = [self.dataSource objectForKey:service];
-        //self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
-        //self.tableView.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
+        self.detailView = [[DetailViewController alloc]init];
+        self.table2View = [[TableLevle2TableViewController alloc]init];
     }
     return self;
 }
 
-
+- (void)dealloc{
+    [super dealloc];
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.tableArray = [self.dataSource objectForKey:service];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [self.tableView reloadData];
     self.title = service;
-    self.tableView.rowHeight = 228;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning
@@ -106,7 +94,7 @@ extern connectionAPI * soap;
     if ([text rangeOfString:@"集团V网"].length>0||[text rangeOfString:@"集团通讯录"].length>0||[text rangeOfString:@"集团彩铃5元"].length>0) {
         image = [UIImage imageNamed:@"paper.png"];
         //设置长按响应
-        UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
+        UILongPressGestureRecognizer *recognizer = [[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)]autorelease];
         [cell addGestureRecognizer:recognizer];
     }else{
         image = [UIImage imageNamed:@"folders.png"];
@@ -128,30 +116,17 @@ extern connectionAPI * soap;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
-    //NSLog(@"%d  row",indexPath.row);
-    //service = [self.tableArray objectAtIndex:indexPath.row];
-    //NSLog(@"%@  service",service);
     if (self.table2View != NULL) {
-        [self.table2View release];
-        self.table2View = [[TableLevle2TableViewController alloc]init];
-        self.table2View.dataSource = data.dataSource;
-        self.table2View.keysArray = data.keys;
-        NSLog(@"table1%@",data);
         NSString * ids =[[self.dataSources objectAtIndex:indexPath.row]objectForKey:@"id"];
         NSLog(@"ids:%d",[ids intValue]);
-        [service setString:@""];
-        [service appendString: [[self.dataSources objectAtIndex:indexPath.row]objectForKey:@"busiName"]];
         self.table2View.dataSources = [DB findByParentId:ids];
         NSLog(@"%d",self.table2View.dataSources.count);
     }
     NSString * item = [[self.dataSources objectAtIndex:indexPath.row]objectForKey:@"busiName"];
     if ([item rangeOfString:@"集团V网"].length>0||[item rangeOfString:@"集团通讯录"].length>0||[item rangeOfString:@"集团彩铃5元"].length>0) {
-        service = [[self.dataSources objectAtIndex:indexPath.row]objectForKey:@"busiName"];
-        self.detailView = [[[DetailViewController alloc]init]autorelease];
         NSString * busiName = [[self.dataSources objectAtIndex:indexPath.row]objectForKey:@"busiName"];
         self.detailView.detailService = [DB findByBusiName:busiName];
         self.detailView.haveBtn = @"1";
-        //NSLog(@"busy:%@,count:%d",busiName,self.detailView.detailService.count);
         [self.navigationController pushViewController:self.detailView animated:YES];
     }else{
     [self.navigationController pushViewController:self.table2View animated:YES];
@@ -262,110 +237,6 @@ extern connectionAPI * soap;
     NSString *documentsDirectory = [paths objectAtIndex:0];
     return [documentsDirectory stringByAppendingPathComponent:fileName];
 }
-//- (void)showMenu:(id)cell
-//{
-//    [cell becomeFirstResponder];
-//    UIMenuController * menu = [UIMenuController sharedMenuController];
-//    [menu setTargetRect: [cell frame] inView: [self view]];
-//    [menu setMenuVisible: YES animated: YES];
-//    NSLog(@"???");
-//}
-
-
-
-
-////允许长按菜单
-//- (BOOL)tableView:(UITableView *)tableView shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    NSLog(@"string11");
-//    return YES;
-//}
-//
-////允许每一个Action
-//-(BOOL)tableView:(UITableView *)tableView canPerformAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender{
-//    NSLog(@"%@",NSStringFromSelector(action));
-//    
-//    return YES;
-//}
-////对一个给定的行告诉代表执行复制或粘贴操作内容,
-//-(void)tableView:(UITableView *)tableView performAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender{
-//    if (action==@selector(copy:)) {//如果操作为复制
-//        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-//        UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];//黏贴板
-//        [pasteBoard setString:cell.textLabel.text];
-//        NSLog(@"%@",pasteBoard.string);//获得剪贴板的内容
-//        //return YES;
-//    }
-//    //return NO;
-//}
-
-
-//- (void)longPress:(UILongPressGestureRecognizer *)recognizer {
-//    if (recognizer.state == UIGestureRecognizerStateBegan) {
-//        TSTableViewCell *cell = (TSTableViewCell *)recognizer.view;
-//        [cell becomeFirstResponder];
-//
-//        UIMenuItem *flag = [[UIMenuItem alloc] initWithTitle:@"Flag"action:@selector(flag:)];
-//        UIMenuItem *approve = [[UIMenuItem alloc] initWithTitle:@"Approve"action:@selector(approve:)];
-//        UIMenuItem *deny = [[UIMenuItem alloc] initWithTitle:@"Deny"action:@selector(deny:)];
-//
-//        UIMenuController *menu = [UIMenuController sharedMenuController];
-//        [menu setMenuItems:[NSArray arrayWithObjects:flag, approve, deny, nil]];
-//        [menu setTargetRect:cell.frame inView:cell.superview];
-//        [menu setMenuVisible:YES animated:YES];
-//    }
-//}
-//
-//- (void)flag:(id)sender {
-//    NSLog(@"Cell was flagged");
-//}
-//
-//- (void)approve:(id)sender {
-//    NSLog(@"Cell was approved");
-//}
-//
-//- (void)deny:(id)sender {
-//    NSLog(@"Cell was denied");
-//}
-
-//- (void)cellLongPress:(UIGestureRecognizer *)recognizer{
-//    if (recognizer.state == UIGestureRecognizerStateBegan) {
-//        CGPoint location = [recognizer locationInView:self];
-//        NSIndexPath * indexPath = [self indexPathForRowAtPoint:location];
-//        UIMyTableViewCell *cell = (UIMyTableViewCell *)recognizer.view;
-//        　　　　　//这里把cell做为第一响应(cell默认是无法成为responder,需要重写canBecomeFirstResponder方法)
-//        [cell becomeFirstResponder];
-//        
-//        UIMenuItem *itCopy = [[UIMenuItem alloc] initWithTitle:@"复制" action:@selector(handleCopyCell:)];
-//        UIMenuItem *itDelete = [[UIMenuItem alloc] initWithTitle:@"删除" action:@selector(handleDeleteCell:)];
-//        UIMenuController *menu = [UIMenuController sharedMenuController];
-//        [menu setMenuItems:[NSArray arrayWithObjects:itCopy, itDelete,  nil]];
-//        [menu setTargetRect:cell.frame inView:self];
-//        [menu setMenuVisible:YES animated:YES];
-//        
-//        [itCopy release];
-//        [itDelete release];
-//    }
-//}
-//-(void)tableviewCellLongPressed:(UILongPressGestureRecognizer *)gestureRecognizer{
-//    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
-//        NSLog(@"UIGestureRecognizerStateBegan");
-//        CGPoint ponit=[gestureRecognizer locationInView:self.tableView];
-//        NSLog(@" CGPoint ponit=%f %f",ponit.x,ponit.y);
-//        NSIndexPath* path=[self.tableView indexPathForRowAtPoint:ponit];
-//        NSLog(@"row:%d",path.row);
-//        currRow=path.row;
-//    }else if(gestureRecognizer.state == UIGestureRecognizerStateEnded)
-//    {
-//        //未用
-//    }
-//    else if(gestureRecognizer.state == UIGestureRecognizerStateChanged)
-//    {
-//        //未用
-//    }
-//    
-//    
-//}
-
 
 /*
 // Override to support conditional editing of the table view.

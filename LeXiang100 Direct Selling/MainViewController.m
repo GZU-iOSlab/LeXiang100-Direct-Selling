@@ -14,7 +14,6 @@
 
 @implementation MainViewController
 @synthesize navigationController;
-extern DataBuffer * data ;
 extern NSString * currentTabView;
 extern connectionAPI * soap;
 extern NSMutableDictionary * UserInfo;
@@ -42,17 +41,6 @@ extern NSMutableString * service;
             [businessRecommendedNav.navigationBar  setBackgroundColor:[UIColor blackColor]];
             //[businessRecommendedNav.navigationBar setBackgroundImage:[UIImage imageNamed:@"123.png"] forBarMetrics:UIBarMetricsDefault];
         }
-        //右划
-        UISwipeGestureRecognizer *swipeGesture=[[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(rightSwipeGesture)];
-        [self.view addGestureRecognizer:swipeGesture];
-        [swipeGesture release];
-        //左划
-        UISwipeGestureRecognizer *swipeLeftGesture=[[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(leftSwipeGesture)];
-        swipeGesture.direction=UISwipeGestureRecognizerDirectionLeft;//不设置黑夜是右
-        [self.view  addGestureRecognizer:swipeLeftGesture];
-        [swipeLeftGesture release];
-        
-        
     }
     return self;
 }
@@ -66,16 +54,13 @@ extern NSMutableString * service;
     nc = [NSNotificationCenter defaultCenter];
     DB = [[SQLForLeXiang alloc]init];
     service = [[NSMutableString alloc]init];
-    //首先检查数据库
+    //取得数据版本
     NSDictionary * versionDic = [self readFileDic];
     //检查数据库是否为空
     int recordNumber = [DB numOfRecords];
     NSArray * hotArray = [self readFileArray];
     if (recordNumber == 0) {
         NSString * version = @"20140404144444";
-//        NSDictionary * phoneUpdateCfg = [[NSDictionary alloc]initWithObjectsAndKeys:version ,@"versionCode", nil];
-//        NSDictionary * versionDic = [[NSDictionary alloc]initWithObjectsAndKeys:phoneUpdateCfg ,@"phoneUpdateCfg", nil];
-        //[versionDic writeToFile:[self documentsPath:@"version.txt"] atomically:YES];
          [soap CheckVersionWithInterface:@"queryVersionInfo" Parameter1:@"clientVersion" ClientVersion:@"1.0.0" Parameter2:@"dataVersion" DataVersion:version Parameter3:@"appName" AppName:@"lx100-iPhone"];
     }
     //检测是否写入了热点业务
@@ -112,7 +97,7 @@ extern NSMutableString * service;
     NSString *filePath = [self documentsPath:@"hotBusi.txt"];
     //从filePath 这个指定的文件里读
     NSArray * collectBusiArray = [NSArray arrayWithContentsOfFile:filePath];
-    //NSLog(@"%@",[collectBusiArray objectAtIndex:0] );
+    NSLog(@"%@",[collectBusiArray objectAtIndex:0] );
     return collectBusiArray;
 }
 
@@ -128,40 +113,6 @@ extern NSMutableString * service;
     return NO;
 }
 
-//- (void)viewWillAppear:(BOOL)animated{
-////    NSArray *paths = NSSearchPathForDirectoriesInDomains
-////    (NSDocumentDirectory, NSUserDomainMask, YES);
-////    NSString *documentsPath = [paths objectAtIndex:0];
-//    int i;
-//    NSLog(@"writeFileArray\n");
-//    //新建userinfomation数组用来存一些信息
-//    NSArray *userinfomation = [NSArray arrayWithObjects:@"One",@"Two",@"Three",@"four",@"five",@"six",@"seven",@"name",@"school",@"class",@"age",@"imformation",@"last",nil];
-//    for(i = 0; i<12; i++)
-//    {
-//        NSLog(@"%i %@",i+1,[userinfomation objectAtIndex:i]);
-//    }
-//    //把userinfomation这个数组存入程序指定的一个文件里
-//    [userinfomation writeToFile:[self documentsPath:@"usefile.txt"] atomically:YES];
-//}
-//
-//-(void)readFileArray
-//{
-//    NSLog(@"readfile........\n");
-//    //dataPath 表示当前目录下指定的一个文件 data.plist
-//    //NSString *dataPath = [[NSBundle mainBundle] pathForResource:@"Data" ofType:@"plist"];
-//    //filePath 表示程序目录下指定文件
-//    NSString *filePath = [self documentsPath:@"usefile.txt"];
-//    //从filePath 这个指定的文件里读
-//    NSArray *userinfo = [NSArray arrayWithContentsOfFile:filePath];
-//    NSLog(@"%@",[userinfo objectAtIndex:1] );
-//    
-//}
-//
-//-(NSString *)documentsPath:(NSString *)fileName {
-//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//    NSString *documentsDirectory = [paths objectAtIndex:0];
-//    return [documentsDirectory stringByAppendingPathComponent:fileName];
-//}
 #pragma mark - AlertView
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
@@ -176,46 +127,6 @@ extern NSMutableString * service;
     
     UIAlertView * alert = [[UIAlertView alloc]initWithTitle:titles message:messages delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"好的", nil];
     [alert show];
-}
-
-- (void)rightSwipeGesture{
-    NSLog(@"right");
-//    NSArray * businessRecommendedArray = [NSArray arrayWithObjects:businessRecommendedNav,myLeXiangNav,moreNav, nil];
-//    NSArray * myLeXiangArray = [NSArray arrayWithObjects:myLeXiangNav,moreNav,businessRecommendedNav, nil];
-//    NSArray * moreArray = [NSArray arrayWithObjects:moreNav,businessRecommendedNav,myLeXiangNav, nil];
-//    if ([currentTabView isEqualToString:@"0"]) {
-//         [self.tabBarController setViewControllers:myLeXiangArray animated:YES];
-//    }else if ([currentTabView isEqualToString:@"1"]){
-//        [self.tabBarController setViewControllers:moreArray animated:YES];
-//    }else if ([currentTabView isEqualToString:@"2"]){
-//        [self.tabBarController setViewControllers:businessRecommendedArray animated:YES];
-//    }
-    // Try to find the root view controller programmically
-    // Find the top window (that is not an alert view or other window)
-//    UIViewController *result;
-//    UIWindow *topWindow = [[UIApplication sharedApplication] keyWindow];
-//    if (topWindow.windowLevel != UIWindowLevelNormal)
-//    {
-//        NSArray *windows = [[UIApplication sharedApplication] windows];
-//        for(topWindow in windows)
-//        {
-//            if (topWindow.windowLevel == UIWindowLevelNormal)
-//                break;
-//        }
-//    }
-//    UIView *rootView = [[topWindow subviews] objectAtIndex:0];
-//    id nextResponder = [rootView nextResponder];
-//    if ([nextResponder isKindOfClass:[UIViewController class]])
-//        result = nextResponder;
-//    else if ([topWindow respondsToSelector:@selector(rootViewController)] && topWindow.rootViewController != nil)
-//        result = topWindow.rootViewController;
-//    else
-//        NSAssert(NO, @"ShareKit: Could not find a root view controller.  You can assign one manually by calling [[SHK currentHelper] setRootViewController:YOURROOTVIEWCONTROLLER].");
-}
-
-- (void)leftSwipeGesture{
-    NSLog(@"left");
-    self.tabBarController.selectedViewController = businessRecommendedNav;
 }
 
 -(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{

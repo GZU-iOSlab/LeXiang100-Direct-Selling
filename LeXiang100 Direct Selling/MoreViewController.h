@@ -11,14 +11,12 @@
 #import "Helplexiang100ViewController.h"
 #import "UpdateCheckingViewController.h"
 #import "AdviceViewController.h"
-#import "ShareViewController.h"
 #import <MessageUI/MFMessageComposeViewController.h>
 @interface MoreViewController : UITableViewController<UIAccelerometerDelegate,UITableViewDataSource,MFMessageComposeViewControllerDelegate>{
     AboutLeXiang100ViewController * aboutLeXiang100ViewController;
     Helplexiang100ViewController * helpLeXiang100ViewController;
     UpdateCheckingViewController *updateCheckingViewController;
     AdviceViewController *adviceViewController;
-    ShareViewController *shareViewController;
     NSArray *array;
 }
 @property (strong,nonatomic)NSMutableArray * dataSource;

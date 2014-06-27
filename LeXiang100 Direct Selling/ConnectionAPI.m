@@ -37,6 +37,11 @@ extern NSMutableDictionary * UserInfo;
     count = 0;
     return self;
 }
+
+- (void)dealloc{
+    [super dealloc];
+    [resultDic release];
+}
 - (void)getSoapFromInterface:(NSString *)interface Parameter1:(NSString *)parameter1 Value1:(NSString *)value1{
     value1 = [DES3Util encrypt:value1];
     
@@ -196,7 +201,7 @@ extern NSMutableDictionary * UserInfo;
     NSLog(@"%@",soapMsg);
     
     NSString * ur = [NSString stringWithFormat:@"http://www.gz.10086.cn/intflx100/ws/phoneintf"];
-    NSURL * url = [NSURL URLWithString:ur] ;
+    NSURL * url = [NSURL URLWithString:ur];
     NSMutableURLRequest * req = [NSMutableURLRequest requestWithURL:url];
     NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMsg length]];
     
@@ -205,7 +210,7 @@ extern NSMutableDictionary * UserInfo;
     [req setHTTPMethod:@"POST"];
     [req setHTTPBody:[soapMsg dataUsingEncoding:NSUTF8StringEncoding]];
     
-    conn = [[NSURLConnection alloc]initWithRequest:req delegate:self];
+    conn = [[[NSURLConnection alloc]initWithRequest:req delegate:self]autorelease];
     if(conn){
         webData = [[NSMutableData data]retain];
         //NSLog(@"%@  22222",webData);
@@ -349,6 +354,7 @@ extern NSMutableDictionary * UserInfo;
     [xmlParser setDelegate: self];
     [xmlParser setShouldResolveExternalEntities: YES];
     [xmlParser parse];
+    
 }
 
 
@@ -577,7 +583,8 @@ extern NSMutableDictionary * UserInfo;
     if (self.alerts.visible == YES) {
         [self dimissAlert:self.alerts];
     }
-    
+    //防止内存泄露
+    [xmlParser release];
 }
 
 // 出错时，例如强制结束解析
@@ -619,6 +626,10 @@ extern NSMutableDictionary * UserInfo;
             NSArray * hotArray = [self readFileArray];
             if (hotArray == NULL) {
                 //取消掉业务更新后检查热点业务  如果需要更新再提示
+                alertForHotBusi = [[UIAlertView alloc]initWithTitle:@"热点业务更新" message:@"是否更新热点业务？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"好的", nil];
+                alertForHotBusi.delegate = self;
+                [alertForHotBusi show];
+                [alertForHotBusi release];
                 //[self HotServiceWithInterface:@"queryBusiHotInfo" Parameter1:@"versionTag" Version:@"public"];
             }
         }
