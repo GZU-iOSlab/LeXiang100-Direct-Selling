@@ -23,18 +23,21 @@ extern NSNotificationCenter *nc;
 {
     
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self.view.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
     if (self) {
         // Custom initialization
         [nc addObserver:self selector:@selector(busiInfoVersionUpadateFeedback:) name:@"BusiInfoVersionUpadate" object:nil];
         [nc addObserver:self selector:@selector(hotBusiUpdateFeedback:) name:@"HotBusiVersionUpdate" object:nil];
         self.title = @"检查更新";
-        self.view.backgroundColor = [UIColor whiteColor];
+        self.view.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
         //解决ios7界面上移  配色等问题
         if ([[[UIDevice currentDevice]systemVersion]floatValue]>=7) {
             self.edgesForExtendedLayout = UIRectEdgeNone;
             self.extendedLayoutIncludesOpaqueBars =NO;
             self.modalPresentationCapturesStatusBarAppearance = NO;
             self.navigationController.navigationBar.translucent = NO;
+            self.view.backgroundColor = [UIColor whiteColor];
+
         }
         
         UIScrollView *scrollview=[[UIScrollView alloc] initWithFrame:self.view.frame];

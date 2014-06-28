@@ -118,6 +118,10 @@ extern NSMutableDictionary * UserInfo;
             feedbackButton.backgroundColor=[UIColor iOS7tealGradientEndColor];
             submitButton.backgroundColor=[UIColor iOS7tealGradientEndColor];
         }
+        if([[[UIDevice currentDevice]systemVersion]floatValue]<7)
+        {
+            self.view.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
+        }
 
     }
     return self;

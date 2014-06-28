@@ -70,7 +70,7 @@
         platform_intro.font =font1;
         [scrollview addSubview:platform_intro];
         
-        UILabel * platform_chara = [[UILabel alloc]initWithFrame:CGRectMake(0, viewHeight/35+viewHeight/5, viewWidth/2, viewHeight/28)];
+        UILabel * platform_chara = [[UILabel alloc]initWithFrame:CGRectMake(0, viewHeight/30+viewHeight/5, viewWidth/2, viewHeight/28)];
         platform_chara.text = @"2.乐享100的特点:";
         platform_chara.font = [UIFont systemFontOfSize:viewHeight/40];
         platform_chara.backgroundColor = [UIColor clearColor];
@@ -109,39 +109,39 @@
         //客服电话标题
         UILabel * tel = [[UILabel alloc]initWithFrame:CGRectMake(0, viewHeight/4+viewHeight/10+viewHeight/13, viewWidth, viewHeight/30)];
         tel.text = @"   客服电话";
-        tel.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        tel.backgroundColor = [UIColor lightTextColor];
         tel.layer.borderColor = [UIColor grayColor].CGColor;
         tel.layer.borderWidth = 0.5;
         [scrollview addSubview:tel];
         
-        UILabel *tel_num=[[UILabel alloc]initWithFrame:CGRectMake(0, viewHeight/4+viewHeight/10+viewHeight/30, viewWidth/2, viewHeight/28)];
+        UILabel *tel_num=[[UILabel alloc]initWithFrame:CGRectMake(0, viewHeight/4+viewHeight/10+viewHeight/15, viewWidth/2, viewHeight/28)];
         tel_num.text = @"15718509310";
         tel_num.font = [UIFont systemFontOfSize:viewHeight/40];
         tel_num.backgroundColor = [UIColor clearColor];
         tel_num.numberOfLines=0;
         tel_num.lineBreakMode=NSLineBreakByCharWrapping;
         tel_num.backgroundColor = [UIColor clearColor];
-        tel_num.frame = CGRectMake(0, viewHeight/4+viewHeight/10+viewHeight/17, viewWidth, labelsize1.height);
+        tel_num.frame = CGRectMake(0, viewHeight/4+viewHeight/10+viewHeight/25+viewHeight/60, viewWidth, labelsize1.height);
         tel_num.font =font1;
         [scrollview addSubview:tel_num];
         
         //官方网站标题
         UILabel * web = [[UILabel alloc]initWithFrame:CGRectMake(0, viewHeight/4+viewHeight/10+viewHeight/17+viewHeight/10, viewWidth, viewHeight/30)];
         web.text = @"   官方网站";
-        web.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        web.backgroundColor = [UIColor lightTextColor];
         
         web.layer.borderColor = [UIColor grayColor].CGColor;
         web.layer.borderWidth = 0.5;
         [scrollview addSubview:web];
         
-        UILabel *website=[[UILabel alloc]initWithFrame:CGRectMake(0, viewHeight/4+viewHeight/10+viewHeight/17+viewHeight/10, viewWidth/2, viewHeight/28)];
+        UILabel *website=[[UILabel alloc]initWithFrame:CGRectMake(0, viewHeight/4+viewHeight/10+viewHeight/25+viewHeight/10+viewHeight/50, viewWidth/2, viewHeight/28)];
         website.text = @"http://www.gz.10086.cn/lx100";
         website.font = [UIFont systemFontOfSize:viewHeight/40];
         website.backgroundColor = [UIColor clearColor];
         website.numberOfLines=0;
         website.lineBreakMode=NSLineBreakByCharWrapping;
         website.backgroundColor = [UIColor clearColor];
-        website.frame = CGRectMake(0, viewHeight/4+viewHeight/10+viewHeight/17+viewHeight/12, viewWidth, labelsize1.height);
+        website.frame = CGRectMake(0, viewHeight/60+viewHeight/4+viewHeight/10+viewHeight/25+viewHeight/12, viewWidth, labelsize1.height);
         website.font =font1;
         [scrollview addSubview:website];
         [self.view addSubview:scrollview];
@@ -158,6 +158,37 @@
             message.backgroundColor = [UIColor groupTableViewBackgroundColor];
             tel.backgroundColor = [UIColor groupTableViewBackgroundColor];
             web.backgroundColor = [UIColor groupTableViewBackgroundColor];
+             website.frame = CGRectMake(0, viewHeight/4+viewHeight/10+viewHeight/17+viewHeight/12, viewWidth, labelsize1.height);
+            tel_num.frame = CGRectMake(0, viewHeight/4+viewHeight/10+viewHeight/17, viewWidth, labelsize1.height);
+            
+            
+        }
+        
+        if ([[[UIDevice currentDevice]systemVersion]floatValue]<7)
+        {
+            if([[UIDevice currentDevice] userInterfaceIdiom]==UIUserInterfaceIdiomPhone)
+            {
+                platform.frame = CGRectMake(0, 0, viewWidth, viewHeight/30);
+                
+                platform_intro.frame=CGRectMake(0, viewHeight/30+viewHeight/28, viewWidth, viewHeight/20);
+                
+                platform_intro.frame = CGRectMake(0, viewHeight/30+viewHeight/28, viewWidth, labelsize1.height);
+                
+                platform_chara.frame= CGRectMake(0, viewHeight/30+viewHeight/5, viewWidth/2, viewHeight/28);
+                
+                platform_charaIntro.frame = CGRectMake(0, viewHeight/40+viewHeight/5, viewWidth, labelsize1.height);
+                
+                message.frame = CGRectMake(0, viewHeight/4+viewHeight/10, viewWidth, viewHeight/30);
+                
+                platform_message.frame=CGRectMake(0, viewHeight/4+viewHeight/10+viewHeight/30, viewWidth/2, viewHeight/28);
+                
+                tel.frame= CGRectMake(0, viewHeight/4+viewHeight/10+viewHeight/13, viewWidth, viewHeight/30);
+                
+                tel_num.frame = CGRectMake(0, viewHeight/4+viewHeight/10+viewHeight/25, viewWidth, labelsize1.height);
+                
+                web.frame= CGRectMake(0, viewHeight/4+viewHeight/10+viewHeight/17+viewHeight/10, viewWidth, viewHeight/30);
+                website.frame = CGRectMake(0,viewHeight/4+viewHeight/10+viewHeight/30+viewHeight/12, viewWidth, labelsize1.height);
+            }
         }
         
         
