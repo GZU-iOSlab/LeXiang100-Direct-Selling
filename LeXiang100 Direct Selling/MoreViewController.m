@@ -29,19 +29,19 @@
         self.tableView.scrollEnabled = NO;
         self.dataSource = data;
         
+        aboutLeXiang100ViewController = [[AboutLeXiang100ViewController alloc]init];
+        helpLeXiang100ViewController=[[Helplexiang100ViewController alloc]init];
+        updateCheckingViewController=[[UpdateCheckingViewController alloc]init];
+        adviceViewController=[[AdviceViewController alloc]init];
+        
         NSMutableArray *arrayImageValue=[[[NSMutableArray alloc] init]autorelease];
         UIImage *aboutUsImg=[UIImage imageNamed:@"ahoutus_moreview.png"];
-        //[aboutUsImg drawInRect:CGRectMake(0, 0,viewWidth/100, viewHeight/10)];
         
         UIImage *helpImg=[UIImage imageNamed:@"help_moreview.png"];
         UIImage *updateImg=[UIImage imageNamed:@"update_moreview.png"];
         UIImage *adviceImg=[UIImage imageNamed:@"advice_moreview.png"];
         UIImage *shareImg=[UIImage imageNamed:@"share_moreview.png"];
-        //UIImage *elseImg=[UIImage imageNamed:@"share_moreview.png"];
-        
-        //if  ([[[UIDevice currentDevice]systemVersion]floatValue]<7)  {
-        //    self.view.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
-        //}
+      
         [arrayImageValue addObject:aboutUsImg];
         [arrayImageValue addObject:helpImg];
         [arrayImageValue addObject:updateImg];
@@ -65,7 +65,7 @@
     [aboutLeXiang100ViewController release];
     [helpLeXiang100ViewController release];
     [adviceViewController release];
-    
+    [updateCheckingViewController release];
 }
 
 - (void)viewDidLoad
@@ -74,10 +74,6 @@
     self.tableView.rowHeight = 228;
     self.tableView.separatorStyle =UITableViewCellSeparatorStyleSingleLine;
     
-    aboutLeXiang100ViewController = [[AboutLeXiang100ViewController alloc]init];
-    helpLeXiang100ViewController=[[Helplexiang100ViewController alloc]init];
-    updateCheckingViewController=[[UpdateCheckingViewController alloc]init];
-    adviceViewController=[[AdviceViewController alloc]init];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -119,23 +115,10 @@
     }    // Configure the cell...
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     NSString * text = [self.dataSource objectAtIndex:indexPath.row];
-    //cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    //[tableView setSeparatorColor:[UIColor clearColor]];
-    //cell.imageView.sizeToFit = UIViewContentModeCenter;
-    //    float sw=10/cell.imageView.image.size.width;
-    //    float sh=10/cell.imageView.image.size.height;
-    //    cell.imageView.transform=CGAffineTransformMakeScale(sw,sh);
     cell.imageView.image=[array objectAtIndex:[indexPath row]];;
 
     cell.textLabel.text = text;
     cell.textLabel.font = [UIFont systemFontOfSize:22];
-    //cell.detailTextLabel.text = @"haha";
-//    if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
-//        [self.tableView setSeparatorInset:UIEdgeInsetsZero];
-//    }
-    //UIImage * image = [UIImage imageNamed:@"Folder.png"];
-    //cell.imageView.image = image;
-    // 去掉guop tableview的背景
     
     tableView.backgroundView = nil;
     if ([[[UIDevice currentDevice]systemVersion]floatValue]>=7) {
@@ -162,8 +145,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
-    //NSLog(@"%d  row",indexPath.row);
-    //NSLog(@"%@  service",service);
     if (indexPath.row == 0) {
         [self.navigationController pushViewController:aboutLeXiang100ViewController animated:YES];
     }
@@ -181,9 +162,7 @@
     }
     else if (indexPath.row==4)
     {
-        //[[UIApplication sharedApplication] openURL:[[NSURL alloc] initWithString:@"sms:123"]];
-        //[self.navigationController pushViewController:shareViewController animated:YES];
-        [self sendSMS:@"你知道吗？乐享100推出了Android版的手机客户端软件，从此再也不用记忆那繁锁的业务代码了，推荐业务快捷又方便！下载地址：http://www.gz.10086.cn/lx100" recipientList:nil];
+        [self sendSMS:@"你知道吗？乐享100推出了iOS版的手机客户端软件，从此再也不用记忆那繁锁的业务代码了，推荐业务快捷又方便！快去App Store下载吧！" recipientList:nil];
     }
     
 }

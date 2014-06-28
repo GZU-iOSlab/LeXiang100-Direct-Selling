@@ -323,22 +323,6 @@ extern NSMutableDictionary * UserInfo;
     [self.tables1 release];
 }
 
-- (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
-	return (toInterfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-- (BOOL)shouldAutorotate {
-	return NO;
-}
-
-- (NSUInteger)supportedInterfaceOrientations {
-	return UIInterfaceOrientationMaskPortrait;
-}
-
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
-	return UIInterfaceOrientationPortrait;
-}
-
 -(BOOL) respondsToSelector : (SEL)aSelector {
     //printf("SELECTOR: %s\n", [NSStringFromSelector(aSelector) UTF8String]);
     return [super respondsToSelector:aSelector];

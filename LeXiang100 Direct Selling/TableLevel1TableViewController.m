@@ -32,13 +32,15 @@ extern connectionAPI * soap;
         self.table2View = [[TableLevle2TableViewController alloc]init];
         alert = [[UIAlertView alloc] initWithTitle:@"请选择操作"message:nil delegate:self cancelButtonTitle:@"关闭" otherButtonTitles:@"添加到收藏夹",@"查看业务介绍",@"推荐办理业务", nil];
         self.detailView = [[DetailViewController alloc]init];
-        self.table2View = [[TableLevle2TableViewController alloc]init];
     }
     return self;
 }
 
 - (void)dealloc{
     [super dealloc];
+    [self.table2View release];
+    [self.detailView release];
+    [alert release];
 }
 
 - (void)viewDidLoad
@@ -49,6 +51,9 @@ extern connectionAPI * soap;
 - (void)viewWillAppear:(BOOL)animated{
     [self.tableView reloadData];
     self.title = service;
+    if ([self.dataSources count] == 0) {
+        [connectionAPI showAlertWithTitle:@"对不起，该分类下没有业务！" AndMessages:nil];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -81,7 +86,6 @@ extern connectionAPI * soap;
         [cell autorelease];
     }    // Configure the cell...
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    //NSString * text = [tableArray objectAtIndex:indexPath.row];
     NSString * text = [[self.dataSources objectAtIndex:indexPath.row]objectForKey:@"busiName"];
     cell.textLabel.text = text;
     cell.textLabel.font = [UIFont systemFontOfSize:22];

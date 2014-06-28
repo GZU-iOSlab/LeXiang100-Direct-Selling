@@ -26,8 +26,6 @@ extern NSString * phoneNumber;
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
-        //self.name = [[NSMutableString alloc]init];
-        //self.uerInfoArray = [[NSMutableArray alloc]init];
         self.filteredListContentDic = [[NSMutableArray alloc]init];
         self.title = @"通讯录";
     }

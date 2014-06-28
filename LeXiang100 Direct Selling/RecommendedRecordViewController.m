@@ -352,40 +352,6 @@ extern NSNotificationCenter *nc;
     
 }
 
-
-
-//- (BOOL)textFieldShouldEndEditing:(UITextField *)textField{
-//    if (textField == backgroudText) {
-//        return YES;
-//    }else{
-//        [UIView beginAnimations:@"下降" context:nil];
-//        [UIView setAnimationDuration:0.3];
-//        datePicker.frame = CGRectMake(0, viewHeight, viewWidth, viewHeight/3);
-//        [UIView commitAnimations];
-//    }
-//    return YES;//NO 退出不了编辑模式
-//}
-//
-//- (void)textFieldDidEndEditing:(UITextField *)textField{
-//    //if (textField == backgroudText) {
-//        [UIView beginAnimations:@"下降" context:nil];
-//        [UIView setAnimationDuration:0.3];
-//        datePicker.frame = CGRectMake(0, viewHeight, viewWidth, viewHeight/3);
-//        [UIView commitAnimations];
-//    //}
-//}
-
-
-+ (void)showAlertWithTitle:(NSString *)titles AndMessages:(NSString *)messages{
-    
-    UIAlertView * alert = [[UIAlertView alloc]initWithTitle:titles message:messages delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"设置", nil];
-    [alert show];
-    UIDatePicker * datePicker = [[UIDatePicker alloc]init];
-    datePicker.center = alert.center;
-    [alert addSubview:datePicker];
-    
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

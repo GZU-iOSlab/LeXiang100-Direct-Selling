@@ -190,7 +190,9 @@ extern NSMutableDictionary * UserInfo;
     [self.UserViewController release];
     [self.RecommendedViewController release];
     [self.BankViewController release];
-    //[self release];
+    [imgViewPersonal release];
+    [imgViewAccount release];
+    [imgViewSearch release];
 }
 
 - (void)viewDidLoad
@@ -227,39 +229,18 @@ extern NSMutableDictionary * UserInfo;
         imgViewPersonal.userInteractionEnabled = YES;
         imgViewSearch.userInteractionEnabled = YES;
         self.navigationItem.rightBarButtonItem.enabled = YES;
-        
-
     }
 }
-
-//- (void)viewWillAppear:(BOOL)animated{
-//    if (self.RecommendedViewController != nil) {
-//        [self.RecommendedViewController release];
-//    }
-//    self.RecommendedViewController = [[RecommendedRecordViewController  alloc]init];
-//}
 
 #pragma mark - Touch
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     UITouch *touch = [touches anyObject];
     if ([touch view]== imgViewPersonal) {
-//        if (self.UserViewController !=NULL) {
-//            [self.UserViewController release];
-//            self.UserViewController = [[UserTableViewController  alloc]init];
-//        }else self.UserViewController = [[UserTableViewController  alloc]init];
         [self getUserInfo];
     }else if([touch view]== imgViewAccount){
-//        if ( self.BankViewController!=NULL) {
-//            [self.BankViewController release];
-//            self.BankViewController = [[BankAccountTableViewController  alloc]init];
-//        }else self.BankViewController = [[BankAccountTableViewController  alloc]init];
         [self getBankAccount];
     }else if ([touch view]== imgViewSearch){
-//        if ( self.RecommendedViewController!=NULL) {
-//            [self.RecommendedViewController release];
-//            self.RecommendedViewController = [[RecommendedRecordViewController  alloc]init];
-//        }else self.RecommendedViewController = [[RecommendedRecordViewController  alloc]init];
         [self.navigationController pushViewController:self.RecommendedViewController animated:YES];
     }
 }
@@ -267,27 +248,11 @@ extern NSMutableDictionary * UserInfo;
 #pragma mark - BankAccount
 
 -(void)getBankAccount{
-//    NSRange range = [loginString rangeOfString:@"}"];
-//    NSString * loginName1 = [loginString substringFromIndex:range.location+1];
-//    NSArray * resultOfCut = [loginString componentsSeparatedByString:@":"];
-//    NSString * token1 =[resultOfCut objectAtIndex:resultOfCut.count-1];
-//    token1 = [token1 substringWithRange:NSMakeRange(0, token1.length-13)];
-//    NSMutableString * token = [[NSMutableString alloc]initWithString:@"0:"];
-//    [token appendString:token1];
-//    [soap BackAccountWithInterface:@"queryBankInfo" Parameter1:@"opPhone" Name:loginName Parameter2:@"token" Token:token];
-//    if ([loginName isEqual:@""]) {
-//        [loginName appendString:loginName1];
-//    }else if ([loginName isEqual:loginName1]){
-//    }else {
-//        [loginName setString: @""];
-//        [loginName appendString:loginName1];
-//    }1111
     NSString * loginName =  [UserInfo objectForKey:@"name"];
     NSString * token = [UserInfo objectForKey:@"token"];
     NSLog(@"name:%@  token:%@",loginName,token);
     [soap BankAccountWithInterface:@"queryBankInfo" Parameter1:@"opPhone" Name:loginName Parameter2:@"token" Token:token];
     self.view.userInteractionEnabled = NO;
-
 }
 
 - (void)tunrToBankAccountView{
@@ -298,40 +263,17 @@ extern NSMutableDictionary * UserInfo;
 #pragma mark - UserInfo
 
 -(void)getUserInfo{
-//    NSLog(@"loginString:%@",loginString);
-//    NSRange range = [loginString rangeOfString:@"}"];
-//    NSString * loginName1 = [loginString substringFromIndex:range.location+1];
-//    NSArray * resultOfCut = [loginString componentsSeparatedByString:@":"];
-//    NSString * token1 =[resultOfCut objectAtIndex:resultOfCut.count-1];
-//    //NSRange range1 = [token rangeOfString:@"}"];
-//    token1 = [token1 substringWithRange:NSMakeRange(0, token1.length-13)];
-//    NSMutableString * token = [[NSMutableString alloc]initWithString:@"0:"];
-//    [token appendString:token1];
-    
-    
     NSString * loginName = [UserInfo objectForKey:@"name"];
     NSString * token = [UserInfo objectForKey:@"token"];
     NSLog(@"name:%@  token:%@",loginName,token);
     [soap UserInfoWithInterface:@"queryUserInfo" Parameter1:@"opPhone" Name:loginName Parameter2:@"token" Token:token];
     //阻止多次推送同个viewController
     self.view.userInteractionEnabled = NO;
-//    if ([loginName isEqual:@""]) {
-//        [loginName appendString:loginName1];
-//    }else if ([loginName isEqual:loginName1]){
-//    }else {
-//        [loginName setString: @""];
-//        [loginName appendString:loginName1];
-//    }
 }
 
 - (void)tunrToUserInfoView{
-//    NSString * feedbackString = [[NSString alloc]initWithString:[[note userInfo] objectForKey:@"1"]];
-//    if ([feedbackString rangeOfString:@"opName"].length>0&&[feedbackString rangeOfString:@"opStatus"].length>0) {
     [self.navigationController pushViewController:self.UserViewController animated:YES];
     self.view.userInteractionEnabled = YES;
-
-    //}else [self showAlertWithTitle:@"获取失败" AndMessages:@"获取信息失败"];
-    
 }
 
 #pragma mark - login
@@ -339,10 +281,8 @@ extern NSMutableDictionary * UserInfo;
 - (void)loginWithName:(NSString *)name AndPassword:(NSString *)password{
     if ([loginNameText.text  isEqual: @""]) {
         [connectionAPI showAlertWithTitle:nil AndMessages:@"手机号码不能为空"];
-        //[self showAlertWithTitle:nil AndMessages:@"手机号码不能为空"];
     }else if ([loginPasswordText.text  isEqual: @""]){
         [connectionAPI showAlertWithTitle:nil AndMessages:@"密码不能为空"];
-        //[self showAlertWithTitle:nil AndMessages:@"密码不能为空"];
     }else{
         [soap LoginWithInterface:@"modifyLogin" Parameter1:@"loginPwd" UserName:loginPasswordText.text Parameter2:@"opPhone" Password:loginNameText.text ];
         [loginNameText resignFirstResponder];
@@ -441,51 +381,9 @@ extern NSMutableDictionary * UserInfo;
     return YES;
 }
 
-//#pragma mark - alert
-
-//- (void)showAlertWithTitle:(NSString *)titles AndMessages:(NSString *)messages{
-//    
-//    
-////    if ([loginActivityIndicator isAnimating]) {
-////        [loginActivityIndicator stopAnimating];
-////    }
-//    UIAlertView * alert = [[UIAlertView alloc]initWithTitle:titles message:messages delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"知道", nil];
-//    [alert show];
-//}
-
-//- (void)showAlerView{
-//    alerts = [[UIAlertView alloc]initWithTitle:@"连接中"
-//                                                  message:nil
-//                                                 delegate:nil
-//                                        cancelButtonTitle:nil
-//                                        otherButtonTitles:nil];
-//    alerts.frame = CGRectMake(0, 0, viewWidth/1.5, viewHeight/5);
-//    alerts.center = CGPointMake(0, viewHeight/2);
-//    [alerts show];
-//    UIActivityIndicatorView*activeView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-//    activeView.center = CGPointMake(alerts.bounds.size.width/2.0f, alerts.bounds.size.height-40.0f);
-//    [activeView startAnimating];
-//    //alerts.delegate = self;
-//    [alerts addSubview:activeView];
-//    [activeView release];
-//    [alerts release];
-//}
-//
-//- (void) dimissAlert:(UIAlertView *)alert
-//{
-//    if(alerts)
-//    {
-//        [alerts dismissWithClickedButtonIndex:[alert cancelButtonIndex]animated:YES];
-//    }
-//}
-
 - (void)stopIndicator{
-//    if ([loginActivityIndicator isAnimating]) {
-//        [loginActivityIndicator stopAnimating];
-//    }
+    //恢复响应
     self.view.userInteractionEnabled = YES;
-    
-    //[self dimissAlert:alerts];
 }
 
 - (void)didReceiveMemoryWarning

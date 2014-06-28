@@ -34,8 +34,8 @@ extern connectionAPI * soap;
 
 - (void)dealloc{
     [super dealloc];
-    //[self.detailView release];
-    //[self.dataSources release];
+    [self.detailView release];
+    [self.dataSources release];
 }
 
 - (void)viewDidLoad
@@ -46,8 +46,10 @@ extern connectionAPI * soap;
 
 - (void)viewWillAppear:(BOOL)animated{
     [self.tableView reloadData];
-    //self.tableArray = [self.dataSource objectForKey:service];
     self.title = service;
+    if ([self.dataSources count] == 0) {
+        [connectionAPI showAlertWithTitle:@"对不起，该分类下没有业务！" AndMessages:nil];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -60,8 +62,6 @@ extern connectionAPI * soap;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-//    id key = [keys objectAtIndex:0];
-//    return [[dataSource objectForKey:key]count];
     // Return the number of sections.
     return 1;
 }
@@ -69,7 +69,6 @@ extern connectionAPI * soap;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    
     return [self.dataSources count];
 
 }
@@ -83,11 +82,9 @@ extern connectionAPI * soap;
         [cell autorelease];
     }    // Configure the cell...
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    //NSString * text = [tableArray objectAtIndex:indexPath.row];
     NSString * text = [[self.dataSources objectAtIndex:indexPath.row]objectForKey:@"busiName"];
     cell.textLabel.text = text;
     cell.textLabel.font = [UIFont systemFontOfSize:20];
-   // cell.detailTextLabel.text = @"haha";
     cell.detailTextLabel.text = [[self.dataSources objectAtIndex:indexPath.row]objectForKey:@"busiMoney"];
     if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
         [self.tableView setSeparatorInset:UIEdgeInsetsZero];
@@ -106,8 +103,6 @@ extern connectionAPI * soap;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
     //service = [self.tableArray objectAtIndex:indexPath.row];
     NSString * busiName = [[self.dataSources objectAtIndex:indexPath.row]objectForKey:@"busiName"];
-//    [service setString:@""];
-//    [service appendString: busiName];
     self.detailView.detailService = [DB findByBusiName:busiName];
     self.detailView.haveBtn = @"1";
     NSLog(@"busy:%@,count:%d",busiName,self.detailView.detailService.count);

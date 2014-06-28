@@ -250,17 +250,8 @@
 				5614F1AF193F15AF00F646D5 /* GTMBase64.h */,
 				5614F1B0193F15AF00F646D5 /* GTMBase64.m */,
 				5614F1B1193F15AF00F646D5 /* GTMDefines.h */,
-				5651D9191944158B00597801 /* UIColorForiOS7Colors.h */,
-				5651D91A1944158B00597801 /* UIColorForiOS7Colors.m */,
 			);
 			name = Security;
-			sourceTree = "<group>";
-		};
-		564B3599193A494B00D789DE /* detailView */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = detailView;
 			sourceTree = "<group>";
 		};
 		564C5EFA19387EA30067160A /* Resources */ = {
@@ -415,14 +406,7 @@
 				56AE781F193786B100D5A76D /* AppDelegate.m */,
 				564C5EF7193830910067160A /* MainViewController.h */,
 				564C5EF8193830910067160A /* MainViewController.m */,
-				564B031E194D607200C77DAA /* SQLForLeXiang.h */,
-				564B031F194D607200C77DAA /* SQLForLeXiang.m */,
-				56A1AFBA193E228800EB9133 /* ConnectionAPI.h */,
-				56A1AFBB193E228800EB9133 /* ConnectionAPI.m */,
-				5664B3EB1957D17C000716EB /* PinYIn */,
 				566A6F091939B07B00A45D1A /* tab */,
-				564B3599193A494B00D789DE /* detailView */,
-				5614F1B3193F15ED00F646D5 /* Security */,
 				56AE7816193786B100D5A76D /* Supporting Files */,
 				56AE7821193786B100D5A76D /* Images.xcassets */,
 			);
@@ -432,6 +416,14 @@
 		56AE7816193786B100D5A76D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5664B3EB1957D17C000716EB /* PinYIn */,
+				5614F1B3193F15ED00F646D5 /* Security */,
+				5651D9191944158B00597801 /* UIColorForiOS7Colors.h */,
+				5651D91A1944158B00597801 /* UIColorForiOS7Colors.m */,
+				564B031E194D607200C77DAA /* SQLForLeXiang.h */,
+				564B031F194D607200C77DAA /* SQLForLeXiang.m */,
+				56A1AFBA193E228800EB9133 /* ConnectionAPI.h */,
+				56A1AFBB193E228800EB9133 /* ConnectionAPI.m */,
 				56AE7817193786B100D5A76D /* LeXiang100 Direct Selling-Info.plist */,
 				56AE7818193786B100D5A76D /* InfoPlist.strings */,
 				56AE781B193786B100D5A76D /* main.m */,
