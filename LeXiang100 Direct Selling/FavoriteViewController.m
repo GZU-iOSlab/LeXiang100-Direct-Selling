@@ -80,9 +80,9 @@ extern SQLForLeXiang * DB;
     [super dealloc];
     [la release];
     [alert release];
-    [self.dataSource release];
-    [self.tableview release];
-    [self.detailView release];
+    //[self.dataSource release];
+    //[self.tableview release];
+    //[self.detailView release];
     if ([[[UIDevice currentDevice]systemVersion]floatValue]>=7) [imgViewMetal release];
 }
 

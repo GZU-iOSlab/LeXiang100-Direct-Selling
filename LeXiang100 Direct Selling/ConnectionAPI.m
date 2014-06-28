@@ -17,19 +17,9 @@
 @synthesize conn;
 @synthesize getXMLResults;
 @synthesize resultDic;
-@synthesize resultArray;
 @synthesize alerts;
 @synthesize elementFound;
-@synthesize matchingElement;
-@synthesize matchingElement1;
-@synthesize soapResults1;
-@synthesize elementFound1;
-@synthesize matchingElement2;       //isentender
-@synthesize soapResults2;
-@synthesize elementFound2;
-@synthesize matchingElement3;       //isextender
-@synthesize elementFound3;
-@synthesize matchingElement4;       //SessionID
+
 extern NSNotificationCenter *nc;
 extern NSMutableDictionary * UserInfo;
 
@@ -41,6 +31,8 @@ extern NSMutableDictionary * UserInfo;
 - (void)dealloc{
     [super dealloc];
     [resultDic release];
+    [conn release];
+    [xmlParser release];
 }
 - (void)getSoapFromInterface:(NSString *)interface Parameter1:(NSString *)parameter1 Value1:(NSString *)value1{
     value1 = [DES3Util encrypt:value1];
@@ -80,11 +72,11 @@ extern NSMutableDictionary * UserInfo;
 - (void)getSoapFromInterface:(NSString *)interface Parameter1:(NSString *)parameter1 Value1:(NSString *)value1 Parameter2:(NSString *)parameter2 Value2:(NSString *)value2{
     if ([value2 isEqualToString:@"123"]) {
         value2 = nil;
-        value2 = [[NSString alloc]initWithString:@"15285987576"];
+        value2 = [[[NSString alloc]initWithString:@"15285987576"]autorelease];
     }
     if ([value1 isEqualToString:@"qwe"]) {
         value1 = nil;
-        value1 = [[NSString alloc]initWithString:@"123456"];
+        value1 = [[[NSString alloc]initWithString:@"123456"]autorelease];
     }
     NSLog(@"value1:%@ value2:%@",value1,value2);
     value1 = [DES3Util encrypt:value1];
@@ -326,9 +318,9 @@ extern NSMutableDictionary * UserInfo;
 
 // 完成接收数据时调用
 -(void) connectionDidFinishLoading:(NSURLConnection *) connection {
-    NSString *theXML = [[NSString alloc] initWithBytes:[webData mutableBytes]
+    NSString *theXML = [[[NSString alloc] initWithBytes:[webData mutableBytes]
                                                 length:[webData length]
-                                              encoding:NSUTF8StringEncoding];
+                                              encoding:NSUTF8StringEncoding]autorelease];
     
     // 打印出得到的XML
     getXMLResults = [[NSMutableString alloc] initWithString:theXML];
@@ -365,7 +357,7 @@ extern NSMutableDictionary * UserInfo;
 
 // 开始解析一个元素名
 -(void) parser:(NSXMLParser *) parser didStartElement:(NSString *) elementName namespaceURI:(NSString *) namespaceURI qualifiedName:(NSString *) qName attributes:(NSDictionary *) attributeDict {
-    if ([elementName isEqualToString:@"return"]) {    //||[elementName isEqualToString:matchingElement1]
+    if ([elementName isEqualToString:@"return"]) {
         elementFound = YES;
     }
 }
@@ -395,7 +387,7 @@ extern NSMutableDictionary * UserInfo;
        
             self.resultDic =  [NSJSONSerialization JSONObjectWithData:aData options:NSJSONReadingMutableContainers error:nil];
         if (self.resultDic == nil) {
-            self.resultDic = [[[NSDictionary alloc]init]autorelease];
+            self.resultDic = [[NSDictionary alloc]init];
         }
     }
 }
@@ -474,12 +466,6 @@ extern NSMutableDictionary * UserInfo;
         else if ([getXMLResults rangeOfString:@"queryBusiInfoResponse"].length>0){
             if ([self.resultDic isKindOfClass:[NSArray class]]) {
                 NSLog(@"result is kind of arrry class");
-                //            NSArray * resultArray = (NSArray *)resultDic;
-                //            for (NSDictionary *dic in resultArray) {
-                //                NSLog(@"dic:%@",[dic objectForKey:@"busiName"]);
-                //            }
-                //[connectionAPI showAlertWithTitle:@"常规数据更新成功！" AndMessages:nil];
-                //换在数据库写入成功后提示
                 [nc postNotificationName:@"queryBusiInfoResponse" object:self userInfo:d];
             }
         }
@@ -660,12 +646,9 @@ extern NSMutableDictionary * UserInfo;
                                       delegate:nil
                              cancelButtonTitle:nil
                              otherButtonTitles:nil];
-//    alerts.frame = CGRectMake(0, 0, viewWidth/1.5, viewHeight/5);
-//    alerts.center = CGPointMake(0, viewHeight/2);
     [self.alerts show];
     UIActivityIndicatorView*activeView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     activeView.center = CGPointMake(142, 73);
-    //NSLog(@"W:%f H:%f",alerts.bounds.size.width/2.0f, alerts.bounds.size.height-40.0f);
     [activeView startAnimating];
     self.alerts.delegate = self;
     [self.alerts addSubview:activeView];

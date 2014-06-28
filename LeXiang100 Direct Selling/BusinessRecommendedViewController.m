@@ -20,6 +20,7 @@
 @synthesize tables2;
 @synthesize resultArray;
 @synthesize detailView;
+@synthesize searchTableview2;
 extern NSMutableString * service;
 extern Boolean login;
 extern SQLForLeXiang * DB;
@@ -293,7 +294,13 @@ extern NSMutableDictionary * UserInfo;
         
         favourite = [[FavoriteViewController alloc]init];
         self.tables1 = [[TableLevel1TableViewController alloc]init];
+        self.tables1.dataSources = [[NSMutableArray alloc]init];
         self.tables2 = [[TableLevle2TableViewController alloc]init];
+        self.tables2.dataSources = [[NSMutableArray alloc]init];
+        self.detailView = [[DetailViewController alloc]init];
+        self.searchTableview2 = [[TableLevle2TableViewController alloc]init];
+        self.searchTableview2.dataSources = [[NSMutableArray alloc]init];
+        self.searchTableArray = [[NSMutableArray alloc]init];
 
         //解决ios界面上移
         if ([[[UIDevice currentDevice]systemVersion]floatValue]>=7) {
@@ -319,8 +326,14 @@ extern NSMutableDictionary * UserInfo;
 
 - (void)dealloc{
     [super dealloc];
-    [self.tables2 release];
-    [self.tables1 release];
+//    [self.tables2 release];
+//    [self.tables1 release];
+//    [self.detailView release];
+//    [self.searchTableview2 release];
+//    [self.mSearchBar release];
+//    [self.searchController release];
+//    [self.searchTableview2.dataSources release];
+//    [self.searchTableArray release];
 }
 
 -(BOOL) respondsToSelector : (SEL)aSelector {
@@ -332,9 +345,6 @@ extern NSMutableDictionary * UserInfo;
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     UITouch *touch = [touches anyObject];
-    
-//    self.tables1 = [[[TableLevel1TableViewController alloc]init]autorelease];
-//    self.tables2 = [[[TableLevle2TableViewController alloc]init]autorelease];
     
 //读取数据库
     if ([DB numOfRecords] == 0) {
@@ -361,7 +371,7 @@ extern NSMutableDictionary * UserInfo;
                 }
 //        NSMutableArray * dataArray =[[[NSMutableArray alloc]init]autorelease];
 //        [dataArray setArray:[DB findByIsTopbusi]];
-            self.tables2.dataSources =  dataArray;
+            [self.tables2.dataSources setArray:  dataArray];
             NSLog(@"热点业务count:%d",self.tables2.dataSources.count);
             [service setString:@""];
             [service appendString: @"热点业务"];
@@ -389,14 +399,14 @@ extern NSMutableDictionary * UserInfo;
         [self.navigationController pushViewController:self.tables1 animated:YES];
         NSLog(@"增值业务 imgViewValue");
     }else if([touch view]== imgViewSjb){
-        self.tables2.dataSources =  [DB findByParentId:@"5"];
+        [self.tables2.dataSources setArray: [DB findByParentId:@"5"]];
         NSLog(@"count:%d",self.tables2.dataSources.count);
         [service setString:@""];
         [service appendString: @"手机报"];
         [self.navigationController pushViewController:self.tables2 animated:YES];
         NSLog(@"手机报 imgViewSjb");
     }else if ([touch view]== imgViewCamp){
-        self.tables2.dataSources =  [DB findByParentId:@"6"];
+        [self.tables2.dataSources setArray:  [DB findByParentId:@"6"]];
         NSLog(@"count:%d",self.tables2.dataSources.count);
         [service setString:@""];
         [service appendString: @"营销活动"];
@@ -404,14 +414,14 @@ extern NSMutableDictionary * UserInfo;
         
         NSLog(@"营销活动 imgViewCamp");
     }else if ([touch view]== imgViewFamily) {
-        self.tables2.dataSources =  [DB findByParentId:@"7"];
+        [self.tables2.dataSources setArray:  [DB findByParentId:@"7"]];
         NSLog(@"count:%d",self.tables2.dataSources.count);
         [service setString:@""];
         [service appendString: @"家庭产品"];
         [self.navigationController pushViewController:self.tables2 animated:YES];
         NSLog(@"家庭产品 imgViewFamily");
     }else if([touch view]== imgViewService){
-        self.tables2.dataSources =  [DB findByParentId:@"8"];
+        [self.tables2.dataSources setArray:  [DB findByParentId:@"8"]];
         NSLog(@"count:%d",self.tables2.dataSources.count);
         [service setString:@""];
         [service appendString: @"基础服务"];
@@ -495,17 +505,15 @@ extern NSMutableDictionary * UserInfo;
 
 // 取消按钮被按下时，执行的方法
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
-    
-    
+
 }
 
 
 // 键盘中，搜索按钮被按下，执行的方法
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
-    self.searchTableview2 = [[[TableLevle2TableViewController alloc]init]autorelease];
     [service setString:@""];
-    [service appendString: @"热点业务"];
-    NSMutableArray *array = [[NSMutableArray alloc]init];
+    [service appendString: @"搜索结果"];
+    NSMutableArray *array = [[[NSMutableArray alloc]init]autorelease];
     
     const char *letterPoint = [self.mSearchBar.text UTF8String];
     
@@ -513,14 +521,13 @@ extern NSMutableDictionary * UserInfo;
     if (!(*letterPoint > 'a' && *letterPoint < 'z') &&
         !(*letterPoint > 'A' && *letterPoint < 'Z')) {
         
-        array = [DB findByFuzzyBusiName:searchBar.text ];
+        [array setArray: [DB findByFuzzyBusiName:searchBar.text ]];
     } else {
        NSString *searchBarText = [[NSString stringWithFormat:@"%@", searchBar.text] lowercaseString];
-        array = [DB getBusiNameByLetter:searchBarText];
+        [array setArray: [DB getBusiNameByLetter:searchBarText]];
     }
    
-   self.searchTableview2.dataSources = array;
-
+   [self.searchTableview2.dataSources setArray: array];
     [self.navigationController pushViewController:self.searchTableview2 animated:YES];
   }
 
@@ -548,7 +555,7 @@ extern NSMutableDictionary * UserInfo;
     
    
     
-    NSMutableArray *array = [[NSMutableArray alloc]init];
+    NSMutableArray *array = [[[NSMutableArray alloc]init]autorelease];
     
     const char *letterPoint = [self.mSearchBar.text UTF8String];
     
@@ -556,12 +563,12 @@ extern NSMutableDictionary * UserInfo;
     if (!(*letterPoint > 'a' && *letterPoint < 'z') &&
         !(*letterPoint > 'A' && *letterPoint < 'Z')) {
         
-        array = [DB findByFuzzyBusiName:self.mSearchBar.text ];
+        [array setArray: [DB findByFuzzyBusiName:self.mSearchBar.text ]];
     } else {
         NSString *mSearchBarText = [[NSString stringWithFormat:@"%@", self.mSearchBar.text] lowercaseString];
-        array = [DB getBusiNameByLetter:mSearchBarText];
+        [array setArray: [DB getBusiNameByLetter:mSearchBarText]];
     }
-    self.searchTableArray = array;
+    [self.searchTableArray setArray: array];
     //self.searchTableArray = [DB getBusiNameByLetter:self.mSearchBar.text];
     
     NSLog(@"count %d",self.searchTableArray.count);
@@ -654,14 +661,7 @@ extern NSMutableDictionary * UserInfo;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
-    //NSLog(@"%d  row",indexPath.row);
-    [service setString:@""];
-    [service appendString: [self.resultArray objectAtIndex:indexPath.row]];
-    //    NSLog(@"%@  service",service);
-    //    if (self.detailView != NULL) {
-    //        //[self.detailView release];
-    //    }
-    self.detailView = [[[DetailViewController alloc]init]autorelease];
+    
     self.detailView.detailService = [self.searchTableArray objectAtIndex:indexPath.row];
     self.detailView.haveBtn = @"1";
     [self.navigationController pushViewController:self.detailView animated:YES];

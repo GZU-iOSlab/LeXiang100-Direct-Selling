@@ -14,8 +14,8 @@
     UIAlertView * alert;
     int pressedCell;
 }
-@property (nonatomic,strong)UITableView * tableview;
-@property (nonatomic,strong)NSMutableArray * dataSource;
+@property (nonatomic,assign)UITableView * tableview;
+@property (nonatomic,assign)NSMutableArray * dataSource;
 @property (assign,nonatomic)DetailViewController * detailView;
 
 @end

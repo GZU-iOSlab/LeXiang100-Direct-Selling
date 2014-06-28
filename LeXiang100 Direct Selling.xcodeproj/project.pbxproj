@@ -73,10 +73,14 @@
 		56AE7833193786B100D5A76D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 56AE7831193786B100D5A76D /* InfoPlist.strings */; };
 		56AE7835193786B100D5A76D /* LeXiang100_Direct_SellingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 56AE7834193786B100D5A76D /* LeXiang100_Direct_SellingTests.m */; };
 		56B0B8FF193CBB7100F514C5 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56B0B8FE193CBB7100F514C5 /* DetailViewController.m */; };
+		56B21D76195EBD49009ED804 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 56B21D71195EBD49009ED804 /* icon.png */; };
+		56B21D77195EBD49009ED804 /* IconForiPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 56B21D72195EBD49009ED804 /* IconForiPad.png */; };
+		56B21D78195EBD49009ED804 /* IconForiPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 56B21D73195EBD49009ED804 /* IconForiPad@2x.png */; };
+		56B21D79195EBD49009ED804 /* IconForiPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = 56B21D74195EBD49009ED804 /* IconForiPhone.png */; };
+		56B21D7A195EBD49009ED804 /* IconForiPhone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 56B21D75195EBD49009ED804 /* IconForiPhone@2x.png */; };
 		56BAC1121945CC72007DF7B0 /* mylx100_bank.png in Resources */ = {isa = PBXBuildFile; fileRef = 56BAC10F1945CC72007DF7B0 /* mylx100_bank.png */; };
 		56BAC1131945CC72007DF7B0 /* mylx100_query_recommend.png in Resources */ = {isa = PBXBuildFile; fileRef = 56BAC1101945CC72007DF7B0 /* mylx100_query_recommend.png */; };
 		56BAC1141945CC72007DF7B0 /* mylx100_userinfo.png in Resources */ = {isa = PBXBuildFile; fileRef = 56BAC1111945CC72007DF7B0 /* mylx100_userinfo.png */; };
-		C29DE4BA1956AD5B002A72E9 /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C29DE4B91956AD5B002A72E9 /* ShareViewController.m */; };
 		C29DE4BC1956B20C002A72E9 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C29DE4BB1956B20C002A72E9 /* MessageUI.framework */; };
 		C29DE57C1958401E002A72E9 /* help_moreview.png in Resources */ = {isa = PBXBuildFile; fileRef = C29DE57B1958401E002A72E9 /* help_moreview.png */; };
 		C29DE57E1958402E002A72E9 /* ahoutus_moreview.png in Resources */ = {isa = PBXBuildFile; fileRef = C29DE57D1958402E002A72E9 /* ahoutus_moreview.png */; };
@@ -193,11 +197,14 @@
 		56AE7834193786B100D5A76D /* LeXiang100_Direct_SellingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeXiang100_Direct_SellingTests.m; sourceTree = "<group>"; };
 		56B0B8FD193CBB7100F514C5 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		56B0B8FE193CBB7100F514C5 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		56B21D71195EBD49009ED804 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		56B21D72195EBD49009ED804 /* IconForiPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconForiPad.png; sourceTree = "<group>"; };
+		56B21D73195EBD49009ED804 /* IconForiPad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconForiPad@2x.png"; sourceTree = "<group>"; };
+		56B21D74195EBD49009ED804 /* IconForiPhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconForiPhone.png; sourceTree = "<group>"; };
+		56B21D75195EBD49009ED804 /* IconForiPhone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconForiPhone@2x.png"; sourceTree = "<group>"; };
 		56BAC10F1945CC72007DF7B0 /* mylx100_bank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mylx100_bank.png; sourceTree = "<group>"; };
 		56BAC1101945CC72007DF7B0 /* mylx100_query_recommend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mylx100_query_recommend.png; sourceTree = "<group>"; };
 		56BAC1111945CC72007DF7B0 /* mylx100_userinfo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mylx100_userinfo.png; sourceTree = "<group>"; };
-		C29DE4B81956AD5B002A72E9 /* ShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
-		C29DE4B91956AD5B002A72E9 /* ShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
 		C29DE4BB1956B20C002A72E9 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		C29DE57B1958401E002A72E9 /* help_moreview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = help_moreview.png; path = Resources/help_moreview.png; sourceTree = SOURCE_ROOT; };
 		C29DE57D1958402E002A72E9 /* ahoutus_moreview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ahoutus_moreview.png; path = Resources/ahoutus_moreview.png; sourceTree = SOURCE_ROOT; };
@@ -294,6 +301,11 @@
 				564B3594193A106000D789DE /* my1.png */,
 				5642E3561951ADDA00C0AF79 /* more@2x.png */,
 				5642E3571951ADDA00C0AF79 /* my@2x.png */,
+				56B21D71195EBD49009ED804 /* icon.png */,
+				56B21D72195EBD49009ED804 /* IconForiPad.png */,
+				56B21D73195EBD49009ED804 /* IconForiPad@2x.png */,
+				56B21D74195EBD49009ED804 /* IconForiPhone.png */,
+				56B21D75195EBD49009ED804 /* IconForiPhone@2x.png */,
 			);
 			name = Resources;
 			path = "LeXiang100 Direct Selling";
@@ -312,8 +324,6 @@
 				C29F38D919507FDE00C619D8 /* UpdateCheckingViewController.m */,
 				C2D5BF4E195166B500FEC506 /* AdviceViewController.h */,
 				C2D5BF4F195166B500FEC506 /* AdviceViewController.m */,
-				C29DE4B81956AD5B002A72E9 /* ShareViewController.h */,
-				C29DE4B91956AD5B002A72E9 /* ShareViewController.m */,
 			);
 			name = MoreLeXiang;
 			sourceTree = "<group>";
@@ -553,15 +563,18 @@
 				56AE781A193786B100D5A76D /* InfoPlist.strings in Resources */,
 				568315C819446783002FA689 /* busi_ldtx.png in Resources */,
 				56BAC1131945CC72007DF7B0 /* mylx100_query_recommend.png in Resources */,
+				56B21D79195EBD49009ED804 /* IconForiPhone.png in Resources */,
 				56BAC1121945CC72007DF7B0 /* mylx100_bank.png in Resources */,
 				568315CC19446783002FA689 /* busi_top.png in Resources */,
 				564C5F001938B45F0067160A /* error.png in Resources */,
 				564B3597193A106000D789DE /* my1.png in Resources */,
+				56B21D78195EBD49009ED804 /* IconForiPad@2x.png in Resources */,
 				568315C619446783002FA689 /* busi_family.png in Resources */,
 				5642E3581951ADDA00C0AF79 /* more@2x.png in Resources */,
 				564A5395195746CD00DD7F98 /* right.png in Resources */,
 				568315CD19446783002FA689 /* busi_value.png in Resources */,
 				566B2B751953132D001FBC22 /* folders.png in Resources */,
+				56B21D77195EBD49009ED804 /* IconForiPad.png in Resources */,
 				5642E3541951A87E00C0AF79 /* iPhone2.png in Resources */,
 				C29DE57E1958402E002A72E9 /* ahoutus_moreview.png in Resources */,
 				5642E35D1951B11100C0AF79 /* iPhone@2x.png in Resources */,
@@ -569,6 +582,7 @@
 				564B35711939CCB100D789DE /* more.png in Resources */,
 				5642E3591951ADDA00C0AF79 /* my@2x.png in Resources */,
 				C29DE584195841E7002A72E9 /* update_moreview.png in Resources */,
+				56B21D7A195EBD49009ED804 /* IconForiPhone@2x.png in Resources */,
 				5642E34F1951940500C0AF79 /* paper.png in Resources */,
 				C29DE57C1958401E002A72E9 /* help_moreview.png in Resources */,
 				564B3596193A106000D789DE /* more1.png in Resources */,
@@ -580,6 +594,7 @@
 				568315C919446783002FA689 /* busi_package.png in Resources */,
 				56AE7822193786B100D5A76D /* Images.xcassets in Resources */,
 				564C5EFE193883BE0067160A /* cancel.png in Resources */,
+				56B21D76195EBD49009ED804 /* icon.png in Resources */,
 				56BAC1141945CC72007DF7B0 /* mylx100_userinfo.png in Resources */,
 				564B356D1939BF5C00D789DE /* my.png in Resources */,
 				568315C719446783002FA689 /* busi_favorite.png in Resources */,
@@ -612,7 +627,6 @@
 				563B6669193C23CB00D1076F /* TableLevel1TableViewController.m in Sources */,
 				56AE7820193786B100D5A76D /* AppDelegate.m in Sources */,
 				566A6F0F1939B11D00A45D1A /* MyLeXiangViewController.m in Sources */,
-				C29DE4BA1956AD5B002A72E9 /* ShareViewController.m in Sources */,
 				C2FAA907194F36C90075990A /* MoreViewController.m in Sources */,
 				564B0320194D607200C77DAA /* SQLForLeXiang.m in Sources */,
 				56B0B8FF193CBB7100F514C5 /* DetailViewController.m in Sources */,
@@ -746,7 +760,6 @@
 		56AE7839193786B100D5A76D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -766,7 +779,6 @@
 		56AE783A193786B100D5A76D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

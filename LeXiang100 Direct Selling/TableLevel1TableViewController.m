@@ -30,6 +30,7 @@ extern connectionAPI * soap;
     if (self) {
 
         self.table2View = [[TableLevle2TableViewController alloc]init];
+        self.table2View.dataSources = [[NSMutableArray alloc]init];
         alert = [[UIAlertView alloc] initWithTitle:@"请选择操作"message:nil delegate:self cancelButtonTitle:@"关闭" otherButtonTitles:@"添加到收藏夹",@"查看业务介绍",@"推荐办理业务", nil];
         self.detailView = [[DetailViewController alloc]init];
     }
@@ -38,8 +39,9 @@ extern connectionAPI * soap;
 
 - (void)dealloc{
     [super dealloc];
-    [self.table2View release];
-    [self.detailView release];
+//    [self.table2View.dataSources release];
+//    [self.table2View release];
+//    [self.detailView release];
     [alert release];
 }
 
@@ -123,7 +125,7 @@ extern connectionAPI * soap;
     if (self.table2View != NULL) {
         NSString * ids =[[self.dataSources objectAtIndex:indexPath.row]objectForKey:@"id"];
         NSLog(@"ids:%d",[ids intValue]);
-        self.table2View.dataSources = [DB findByParentId:ids];
+        [self.table2View.dataSources setArray: [DB findByParentId:ids]];
         NSLog(@"%d",self.table2View.dataSources.count);
     }
     NSString * item = [[self.dataSources objectAtIndex:indexPath.row]objectForKey:@"busiName"];

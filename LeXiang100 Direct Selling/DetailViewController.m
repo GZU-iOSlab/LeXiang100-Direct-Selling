@@ -138,6 +138,7 @@ extern NSMutableDictionary * UserInfo;
     [descriptionDetailLabel release];
     [phoneText release];
     [linkManBtn release];
+    [addressBook release];
 }
 
 - (void)viewDidLoad

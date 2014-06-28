@@ -18,18 +18,8 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     mainViewController = [[MainViewController alloc]init];
-//    navigationController = [[UINavigationController alloc]initWithRootViewController:mainViewController];
-//    [self.window addSubview:[navigationController view]];
     
-//    if ([[[UIDevice currentDevice]systemVersion]floatValue]>=7) {
-//        [application setStatusBarStyle:UIStatusBarStyleLightContent];
-//        self.window.clipsToBounds = YES;
-//        self.window.frame = CGRectMake(0, 20, self.window.frame.size.width, self.window.frame.size.height+20);
-//        self.window.bounds = CGRectMake(0, 20, self.window.frame.size.width, self.window.frame.size.height);
-//    }
-    
-    
-    self.window.rootViewController = mainViewController;//self.navigationController;
+    self.window.rootViewController = mainViewController;
     [self.window makeKeyAndVisible];
     return YES;
 }

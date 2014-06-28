@@ -12,8 +12,8 @@
     UIAlertView *alert;
     int  pressedCell;
 }
-@property (strong,nonatomic)DetailViewController * detailView;
-@property (strong,nonatomic)NSMutableArray * dataSources;
+@property (assign,nonatomic)DetailViewController * detailView;
+@property (assign,nonatomic)NSMutableArray * dataSources;
 
 + (void)showAlertWithTitle:(NSString *)titles AndMessages:(NSString *)messages;
 @end

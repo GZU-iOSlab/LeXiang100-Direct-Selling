@@ -119,7 +119,7 @@ extern NSMutableDictionary * UserInfo;
         self.loginNameText.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
         [self.backgroundText addSubview:self.loginNameText];
         
-        UILabel * loginNameLabel = [[UILabel alloc]initWithFrame:CGRectMake( viewWidth/25 , viewHeight/15, viewWidth/5, viewHeight/18)];
+        UILabel * loginNameLabel = [[[UILabel alloc]initWithFrame:CGRectMake( viewWidth/25 , viewHeight/15, viewWidth/5, viewHeight/18)]autorelease];
         loginNameLabel.text = @"手机号码";
         loginNameLabel.font = [UIFont systemFontOfSize:viewHeight/40];
         loginNameLabel.backgroundColor = [UIColor clearColor];
@@ -147,7 +147,7 @@ extern NSMutableDictionary * UserInfo;
         [loginBtn addTarget:self action:@selector(loginWithName:AndPassword:) forControlEvents:UIControlEventTouchUpInside];
         [self.backgroundText addSubview:loginBtn];
         
-        UILabel * messageLabel = [[UILabel alloc]initWithFrame:CGRectMake( viewWidth/25 , viewHeight/3.5, viewWidth/1.5, viewHeight/18)];
+        UILabel * messageLabel = [[[UILabel alloc]initWithFrame:CGRectMake( viewWidth/25 , viewHeight/3.5, viewWidth/1.5, viewHeight/18)]autorelease];
         messageLabel.text = @"提示：登录密码为您在乐享100网站注册使用的密码。";
         messageLabel.numberOfLines = 0;
         messageLabel.lineBreakMode = NSLineBreakByCharWrapping;
@@ -159,14 +159,9 @@ extern NSMutableDictionary * UserInfo;
         messageLabel.backgroundColor = [UIColor clearColor];
         [self.backgroundText addSubview:messageLabel];
         
-//        loginActivityIndicator = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
-//        [loginActivityIndicator setCenter:CGPointMake(self.view.center.x,self.view.center.y)];
-//        [loginActivityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
-//        [self.view addSubview:loginActivityIndicator];
-        
         UIBarButtonItem * logoutBtn = [[UIBarButtonItem alloc]initWithTitle:@"注销" style:UIBarButtonItemStyleBordered target:self action:@selector(logout)];
         self.navigationItem.rightBarButtonItem = logoutBtn;
-        [logoutBtn release];
+        //[logoutBtn release];
         
         if ([[[UIDevice currentDevice]systemVersion]floatValue]>=7){
             self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
@@ -184,15 +179,19 @@ extern NSMutableDictionary * UserInfo;
     return self;
 }
 
+-(BOOL) respondsToSelector : (SEL)aSelector {
+    printf("SELECTOR: %s\n", [NSStringFromSelector(aSelector) UTF8String]);
+    return [super respondsToSelector:aSelector];
+}
 
 - (void)dealloc{
     [super dealloc];
-    [self.UserViewController release];
-    [self.RecommendedViewController release];
-    [self.BankViewController release];
-    [imgViewPersonal release];
-    [imgViewAccount release];
-    [imgViewSearch release];
+//    [self.UserViewController release];
+//    [self.RecommendedViewController release];
+//    [self.BankViewController release];
+//    [imgViewPersonal release];
+//    [imgViewAccount release];
+//    [imgViewSearch release];
 }
 
 - (void)viewDidLoad

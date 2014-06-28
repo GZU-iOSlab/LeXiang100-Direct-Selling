@@ -28,14 +28,16 @@ extern connectionAPI * soap;
         // Custom initialization
         alert = [[UIAlertView alloc] initWithTitle:@"请选择操作"message:nil delegate:self cancelButtonTitle:@"关闭" otherButtonTitles:@"添加到收藏夹",@"查看业务介绍",@"推荐办理业务", nil];
         self.detailView = [[DetailViewController alloc]init];
+        //self.dataSources = [[NSMutableArray alloc]init];
     }
     return self;
 }
 
 - (void)dealloc{
     [super dealloc];
-    [self.detailView release];
-    [self.dataSources release];
+    //[self.detailView release];
+    [alert release];
+    //[self.dataSources release];
 }
 
 - (void)viewDidLoad

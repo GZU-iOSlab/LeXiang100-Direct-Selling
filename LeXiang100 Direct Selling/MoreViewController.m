@@ -25,9 +25,8 @@
         self.title = @"更多";
         UIImage *more = [UIImage imageNamed:@"more.png"];
         self.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"更多" image:more tag:1];
-        NSMutableArray * data = [[NSMutableArray  alloc]initWithObjects:@"关于乐享",@"使用帮助",@"检查更新",@"用户建议",@"分享给好友", nil];
         self.tableView.scrollEnabled = NO;
-        self.dataSource = data;
+        self.dataSource = [[NSMutableArray  alloc]initWithObjects:@"关于乐享",@"使用帮助",@"检查更新",@"用户建议",@"分享给好友", nil];
         
         aboutLeXiang100ViewController = [[AboutLeXiang100ViewController alloc]init];
         helpLeXiang100ViewController=[[Helplexiang100ViewController alloc]init];
@@ -62,6 +61,7 @@
 - (void)dealloc{
     [super dealloc];
     [array release];
+    [self.dataSource release];
     [aboutLeXiang100ViewController release];
     [helpLeXiang100ViewController release];
     [adviceViewController release];

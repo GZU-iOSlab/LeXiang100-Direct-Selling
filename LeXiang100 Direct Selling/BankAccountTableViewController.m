@@ -37,8 +37,6 @@ extern NSMutableDictionary * UserInfo;
 
 - (void)dealloc{
     [super dealloc];
-    [self.tableArray release];
-    [self.tableCellArray release];
 }
 
 - (void)viewDidLoad

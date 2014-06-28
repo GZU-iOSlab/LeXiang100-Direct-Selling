@@ -58,6 +58,7 @@ extern NSMutableString * service;
     NSDictionary * versionDic = [self readFileDic];
     //检查数据库是否为空
     int recordNumber = [DB numOfRecords];
+    NSLog(@"数据库条目：%d",recordNumber);
     NSArray * hotArray = [self readFileArray];
     if (recordNumber == 0) {
         NSString * version = @"20140404144444";

@@ -57,7 +57,7 @@ extern NSMutableDictionary * UserInfo;
         [self.view addSubview:feedbackButton];
         
         ////反馈内容标题
-        UILabel * feedbackbackTitle = [[UILabel alloc]initWithFrame:CGRectMake(0, viewHeight/10+viewHeight/30, viewWidth/4+viewWidth/50, viewHeight/35)];
+        UILabel * feedbackbackTitle = [[[UILabel alloc]initWithFrame:CGRectMake(0, viewHeight/10+viewHeight/30, viewWidth/4+viewWidth/50, viewHeight/35)]autorelease];
         feedbackbackTitle.text = @"反馈内容：";
         feedbackbackTitle.font=font2;
         feedbackbackTitle.backgroundColor = [UIColor clearColor];
@@ -83,7 +83,7 @@ extern NSMutableDictionary * UserInfo;
         
         //提交按钮
         //
-        UIButton *submitButton=[[UIButton alloc] initWithFrame:CGRectMake(viewWidth/3+viewWidth/70, viewHeight/2+viewHeight/80, viewWidth/4, viewHeight/20)];
+        UIButton *submitButton=[[[UIButton alloc] initWithFrame:CGRectMake(viewWidth/3+viewWidth/70, viewHeight/2+viewHeight/80, viewWidth/4, viewHeight/20)]autorelease];
         submitButton.backgroundColor=[UIColor lightTextColor];
         [submitButton setTitle:@"提交" forState:UIControlStateNormal];
         [submitButton addTarget:self action:@selector(submitData) forControlEvents:UIControlEventTouchUpInside];//添加点击按钮执行的方法
@@ -96,15 +96,14 @@ extern NSMutableDictionary * UserInfo;
         classTableview.backgroundColor=[UIColor whiteColor];
         [self.view addSubview:classTableview];
         classTableview.center=CGPointMake(viewWidth/2, viewHeight*1.5);
-        NSMutableArray *arrayValue=[[NSMutableArray alloc]init];
-        [arrayValue addObject:@"功能建议"];
-        [arrayValue addObject:@"界面建议"];
-        [arrayValue addObject:@"新的需求"];
-        [arrayValue addObject:@"流量问题"];
-        [arrayValue addObject:@"BUG报错"];
-        [arrayValue addObject:@"其他"];
+        array =[[NSMutableArray alloc]init];
+        [array addObject:@"功能建议"];
+        [array addObject:@"界面建议"];
+        [array addObject:@"新的需求"];
+        [array addObject:@"流量问题"];
+        [array addObject:@"BUG报错"];
+        [array addObject:@"其他"];
         
-        array=arrayValue;
         tableShowed = NO;
         
         //解决ios7界面上移  配色等问题
@@ -127,7 +126,7 @@ extern NSMutableDictionary * UserInfo;
     [super dealloc];
     [feedbackButton release];
     [inputFeedback release];
-    
+    [array release];
 }
 -(void)textViewDidChange:(UITextView *)textView
 {
@@ -210,7 +209,7 @@ extern NSMutableDictionary * UserInfo;
     if(cell==nil)
     {
         //cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault:CellIdentifier];
-        cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell=[[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier]autorelease];
         
     }
    // if(indexPath.section==0)

@@ -122,7 +122,7 @@ extern NSNotificationCenter *nc;
     
     //先判断数据库是否打开
     if ([self openDB]) {
-        
+    
         NSString *sql = [NSString stringWithFormat:
                          @"INSERT INTO '%@' ('%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@') VALUES ('%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@')",
                          TABLENAME, BUSIALIAS, BUSICODE, BUSIDESC, BUSIICON, BUSIMONEY, BUSINAME, ID, ISLEAF, ISTOPBUSI, PARENTID,
@@ -180,7 +180,8 @@ extern NSNotificationCenter *nc;
 //根据业务名称查找
 -(NSDictionary*)findByBusiName:(NSString *)bName {
     
-    NSDictionary *dic;
+    NSDictionary *dic = [[[NSDictionary alloc]init]autorelease];
+    
     //判断数据库是否打开
     if ([self openDB]) {
         
@@ -198,36 +199,36 @@ extern NSNotificationCenter *nc;
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 
                 char *busiAlias = (char*)sqlite3_column_text(statement, 1);
-                NSString *nsBusiAliasStr = [[NSString alloc]initWithUTF8String:busiAlias];
+                NSString *nsBusiAliasStr = [[[NSString alloc]initWithUTF8String:busiAlias]autorelease];
                 
                 char *busiCode = (char*)sqlite3_column_text(statement, 2);
-                NSString *nsBusiCodeStr = [[NSString alloc]initWithUTF8String:busiCode];
+                NSString *nsBusiCodeStr = [[[NSString alloc]initWithUTF8String:busiCode]autorelease];
                 
                 char *busiDesc = (char*)sqlite3_column_text(statement, 3);
-                NSString *nsBusiDescStr = [[NSString alloc]initWithUTF8String:busiDesc];
+                NSString *nsBusiDescStr = [[[NSString alloc]initWithUTF8String:busiDesc]autorelease];
                 
                 char *busiIcon = (char*)sqlite3_column_text(statement, 4);
-                NSString *nsBusiIconStr = [[NSString alloc]initWithUTF8String:busiIcon];
+                NSString *nsBusiIconStr = [[[NSString alloc]initWithUTF8String:busiIcon]autorelease];
                 
                 char *busiMoney = (char*)sqlite3_column_text(statement, 5);
-                NSString *nsBusiMoneyStr = [[NSString alloc]initWithUTF8String:busiMoney];
+                NSString *nsBusiMoneyStr = [[[NSString alloc]initWithUTF8String:busiMoney]autorelease];
                 
                 char *busiName = (char*)sqlite3_column_text(statement, 6);
-                NSString *nsBusiNameStr = [[NSString alloc]initWithUTF8String:busiName];
+                NSString *nsBusiNameStr = [[[NSString alloc]initWithUTF8String:busiName]autorelease];
                 
                 int ids = sqlite3_column_int(statement, 0);
-                NSString * idS = [[NSString alloc]initWithFormat:@"%d",ids];
+                NSString * idS = [[[NSString alloc]initWithFormat:@"%d",ids]autorelease];
                 
                 int isLeaf = sqlite3_column_int(statement, 7);
-                NSString * isLEAF = [[NSString alloc]initWithFormat:@"%d",isLeaf];
+                NSString * isLEAF = [[[NSString alloc]initWithFormat:@"%d",isLeaf]autorelease];
                 
                 int isTopBusi = sqlite3_column_int(statement, 8);
-                NSString * isTOPBUSI = [[NSString alloc]initWithFormat:@"%d",isTopBusi];
+                NSString * isTOPBUSI = [[[NSString alloc]initWithFormat:@"%d",isTopBusi]autorelease];
                 
                 int parentId = sqlite3_column_int(statement, 9);
-                NSString * isPARENTID = [[NSString alloc]initWithFormat:@"%d",parentId];
+                NSString * isPARENTID = [[[NSString alloc]initWithFormat:@"%d",parentId]autorelease];
                 
-                dic = [[NSDictionary alloc]initWithObjectsAndKeys:idS,@"id",nsBusiAliasStr,@"busiAlias", nsBusiDescStr,@"busiDesc",nsBusiCodeStr,@"busiCode",nsBusiIconStr,@"busiIcon",nsBusiMoneyStr,@"busiMoney",nsBusiNameStr,@"busiName",isLEAF,@"isLeaf",isTOPBUSI,@"isTopBusi",isPARENTID,@"parentId",nil];
+                dic = [[[NSDictionary alloc]initWithObjectsAndKeys:idS,@"id",nsBusiAliasStr,@"busiAlias", nsBusiDescStr,@"busiDesc",nsBusiCodeStr,@"busiCode",nsBusiIconStr,@"busiIcon",nsBusiMoneyStr,@"busiMoney",nsBusiNameStr,@"busiName",isLEAF,@"isLeaf",isTOPBUSI,@"isTopBusi",isPARENTID,@"parentId",nil]autorelease];
             }
             
         }
@@ -241,8 +242,8 @@ extern NSNotificationCenter *nc;
 //根据业务名称模糊查找，返回字典数组
 -(NSMutableArray*)findByFuzzyBusiName:(NSString *)bName {
     
-    NSDictionary *dic;
-    NSMutableArray *array = [[NSMutableArray alloc]init];
+    NSDictionary *dic ;
+    NSMutableArray *array = [[[NSMutableArray alloc]init]autorelease];
     //判断数据库是否打开
     if ([self openDB]) {
         
@@ -260,36 +261,36 @@ extern NSNotificationCenter *nc;
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 
                 char *busiAlias = (char*)sqlite3_column_text(statement, 1);
-                NSString *nsBusiAliasStr = [[NSString alloc]initWithUTF8String:busiAlias];
+                NSString *nsBusiAliasStr = [[[NSString alloc]initWithUTF8String:busiAlias]autorelease];
                 
                 char *busiCode = (char*)sqlite3_column_text(statement, 2);
-                NSString *nsBusiCodeStr = [[NSString alloc]initWithUTF8String:busiCode];
+                NSString *nsBusiCodeStr = [[[NSString alloc]initWithUTF8String:busiCode]autorelease];
                 
                 char *busiDesc = (char*)sqlite3_column_text(statement, 3);
-                NSString *nsBusiDescStr = [[NSString alloc]initWithUTF8String:busiDesc];
+                NSString *nsBusiDescStr = [[[NSString alloc]initWithUTF8String:busiDesc]autorelease];
                 
                 char *busiIcon = (char*)sqlite3_column_text(statement, 4);
-                NSString *nsBusiIconStr = [[NSString alloc]initWithUTF8String:busiIcon];
+                NSString *nsBusiIconStr = [[[NSString alloc]initWithUTF8String:busiIcon]autorelease];
                 
                 char *busiMoney = (char*)sqlite3_column_text(statement, 5);
-                NSString *nsBusiMoneyStr = [[NSString alloc]initWithUTF8String:busiMoney];
+                NSString *nsBusiMoneyStr = [[[NSString alloc]initWithUTF8String:busiMoney]autorelease];
                 
                 char *busiName = (char*)sqlite3_column_text(statement, 6);
-                NSString *nsBusiNameStr = [[NSString alloc]initWithUTF8String:busiName];
+                NSString *nsBusiNameStr = [[[NSString alloc]initWithUTF8String:busiName]autorelease];
                 
                 int ids = sqlite3_column_int(statement, 0);
-                NSString * idS = [[NSString alloc]initWithFormat:@"%d",ids];
+                NSString * idS = [[[NSString alloc]initWithFormat:@"%d",ids]autorelease];
                 
                 int isLeaf = sqlite3_column_int(statement, 7);
-                NSString * isLEAF = [[NSString alloc]initWithFormat:@"%d",isLeaf];
+                NSString * isLEAF = [[[NSString alloc]initWithFormat:@"%d",isLeaf]autorelease];
                 
                 int isTopBusi = sqlite3_column_int(statement, 8);
-                NSString * isTOPBUSI = [[NSString alloc]initWithFormat:@"%d",isTopBusi];
+                NSString * isTOPBUSI = [[[NSString alloc]initWithFormat:@"%d",isTopBusi]autorelease];
                 
                 int parentId = sqlite3_column_int(statement, 9);
-                NSString * isPARENTID = [[NSString alloc]initWithFormat:@"%d",parentId];
+                NSString * isPARENTID = [[[NSString alloc]initWithFormat:@"%d",parentId]autorelease];
                 
-                dic = [[NSDictionary alloc]initWithObjectsAndKeys:idS,@"id",nsBusiAliasStr,@"busiAlias", nsBusiDescStr,@"busiDesc",nsBusiCodeStr,@"busiCode",nsBusiIconStr,@"busiIcon",nsBusiMoneyStr,@"busiMoney",nsBusiNameStr,@"busiName",isLEAF,@"isLeaf",isTOPBUSI,@"isTopBusi",isPARENTID,@"parentId",nil];
+                dic = [[[NSDictionary alloc]initWithObjectsAndKeys:idS,@"id",nsBusiAliasStr,@"busiAlias", nsBusiDescStr,@"busiDesc",nsBusiCodeStr,@"busiCode",nsBusiIconStr,@"busiIcon",nsBusiMoneyStr,@"busiMoney",nsBusiNameStr,@"busiName",isLEAF,@"isLeaf",isTOPBUSI,@"isTopBusi",isPARENTID,@"parentId",nil]autorelease];
                 
                 [array addObject:dic];
             }
@@ -305,7 +306,7 @@ extern NSNotificationCenter *nc;
 //根据业务编码查找
 -(NSDictionary*)findBybusiCode:(NSString *)bCode {
     
-    NSDictionary *dic;
+    NSDictionary *dic = [[[NSDictionary alloc]init]autorelease];
     //判断数据库是否打开
     if ([self openDB]) {
         
@@ -428,7 +429,7 @@ extern NSNotificationCenter *nc;
 
 //根据isTopBusi查找
 -(NSMutableArray*)findByIsTopbusi {
-    NSMutableArray *array = [[NSMutableArray alloc]init];
+    NSMutableArray *array = [[[NSMutableArray alloc]init]autorelease];
     NSDictionary *dic;
     
     
@@ -450,36 +451,36 @@ extern NSNotificationCenter *nc;
             //查询结果集中一条一条的遍历所有的记录，这里的数字对应的是列值。
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 char *busiAlias = (char*)sqlite3_column_text(statement, 1);
-                NSString *nsBusiAliasStr = [[NSString alloc]initWithUTF8String:busiAlias];
+                NSString *nsBusiAliasStr = [[[NSString alloc]initWithUTF8String:busiAlias]autorelease];
                 
                 char *busiCode = (char*)sqlite3_column_text(statement, 2);
-                NSString *nsBusiCodeStr = [[NSString alloc]initWithUTF8String:busiCode];
+                NSString *nsBusiCodeStr = [[[NSString alloc]initWithUTF8String:busiCode]autorelease];
                 
                 char *busiDesc = (char*)sqlite3_column_text(statement, 3);
-                NSString *nsBusiDescStr = [[NSString alloc]initWithUTF8String:busiDesc];
+                NSString *nsBusiDescStr = [[[NSString alloc]initWithUTF8String:busiDesc]autorelease];
                 
                 char *busiIcon = (char*)sqlite3_column_text(statement, 4);
-                NSString *nsBusiIconStr = [[NSString alloc]initWithUTF8String:busiIcon];
+                NSString *nsBusiIconStr = [[[NSString alloc]initWithUTF8String:busiIcon]autorelease];
                 
                 char *busiMoney = (char*)sqlite3_column_text(statement, 5);
-                NSString *nsBusiMoneyStr = [[NSString alloc]initWithUTF8String:busiMoney];
+                NSString *nsBusiMoneyStr = [[[NSString alloc]initWithUTF8String:busiMoney]autorelease];
                 
                 char *busiName = (char*)sqlite3_column_text(statement, 6);
-                NSString *nsBusiNameStr = [[NSString alloc]initWithUTF8String:busiName];
+                NSString *nsBusiNameStr = [[[NSString alloc]initWithUTF8String:busiName]autorelease];
                 
                 int ids = sqlite3_column_int(statement, 0);
-                NSString * idS = [[NSString alloc]initWithFormat:@"%d",ids];
+                NSString * idS = [[[NSString alloc]initWithFormat:@"%d",ids]autorelease];
                 
                 int isLeaf = sqlite3_column_int(statement, 7);
-                NSString * isLEAF = [[NSString alloc]initWithFormat:@"%d",isLeaf];
+                NSString * isLEAF = [[[NSString alloc]initWithFormat:@"%d",isLeaf]autorelease];
                 
                 int isTopBusi = sqlite3_column_int(statement, 8);
-                NSString * isTOPBUSI = [[NSString alloc]initWithFormat:@"%d",isTopBusi];
+                NSString * isTOPBUSI = [[[NSString alloc]initWithFormat:@"%d",isTopBusi]autorelease];
                 
                 int parentId = sqlite3_column_int(statement, 9);
-                NSString * isPARENTID = [[NSString alloc]initWithFormat:@"%d",parentId];
+                NSString * isPARENTID = [[[NSString alloc]initWithFormat:@"%d",parentId]autorelease];
                 
-                dic = [[NSDictionary alloc]initWithObjectsAndKeys:idS,@"id",nsBusiAliasStr,@"busiAlias", nsBusiDescStr,@"busiDesc",nsBusiCodeStr,@"busiIcon",nsBusiIconStr,@"busiIcon",nsBusiMoneyStr,@"busiMoney",nsBusiNameStr,@"busiName",isLEAF,@"isLeaf",isTOPBUSI,@"isTopBusi",isPARENTID,@"parentId",nil];
+                dic = [[[NSDictionary alloc]initWithObjectsAndKeys:idS,@"id",nsBusiAliasStr,@"busiAlias", nsBusiDescStr,@"busiDesc",nsBusiCodeStr,@"busiIcon",nsBusiIconStr,@"busiIcon",nsBusiMoneyStr,@"busiMoney",nsBusiNameStr,@"busiName",isLEAF,@"isLeaf",isTOPBUSI,@"isTopBusi",isPARENTID,@"parentId",nil]autorelease];
                 
                 [array addObject:dic];
             }
@@ -494,7 +495,7 @@ extern NSNotificationCenter *nc;
 //根据id进行查找
 -(NSDictionary*)findById:(NSString *)ids {
     
-    NSDictionary *dic;
+    NSDictionary *dic = [[[NSDictionary alloc]init]autorelease];
     //判断数据库是否打开
     if ([self openDB]) {
         
@@ -512,36 +513,36 @@ extern NSNotificationCenter *nc;
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 
                 char *busiAlias = (char*)sqlite3_column_text(statement, 1);
-                NSString *nsBusiAliasStr = [[NSString alloc]initWithUTF8String:busiAlias];
+                NSString *nsBusiAliasStr = [[[NSString alloc]initWithUTF8String:busiAlias]autorelease];
                 
                 char *busiCode = (char*)sqlite3_column_text(statement, 2);
-                NSString *nsBusiCodeStr = [[NSString alloc]initWithUTF8String:busiCode];
+                NSString *nsBusiCodeStr = [[[NSString alloc]initWithUTF8String:busiCode]autorelease];
                 
                 char *busiDesc = (char*)sqlite3_column_text(statement, 3);
-                NSString *nsBusiDescStr = [[NSString alloc]initWithUTF8String:busiDesc];
+                NSString *nsBusiDescStr = [[[NSString alloc]initWithUTF8String:busiDesc]autorelease];
                 
                 char *busiIcon = (char*)sqlite3_column_text(statement, 4);
-                NSString *nsBusiIconStr = [[NSString alloc]initWithUTF8String:busiIcon];
+                NSString *nsBusiIconStr = [[[NSString alloc]initWithUTF8String:busiIcon]autorelease];
                 
                 char *busiMoney = (char*)sqlite3_column_text(statement, 5);
-                NSString *nsBusiMoneyStr = [[NSString alloc]initWithUTF8String:busiMoney];
+                NSString *nsBusiMoneyStr = [[[NSString alloc]initWithUTF8String:busiMoney]autorelease];
                 
                 char *busiName = (char*)sqlite3_column_text(statement, 6);
-                NSString *nsBusiNameStr = [[NSString alloc]initWithUTF8String:busiName];
+                NSString *nsBusiNameStr = [[[NSString alloc]initWithUTF8String:busiName]autorelease];
                 
                 int ids = sqlite3_column_int(statement, 0);
-                NSString * idS = [[NSString alloc]initWithFormat:@"%d",ids];
+                NSString * idS = [[[NSString alloc]initWithFormat:@"%d",ids]autorelease];
                 
                 int isLeaf = sqlite3_column_int(statement, 7);
-                NSString * isLEAF = [[NSString alloc]initWithFormat:@"%d",isLeaf];
+                NSString * isLEAF = [[[NSString alloc]initWithFormat:@"%d",isLeaf]autorelease];
                 
                 int isTopBusi = sqlite3_column_int(statement, 8);
-                NSString * isTOPBUSI = [[NSString alloc]initWithFormat:@"%d",isTopBusi];
+                NSString * isTOPBUSI = [[[NSString alloc]initWithFormat:@"%d",isTopBusi]autorelease];
                 
                 int parentId = sqlite3_column_int(statement, 9);
-                NSString * isPARENTID = [[NSString alloc]initWithFormat:@"%d",parentId];
+                NSString * isPARENTID = [[[NSString alloc]initWithFormat:@"%d",parentId]autorelease];
                 
-                dic = [[NSDictionary alloc]initWithObjectsAndKeys:idS,@"id",nsBusiAliasStr,@"busiAlias", nsBusiDescStr,@"busiDesc",nsBusiCodeStr,@"busiIcon",nsBusiIconStr,@"busiIcon",nsBusiMoneyStr,@"busiMoney",nsBusiNameStr,@"busiName",isLEAF,@"isLeaf",isTOPBUSI,@"isTopBusi",isPARENTID,@"parentId",nil];
+                dic = [[[NSDictionary alloc]initWithObjectsAndKeys:idS,@"id",nsBusiAliasStr,@"busiAlias", nsBusiDescStr,@"busiDesc",nsBusiCodeStr,@"busiIcon",nsBusiIconStr,@"busiIcon",nsBusiMoneyStr,@"busiMoney",nsBusiNameStr,@"busiName",isLEAF,@"isLeaf",isTOPBUSI,@"isTopBusi",isPARENTID,@"parentId",nil]autorelease];
             }
             
         }
@@ -556,8 +557,8 @@ extern NSNotificationCenter *nc;
 -(NSMutableArray*)findAll{
     
     NSDictionary *dic;
-    NSMutableArray *array = [[NSMutableArray alloc]init];
-    NSString *  nameLetterStr = [[[NSMutableString alloc]init]autorelease];
+    NSMutableArray *array = [[[NSMutableArray alloc]init]autorelease];
+    
     
     //判断数据库是否打开
     if ([self openDB]) {
@@ -575,25 +576,25 @@ extern NSNotificationCenter *nc;
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 
                 char *busiAlias = (char*)sqlite3_column_text(statement, 1);
-                NSString *nsBusiAliasStr = [[NSString alloc]initWithUTF8String:busiAlias];
+                NSString *nsBusiAliasStr = [[[NSString alloc]initWithUTF8String:busiAlias]autorelease];
                 
                 char *busiCode = (char*)sqlite3_column_text(statement, 2);
-                NSString *nsBusiCodeStr = [[NSString alloc]initWithUTF8String:busiCode];
+                NSString *nsBusiCodeStr = [[[NSString alloc]initWithUTF8String:busiCode]autorelease];
                 
                 char *busiDesc = (char*)sqlite3_column_text(statement, 3);
-                NSString *nsBusiDescStr = [[NSString alloc]initWithUTF8String:busiDesc];
+                NSString *nsBusiDescStr = [[[NSString alloc]initWithUTF8String:busiDesc]autorelease];
                 
                 char *busiIcon = (char*)sqlite3_column_text(statement, 4);
-                NSString *nsBusiIconStr = [[NSString alloc]initWithUTF8String:busiIcon];
+                NSString *nsBusiIconStr = [[[NSString alloc]initWithUTF8String:busiIcon]autorelease];
                 
                 char *busiMoney = (char*)sqlite3_column_text(statement, 5);
-                NSString *nsBusiMoneyStr = [[NSString alloc]initWithUTF8String:busiMoney];
+                NSString *nsBusiMoneyStr = [[[NSString alloc]initWithUTF8String:busiMoney]autorelease];
                 
                 char *busiName = (char*)sqlite3_column_text(statement, 6);
-                NSString *nsBusiNameStr = [[NSString alloc]initWithUTF8String:busiName];
-                
-                nameLetterStr =  [nsBusiNameStr firstLetters];
-                
+                NSString *nsBusiNameStr = [[[NSString alloc]initWithUTF8String:busiName]autorelease];
+                //[nameLetterStr setString:@""];
+                NSMutableString *  nameLetterStr = [[[NSMutableString alloc]init]autorelease];
+                [nameLetterStr setString:[nsBusiNameStr firstLetters]];
                 
                 //                printf("获取所有汉字的首字符:%s", [[nsBusiNameStr firstLetters] UTF8String]);
                 //                srt appendString:aa;
@@ -601,18 +602,18 @@ extern NSNotificationCenter *nc;
                 
                 
                 int ids = sqlite3_column_int(statement, 0);
-                NSString * idS = [[NSString alloc]initWithFormat:@"%d",ids];
+                NSString * idS = [[[NSString alloc]initWithFormat:@"%d",ids]autorelease];
                 
                 int isLeaf = sqlite3_column_int(statement, 7);
-                NSString * isLEAF = [[NSString alloc]initWithFormat:@"%d",isLeaf];
+                NSString * isLEAF = [[[NSString alloc]initWithFormat:@"%d",isLeaf]autorelease];
                 
                 int isTopBusi = sqlite3_column_int(statement, 8);
-                NSString * isTOPBUSI = [[NSString alloc]initWithFormat:@"%d",isTopBusi];
+                NSString * isTOPBUSI = [[[NSString alloc]initWithFormat:@"%d",isTopBusi]autorelease];
                 
                 int parentId = sqlite3_column_int(statement, 9);
-                NSString * isPARENTID = [[NSString alloc]initWithFormat:@"%d",parentId];
+                NSString * isPARENTID = [[[NSString alloc]initWithFormat:@"%d",parentId]autorelease];
                 
-                dic = [[NSDictionary alloc]initWithObjectsAndKeys:idS,@"id",nsBusiAliasStr,@"busiAlias", nsBusiDescStr,@"busiDesc",nsBusiCodeStr,@"busiIcon",nsBusiIconStr,@"busiIcon",nsBusiMoneyStr,@"busiMoney",nsBusiNameStr,@"busiName",isLEAF,@"isLeaf",isTOPBUSI,@"isTopBusi",isPARENTID,@"parentId",nameLetterStr,@"nameLetter",nil];
+                dic = [[[NSDictionary alloc]initWithObjectsAndKeys:idS,@"id",nsBusiAliasStr,@"busiAlias", nsBusiDescStr,@"busiDesc",nsBusiCodeStr,@"busiIcon",nsBusiIconStr,@"busiIcon",nsBusiMoneyStr,@"busiMoney",nsBusiNameStr,@"busiName",isLEAF,@"isLeaf",isTOPBUSI,@"isTopBusi",isPARENTID,@"parentId",nameLetterStr,@"nameLetter",nil]autorelease];
                 
                 [array addObject:dic];
             }
@@ -628,15 +629,17 @@ extern NSNotificationCenter *nc;
 -(NSMutableArray*)getBusiNameByLetter:(NSString *)inputLetter{
     
     NSMutableArray *allBusi = [self findAll];
-    NSMutableArray *array = [[NSMutableArray alloc]init];
-    NSString *letter = [[[NSMutableString alloc]init]autorelease];
+    NSMutableArray *array = [[[NSMutableArray alloc]init]autorelease];
+    NSString *letter = [[[NSString alloc]init]autorelease];
     for (int i = 0; i < allBusi.count; i++){
+        [letter stringByAppendingString:@""];
         letter = [allBusi[i] objectForKey:@"nameLetter"];
         //NSLog(@"第%d个元素---%@", i, [allBusi[i] objectForKey:@"busiName"]);
         if([letter rangeOfString:inputLetter].length > 0) {
             [array addObject:allBusi[i]];
         }
     }
+    //NSLog(@"%d,"array.count);
     return array;
 }
 
@@ -729,11 +732,11 @@ extern NSNotificationCenter *nc;
             [connectionAPI showAlertWithTitle:@"热点业务更新成功!" AndMessages:nil];
             //写入版本
             NSString* version;
-            NSDateFormatter* formatter = [[NSDateFormatter alloc]init];
+            NSDateFormatter* formatter = [[[NSDateFormatter alloc]init]autorelease];
             [formatter setDateFormat:@"YYYYMMddhhmmss"];
             version = [formatter stringFromDate:[NSDate date]];
-            NSDictionary * phoneUpdateCfg = [[NSDictionary alloc]initWithObjectsAndKeys:version,@"versionCode", nil];
-            NSDictionary * dic = [[NSDictionary alloc]initWithObjectsAndKeys:phoneUpdateCfg,@"phoneUpdateCfg", nil];
+            NSDictionary * phoneUpdateCfg = [[[NSDictionary alloc]initWithObjectsAndKeys:version,@"versionCode", nil]autorelease];
+            NSDictionary * dic = [[[NSDictionary alloc]initWithObjectsAndKeys:phoneUpdateCfg,@"phoneUpdateCfg", nil]autorelease];
             [dic writeToFile:[self documentsPath:@"version.txt"] atomically:YES];
         }
     }
@@ -762,13 +765,6 @@ extern NSNotificationCenter *nc;
 
 #pragma mark - AlertView
 
-//- (void)showAlertWithAlert:(UIAlertView *)alert Title:(NSString*)title Message:(NSString*)message Button:(NSString*)button{
-//    alert = [[UIAlertView alloc]initWithTitle:title message:message delegate:self cancelButtonTitle:@"取消" otherButtonTitles:button, nil];
-//    alert.delegate = self;
-//    [alert show];
-//    [alert release];
-//}
-
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     //检测是否写入了热点业务
     if ([alertView isEqual:alertForBusiInfo]){
@@ -779,6 +775,10 @@ extern NSNotificationCenter *nc;
             [alertForHotBusi show];
             [alertForHotBusi release];
         }
+    }
+    
+    if ([alertView isEqual:alertForHotBusi]) {
+        [soap HotServiceWithInterface:@"queryBusiHotInfo" Parameter1:@"versionTag" Version:@"public"];
     }
     
 }

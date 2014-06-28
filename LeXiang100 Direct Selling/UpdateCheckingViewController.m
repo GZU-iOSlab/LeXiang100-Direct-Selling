@@ -28,23 +28,20 @@ extern NSNotificationCenter *nc;
         [nc addObserver:self selector:@selector(busiInfoVersionUpadateFeedback:) name:@"BusiInfoVersionUpadate" object:nil];
         [nc addObserver:self selector:@selector(hotBusiUpdateFeedback:) name:@"HotBusiVersionUpdate" object:nil];
         self.title = @"检查更新";
-        self.view.backgroundColor = [UIColor whiteColor];
+        self.view.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
         //解决ios7界面上移  配色等问题
         if ([[[UIDevice currentDevice]systemVersion]floatValue]>=7) {
             self.edgesForExtendedLayout = UIRectEdgeNone;
             self.extendedLayoutIncludesOpaqueBars =NO;
             self.modalPresentationCapturesStatusBarAppearance = NO;
             self.navigationController.navigationBar.translucent = NO;
+            self.view.backgroundColor = [UIColor whiteColor];
         }
         
-        UIScrollView *scrollview=[[UIScrollView alloc] initWithFrame:self.view.frame];
+        UIScrollView *scrollview=[[[UIScrollView alloc] initWithFrame:self.view.frame]autorelease];
         scrollview.contentSize=CGSizeMake(viewWidth, viewHeight*1.1);
         scrollview.showsHorizontalScrollIndicator=FALSE;
         scrollview.showsVerticalScrollIndicator=TRUE;
-        UITextView * background = [[UITextView alloc]initWithFrame:CGRectMake(0, 0, viewWidth, viewHeight)];
-        background.editable=NO;
-        //[self.view addSubview:background];
-        
        
         UIFont *font1 = [UIFont fontWithName:@"Arial" size:viewHeight/47];
         UIFont *font2=[UIFont fontWithName:@"Arial" size:viewHeight/35];
@@ -57,13 +54,13 @@ extern NSNotificationCenter *nc;
         
         //乐享图标自助办理
         UIImage * Image = [UIImage imageNamed:@"ic_launcher.png"];
-        UIImageView * imgView = [[UIImageView alloc]initWithImage:Image];
+        UIImageView * imgView = [[[UIImageView alloc]initWithImage:Image]autorelease];
         imgView.frame = CGRectMake(viewWidth/2-viewWidth/8, viewHeight/10, viewWidth/4, viewWidth/4);
         
         [self.view addSubview:imgView];
         
         //乐享100
-        UILabel * Lexiang100 = [[UILabel alloc]initWithFrame:CGRectMake(viewWidth/2-viewWidth/10, viewHeight/8, viewWidth/5, viewHeight/20)];
+        UILabel * Lexiang100 = [[[UILabel alloc]initWithFrame:CGRectMake(viewWidth/2-viewWidth/10, viewHeight/8, viewWidth/5, viewHeight/20)]autorelease];
         Lexiang100.text = @"乐享100";
         Lexiang100.font=font2;
         Lexiang100.center=CGPointMake(viewWidth/2, viewHeight/3.5);
@@ -72,7 +69,7 @@ extern NSNotificationCenter *nc;
         [self.view addSubview:Lexiang100];
         
         //版本号标题
-        UILabel * version = [[UILabel alloc]initWithFrame:CGRectMake(viewWidth/2-viewWidth/7+viewWidth/60, viewHeight/6-viewHeight/80+viewHeight/40, viewWidth/3, viewHeight/20)];
+        UILabel * version = [[[UILabel alloc]initWithFrame:CGRectMake(viewWidth/2-viewWidth/7+viewWidth/60, viewHeight/6-viewHeight/80+viewHeight/40, viewWidth/3, viewHeight/20)]autorelease];
         version.text = @"版 本 号：1.0.0";
         version.font=font1;
         version.center=CGPointMake(viewWidth/2, viewHeight/3);
@@ -81,7 +78,7 @@ extern NSNotificationCenter *nc;
         [self.view addSubview:version];
         
         //检查更新按钮
-        UIButton *updateButton=[[UIButton alloc] initWithFrame:CGRectMake(viewWidth/3+viewWidth/70, viewHeight/3, viewWidth/4, viewHeight/20)];
+        UIButton *updateButton=[[[UIButton alloc] initWithFrame:CGRectMake(viewWidth/3+viewWidth/70, viewHeight/3, viewWidth/4, viewHeight/20)]autorelease];
         updateButton.backgroundColor=myColorRGB;
         updateButton.center=CGPointMake(viewWidth/2, viewHeight/2.5);
         updateButton.backgroundColor = [UIColor iOS7greenColor];
@@ -90,7 +87,7 @@ extern NSNotificationCenter *nc;
         [self.view addSubview:updateButton];
         
         //乐享版权标题
-        UILabel *  copyright= [[UILabel alloc]initWithFrame:CGRectMake(viewWidth/5, viewHeight/4+viewHeight/10, viewWidth/3, viewHeight/20)];
+        UILabel *  copyright= [[[UILabel alloc]initWithFrame:CGRectMake(viewWidth/5, viewHeight/4+viewHeight/10, viewWidth/3, viewHeight/20)]autorelease];
         copyright.text = @"乐享100 版权所有";
         copyright.font=font1;
         copyright.center=CGPointMake(viewWidth/2, viewHeight/2);
@@ -99,7 +96,7 @@ extern NSNotificationCenter *nc;
         [self.view addSubview:copyright];
         
         //乐享版权
-        UILabel *  copyright_c= [[UILabel alloc]initWithFrame:CGRectMake(viewWidth/5, viewHeight/4+viewHeight/5, viewWidth/1.5, viewHeight/20)];
+        UILabel *  copyright_c= [[[UILabel alloc]initWithFrame:CGRectMake(viewWidth/5, viewHeight/4+viewHeight/5, viewWidth/1.5, viewHeight/20)]autorelease];
         copyright_c.center = CGPointMake(viewWidth/2, viewHeight/1.8);
         copyright_c.text = @"Copyright 2010 乐享100.All Right Rreserved.";
         copyright_c.font=font1;
@@ -131,7 +128,6 @@ extern NSNotificationCenter *nc;
         version = @"123";
     }
     [soap CheckVersionWithInterface:@"queryVersionInfo" Parameter1:@"clientVersion" ClientVersion:@"1.0.0" Parameter2:@"dataVersion" DataVersion:version Parameter3:@"appName" AppName:@"lx100-iPhone"];
-    //[soap HotServiceWithInterface:@"queryBusiHotInfo" Parameter1:@"versionTag" Version:@"public"];
 }
 
 //发送业务更新
@@ -147,12 +143,12 @@ extern NSNotificationCenter *nc;
 
 //发送热点业务更新
 - (void)hotBusiUpdateFeedback:(NSNotification *)note{
-    NSDictionary * dic =[note userInfo] ;
-    NSString * resultFor = [NSString stringWithFormat:@"%@",[dic objectForKey:@"status"]];
-    if ([resultFor isEqualToString:@"3"]) {
+//    NSDictionary * dic =[note userInfo] ;
+//    NSString * resultFor = [NSString stringWithFormat:@"%@",[dic objectForKey:@"status"]];
+//    if ([resultFor isEqualToString:@"3"]) {
         //[DB deleteDB];
         [soap HotServiceWithInterface:@"queryBusiHotInfo" Parameter1:@"versionTag" Version:@"public"];
-    }
+    //}
 }
 
 #pragma mark readfile

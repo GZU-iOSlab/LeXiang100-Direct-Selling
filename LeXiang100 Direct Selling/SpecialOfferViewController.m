@@ -186,7 +186,7 @@ extern NSString * service;
         detailView.haveBtn = @"0";
         detailView.phoneNmubers = phoneText.text;
         
-        NSMutableDictionary * dic = [[NSMutableDictionary alloc]init];//WithObjectsAndKeys:busiText.text,@"busiName",HELLO_WORD,@"busiDesc" ,nil];
+        NSMutableDictionary * dic = [[[NSMutableDictionary alloc]init]autorelease];//WithObjectsAndKeys:busiText.text,@"busiName",HELLO_WORD,@"busiDesc" ,nil];
         [dic setObject:busiText.text forKey:@"busiName"];
         [dic setObject:HELLOWORD forKey:@"busiDesc"];
         [dic setObject:phoneText.text forKey:@"name"];
@@ -212,7 +212,7 @@ extern NSString * service;
         [UIView animateWithDuration:0.3 animations:^{busiLabel.center = CGPointMake(viewWidth/2, viewHeight*5/4);busiText.center = CGPointMake(viewWidth/2, viewHeight*5/4);}];
     }
     
-    NSString * number = [[[NSString alloc]init]autorelease];
+    NSString * number;
     if ([phoneText.text isEqualToString:@""]) {
         [connectionAPI showAlertWithTitle:@"请输入手机号" AndMessages:@"手机号码不能为空,请检查后重新输入！"];
     }else{
