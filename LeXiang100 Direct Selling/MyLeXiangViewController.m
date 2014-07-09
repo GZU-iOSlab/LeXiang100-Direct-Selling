@@ -112,7 +112,7 @@ extern NSMutableDictionary * UserInfo;
         
         self.loginNameText = [[UITextField alloc]initWithFrame:CGRectMake( viewWidth/3.8 , viewHeight/15, viewWidth/2.3, viewHeight/18)];
         self.loginNameText.borderStyle = UITextBorderStyleRoundedRect;
-        self.loginNameText.text=@"123";
+        //self.loginNameText.text=@"123";
         self.loginNameText.font = [UIFont systemFontOfSize:viewHeight/28];
         self.loginNameText.delegate = self;
         self.loginNameText.clearButtonMode =UITextFieldViewModeWhileEditing;
@@ -128,7 +128,7 @@ extern NSMutableDictionary * UserInfo;
         self.loginPasswordText = [[UITextField alloc]initWithFrame:CGRectMake( viewWidth/3.8 , viewHeight/15+viewHeight/12, viewWidth/2.3, viewHeight/18)];
         self.loginPasswordText.borderStyle = UITextBorderStyleRoundedRect;
         self.loginPasswordText.secureTextEntry = YES;
-        self.loginPasswordText.text=@"qwe";
+        //self.loginPasswordText.text=@"qwe";
         self.loginPasswordText.delegate = self;
         self.loginPasswordText.clearButtonMode =UITextFieldViewModeWhileEditing;
         self.loginPasswordText.font = [UIFont systemFontOfSize:viewHeight/28];
