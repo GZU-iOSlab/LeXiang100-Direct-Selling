@@ -72,7 +72,7 @@ extern NSMutableDictionary * UserInfo;
         [linkManBtn addTarget:self action:@selector(linkMan) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:linkManBtn];
         
-        UILabel * servicesLabel = [[[UILabel alloc]initWithFrame:CGRectMake(viewWidth/32+viewWidth/40, viewHeight/6.1, viewWidth/4, viewHeight/28)]autorelease];
+        UILabel * servicesLabel = [[[UILabel alloc]initWithFrame:CGRectMake(viewWidth/32+viewWidth/40, viewHeight/6.1, viewWidth/4, viewHeight/28)]autorelease];      
         servicesLabel.text = @"业务名称:";
         servicesLabel.font = [UIFont systemFontOfSize:viewHeight/40];
         servicesLabel.backgroundColor = [UIColor groupTableViewBackgroundColor];

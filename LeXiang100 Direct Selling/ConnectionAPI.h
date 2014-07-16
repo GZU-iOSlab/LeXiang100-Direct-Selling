@@ -13,7 +13,6 @@
     UIAlertView * alertForBusiInfo;
     UIAlertView * alertForHotBusi;
     BOOL needToAnalysis;
-    int count;
 }
 //- (void)LoginWithUserName:(NSString *)NewUsername Password:(NSString *)NewPassword ;
 - (void)LoginWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 UserName:(NSString *)NewUsername Parameter2:(NSString *)parameter2 Password:(NSString *)NewPassword ;

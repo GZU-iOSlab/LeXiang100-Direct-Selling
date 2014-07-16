@@ -7,7 +7,7 @@
 //
 
 #import "connectionAPI.h"
-
+static int count;
 @implementation connectionAPI
 
 
@@ -24,7 +24,6 @@ extern NSNotificationCenter *nc;
 extern NSMutableDictionary * UserInfo;
 
 - (id)init{
-    count = 0;
     return self;
 }
 
@@ -536,6 +535,7 @@ extern NSMutableDictionary * UserInfo;
         //建议提交返回
         else if ([getXMLResults rangeOfString:@"saveSuggestInfoResponse"].length>0){
             if ([soapResults isEqualToString:@"0"]) {
+                NSLog(@"payMoneyToCustPhone:%@",resultDic);
                 [connectionAPI showAlertWithTitle:nil AndMessages:@"建议提交成功！"];
             }else if ([soapResults isEqualToString:@"1"]){
                 [connectionAPI showAlertWithTitle:nil AndMessages:@"建议提交失败！"];
